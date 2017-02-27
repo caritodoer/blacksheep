@@ -23,8 +23,14 @@ class Protocolo(models.Model):
 	def __str__(self):
 		return('%d')%(self.numero)
 
-class Individuos(models.Model):
+class IndividuoPadre(models.Model):
 	identificacion = models.CharField("Identificacion / N° de Caravana", max_length=30)
+	raza = models.ForeignKey(Raza)
+	def __str__(self):
+		return ('%s')%(self.identificacion)
+	
+class Individuos(models.Model):
+	padre = models.ForeignKey(IndividuoPadre)
 	nombre = models.CharField("Nombre", max_length=15, null=True, blank=True)
 	edad = models.CharField("Edad", max_length=2, null=True, blank=True)
 	sexo_choices = (
@@ -33,12 +39,11 @@ class Individuos(models.Model):
 		('X', 'NS/NC'),
 		)
 	sexo = models.CharField("Sexo", max_length=1, choices=sexo_choices, null=True, blank=True, default='X')
-	raza = models.ForeignKey(Raza)
 	libretasanitaria = models.CharField(max_length=15, null=True, blank=True)
 	categoriae = models.ForeignKey(CategoriaE, null=True, blank=True)
 
 	def __str__(self):
-		return ('%s')%(self.identificacion)
+		return ('%s')%(self.padre)
 
 
 class DetalleAnalisis(models.Model):
