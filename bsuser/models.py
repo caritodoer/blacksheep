@@ -35,7 +35,7 @@ class Individuos(models.Model):
 	sexo = models.CharField("Sexo", max_length=1, choices=sexo_choices, null=True, blank=True, default='X')
 	raza = models.ForeignKey(Raza)
 	libretasanitaria = models.CharField(max_length=15, null=True, blank=True)
-	categoriae = models.ForeignKey(categoriaE)
+	categoriae = models.ForeignKey(CategoriaE, null=True, blank=True)
 
 	def __str__(self):
 		return ('%s')%(self.identificacion)
