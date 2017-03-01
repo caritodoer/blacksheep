@@ -3,6 +3,20 @@
 
 
 <h1> {{title}} </h1>
+<table>
+	<tr>
+		<td>ID</td>
+		<td>Descripcion</td>
+	</tr>
+	{% for obj in object_list %}
+	<tr>
+		<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
+		<td>{{ obj.descripcion }}</td>
+	</tr>
+	{% endfor %}
+</table>
+
+
 
 
 {% endblock %}

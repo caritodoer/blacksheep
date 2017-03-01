@@ -8,6 +8,9 @@ class Especializacion(models.Model):
 	def __str__(self):
 		return ('%s')%(self.descripcion)
 
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_especializacion", kwargs={"id":self.id})
+
 class Categoria(models.Model):
 	descripcion = models.CharField("Categoria", max_length=30)
 
