@@ -230,3 +230,58 @@ def d_especializacion(request, id=None):
 	instance.delete()
 	return redirect("bsadmin:l_especializacion")
 
+# motivos
+
+def a_motivos(request):
+	form = MotivosForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title": "Nuevo Motivo",
+		"form": form,
+	}
+
+	return render(request, "alta_aux.html", context)
+
+def v_motivos(request, id=None):
+	instance = get_object_or_404(Motivos, id=id)
+	context = {
+		"instance": instance,
+		"title": "Detalle de Motivos"
+	}	
+	return render(request, "detalle.html", context)
+
+def l_motivos(request):
+	queryset = Motivos.objects.all()
+	context = {
+		"object_list": queryset,
+		"title": "Listado Motivos"
+	}
+	return render(request, "lista_aux.html", context)
+
+
+def u_motivos(request, id=None):
+	
+	instance = get_object_or_404(Motivos, id=id)
+	form = MotivosForm(request.POST or None, instance=instance)
+
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+
+	context = {
+		"title": "Modificar especializacion",
+		"instance": instance,
+		"form": form
+	}
+
+	return render(request, "alta_aux.html", conext)
+
+def d_motivos(request, id=None):
+	instance = get_object_or_404(Motivos, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_motivos")
+
