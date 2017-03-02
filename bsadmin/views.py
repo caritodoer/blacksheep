@@ -325,7 +325,6 @@ def d_motivos(request, id=None):
 	return redirect("bsadmin:l_motivos")
 
 #categoriaE
-
 def a_categoriae(request):
 	form = CategoriaEForm(request.POST or None)
 	if form.is_valid():
@@ -336,7 +335,6 @@ def a_categoriae(request):
 		"title": "Nuevo Categoria E",
 		"form": form,
 	}
-
 	return render(request, "alta_aux2.html", context)
 
 def v_categoriae(request, id=None):
@@ -355,9 +353,7 @@ def l_categoriae(request):
 	}
 	return render(request, "lista_aux2.html", context)
 
-
-def u_categoriae(request, id=None):
-	
+def u_categoriae(request, id=None):	
 	instance = get_object_or_404(CategoriaE, id=id)
 	form = CategoriaEForm(request.POST or None, instance=instance)
 
@@ -365,16 +361,62 @@ def u_categoriae(request, id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
-
 	context = {
 		"title": "Modificar Categoria",
 		"instance": instance,
 		"form": form
 	}
-
 	return render(request, "alta_aux2.html", context)
 
 def d_categoriae(request, id=None):
 	instance = get_object_or_404(CategoriaE, id=id)
 	instance.delete()
 	return redirect("bsadmin:l_categoriae")
+
+##raza
+def a_raza(request):
+	form = RazaForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title": "Nueva Raza",
+		"form": form,
+	}
+	return render(request, "alta_aux2.html", context)
+
+def v_raza(request, id=None):
+	instance = get_object_or_404(Raza, id=id)
+	context = {
+		"instance": instance,
+		"title": "Detalle de Raza"
+	}	
+	return render(request, "detalle2.html", context)
+
+def l_raza(request):
+	queryset = Raza.objects.all()
+	context = {
+		"object_list": queryset,
+		"title": "Listado Raza"
+	}
+	return render(request,"lista_aux2.html",context)	
+
+def u_raza(request, id=None):
+	instance = get_object_or_404(Raza, id=id)
+	form = RazaForm(request.POST or None, instance=instance)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title": "Modificar raza",
+		"instance": instance,
+		"form": form
+	}
+	return render(request, "alta_aux2.html", context)
+
+def d_raza(request, id=None):
+	instance = get_object_or_404(Raza, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_raza")

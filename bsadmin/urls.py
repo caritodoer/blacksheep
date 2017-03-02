@@ -48,6 +48,12 @@ urlpatterns = [
     url(r'^motivos/update/(?P<id>\d+)/$', views.u_motivos),
     url(r'^motivos/delete/(?P<id>\d+)/$', views.d_motivos),    
 
+    # Raza
+    url(r'^raza/$', views.l_raza, name="l_raza"),
+    url(r'^raza/alta$', views.a_raza),
+    url(r'^raza/(?P<id>\d+)/$', views.v_raza, name="v_raza"),
+    url(r'^raza/update/(?P<id>\d+)/$', views.u_raza),
+    url(r'^raza/delete/(?P<id>\d+)/$', views.d_raza),        
 
     # categoriae
     url(r'^categoriae/$', views.l_categoriae, name="l_categoriae"),
