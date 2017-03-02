@@ -40,6 +40,13 @@ class Motivos(models.Model):
 	def __str__(self):
 		return ('%s')%(self.nombre)
 
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_motivos", kwargs={"id": self.id})
+
+	def save(self, force_insert=False, force_update=False):
+		self.nombre = self.nombre.upper()
+		super(Motivos, self).save(force_insert, force_update)
+
 
 class Especie(models.Model):
 	descripcion = models.CharField("Especie", max_length=30)
