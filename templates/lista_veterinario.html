@@ -47,7 +47,11 @@
 		<td>{{ obj.fecha_baja }} </td>
 		<td>{{ obj.acreditacion_brucelosis }}</td>
 		<td>{{ obj.acreditacion_aie }} </td>
-		<td>{{ obj.especializaciones }} </td>
+		<td>
+			{% for x in obj.especializaciones.all %} <!-- nombre dentro del model m2m -->
+    		{{ x.descripcion }} <br>  <!-- nombre dentro del model base -->
+			{% endfor %}
+		</td>
 		<td>{{ obj.activo }} </td>
 		
 	</tr>

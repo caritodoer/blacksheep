@@ -602,7 +602,6 @@ def a_veterinario(request):
 		instance = form.save(commit=False)
 		
 		return HttpResponseRedirect(instance.get_absolute_url())
-	
 	context = {
 		"title": "Nuevo veterinario",
 		"form": form,
