@@ -16,3 +16,10 @@ class CategoriaForm(forms.ModelForm):
 		fields = [
 			"descripcion",
 		]
+
+class EspecieForm(forms.ModelForm):
+	class Meta:
+		model = Especie
+		fields = [
+			"descripcion",
+		]

@@ -83,6 +83,46 @@ def l_especie(request):
 	}
 	return render(request, "lista_aux.html", context)
 
+def a_especie(request):
+	form = EspecieForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title" : "Nueva Especie",
+		"form" : form,
+	}
+	return render(request, "alta_aux.html", context)
+
+def v_especie(request, id=None):
+	instance = get_object_or_404(Especie, id=id)
+	context = {
+		"instance" : instance,
+		"title": "Detalle de Especie",
+	}
+	return render(request, "detalle.html", context)
+
+def u_especie(request, id=None):
+	instance = get_object_or_404(Especie,id=id)
+	form = EspecieForm(request.POST or None, instance=instance)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title" : "Modificar Especie",
+		"instance" : instance,
+		"form" : form,
+	}
+	return render(request, "alta_aux.html", context)
+
+def d_especie(request, id=None):
+	instance = get_object_or_404(Especie, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_especie")
+
+
 # Muestra
 
 def l_muestra(request):

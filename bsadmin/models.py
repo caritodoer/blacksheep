@@ -35,10 +35,10 @@ class Explotacion(models.Model):
 		return ('%s')%(self.descripcion)
 
 class Motivos(models.Model):
-	nombre = models.CharField(max_length=30)
+	descripcion = models.CharField(max_length=30)
 
 	def __str__(self):
-		return ('%s')%(self.nombre)
+		return ('%s')%(self.descripcion)
 
 
 class Especie(models.Model):
@@ -46,6 +46,9 @@ class Especie(models.Model):
 	
 	def __str__(self):
 		return ('%s')%(self.descripcion)
+
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_especie", kwargs={"id":self.id})
 
 class Raza(models.Model):
 	nombre = models.CharField(max_length=30)
