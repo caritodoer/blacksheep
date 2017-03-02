@@ -1,7 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from .models import *
 from .forms import *
+
+def home_admin(request):
+	return render(request, "home_admin.html")
 
 # Veterinario
 
@@ -302,7 +305,6 @@ def l_motivos(request):
 
 
 def u_motivos(request, id=None):
-	
 	instance = get_object_or_404(Motivos, id=id)
 	form = MotivosForm(request.POST or None, instance=instance)
 
@@ -373,7 +375,17 @@ def d_categoriae(request, id=None):
 	instance.delete()
 	return redirect("bsadmin:l_categoriae")
 
-##raza
+
+# Raza
+
+def l_raza(request):
+	queryset = Raza.objects.all()
+	context = {
+		"object_list": queryset,
+		"title": "Listado de Razas"
+	}
+	return render(request, "lista_aux2.html", context)
+
 def a_raza(request):
 	form = RazaForm(request.POST or None)
 	if form.is_valid():
@@ -384,6 +396,7 @@ def a_raza(request):
 		"title": "Nueva Raza",
 		"form": form,
 	}
+
 	return render(request, "alta_aux2.html", context)
 
 def v_raza(request, id=None):
@@ -402,6 +415,7 @@ def l_raza(request):
 	}
 	return render(request,"lista_aux2.html",context)	
 
+
 def u_raza(request, id=None):
 	instance = get_object_or_404(Raza, id=id)
 	form = RazaForm(request.POST or None, instance=instance)
@@ -410,7 +424,7 @@ def u_raza(request, id=None):
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
 	context = {
-		"title": "Modificar raza",
+		"title": "Modificar Raza",
 		"instance": instance,
 		"form": form
 	}
@@ -420,3 +434,226 @@ def d_raza(request, id=None):
 	instance = get_object_or_404(Raza, id=id)
 	instance.delete()
 	return redirect("bsadmin:l_raza")
+
+
+#parametros
+
+def l_parametros(request):
+	queryset = Parametros.objects.all()
+	context = {
+		"object_list": queryset,
+		"title": "Listado de Parametros"
+	}
+	return render(request, "lista_parametros.html", context)
+
+def a_parametros(request):
+	form = ParametrosForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title": "Nueva Parametros",
+		"form": form,
+	}
+	return render(request, "alta_parametros.html", context)
+
+def v_parametros(request, id=None):
+	instance = get_object_or_404(Parametros, id=id)
+	context = {
+		"instance": instance,
+		"title": "Detalle de Parametros"
+	}	
+	return render(request, "detalle_parametros.html", context)
+
+
+def u_parametros(request, id=None):
+	instance = get_object_or_404(Parametros, id=id)
+	form = ParametrosForm(request.POST or None, instance=instance)
+
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+
+	context = {
+		"title": "Modificar Parametros",
+		"instance": instance,
+		"form": form
+	}
+	return render(request, "alta_parametros.html", context)
+
+def d_parametros(request, id=None):
+	instance = get_object_or_404(Parametros, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_parametros")
+
+#diagnostico
+
+def l_diagnostico(request):
+	queryset = Diagnostico.objects.all()
+	context = {
+		"object_list": queryset,
+		"title": "Listado de Diagnostico"
+	}
+	return render(request, "lista_diagnostico.html", context)
+
+def a_diagnostico(request):
+	form = DiagnosticoForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title": "Nueva Diagnostico",
+		"form": form,
+	}
+	return render(request, "alta_diagnostico.html", context)
+
+def v_diagnostico(request, id=None):
+	instance = get_object_or_404(Diagnostico, id=id)
+	context = {
+		"instance": instance,
+		"title": "Detalle de Diagnostico"
+	}	
+	return render(request, "detalle_diagnostico.html", context)
+
+
+def u_diagnostico(request, id=None):
+	instance = get_object_or_404(Diagnostico, id=id)
+	form = DiagnosticoForm(request.POST or None, instance=instance)
+
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+
+	context = {
+		"title": "Modificar Diagnostico",
+		"instance": instance,
+		"form": form
+	}
+	return render(request, "alta_diagnostico.html", context)
+
+def d_diagnostico(request, id=None):
+	instance = get_object_or_404(Diagnostico, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_diagnostico")
+
+#valoresreferencia
+
+def l_valoresreferencia(request):
+	queryset = ValoresReferencia.objects.all()
+	context = {
+		"object_list": queryset,
+		"title": "Listado de ValoresReferencia"
+	}
+	return render(request, "lista_valoresreferencia.html", context)
+
+def a_valoresreferencia(request):
+	form = ValoresReferenciaForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title": "Nueva ValoresReferencia",
+		"form": form,
+	}
+	return render(request, "alta_valoresreferencia.html", context)
+
+def v_valoresreferencia(request, id=None):
+	instance = get_object_or_404(ValoresReferencia, id=id)
+	context = {
+		"instance": instance,
+		"title": "Detalle de ValoresReferencia"
+	}	
+	return render(request, "detalle_valoresreferencia.html", context)
+
+
+def u_valoresreferencia(request, id=None):
+	instance = get_object_or_404(ValoresReferencia, id=id)
+	form = ValoresReferenciaForm(request.POST or None, instance=instance)
+
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+
+	context = {
+		"title": "Modificar Valores Referencia",
+		"instance": instance,
+		"form": form
+	}
+	return render(request, "alta_valoresreferencia.html", context)
+
+def d_valoresreferencia(request, id=None):
+	instance = get_object_or_404(ValoresReferencia, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_valoresreferencia")
+
+
+#veterinario
+
+def l_veterinario(request):
+	queryset = Veterinario.objects.all()
+	context = {
+		"object_list": queryset,
+		"title": "Listado de veterinario"
+	}
+	return render(request, "lista_veterinario.html", context)
+
+def a_veterinario(request):
+	form = VeterinarioForm(request.POST or None)
+	if form.is_valid():
+
+		instance = form
+		instance.save()
+
+		for x in request.POST.getlist('form.especializaciones'):
+			instance.Especializacion.add(x)
+		instance = form.save(commit=False)
+		
+		return HttpResponseRedirect(instance.get_absolute_url())
+	
+	context = {
+		"title": "Nuevo veterinario",
+		"form": form,
+	}
+	return render(request, "alta_veterinario.html", context)
+
+def v_veterinario(request, id=None):
+	instance = get_object_or_404(Veterinario, id=id)
+	context = {
+		"instance": instance,
+		"title": "Detalle de veterinario"
+	}	
+	return render(request, "detalle_veterinario.html", context)
+
+
+def u_veterinario(request, id=None):
+	instance = get_object_or_404(Veterinario, id=id)
+	form = VeterinarioForm(request.POST or None, instance=instance)
+
+	if form.is_valid():
+
+		instance = form
+		instance.save()
+
+		for x in request.POST.getlist('form.especializaciones'):
+			instance.Especializacion.add(x)
+		instance = form.save(commit=False)
+		
+		return HttpResponseRedirect(instance.get_absolute_url())
+		
+	context = {
+		"title": "Modificar veterinario",
+		"instance": instance,
+		"form": form
+	}
+	return render(request, "alta_veterinario.html", context)
+
+def d_veterinario(request, id=None):
+	instance = get_object_or_404(Veterinario, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_veterinario")

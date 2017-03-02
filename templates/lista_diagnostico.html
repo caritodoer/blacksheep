@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1> {{title}} </h1>
+<table>
+	<tr>
+		<td>ID</td>
+		<td>Descripcion</td>
+		<td>Tecnica </td>
+		<td>Muestra</td>
+		<td>Tercerizacion </td>
+		<td>Activo </td>
+		<td>Pie de pagina </td>
+	</tr>
+	{% for obj in object_list %}
+	<tr>
+		<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
+		<td>{{ obj.descripcion }}</td>
+		<td>{{ obj.tecnica }}</td>
+		<td>{{ obj.muestra }}</td>
+		<td>{{ obj.tercerizacion }}</td>
+		<td>{{ obj.activo }}</td>
+		<td>{{ obj.piepagina }}</td>
+	
+	</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}

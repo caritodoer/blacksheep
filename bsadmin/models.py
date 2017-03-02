@@ -28,7 +28,6 @@ class Categoria(models.Model):
 		self.descripcion=self.descripcion.upper()
 		super(Categoria, self).save(force_insert, force_update)
 
-##Explotacion
 class Explotacion(models.Model):
 	descripcion = models.CharField("Explotacion", max_length=30)
 
@@ -63,6 +62,10 @@ class Especie(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_especie", kwargs={"id":self.id})
 
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion = self.descripcion.upper()
+		super(Motivos, self).save(force_insert, force_update)
+
 class Raza(models.Model):
 	descripcion = models.CharField(max_length=30)
 	especie = models.ForeignKey(Especie)
@@ -70,6 +73,13 @@ class Raza(models.Model):
 		return('%s, %s')%(self.descripcion, self.especie)
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_raza",kwargs={"id":self.id})
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion = self.descripcion.upper()
+		super(Raza, self).save(force_insert, force_update)
+
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_raza", kwargs={"id": self.id})
+
 	def save(self, force_insert=False, force_update=False):
 		self.descripcion = self.descripcion.upper()
 		super(Raza, self).save(force_insert, force_update)
@@ -96,11 +106,11 @@ class Muestra(models.Model):
 		return ('%s')%(self.descripcion)
 
 	def get_absolute_url(self):
-		return reverse("bsadmin:v_motivos", kwargs={"id": self.id})
+		return reverse("bsadmin:v_muestra", kwargs={"id": self.id})
 
 	def save(self, force_insert=False, force_update=False):
 		self.descripcion = self.descripcion.upper()
-		super(Motivos, self).save(force_insert, force_update)
+		super(Muestra, self).save(force_insert, force_update)
 
 class Parametros(models.Model):
 	descripcion = models.CharField("Parametro", max_length=30)
@@ -117,6 +127,15 @@ class Parametros(models.Model):
 	def __str__(self):
 		return ('%s')%(self.descripcion)
 
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_parametros", kwargs={"id": self.id})
+
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion = self.descripcion.upper()
+		self.grupo = self.grupo.upper()
+		super(Parametros, self).save(force_insert, force_update)
+
+
 class Diagnostico(models.Model):
 	descripcion = models.CharField("Diagnostico", max_length=30)
 	## parametros = models.ManyToManyField(Parametros)
@@ -128,6 +147,13 @@ class Diagnostico(models.Model):
 
 	def __str__(self):
 		return ('%s')%(self.descripcion)
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_diagnostico", kwargs={"id": self.id})
+
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion = self.descripcion.upper()
+		self.tecnica = self.tecnica.upper()
+		super(Diagnostico, self).save(force_insert, force_update)
 
 class ValoresReferencia(models.Model):
 	diagnostico = models.ForeignKey(Diagnostico)
@@ -141,6 +167,9 @@ class ValoresReferencia(models.Model):
 
 	def __str__(self):
 		return ('%s %s %s')%(self.diagnostico, self.especie, self.parametros)
+
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_valoresreferencia", kwargs={"id": self.id})
 
 class Veterinario(models.Model):
 	nombre = models.CharField("Nombre", max_length=30)
@@ -167,7 +196,8 @@ class Veterinario(models.Model):
 		return ('%s, %s')%(self.apellido, self.nombre)
 
 	def get_absolute_url(self):
-		return reverse("alpha:detalle", kwargs={"id": self.id}) #keyword args
+		return reverse("bsadmin:v_veterinario", kwargs={"id": self.id}) #keyword args
+
 
 class Establecimiento(models.Model):
 	nombre = models.CharField(max_length=50)
