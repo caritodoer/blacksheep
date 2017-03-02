@@ -63,15 +63,53 @@ def d_categoria(request, id=None):
 	return redirect("bsadmin:l_categoria")
 
 
-#Explotacion
-
+##explotacion
 def l_explotacion(request):
 	queryset = Explotacion.objects.all()
 	context = {
-		"object_list": queryset,
-		"title": "Listado de Explotaciones de Establecimientos"
+		"object_list":queryset,
+		"title":"Listado de Explotacion"
 	}
-	return render(request, "lista_aux.html", context)
+	return render(request,"lista_aux.html",context)
+
+def a_explotacion(request):
+	form = ExplotacionForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit='False')
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title": "Crear Explotacion",
+		"form": form
+		}
+	return render(request,"alta_aux.html",context)
+
+def v_explotacion(request, id=None):
+	instance = get_object_or_404(Explotacion, id=id)
+	context = {
+		"instance":instance,
+		"title": "Detalle de explotacion"
+	} 
+	return render(request,"detalle.html",context)
+
+def u_explotacion(request,id=None):
+	instance = get_object_or_404(Explotacion, id=id)
+	form = ExplotacionForm(request.POST or None,instance=instance)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context={
+		"title":"Modificar Explotacion",
+		"instance":instance,
+		"form":form
+	}
+	return render(request,"alta_aux.html",context)
+
+def d_explotacion(request,id=None):
+	instance=get_object_or_404(Explotacion, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_explotacion")
 
 # Especie
 
@@ -230,4 +268,59 @@ def d_especializacion(request, id=None):
 	instance = get_object_or_404(Especializacion, id=id)
 	instance.delete()
 	return redirect("bsadmin:l_especializacion")
+
+# motivos
+
+def a_motivos(request):
+	form = MotivosForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title": "Nuevo Motivo",
+		"form": form,
+	}
+
+	return render(request, "alta_aux.html", context)
+
+def v_motivos(request, id=None):
+	instance = get_object_or_404(Motivos, id=id)
+	context = {
+		"instance": instance,
+		"title": "Detalle de Motivos"
+	}	
+	return render(request, "detalle.html", context)
+
+def l_motivos(request):
+	queryset = Motivos.objects.all()
+	context = {
+		"object_list": queryset,
+		"title": "Listado Motivos"
+	}
+	return render(request, "lista_aux.html", context)
+
+
+def u_motivos(request, id=None):
+	
+	instance = get_object_or_404(Motivos, id=id)
+	form = MotivosForm(request.POST or None, instance=instance)
+
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+
+	context = {
+		"title": "Modificar especializacion",
+		"instance": instance,
+		"form": form
+	}
+
+	return render(request, "alta_aux.html", conext)
+
+def d_motivos(request, id=None):
+	instance = get_object_or_404(Motivos, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_motivos")
 

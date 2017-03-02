@@ -28,11 +28,17 @@ class Categoria(models.Model):
 		self.descripcion=self.descripcion.upper()
 		super(Categoria, self).save(force_insert, force_update)
 
+##Explotacion
 class Explotacion(models.Model):
 	descripcion = models.CharField("Explotacion", max_length=30)
 
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_explotacion",kwargs={"id":self.id})
 	def __str__(self):
 		return ('%s')%(self.descripcion)
+	def save(self,force_insert=False,force_update=False):
+		self.descripcion=self.descripcion.upper()
+		super(Explotacion,self).save(force_insert,force_update)
 
 class Motivos(models.Model):
 	descripcion = models.CharField(max_length=30)

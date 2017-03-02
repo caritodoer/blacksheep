@@ -17,6 +17,13 @@ class CategoriaForm(forms.ModelForm):
 			"descripcion",
 		]
 
+class MotivosForm(forms.ModelForm):
+	class Meta:
+		model = Motivos
+		fields = [
+			"descripcion" 
+		]
+
 class EspecieForm(forms.ModelForm):
 	class Meta:
 		model = Especie
@@ -30,3 +37,10 @@ class MuestraForm(forms.ModelForm):
 		fields = [
 			"descripcion",
 		]
+
+class ExplotacionForm(forms.ModelForm):
+	class Meta:
+		model = Explotacion
+		fields = [
+			"descripcion"
+		]			

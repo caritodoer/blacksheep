@@ -19,8 +19,12 @@ urlpatterns = [
     url(r'^categoria/update/(?P<id>\d+)/$', views.u_categoria),
     url(r'^categoria/delete/(?P<id>\d+)/$', views.d_categoria),
 
-    # Explotacion
-    url(r'^explotacion/$', views.l_explotacion),
+    ##explotacion
+    url(r'^explotacion/$', views.l_explotacion, name='l_explotacion'),##listado
+    url(r'^explotacion/alta$', views.a_explotacion),##alta
+    url(r'^explotacion/(?P<id>\d+)/$', views.v_explotacion, name='v_explotacion'),##detalle
+    url(r'^explotacion/update/(?P<id>\d+)/$', views.u_explotacion ),##modificacion
+    url(r'^explotacion/delete/(?P<id>\d+)/$', views.d_explotacion ),##eliminar  
     
     # Especie
     url(r'^especie/$', views.l_especie, name="l_especie"),
@@ -35,6 +39,15 @@ urlpatterns = [
     url(r'^muestra/(?P<id>\d+)/$', views.v_muestra, name="v_muestra"),
     url(r'^muestra/update/(?P<id>\d+)/$', views.u_muestra),
     url(r'^muestra/delete/(?P<id>\d+)/$', views.d_muestra),    
+    
+    # MOTIVOS
+
+    url(r'^motivos/$', views.l_motivos, name="l_motivos"),
+    url(r'^motivos/alta$', views.a_motivos),
+    url(r'^motivos/(?P<id>\d+)/$', views.v_motivos, name="v_motivos"),
+    url(r'^motivos/update/(?P<id>\d+)/$', views.u_motivos),
+    url(r'^motivos/delete/(?P<id>\d+)/$', views.d_motivos),    
+
     # Especializacion
     url(r'^especializacion/$', views.l_especializacion, name="l_especializacion"),
     url(r'^especializacion/alta/$', views.a_especializacion),
