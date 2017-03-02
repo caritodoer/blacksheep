@@ -31,6 +31,16 @@ urlpatterns = [
     
     # Muestra
     url(r'^muestra/$', views.l_muestra),
+
+    
+    # MOTIVOS
+
+    url(r'^motivos/$', views.l_motivos, name="l_motivos"),
+    url(r'^motivos/alta$', views.a_motivos),
+    url(r'^motivos/(?P<id>\d+)/$', views.v_motivos, name="v_motivos"),
+    url(r'^motivos/update/(?P<id>\d+)/$', views.u_motivos),
+    url(r'^motivos/delete/(?P<id>\d+)/$', views.d_motivos),    
+
     
     # Especializacion
     url(r'^especializacion/$', views.l_especializacion, name="l_especializacion"),
