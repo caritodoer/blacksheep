@@ -8,3 +8,11 @@ class EspecializacionForm(forms.ModelForm):
 		fields = [
 			"descripcion",
 		]
+
+		
+class CategoriaForm(forms.ModelForm):
+	class Meta:
+		model = Categoria
+		fields = [
+			"descripcion",
+		]

@@ -11,11 +11,22 @@ class Especializacion(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_especializacion", kwargs={"id":self.id})
 
+#	def save(self, force_insert=False, force_update=False):
+#		self.descripcion=self.descripcion.upper()
+#		super(Especializacion, self.save(force_insert, force_update))
+
 class Categoria(models.Model):
 	descripcion = models.CharField("Categoria", max_length=30)
 
 	def __str__(self):
 		return ('%s')%(self.descripcion)
+
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_categoria", kwargs={"id":self.id})
+
+#	def save(self, force_insert=False, force_update=False):
+#		self.descripcion=self.descripcion.upper()
+#		super(Categoria, self.save(force_insert, force_update))
 
 class Explotacion(models.Model):
 	descripcion = models.CharField("Explotacion", max_length=30)

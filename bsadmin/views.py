@@ -13,7 +13,7 @@ def l_veterinario(request):
 	}
 	return render(request, "lista_vet.html", context)
 
-# Categoria
+# Categoria - Carito
 
 def l_categoria(request):
 	queryset = Categoria.objects.all()
@@ -22,6 +22,46 @@ def l_categoria(request):
 		"title": "Listado de Categorias de Establecimientos"
 	}
 	return render(request, "lista_aux.html", context)
+
+def a_categoria(request):
+	form = CategoriaForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title" : "Nueva Categoria",
+		"form" : form,
+	}
+	return render(request, "alta_aux.html", context)
+
+def v_categoria(request, id=None):
+	instance = get_object_or_404(Categoria, id=id)
+	context = {
+		"instance" : instance,
+		"title": "Detalle de Categoria",
+	}
+	return render(request, "detalle.html", context)
+
+def u_categoria(request, id=None):
+	instance = get_object_or_404(Categoria,id=id)
+	form = CategoriaForm(request.POST or None, instance=instance)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title" : "Modificar Categoria",
+		"instance" : instance,
+		"form" : form,
+	}
+	return render(request, "alta_aux.html", context)
+
+def d_categoria(request, id=None):
+	instance = get_object_or_404(Categoria, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_categoria")
+
 
 #Explotacion
 
@@ -110,5 +150,5 @@ def u_especializacion(request, id=None):
 def d_especializacion(request, id=None):
 	instance = get_object_or_404(Especializacion, id=id)
 	instance.delete()
-	return redirect("bsadmin:d_especializacion")
+	return redirect("bsadmin:l_especializacion")
 

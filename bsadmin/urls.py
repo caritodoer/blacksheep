@@ -13,8 +13,12 @@ urlpatterns = [
     url(r'^veterinario/$', views.l_veterinario),
     
     # Categoria
-    url(r'^categoria/$', views.l_categoria),
-    
+    url(r'^categoria/$', views.l_categoria, name="l_categoria"),
+    url(r'^categoria/alta/$', views.a_categoria),
+    url(r'^categoria/(?P<id>\d+)/$', views.v_categoria, name="v_categoria"),
+    url(r'^categoria/update/(?P<id>\d+)/$', views.u_categoria),
+    url(r'^categoria/delete/(?P<id>\d+)/$', views.d_categoria),
+
     # Explotacion
     url(r'^explotacion/$', views.l_explotacion),
     
