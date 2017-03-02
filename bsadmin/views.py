@@ -297,18 +297,15 @@ def l_motivos(request):
 def u_motivos(request, id=None):
 	instance = get_object_or_404(Motivos, id=id)
 	form = MotivosForm(request.POST or None, instance=instance)
-
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
-
 	context = {
 		"title": "Modificar especializacion",
 		"instance": instance,
 		"form": form
 	}
-
 	return render(request, "alta_aux.html", conext)
 
 def d_motivos(request, id=None):
