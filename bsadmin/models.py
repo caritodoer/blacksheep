@@ -44,7 +44,7 @@ class Motivos(models.Model):
 		return reverse("bsadmin:v_motivos", kwargs={"id": self.id})
 
 	def save(self, force_insert=False, force_update=False):
-		self.nombre = self.nombre.upper()
+		self.descripcion = self.descripcion.upper()
 		super(Motivos, self).save(force_insert, force_update)
 
 
