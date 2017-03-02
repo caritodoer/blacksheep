@@ -30,3 +30,10 @@ class EspecieForm(forms.ModelForm):
 		fields = [
 			"descripcion",
 		]
+
+class ExplotacionForm(forms.ModelForm):
+	class Meta:
+		model = Explotacion
+		fields = [
+			"descripcion"
+		]			

@@ -19,8 +19,12 @@ urlpatterns = [
     url(r'^categoria/update/(?P<id>\d+)/$', views.u_categoria),
     url(r'^categoria/delete/(?P<id>\d+)/$', views.d_categoria),
 
-    # Explotacion
-    url(r'^explotacion/$', views.l_explotacion),
+    ##explotacion
+    url(r'^explotacion/$', views.l_explotacion, name='l_explotacion'),##listado
+    url(r'^explotacion/alta$', views.a_explotacion),##alta
+    url(r'^explotacion/(?P<id>\d+)/$', views.v_explotacion, name='v_explotacion'),##detalle
+    url(r'^explotacion/update/(?P<id>\d+)/$', views.u_explotacion ),##modificacion
+    url(r'^explotacion/delete/(?P<id>\d+)/$', views.d_explotacion ),##eliminar  
     
     # Especie
     url(r'^especie/$', views.l_especie, name="l_especie"),
