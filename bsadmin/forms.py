@@ -16,3 +16,10 @@ class CategoriaForm(forms.ModelForm):
 		fields = [
 			"descripcion",
 		]
+
+class MotivosForm(forms.ModelForm):
+	class Meta:
+		model = Motivos
+		fields = [
+			"nombre" 
+		]
