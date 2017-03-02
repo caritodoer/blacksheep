@@ -35,16 +35,16 @@ class Explotacion(models.Model):
 		return ('%s')%(self.descripcion)
 
 class Motivos(models.Model):
-	nombre = models.CharField(max_length=30)
+	descripcion = models.CharField(max_length=30)
 
 	def __str__(self):
-		return ('%s')%(self.nombre)
+		return ('%s')%(self.descripcion)
 
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_motivos", kwargs={"id": self.id})
 
 	def save(self, force_insert=False, force_update=False):
-		self.nombre = self.nombre.upper()
+		self.descripcion = self.descripcion.upper()
 		super(Motivos, self).save(force_insert, force_update)
 
 
@@ -53,6 +53,9 @@ class Especie(models.Model):
 	
 	def __str__(self):
 		return ('%s')%(self.descripcion)
+
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_especie", kwargs={"id":self.id})
 
 class Raza(models.Model):
 	nombre = models.CharField(max_length=30)

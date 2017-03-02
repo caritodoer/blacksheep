@@ -23,7 +23,11 @@ urlpatterns = [
     url(r'^explotacion/$', views.l_explotacion),
     
     # Especie
-    url(r'^especie/$', views.l_especie),
+    url(r'^especie/$', views.l_especie, name="l_especie"),
+    url(r'^especie/alta/$', views.a_especie),
+    url(r'^especie/(?P<id>\d+)/$', views.v_especie, name="v_especie"),
+    url(r'^especie/update/(?P<id>\d+)/$', views.u_especie),
+    url(r'^especie/delete/(?P<id>\d+)/$', views.d_especie),
     
     # Muestra
     url(r'^muestra/$', views.l_muestra),

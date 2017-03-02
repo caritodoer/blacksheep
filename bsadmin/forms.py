@@ -23,3 +23,10 @@ class MotivosForm(forms.ModelForm):
 		fields = [
 			"nombre" 
 		]
+
+class EspecieForm(forms.ModelForm):
+	class Meta:
+		model = Especie
+		fields = [
+			"descripcion",
+		]
