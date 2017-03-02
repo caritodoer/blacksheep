@@ -11,9 +11,9 @@ class Especializacion(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_especializacion", kwargs={"id":self.id})
 
-#	def save(self, force_insert=False, force_update=False):
-#		self.descripcion=self.descripcion.upper()
-#		super(Especializacion, self.save(force_insert, force_update))
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion=self.descripcion.upper()
+		super(Especializacion, self).save(force_insert, force_update)
 
 class Categoria(models.Model):
 	descripcion = models.CharField("Categoria", max_length=30)
@@ -24,9 +24,9 @@ class Categoria(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_categoria", kwargs={"id":self.id})
 
-#	def save(self, force_insert=False, force_update=False):
-#		self.descripcion=self.descripcion.upper()
-#		super(Categoria, self.save(force_insert, force_update))
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion=self.descripcion.upper()
+		super(Categoria, self).save(force_insert, force_update)
 
 class Explotacion(models.Model):
 	descripcion = models.CharField("Explotacion", max_length=30)
@@ -58,11 +58,11 @@ class Especie(models.Model):
 		return reverse("bsadmin:v_especie", kwargs={"id":self.id})
 
 class Raza(models.Model):
-	nombre = models.CharField(max_length=30)
+	descripcion = models.CharField(max_length=30)
 	especie = models.ForeignKey(Especie)
 
 	def __str__(self):
-		return('%s, %s')%(self.nombre, self.especie)
+		return('%s, %s')%(self.descripcion, self.especie)
 
 class CategoriaE(models.Model):
 	descripcion = models.CharField(max_length=30)
@@ -76,6 +76,13 @@ class Muestra(models.Model):
 
 	def __str__(self):
 		return ('%s')%(self.descripcion)
+
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_motivos", kwargs={"id": self.id})
+
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion = self.descripcion.upper()
+		super(Motivos, self).save(force_insert, force_update)
 
 class Parametros(models.Model):
 	descripcion = models.CharField("Parametro", max_length=30)

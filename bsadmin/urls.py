@@ -30,8 +30,11 @@ urlpatterns = [
     url(r'^especie/delete/(?P<id>\d+)/$', views.d_especie),
     
     # Muestra
-    url(r'^muestra/$', views.l_muestra),
-    
+    url(r'^muestra/$', views.l_muestra, name="l_muestra"),
+    url(r'^muestra/alta/$', views.a_muestra),
+    url(r'^muestra/(?P<id>\d+)/$', views.v_muestra, name="v_muestra"),
+    url(r'^muestra/update/(?P<id>\d+)/$', views.u_muestra),
+    url(r'^muestra/delete/(?P<id>\d+)/$', views.d_muestra),    
     # Especializacion
     url(r'^especializacion/$', views.l_especializacion, name="l_especializacion"),
     url(r'^especializacion/alta/$', views.a_especializacion),

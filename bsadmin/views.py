@@ -133,6 +133,45 @@ def l_muestra(request):
 	}
 	return render(request, "lista_aux.html", context)
 
+def a_muestra(request):
+	form = MuestraForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title" : "Nueva Muestra",
+		"form" : form,
+	}
+	return render(request, "alta_aux.html", context)
+
+def v_muestra(request, id=None):
+	instance = get_object_or_404(Muestra, id=id)
+	context = {
+		"instance" : instance,
+		"title": "Detalle de Muestra",
+	}
+	return render(request, "detalle.html", context)
+
+def u_muestra(request, id=None):
+	instance = get_object_or_404(Muestra,id=id)
+	form = MuestraForm(request.POST or None, instance=instance)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title" : "Modificar Muestra",
+		"instance" : instance,
+		"form" : form,
+	}
+	return render(request, "alta_aux.html", context)
+
+def d_muestra(request, id=None):
+	instance = get_object_or_404(Muestra, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_muestra")
+
 # Establecimiento
 
 def l_establecimiento(request):

@@ -23,3 +23,10 @@ class EspecieForm(forms.ModelForm):
 		fields = [
 			"descripcion",
 		]
+
+class MuestraForm(forms.ModelForm):
+	class Meta:
+		model = Muestra
+		fields = [
+			"descripcion",
+		]
