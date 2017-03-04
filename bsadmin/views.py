@@ -302,7 +302,6 @@ def l_motivos(request):
 
 
 def u_motivos(request, id=None):
-	
 	instance = get_object_or_404(Motivos, id=id)
 	form = MotivosForm(request.POST or None, instance=instance)
 
@@ -356,8 +355,7 @@ def l_categoriae(request):
 	return render(request, "lista_aux2.html", context)
 
 
-def u_categoriae(request, id=None):
-	
+def u_categoriae(request, id=None):	
 	instance = get_object_or_404(CategoriaE, id=id)
 	form = CategoriaEForm(request.POST or None, instance=instance)
 
@@ -378,3 +376,57 @@ def d_categoriae(request, id=None):
 	instance = get_object_or_404(CategoriaE, id=id)
 	instance.delete()
 	return redirect("bsadmin:l_categoriae")
+
+# Raza
+
+def l_raza(request):
+	queryset = Raza.objects.all()
+	context = {
+		"object_list": queryset,
+		"title": "Listado de Razas"
+	}
+	return render(request, "lista_aux2.html", context)
+
+def a_raza(request):
+	form = RazaForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title": "Nueva Raza",
+		"form": form,
+	}
+
+	return render(request, "alta_aux2.html", context)
+
+def v_raza(request, id=None):
+	instance = get_object_or_404(Raza, id=id)
+	context = {
+		"instance": instance,
+		"title": "Detalle de Raza"
+	}	
+	return render(request, "detalle2.html", context)
+
+
+def u_raza(request, id=None):
+	instance = get_object_or_404(Raza, id=id)
+	form = RazaForm(request.POST or None, instance=instance)
+
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+
+	context = {
+		"title": "Modificar Raza",
+		"instance": instance,
+		"form": form
+	}
+
+	return render(request, "alta_aux2.html", context)
+
+def d_raza(request, id=None):
+	instance = get_object_or_404(Raza, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_raza")

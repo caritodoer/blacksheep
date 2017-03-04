@@ -53,3 +53,11 @@ class CategoriaEForm(forms.ModelForm):
 			"especie"
 		]
 
+class RazaForm(forms.ModelForm):
+	class Meta:
+		model = Raza
+		fields = [
+			"descripcion",
+			"especie"
+		]
+
