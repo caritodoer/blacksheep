@@ -63,6 +63,10 @@ class Especie(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_especie", kwargs={"id":self.id})
 
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion = self.descripcion.upper()
+		super(Motivos, self).save(force_insert, force_update)
+
 class Raza(models.Model):
 	descripcion = models.CharField(max_length=30)
 	especie = models.ForeignKey(Especie)
