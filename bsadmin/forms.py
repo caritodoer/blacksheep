@@ -44,3 +44,12 @@ class ExplotacionForm(forms.ModelForm):
 		fields = [
 			"descripcion"
 		]			
+
+class CategoriaEForm(forms.ModelForm):
+	class Meta:
+		model = CategoriaE
+		fields = [
+			"descripcion",
+			"especie"
+		]
+

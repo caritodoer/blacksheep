@@ -324,3 +324,57 @@ def d_motivos(request, id=None):
 	instance.delete()
 	return redirect("bsadmin:l_motivos")
 
+#categoriaE
+
+def a_categoriae(request):
+	form = CategoriaEForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title": "Nuevo Categoria E",
+		"form": form,
+	}
+
+	return render(request, "alta_aux2.html", context)
+
+def v_categoriae(request, id=None):
+	instance = get_object_or_404(CategoriaE, id=id)
+	context = {
+		"instance": instance,
+		"title": "Detalle de Categoria"
+	}	
+	return render(request, "detalle2.html", context)
+
+def l_categoriae(request):
+	queryset = CategoriaE.objects.all()
+	context = {
+		"object_list": queryset,
+		"title": "Listado Categoria"
+	}
+	return render(request, "lista_aux2.html", context)
+
+
+def u_categoriae(request, id=None):
+	
+	instance = get_object_or_404(CategoriaE, id=id)
+	form = CategoriaEForm(request.POST or None, instance=instance)
+
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+
+	context = {
+		"title": "Modificar Categoria",
+		"instance": instance,
+		"form": form
+	}
+
+	return render(request, "alta_aux2.html", context)
+
+def d_categoriae(request, id=None):
+	instance = get_object_or_404(CategoriaE, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_categoriae")

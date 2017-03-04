@@ -48,6 +48,15 @@ urlpatterns = [
     url(r'^motivos/update/(?P<id>\d+)/$', views.u_motivos),
     url(r'^motivos/delete/(?P<id>\d+)/$', views.d_motivos),    
 
+
+    # categoriae
+    url(r'^categoriae/$', views.l_categoriae, name="l_categoriae"),
+    url(r'^categoriae/alta/$', views.a_categoriae),
+    url(r'^categoriae/(?P<id>\d+)/$', views.v_categoriae, name="v_categoriae"),
+    url(r'^categoriae/update/(?P<id>\d+)/$', views.u_categoriae),
+    url(r'^categoriae/delete/(?P<id>\d+)/$', views.d_categoriae),
+    
+
     # Especializacion
     url(r'^especializacion/$', views.l_especializacion, name="l_especializacion"),
     url(r'^especializacion/alta/$', views.a_especializacion),
