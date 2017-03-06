@@ -6,16 +6,6 @@ from .forms import *
 def home_admin(request):
 	return render(request, "home_admin.html")
 
-# Veterinario
-
-def l_veterinario(request):
-	queryset = Veterinario.objects.all()
-	context = {
-		"object_list": queryset,
-		"title": "Listado Veterinario"
-	}
-	return render(request, "lista_vet.html", context)
-
 # Categoria - Carito
 
 def l_categoria(request):
