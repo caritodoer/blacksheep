@@ -10,6 +10,7 @@ from bsadmin import views
 
 urlpatterns = [
 	# Veterinario
+    url(r'^$', views.home_admin),
     url(r'^veterinario/$', views.l_veterinario),
     
     # Categoria

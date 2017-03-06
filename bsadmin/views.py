@@ -3,6 +3,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from .forms import *
 
+def home_admin(request):
+	return render(request, "home_admin.html")
+
 # Veterinario
 
 def l_veterinario(request):
