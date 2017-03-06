@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1> {{ title }} </h1>
+
+<form method="POST" action="">{% csrf_token %}
+	<table>
+		<tr>
+			<td>Descripcion:</td>
+			<td>{{ form.descripcion }}</td>
+		</tr>
+		<tr>
+			<td>Tecnica:</td>
+			<td>{{ form.tecnica }}</td>
+		</tr>
+		<tr>
+			<td>Muestra:</td>
+			<td>{{ form.muestra }}</td>
+		</tr>
+		<tr>
+			<td>Tercerizacion:</td>
+			<td>{{ form.tercerizacion }}</td>
+		</tr>
+		<tr>
+			<td>Activo:</td>
+			<td>{{ form.activo }}</td>
+		</tr>
+		<tr>
+			<td>Pie de Pagina:</td>
+			<td>{{ form.piepagina }}</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" value="Enviar">
+			</td>
+		</tr>
+	</table>
+</form>
+		
+{% endblock %}

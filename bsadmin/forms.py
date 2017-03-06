@@ -61,3 +61,61 @@ class RazaForm(forms.ModelForm):
 			"especie"
 		]
 
+class ParametrosForm(forms.ModelForm):
+	class Meta:
+		model = Parametros
+		fields = [
+			"descripcion",
+			"tipo_de_dato",
+			"unidadmedida",
+			"grupo"
+		]	
+
+class DiagnosticoForm(forms.ModelForm):
+	class Meta:
+		model = Diagnostico
+		fields = [
+			"descripcion",
+			"tecnica",
+			"muestra",
+			"tercerizacion",
+			"activo",
+			"piepagina"	
+		]
+
+class ValoresReferenciaForm(forms.ModelForm):
+	class Meta:
+		model = ValoresReferencia
+		fields = [
+			"diagnostico",
+			"especie",
+			"parametros",
+			"valorRef",
+			"valorDef"
+		]
+
+class VeterinarioForm(forms.ModelForm):
+	especializaciones = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Especializacion.objects.all())
+	class Meta:
+		model = Veterinario
+		fields = [
+			"nombre",
+			"apellido",
+			"matricula",
+			"dni",
+			"domicilio_particular",
+			"cp_domicilio_particular",
+			"domicilio_fiscal",
+			"cp_domicilio_fiscal",
+			"email",
+			"cuit",
+			"codigo_area",
+			"telefono1",
+			"telefono2",
+			"fecha_ingreso",
+			"fecha_baja",
+			"acreditacion_brucelosis",
+			"acreditacion_aie",
+			"especializaciones",
+			"activo"
+		]

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1> {{ title }} </h1>
+
+{{ instance.id }} <br>
+{{ instance.nombre }}<br>
+{{ instance.apellido }}<br>
+{{ instance.matricula }}<br>
+{{ instance.dni }}<br>
+{{ instance.domicilio_particular }}<br>
+{{ instance.cp_domicilio_particular }}<br>
+{{ instance.domicilio_fiscal }}<br>
+{{ instance.cp_domicilio_fiscal }}<br>
+{{ instance.email }}<br>
+{{ instance.cuit }}<br>
+{{ instance.codigo_area }}<br>
+{{ instance.telefono1 }}<br>
+{{ instance.telefono2 }}<br>
+{{ instance.fecha_ingreso }}<br>
+{{ instance.fecha_baja }}<br>
+{{ instance.acreditacion_brucelosis }}<br>
+{{ instance.acreditacion_aie }}<br>
+
+{% for x in instance.especializaciones.all %} <!-- nombre dentro del model m2m -->
+    {{ x.descripcion }} <br>  <!-- nombre dentro del model base -->
+{% endfor %}
+{{ instance.activo }}
+
+{% endblock %}
