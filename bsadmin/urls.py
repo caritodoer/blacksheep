@@ -9,8 +9,8 @@ from bsadmin import views
 # d: delete
 
 urlpatterns = [
-    url(r'^$', views.home_admin),
-    
+    url(r'^$', views.home_admin),    
+
     # Categoria
     url(r'^categoria/$', views.l_categoria, name="l_categoria"),
     url(r'^categoria/alta/$', views.a_categoria),
@@ -40,7 +40,6 @@ urlpatterns = [
     url(r'^muestra/delete/(?P<id>\d+)/$', views.d_muestra),    
     
     # MOTIVOS
-
     url(r'^motivos/$', views.l_motivos, name="l_motivos"),
     url(r'^motivos/alta$', views.a_motivos),
     url(r'^motivos/(?P<id>\d+)/$', views.v_motivos, name="v_motivos"),
@@ -105,7 +104,10 @@ urlpatterns = [
     url(r'^veterinario/update/(?P<id>\d+)/$', views.u_veterinario),
     url(r'^veterinario/delete/(?P<id>\d+)/$', views.d_veterinario),
 
-
-    # Establecimiento
-    url(r'^establecimiento/$', views.l_establecimiento),
+    # establecimiento
+    url(r'^establecimiento/$', views.l_establecimiento, name="l_establecimiento"),
+    url(r'^establecimiento/alta/$', views.a_establecimiento),
+    url(r'^establecimiento/(?P<id>\d+)/$', views.v_establecimiento, name="v_establecimiento"),
+    url(r'^establecimiento/update/(?P<id>\d+)/$', views.u_establecimiento),
+    url(r'^establecimiento/delete/(?P<id>\d+)/$', views.d_establecimiento),
 ]

@@ -49,7 +49,7 @@
 		<td>{{ obj.acreditacion_aie }} </td>
 		<td>
 			{% for x in obj.especializaciones.all %} <!-- nombre dentro del model m2m -->
-    		{{ x.descripcion }} <br>  <!-- nombre dentro del model base -->
+			    {{ x.descripcion }} <br>  <!-- nombre dentro del model base -->
 			{% endfor %}
 		</td>
 		<td>{{ obj.activo }} </td>

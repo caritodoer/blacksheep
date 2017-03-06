@@ -2,7 +2,41 @@
 {% block content %}
 
 
-<h1> {{title}} </h1>
-
+<h1 align="center"> {{title}} </h1>
+<table border="1" align="center">
+	<tr>
+		<td>ID</td>
+		<td>Partido</td>
+		<td>Propietario</td>
+		<td>RENSPA</td>
+		<td>CUIT </td>
+		<td>Veterinario </td>
+		<td>Categoria</td>
+		<td>Explotacion</td>
+		<td>Activo</td>
+	</tr>
+	{% for obj in object_list %}
+	<tr>
+		<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
+		<td>{{ obj.partido }}</td>
+		<td>{{ obj.propietario }}</td>
+		<td>{{ obj.RENSPA }}</td>
+		<td>{{ obj.CUIT }}</td>
+		<td>{{ obj.veterinario }}</td>
+		<td>
+		{% for x in obj.categorias.all %}
+			    {{ x.descripcion }} <br> 
+		{% endfor %}
+		</td>
+		<td>
+		{% for x in obj.explotacion.all %} 
+			    {{ x.descripcion }} <br>  
+		{% endfor %}
+		
+		</td>
+		<td>{{ obj.activo }}</td>
+	</tr>
+	{% endfor %}
+</table>
 
 {% endblock %}
