@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1> {{ title }} </h1>
+
+<form method="POST" action="">{% csrf_token %}
+	<table>
+		<tr>
+			<td>Diagnostico:</td>
+			<td>{{ form.diagnostico }}</td>
+		</tr>
+		<tr>
+			<td>Especie:</td>
+			<td>{{ form.especie }}</td>
+		</tr>
+		<tr>
+			<td>Parametros:</td>
+			<td>{{ form.parametros }}</td>
+		</tr>
+		<tr>
+			<td>Valores Referencia:</td>
+			<td>{{ form.valorRef }}</td>
+		</tr>
+		<tr>
+			<td>Valores Predeterminados:</td>
+			<td>{{ form.valorDef }}</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" value="Enviar">
+			</td>
+		</tr>
+	</table>
+</form>
+
+{% endblock %}

@@ -9,9 +9,7 @@ from bsadmin import views
 # d: delete
 
 urlpatterns = [
-	# Veterinario
     url(r'^$', views.home_admin),
-    url(r'^veterinario/$', views.l_veterinario),
     
     # Categoria
     url(r'^categoria/$', views.l_categoria, name="l_categoria"),
@@ -71,7 +69,37 @@ urlpatterns = [
     url(r'^raza/(?P<id>\d+)/$', views.v_raza, name="v_raza"),
     url(r'^raza/update/(?P<id>\d+)/$', views.u_raza),
     url(r'^raza/delete/(?P<id>\d+)/$', views.d_raza),
-    
+
+    # parametros
+    url(r'^parametros/$', views.l_parametros, name="l_parametros"),
+    url(r'^parametros/alta/$', views.a_parametros),
+    url(r'^parametros/(?P<id>\d+)/$', views.v_parametros, name="v_parametros"),
+    url(r'^parametros/update/(?P<id>\d+)/$', views.u_parametros),
+    url(r'^parametros/delete/(?P<id>\d+)/$', views.d_parametros),
+
+    # diagnostico
+    url(r'^diagnostico/$', views.l_diagnostico, name="l_diagnostico"),
+    url(r'^diagnostico/alta/$', views.a_diagnostico),
+    url(r'^diagnostico/(?P<id>\d+)/$', views.v_diagnostico, name="v_diagnostico"),
+    url(r'^diagnostico/update/(?P<id>\d+)/$', views.u_diagnostico),
+    url(r'^diagnostico/delete/(?P<id>\d+)/$', views.d_diagnostico),
+
+    # valoresreferencia
+    url(r'^valoresreferencia/$', views.l_valoresreferencia, name="l_valoresreferencia"),
+    url(r'^valoresreferencia/alta/$', views.a_valoresreferencia),
+    url(r'^valoresreferencia/(?P<id>\d+)/$', views.v_valoresreferencia, name="v_valoresreferencia"),
+    url(r'^valoresreferencia/update/(?P<id>\d+)/$', views.u_valoresreferencia),
+    url(r'^valoresreferencia/delete/(?P<id>\d+)/$', views.d_valoresreferencia),
+
+
+    # veterinario
+    url(r'^veterinario/$', views.l_veterinario, name="l_veterinario"),
+    url(r'^veterinario/alta/$', views.a_veterinario),
+    url(r'^veterinario/(?P<id>\d+)/$', views.v_veterinario, name="v_veterinario"),
+    url(r'^veterinario/update/(?P<id>\d+)/$', views.u_veterinario),
+    url(r'^veterinario/delete/(?P<id>\d+)/$', views.d_veterinario),
+
+
     # Establecimiento
     url(r'^establecimiento/$', views.l_establecimiento),
 ]

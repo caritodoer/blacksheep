@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1> {{ title }} </h1>
+
+<form method="POST" action="">{% csrf_token %}
+	<table>
+		<tr>
+			<td>Nombre:</td>
+			<td>{{ form.nombre }}</td>
+		</tr>
+		<tr>
+			<td>Apellido:</td>
+			<td>{{ form.apellido }}</td>
+		</tr>
+		<tr>
+			<td>Matricula:</td>
+			<td>{{ form.matricula }}</td>
+		</tr>
+		<tr>
+			<td>dni:</td>
+			<td>{{ form.dni }}</td>
+		</tr>
+		<tr>
+			<td>domicilio particular:</td>
+			<td>{{ form.domicilio_particular }}</td>
+		</tr>
+		<tr>
+			<td>CP Domicilio Particular:</td>
+			<td>{{ form.cp_domicilio_particular }}</td>
+		</tr>
+		<tr>
+			<td>Domicilio fiscal:</td>
+			<td>{{ form.domicilio_fiscal }}</td>
+		</tr>
+		<tr>
+			<td>CP domicilio fiscal:</td>
+			<td>{{ form.cp_domicilio_fiscal }}</td>
+		</tr>
+		<tr>
+			<td>email:</td>
+			<td>{{ form.email }}</td>
+		</tr>
+		<tr>
+			<td>cuit:</td>
+			<td>{{ form.cuit }}</td>
+		</tr>
+		<tr>
+			<td>codigo_area:</td>
+			<td>{{ form.codigo_area }}</td>
+		</tr>
+		<tr>
+			<td>telefono1:</td>
+			<td>{{ form.telefono1 }}</td>
+		</tr>
+		<tr>
+			<td>telefono2:</td>
+			<td>{{ form.telefono2 }}</td>
+		</tr>
+		<tr>
+			<td>fecha ingreso:</td>
+			<td>{{ form.fecha_ingreso }}</td>
+		</tr>
+		<tr>
+			<td>fecha baja:</td>
+			<td>{{ form.fecha_baja }}</td>
+		</tr>
+		<tr>
+			<td>acreditacion brucelosis:</td>
+			<td>{{ form.acreditacion_brucelosis }}</td>
+		</tr>
+		<tr>
+			<td>acreditacion aie:</td>
+			<td>{{ form.acreditacion_aie }}</td>
+		</tr>
+		<tr>
+			<td>especializaciones:</td>
+			<td>{{ form.especializaciones }}</td>
+		</tr>
+		<tr>
+			<td>activo:</td>
+			<td>{{ form.activo }}</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" value="Enviar">
+			</td>
+		</tr>
+	</table>
+</form>
+		
+{% endblock %}

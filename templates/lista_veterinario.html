@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1> {{title}} </h1>
+<table border="1">
+	<tr>
+		<td>ID</td>
+		<td>nombre</td>
+		<td>apellido </td>
+		<td>matricula </td>
+		<td>dni</td>
+		<td>domicilio particular</td>
+		<td>cp domicilio particular </td>
+		<td>domicilio fiscal </td>
+		<td>cp domicilio fiscal</td>
+		<td>email</td>
+		<td>cuit </td>
+		<td>codigo area </td>
+		<td>telefono1</td>
+		<td>telefono2</td>
+		<td>fecha ingreso </td>
+		<td>fecha baja </td>
+		<td>acreditacion brucelosis</td>
+		<td>acreditacion aie </td>
+		<td>especializaciones </td>
+		<td>activo </td>
+
+	</tr>
+	{% for obj in object_list %}
+	<tr>
+		<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
+		<td>{{ obj.nombre }}</td>
+		<td>{{ obj.apellido }}</td>
+		<td>{{ obj.matricula }}</td>
+		<td>{{ obj.dni }}</td>
+		<td>{{ obj.domicilio_particular }}</td>
+		<td>{{ obj.cp_domicilio_particular }}</td>
+		<td>{{ obj.domicilio_fiscal }}</td>
+		<td>{{ obj.cp_domicilio_fiscal }}</td>
+		<td>{{ obj.email }}</td>
+		<td>{{ obj.cuit }} </td>
+		<td>{{ obj.codigo_area }} </td>
+		<td>{{ obj.telefono1 }}</td>
+		<td>{{ obj.telefono2 }}</td>
+		<td>{{ obj.fecha_ingreso }} </td>
+		<td>{{ obj.fecha_baja }} </td>
+		<td>{{ obj.acreditacion_brucelosis }}</td>
+		<td>{{ obj.acreditacion_aie }} </td>
+		<td>{{ obj.especializaciones }} </td>
+		<td>{{ obj.activo }} </td>
+		
+	</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1> {{ title }} </h1>
+
+{{ instance.id }} <br>
+{{ instance.descripcion }}<br>
+{% if instance.tipo_de_dato == "I" %}
+	Entero<br>
+
+{% elif instance.tipo_de_dato == "B" %}
+	Positivo/Negativo<br>
+
+{% elif instance.tipo_de_dato == "F" %}
+	Numero con decimales<br>
+
+{% elif instance.tipo_de_dato == "S" %}
+	Texto<br>
+{% endif %}
+
+
+{{ instance.unidadmedida }}<br>
+{{ instance.grupo }}
+
+
+{% endblock %}

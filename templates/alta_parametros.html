@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1> {{ title }} </h1>
+
+<form method="POST" action="">{% csrf_token %}
+	<table>
+		<tr>
+			<td>Descripcion:</td>
+			<td>{{ form.descripcion }}</td>
+		</tr>
+		<tr>
+			<td>Tipo de dato:</td>
+			<td>{{ form.tipo_de_dato }}</td>
+		</tr>
+		<tr>
+			<td>Unidad de Medida:</td>
+			<td>{{ form.unidadmedida }}</td>
+		</tr>
+		<tr>
+			<td>Grupo:</td>
+			<td>{{ form.grupo }}</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" value="Enviar">
+			</td>
+		</tr>
+	</table>
+</form>
+		
+{% endblock %}
