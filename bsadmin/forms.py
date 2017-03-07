@@ -119,3 +119,20 @@ class VeterinarioForm(forms.ModelForm):
 			"especializaciones",
 			"activo"
 		]
+
+class EstablecimientoForm(forms.ModelForm):
+	categorias = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Categoria.objects.all())
+	explotacion = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Explotacion.objects.all())
+	
+	class Meta:
+		model = Establecimiento
+		fields = [
+			"partido",
+			"propietario",
+			"RENSPA",
+			"CUIT",
+			"veterinario",
+			"categorias",
+			"explotacion",
+			"activo"
+		]
