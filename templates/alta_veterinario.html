@@ -4,12 +4,20 @@
 
 <h1> {{ title }} </h1>
 
-<form method="POST" action="">{% csrf_token %}
+<form class="form-inline" method="POST" action="">{% csrf_token %}
+	<div class="form-group">
+    	<label for="nombre">Nombre:</label>
+    	<input type="text" class="form-control" id="nombre" name="nombre" value="{{ nombre }}">
+  	</div>
+	
+<!-- <label for="your_name">Your name: </label>
+    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+ -->
 	<table>
-		<tr>
+		<!-- <tr>
 			<td>Nombre:</td>
 			<td>{{ form.nombre }}</td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td>Apellido:</td>
 			<td>{{ form.apellido }}</td>

@@ -210,3 +210,6 @@ class Establecimiento(models.Model):
 	def __str__(self):
 		return ('%s %s')%(self.nombre, self.partido)
 
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_establecimiento", kwargs={"id": self.id}) #keyword args
+

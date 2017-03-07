@@ -1,0 +1,25 @@
+			
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h1> {{ title }} </h1>
+
+{{ instance.id }} <br>
+{{ instance.partido }}<br>
+{{ instance.propietario }}<br>
+{{ instance.RENSPA }}<br>
+{{ instance.CUIT }} <br>
+{{ instance.veterinario }} <br>
+
+{% for x in instance.categorias.all %} 
+    {{ x.descripcion }} <br>  
+{% endfor %}
+
+{% for x in instance.explotacion.all %} 
+    {{ x.descripcion }} <br>  
+{% endfor %}
+
+{{ instance.activo }}
+
+{% endblock %}

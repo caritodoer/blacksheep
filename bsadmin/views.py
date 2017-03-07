@@ -645,3 +645,72 @@ def d_veterinario(request, id=None):
 	instance = get_object_or_404(Veterinario, id=id)
 	instance.delete()
 	return redirect("bsadmin:l_veterinario")
+
+#establecimiento
+
+def l_establecimiento(request):
+	queryset = Establecimiento.objects.all()
+	context = {
+		"object_list": queryset,
+		"title": "Listado de establecimiento"
+	}
+	return render(request, "lista_establecimiento.html", context)
+
+def a_establecimiento(request):
+	form = EstablecimientoForm(request.POST or None)
+	if form.is_valid():
+
+		instance = form
+		instance.save()
+
+		for x in request.POST.getlist('form.categorias'):
+			instance.Categoria.add(x)
+		
+		for x in request.POST.getlist('form.explotacion'):
+			instance.Explotacion.add(x)
+		
+		instance = form.save(commit=False)
+
+		
+		return HttpResponseRedirect(instance.get_absolute_url())
+	context = {
+		"title": "Nuevo establecimiento",
+		"form": form,
+	}
+	return render(request, "alta_establecimiento.html", context)
+
+def v_establecimiento(request, id=None):
+	instance = get_object_or_404(Establecimiento, id=id)
+	context = {
+		"instance": instance,
+		"title": "Detalle de establecimiento"
+	}	
+	return render(request, "detalle_establecimiento.html", context)
+
+
+def u_establecimiento(request, id=None):
+	instance = get_object_or_404(Establecimiento, id=id)
+	form = EstablecimientoForm(request.POST or None, instance=instance)
+
+	if form.is_valid():
+
+		instance = form
+		instance.save()
+
+		for x in request.POST.getlist('form.especializaciones'):
+			instance.Especializacion.add(x)
+		instance = form.save(commit=False)
+		
+		return HttpResponseRedirect(instance.get_absolute_url())
+		
+	context = {
+		"title": "Modificar establecimiento",
+		"instance": instance,
+		"form": form
+	}
+	return render(request, "alta_establecimiento.html", context)
+
+def d_establecimiento(request, id=None):
+	instance = get_object_or_404(Establecimiento, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_establecimiento")
