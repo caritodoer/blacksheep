@@ -661,15 +661,15 @@ def a_establecimiento(request):
 		instance = form
 		instance.save()
 
-		for x in request.POST.getlist('form.categorias'):
+		for x in request.POST.getlist('form.categorias',None):
 			instance.Categoria.add(x)
 		
-		for x in request.POST.getlist('form.explotacion'):
+		for x in request.POST.getlist('form.explotacion',None):
 			instance.Explotacion.add(x)
 		
 		instance = form.save(commit=False)
 
-		
+
 		return HttpResponseRedirect(instance.get_absolute_url())
 	context = {
 		"title": "Nuevo establecimiento",
