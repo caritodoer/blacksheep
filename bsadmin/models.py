@@ -134,7 +134,8 @@ class Parametros(models.Model):
 
 class Diagnostico(models.Model):
 	descripcion = models.CharField("Diagnostico", max_length=30)
-	## parametros = models.ManyToManyField(Parametros)
+	## esta comentado porque ValoresReferencia es el vinculo entre Diagnostico y Parametros
+	## parametros = models.ManyToManyField(Parametros) 
 	tecnica = models.CharField(max_length=30)
 	muestra = models.ForeignKey(Muestra)
 	tercerizacion = models.BooleanField()

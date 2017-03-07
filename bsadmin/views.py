@@ -598,10 +598,10 @@ def a_veterinario(request):
 
 		instance = form
 		instance.save()
-
-		for x in request.POST.getlist('form.especializaciones'):
-			instance.Especializacion.add(x)
-		instance = form.save(commit=False)
+		# MANY TO MANY
+		for x in request.POST.getlist('form.especializaciones'): #form.especializaciones es el que esta dentro del VeterinarioForm
+			instance.Especializacion.add(x) # Este trae la info desde la taba Especializacion
+		instance = form.save(commit=False) # Guarda el M2M
 		
 		return HttpResponseRedirect(instance.get_absolute_url())
 	context = {
