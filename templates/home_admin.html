@@ -4,15 +4,71 @@
 
 <h1> BLACKSHEEP ADMIN </h1>
 <h3>Listados:</h3>
-<a class="btn btn-primary" href="/veterinario">Veterinario</a>
-<a class="btn btn-primary" href="/categoria">Categoria</a>
-<a class="btn btn-primary" href="/explotacion">Explotacion</a>
-<a class="btn btn-primary" href="/especie">Especie</a>
-<a class="btn btn-primary" href="/muestra">Muestra</a>
-<a class="btn btn-primary" href="/motivos">Motivos</a>
-<a class="btn btn-primary" href="/categoriae">Categoria de Especie</a>
-<a class="btn btn-primary" href="/especializacion">Especializacion</a>
-<a class="btn btn-primary" href="/raza">Raza</a>
-<a class="btn btn-primary" href="/establecimiento">Establecimiento</a>
+
+<table align="center">
+	<tr>
+		<td colspan="2" align="center"> Lista Principal</td>
+	</tr> 
+	<tr>
+		<td><a class="btn btn-primary" href="/establecimiento">Establecimiento</a></td>
+		<td><a class="btn btn-primary" href="/establecimiento/alta">Crear</a></td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-primary" href="/veterinario">Veterinario</a></td>
+		<td><a class="btn btn-primary" href="/veterinario/alta">Crear</a></td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-primary" href="/parametros">Parametros</a></td>
+		<td><a class="btn btn-primary" href="/parametros/alta">Crear</a></td>
+	</tr>
+</table>
+<table  align="center">	
+	<tr>
+		<td colspan="2" align="center"> Lista Secundaria</td>
+	</tr> 
+	<tr>
+		<td><a class="btn btn-primary" href="/categoria">Categoria</a></td>
+		<td><a class="btn btn-primary" href="/categoria/alta"/alta>Crear</a></td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-primary" href="/explotacion">Explotacion</a></td>
+		<td><a class="btn btn-primary" href="/explotacion/alta"/alta>Crear</a></td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-primary" href="/especie">Especie</a></td>
+		<td><a class="btn btn-primary" href="/especie/alta">Crear</a></td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-primary" href="/muestra">Muestra</a></td>
+		<td><a class="btn btn-primary" href="/muestra/alta"/alta>Crear</a></td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-primary" href="/motivos">Motivos</a></td>
+		<td><a class="btn btn-primary" href="/motivos/alta">Crear</a></td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-primary" href="/categoriae">Categoria de Especie</a></td>
+		<td><a class="btn btn-primary" href="/categoriae/alta">Crear</a></td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-primary" href="/especializacion">Especializacion</a></td>
+		<td><a class="btn btn-primary" href="/especializacion/alta">Crear</a></td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-primary" href="/raza">Raza</a></td>
+		<td><a class="btn btn-primary" href="/raza/alta">Crear</a></td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-primary" href="/diagnostico">Diagnostico</a></td>
+		<td><a class="btn btn-primary" href="/diagnostico/alta">Crear</a></td>
+	</tr>
+	<tr>
+		<td><a class="btn btn-primary" href="/valoresreferencia">Valores de Referencia</a></td>
+		<td><a class="btn btn-primary" href="/valoresreferencia/alta">Crear</a></td>
+	</tr>
+</table>
+
+
+
 
 {% endblock %}
