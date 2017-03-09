@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
 <h1> {{title}} </h1>
-<table border="1">
+<div class="table-responsive">
+<table class="table table-striped" align="center">
 	<tr>
 		<td>ID</td>
 		<td>nombre</td>
@@ -57,5 +57,5 @@
 	</tr>
 	{% endfor %}
 </table>
-
+</div>
 {% endblock %}
