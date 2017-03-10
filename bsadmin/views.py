@@ -606,6 +606,10 @@ def a_veterinario(request):
 		instance = form.save(commit=False) # Guarda el M2M
 		
 		return HttpResponseRedirect(instance.get_absolute_url())
+	
+	else:
+		print (form.errors)
+
 	context = {
 		"title": "Nuevo veterinario",
 		"form": form,
@@ -664,11 +668,11 @@ def a_establecimiento(request):
 
 		instance = form
 		instance.save()
-
-		for x in request.POST.getlist('form.categorias'):
+			
+		for x in request.POST.getlist('form.categorias' or None):
 			instance.Categoria.add(x)
-		
-		for x in request.POST.getlist('form.explotacion'):
+
+		for x in request.POST.getlist('form.explotacion' or None):
 			instance.Explotacion.add(x)
 		
 		instance = form.save(commit=False)
@@ -704,7 +708,11 @@ def u_establecimiento(request, id=None):
 		instance = form.save(commit=False)
 		
 		return HttpResponseRedirect(instance.get_absolute_url())
-		
+
+	else:
+		form.errors()
+
+
 	context = {
 		"title": "Modificar establecimiento",
 		"instance": instance,
