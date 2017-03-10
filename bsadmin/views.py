@@ -386,6 +386,8 @@ def a_raza(request):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print(form.errors)
 	context = {
 		"title": "Nueva Raza",
 		"form": form,
