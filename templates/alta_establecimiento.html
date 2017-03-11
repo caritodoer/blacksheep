@@ -5,45 +5,78 @@
 <h1> {{ title }} </h1>
 
 <form method="POST" action="">{% csrf_token %}
-	<table>
-		<tr>
-			<td>Partido:</td>
-			<td>{{ form.partido }}</td>
-		</tr>
-		<tr>
-			<td>propietario:</td>
-			<td>{{ form.propietario }}</td>
-		</tr>
-		<tr>
-			<td>RENSPA:</td>
-			<td>{{ form.RENSPA }}</td>
-		</tr>
-		<tr>
-			<td>Cuit:</td>
-			<td>{{ form.CUIT }}</td>
-		</tr>
-		<tr>
-			<td>Veterinario:</td>
-			<td>{{ form.veterinario }}</td>
-		</tr>
-		<tr>
-			<td>Categorias:</td>
-			<td>{{ form.categorias }}</td>
-		</tr>
-		<tr>
-			<td>Explotacion:</td>
-			<td>{{ form.explotacion }}</td>
-		</tr>
-		<tr>
-			<td>Activo:</td>
-			<td>{{ form.activo }}</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="submit" value="Enviar">
-			</td>
-		</tr>
-	</table>
+	<div class="controls">
+		<div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+			    	<label for="partido">Partido:</label>
+			    	<input type="text" class="form-control" id="partido" name="partido" value="{{ partido }}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+			    	<label for="propietario">Propietario:</label>
+			    	<input type="text" class="form-control" id="propietario" name="propietario" value="{{ propietario }}">
+			    </div>
+            </div>
+            <div class="col-md-4">
+                <!-- SELECT que no funciona:  -->
+                <div class="form-group">
+			    	<label for="RENSPA">RENSPA:</label>
+			    	<input type="text" class="form-control" id="RENSPA" name="RENSPA" value="{{ RENSPA }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+			    	<label for="CUIT">CUIT:</label>
+			    	<input type="text" class="form-control" id="CUIT" name="CUIT" value="{{ CUIT }}">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+
+                	<!-- select -->
+			    	<label for="veterinario">Veterinario:</label>
+			    	<input type="text" class="form-control" id="veterinario" name="veterinario" value="{{ veterinario }}">
+			    </div>
+            </div>
+            <div class="col-md-4">
+                <!-- checkbox que no funciona:  -->
+                <div class="form-group">
+			    	<label for="categorias">Categorias:</label>
+			    	<input type="text" class="form-control" id="categorias" name="categorias" value="{{ categorias }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+            	<!-- checkbox que no funciona:  -->
+                <div class="form-group">
+			    	<label for="explotacion">Explotacion:</label>
+			    	<input type="text" class="form-control" id="explotacion" name="explotacion" value="{{ explotacion }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-check disabled">
+			    	<label class="form-check-label" for="activo">
+    				<input type="checkbox" class="form-check-input" id="activo" name="activo" value="{{ activo }}" disabled> Activo</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+			<div class="col-md-12">
+                <input type="submit" class="btn btn-success btn-send" value="Enviar">
+            </div>
+        </div>
+    </div>
 </form>
+
 
 {% endblock %}

@@ -5,37 +5,125 @@
 <h1> {{ title }} </h1>
 
 <form method="POST" action="">{% csrf_token %}
-	<table>
-		<tr>
-			<td>Descripcion:</td>
-			<td>{{ form.descripcion }}</td>
-		</tr>
-		<tr>
-			<td>Tecnica:</td>
-			<td>{{ form.tecnica }}</td>
-		</tr>
-		<tr>
-			<td>Muestra:</td>
-			<td>{{ form.muestra }}</td>
-		</tr>
-		<tr>
-			<td>Tercerizacion:</td>
-			<td>{{ form.tercerizacion }}</td>
-		</tr>
-		<tr>
-			<td>Activo:</td>
-			<td>{{ form.activo }}</td>
-		</tr>
-		<tr>
-			<td>Pie de Pagina:</td>
-			<td>{{ form.piepagina }}</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="submit" value="Enviar">
-			</td>
-		</tr>
+	<div class="controls">
+		<div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+			    	<label for="descripcion">Descripcion:</label>
+			    	<input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ descripcion }}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+			    	<label for="tecnica">Tecnica:</label>
+			    	<input type="text" class="form-control" id="tecnica" name="tecnica" value="{{ tecnica }}">
+			    </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- SELECT que no funciona:  -->
+                <div class="form-group">
+			    	<label for="muestra">Muestra:</label>
+			    	<input type="text" class="form-control" id="muestra" name="muestra" value="{{ muestra }}">
+                </div>
+            </div>
+            <div class="col-md-3">
+            	<div class="form-check disabled">
+			    	<label class="form-check-label" for="tercerizacion">
+    				<input type="checkbox" class="form-check-input" id="tercerizacion" name="tercerizacion" value="{{ tercerizacion }}" disabled> Tercerizacion</label>
+                </div>
+            </div>
+        </div>
+
+<!-- DIV PARAMETROS -->
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="parametros">
+
+<form method="POST" action="">{% csrf_token %}
+	<table class="table table-striped table-bordered table condensed">
+		<thead>
+			<tr>
+				<td><label for="grupo">Grupo de Parametros</label></td>
+				<td colspan="3"><input type="text" class="form-control" id="grupo" name="grupo" value="{{ grupo }}"></td>
+			</tr>
+		
+			<tr class="active">
+				<td><label for="descripcion">Descripcion</label></td>
+				<td>
+					<label for="tipo_de_dato">Tipo de Dato 
+						<a href="#">
+							<span class="glyphicon glyphicon-question-sign"></span>
+						</a>
+					</label>
+				</td>
+				<td><label>Valor Predeterminado / Referencia</label></td>
+				<td><label for="unidadmedida">Unidad de Medida</label></td>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ descripcion }}"></td>
+				<td>
+					<!-- REVISAR -->
+					<select class="selectpicker">
+						<option>Numero Entero</option>
+						<option>Numero con decimales</option>
+						<option>Positivo/Negativo</option>
+						<option>Texto</option>
+					</select>
+				</td>
+				<td><a href="#" class="btn btn-default">Ingresar</a></td>
+				<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ unidadmedida }}"></td>
+			</tr>
+			<tr>
+				<td colspan="4" align="right"><a href="#">Agregar parametro <span class="glyphicon glyphicon-plus"></span></a></td>
+			</tr>
+		</tbody>
 	</table>
 </form>
+	
+		<div class="row">
+			<div class="col-md-12">
+                <a href="#">Agregar grupo de parametros <span class="glyphicon glyphicon-plus"></span></a>
+            </div>
+        </div>
+
+			</div>
+		</div>
+	</div>
+	
+<!-- FIN DEL DIV DE PARAMETROS -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+			    	<label for="piepagina">Texto para incluir en pie de pagina:</label>
+			    	<textarea class="form-control" id="piepagina" name="piepagina" value="{{ piepagina }}"> </textarea>
+			    </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-check disabled">
+			    	<label class="form-check-label" for="activo">
+    				<input type="checkbox" class="form-check-input" id="activo" name="activo" value="{{ activo }}" disabled> Activo</label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+			<div class="col-md-12">
+                <input type="submit" class="btn btn-success btn-send" value="Enviar">
+            </div>
+        </div>
+    </div>
+</form>        
+
 		
 {% endblock %}
