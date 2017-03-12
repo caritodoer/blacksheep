@@ -52,7 +52,9 @@ urlpatterns = [
     url(r'^raza/(?P<id>\d+)/$', views.v_raza, name="v_raza"),
     url(r'^raza/update/(?P<id>\d+)/$', views.u_raza),
     url(r'^raza/delete/(?P<id>\d+)/$', views.d_raza),        
-
+    url(r'^j_raza/$', views.j_raza),
+    url(r'^j_razaid/(?P<id>\d+)/$', views.j_razaid),
+    
     # categoriae
     url(r'^categoriae/$', views.l_categoriae, name="l_categoriae"),
     url(r'^categoriae/alta/$', views.a_categoriae),

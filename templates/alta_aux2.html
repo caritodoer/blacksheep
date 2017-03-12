@@ -20,6 +20,8 @@
 			<!-- Especie -->
 			<label class="control-label col-sm-2" for="especie">especie:</label>
 			<!-- Esto deberia ser un <select> pero no funciona -->
+			<a href="#" id="load-courses" class="btn btn-primary">cargar datos</a>
+			<section id="courses" class="list"></section>
 			<div class="col-sm-4">
 				{{ form.especie }} 
 			</div>
@@ -35,4 +37,26 @@
 		</div>
 	</div>
 </form>
+
+<script>
+(function($){
+	$(document).on('ready',function(){
+		$('#load-courses').on('click',onClickLoadCourses);
+
+		function onClickLoadCourses(){
+			var $section_courses = $('#courses');
+
+			$.ajax({
+				url: '{ url % url pruebaraza/ %}',
+				type: 'GET',
+				dataType: 'json',
+				success: function(){
+
+				}
+			});
+			
+		}
+	});//end document ready
+})(jQuery);	
+</script>
 {% endblock %}

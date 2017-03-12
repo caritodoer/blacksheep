@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from .models import *
 from .forms import *
+from django.core import serializers
 
 def home_admin(request):
 	return render(request, "home_admin.html")
@@ -364,6 +365,16 @@ def d_categoriae(request, id=None):
 
 
 # Raza
+
+def j_raza(request):
+	queryset = Raza.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_razaid(request,id=None):
+	queryset = Raza.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
 
 def l_raza(request):
 	queryset = Raza.objects.all()
