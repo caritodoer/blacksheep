@@ -676,9 +676,12 @@ def a_establecimiento(request):
 			instance.Explotacion.add(x)
 		
 		instance = form.save(commit=False)
-
 		
 		return HttpResponseRedirect(instance.get_absolute_url())
+
+	else:
+		print(form.erros)
+
 	context = {
 		"title": "Nuevo establecimiento",
 		"form": form,
