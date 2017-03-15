@@ -444,7 +444,7 @@ def a_parametros(request):
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
 	context = {
-		"title": "Nueva Parametros",
+		"title": "Nuevo Parametro",
 		"form": form,
 	}
 	return render(request, "alta_parametros.html", context)
