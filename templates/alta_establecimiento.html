@@ -10,20 +10,20 @@
             <div class="col-md-4">
                 <div class="form-group">
 			    	<label for="partido">Partido:</label>
-			    	<input type="text" class="form-control" id="partido" name="partido" value="{{ partido }}">
+			    	<input type="text" class="form-control" id="partido" name="partido" value="{{ instance.partido }}">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
 			    	<label for="propietario">Propietario:</label>
-			    	<input type="text" class="form-control" id="propietario" name="propietario" value="{{ propietario }}">
+			    	<input type="text" class="form-control" id="propietario" name="propietario" value="{{ instance.propietario }}">
 			    </div>
             </div>
             <div class="col-md-4">
                 <!-- SELECT que no funciona:  -->
                 <div class="form-group">
 			    	<label for="RENSPA">RENSPA:</label>
-			    	<input type="text" class="form-control" id="RENSPA" name="RENSPA" value="{{ RENSPA }}">
+			    	<input type="text" class="form-control" id="RENSPA" name="RENSPA" value="{{ instance.RENSPA }}">
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <div class="col-md-4">
                 <div class="form-group">
 			    	<label for="CUIT">CUIT:</label>
-			    	<input type="text" class="form-control" id="CUIT" name="CUIT" value="{{ CUIT }}">
+			    	<input type="text" class="form-control" id="CUIT" name="CUIT" value="{{ instance.CUIT }}">
                 </div>
             </div>
             <div class="col-md-4">
@@ -40,14 +40,14 @@
 
                 	<!-- select -->
 			    	<label for="veterinario">Veterinario:</label>
-			    	<input type="text" class="form-control" id="veterinario" name="veterinario" value="{{ veterinario }}">
+			    	<input type="text" class="form-control" id="veterinario" name="veterinario" value="{{ instance.veterinario }}">
 			    </div>
             </div>
             <div class="col-md-4">
                 <!-- checkbox que no funciona:  -->
                 <div class="form-group">
 			    	<label for="categorias">Categorias:</label>
-			    	<input type="text" class="form-control" id="categorias" name="categorias" value="{{ categorias }}">
+			    	<input type="text" class="form-control" id="categorias" name="categorias" value="{{ instance.categorias }}">
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
             	<!-- checkbox que no funciona:  -->
                 <div class="form-group">
 			    	<label for="explotacion">Explotacion:</label>
-			    	<input type="text" class="form-control" id="explotacion" name="explotacion" value="{{ explotacion }}">
+			    	<input type="text" class="form-control" id="explotacion" name="explotacion" value="{{ instance.explotacion }}">
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
             <div class="col-md-3">
                 <div class="form-check disabled">
 			    	<label class="form-check-label" for="activo">
-    				<input type="checkbox" class="form-check-input" id="activo" name="activo" value="{{ activo }}" disabled> Activo</label>
+    				<input type="checkbox" class="form-check-input" id="activo" name="activo" value="{{ instance.activo }}" disabled> Activo</label>
                 </div>
             </div>
         </div>
