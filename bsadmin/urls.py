@@ -46,7 +46,15 @@ urlpatterns = [
     url(r'^motivos/update/(?P<id>\d+)/$', views.u_motivos),
     url(r'^motivos/delete/(?P<id>\d+)/$', views.d_motivos),    
 
-
+    # Raza
+    url(r'^raza/$', views.l_raza, name="l_raza"),
+    url(r'^raza/alta$', views.a_raza),
+    url(r'^raza/(?P<id>\d+)/$', views.v_raza, name="v_raza"),
+    url(r'^raza/update/(?P<id>\d+)/$', views.u_raza),
+    url(r'^raza/delete/(?P<id>\d+)/$', views.d_raza),        
+    url(r'^j_raza/$', views.j_raza),
+    url(r'^j_razaid/(?P<id>\d+)/$', views.j_razaid),
+    
     # categoriae
     url(r'^categoriae/$', views.l_categoriae, name="l_categoriae"),
     url(r'^categoriae/alta/$', views.a_categoriae),
@@ -62,13 +70,6 @@ urlpatterns = [
     url(r'^especializacion/update/(?P<id>\d+)/$', views.u_especializacion),
     url(r'^especializacion/delete/(?P<id>\d+)/$', views.d_especializacion),
     
-    # raza
-    url(r'^raza/$', views.l_raza, name="l_raza"),
-    url(r'^raza/alta/$', views.a_raza),
-    url(r'^raza/(?P<id>\d+)/$', views.v_raza, name="v_raza"),
-    url(r'^raza/update/(?P<id>\d+)/$', views.u_raza),
-    url(r'^raza/delete/(?P<id>\d+)/$', views.d_raza),
-
     # parametros
     url(r'^parametros/$', views.l_parametros, name="l_parametros"),
     url(r'^parametros/alta/$', views.a_parametros),

@@ -69,7 +69,6 @@ class Especie(models.Model):
 class Raza(models.Model):
 	descripcion = models.CharField(max_length=30)
 	especie = models.ForeignKey(Especie)
-
 	def __str__(self):
 		return('%s, %s')%(self.descripcion, self.especie)
 
