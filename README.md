@@ -25,3 +25,8 @@ como guardar dos form juntos
 revisar diagnostico > select de tipo de dato (parametros)
 
 como traer datos con json + ajax
+
+
+nueva palabra: OPTIMIZACION, codigo limpio
+youtube: django 1.9 tutorial how to tiurn data to json ot xml
+taller jquery por alex arriaga
