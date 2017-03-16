@@ -688,7 +688,7 @@ def a_establecimiento(request):
 		return HttpResponseRedirect(instance.get_absolute_url())
 
 	else:
-		print(form.erros)
+		print(form.errors)
 
 	context = {
 		"title": "Nuevo establecimiento",
@@ -721,7 +721,7 @@ def u_establecimiento(request, id=None):
 		return HttpResponseRedirect(instance.get_absolute_url())
 
 	else:
-		form.errors()
+		print(form.errors)
 
 
 	context = {

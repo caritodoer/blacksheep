@@ -7,7 +7,7 @@
 <form method="POST" action="">{% csrf_token %}
 	<table>
 		<tr>
-			<td>Diagnostico:</td>
+			<td>{{ instance.diagnostico }}</td>
 			<td>{{ form.diagnostico }}</td>
 		</tr>
 		<tr>
