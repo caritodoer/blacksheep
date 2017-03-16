@@ -1,6 +1,7 @@
 # blacksheep
-
-
+RESUELTOS:
+12-3-17 : 
+los modificar no muestran los datos. Trae la info y la vuelve a guardar, pero no se ven los datos a modificar.--> en bootstrap
 Activo de veterinario OK, y disabled  // arreglado checked disabled en el input
 
 
@@ -25,9 +26,6 @@ como traer datos con json + ajax
 
 como guardar dos form juntos y anidados
 
-
-
-
-
-este es un mensaje de prueba
-17-11-16
+nueva palabra: OPTIMIZACION, codigo limpio
+youtube: django 1.9 tutorial how to tiurn data to json ot xml
+taller jquery por alex arriaga

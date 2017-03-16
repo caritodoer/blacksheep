@@ -9,6 +9,16 @@ def home_admin(request):
 
 # Categoria - Carito
 
+def j_categoria(request):
+	queryset = Categoria.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_categoriaid(request,id=None):
+	queryset = Categoria.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
 def l_categoria(request):
 	queryset = Categoria.objects.all()
 	context = {
@@ -18,11 +28,16 @@ def l_categoria(request):
 	return render(request, "lista_aux.html", context)
 
 def a_categoria(request):
+	# si no estoy logueada no me deberia aparecer la pagina
+	# if not request.user.is_staff or not request.user.is_superuser:
+	# 	raise Http404
 	form = CategoriaForm(request.POST or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title" : "Nueva Categoria",
 		"form" : form,
@@ -44,6 +59,8 @@ def u_categoria(request, id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title" : "Modificar Categoria",
 		"instance" : instance,
@@ -58,6 +75,16 @@ def d_categoria(request, id=None):
 
 
 ##explotacion
+def j_explotacion(request):
+	queryset = Explotacion.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_explotacionid(request,id=None):
+	queryset = Explotacion.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
 def l_explotacion(request):
 	queryset = Explotacion.objects.all()
 	context = {
@@ -72,6 +99,8 @@ def a_explotacion(request):
 		instance = form.save(commit='False')
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title": "Crear Explotacion",
 		"form": form
@@ -93,6 +122,8 @@ def u_explotacion(request,id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context={
 		"title":"Modificar Explotacion",
 		"instance":instance,
@@ -106,6 +137,15 @@ def d_explotacion(request,id=None):
 	return redirect("bsadmin:l_explotacion")
 
 # Especie
+def j_especie(request):
+	queryset = Especie.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_especieid(request,id=None):
+	queryset = Especie.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
 
 def l_especie(request):
 	queryset = Especie.objects.all()
@@ -121,6 +161,8 @@ def a_especie(request):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title" : "Nueva Especie",
 		"form" : form,
@@ -142,6 +184,8 @@ def u_especie(request, id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title" : "Modificar Especie",
 		"instance" : instance,
@@ -156,6 +200,15 @@ def d_especie(request, id=None):
 
 
 # Muestra
+def j_muestra(request):
+	queryset = Muestra.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_muestraid(request,id=None):
+	queryset = Muestra.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
 
 def l_muestra(request):
 	queryset = Muestra.objects.all()
@@ -171,6 +224,8 @@ def a_muestra(request):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title" : "Nueva Muestra",
 		"form" : form,
@@ -192,6 +247,8 @@ def u_muestra(request, id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title" : "Modificar Muestra",
 		"instance" : instance,
@@ -204,17 +261,16 @@ def d_muestra(request, id=None):
 	instance.delete()
 	return redirect("bsadmin:l_muestra")
 
-# Establecimiento
-
-def l_establecimiento(request):
-	queryset = Establecimiento.objects.all()
-	context = {
-		"object_list": queryset,
-		"title": "Listado de Establecimientos"
-	}
-	return render(request, "lista_establecimiento.html", context)
-
 # Especializacion
+def j_especializacion(request):
+	queryset = Especializacion.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_especializacionid(request,id=None):
+	queryset = Especializacion.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
 
 def l_especializacion(request):
 	queryset = Especializacion.objects.all()
@@ -230,6 +286,8 @@ def a_especializacion(request):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title" : "Nueva Especializacion",
 		"form" : form,
@@ -251,6 +309,8 @@ def u_especializacion(request, id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title" : "Modificar Especializacion",
 		"instance" : instance,
@@ -265,12 +325,24 @@ def d_especializacion(request, id=None):
 
 # motivos
 
+def j_motivos(request):
+	queryset = Motivos.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_motivosid(request,id=None):
+	queryset = Motivos.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
 def a_motivos(request):
 	form = MotivosForm(request.POST or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title": "Nuevo Motivo",
 		"form": form,
@@ -302,6 +374,8 @@ def u_motivos(request, id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title": "Modificar especializacion",
 		"instance": instance,
@@ -315,12 +389,25 @@ def d_motivos(request, id=None):
 	return redirect("bsadmin:l_motivos")
 
 #categoriaE
+
+def j_categoriae(request):
+	queryset = CategoriaE.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_categoriaeid(request,id=None):
+	queryset = CategoriaE.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
 def a_categoriae(request):
 	form = CategoriaEForm(request.POST or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title": "Nuevo Categoria E",
 		"form": form,
@@ -351,6 +438,8 @@ def u_categoriae(request, id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title": "Modificar Categoria",
 		"instance": instance,
@@ -391,7 +480,7 @@ def a_raza(request):
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
 	else:
-		print(form.errors)
+		print (form.errors)
 	context = {
 		"title": "Nueva Raza",
 		"form": form,
@@ -423,6 +512,8 @@ def u_raza(request, id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title": "Modificar Raza",
 		"instance": instance,
@@ -438,6 +529,16 @@ def d_raza(request, id=None):
 
 #parametros
 
+def j_parametros(request):
+	queryset = Parametros.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_parametrosid(request,id=None):
+	queryset = Parametros.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
 def l_parametros(request):
 	queryset = Parametros.objects.all()
 	context = {
@@ -452,6 +553,8 @@ def a_parametros(request):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title": "Nuevo Parametro",
 		"form": form,
@@ -475,7 +578,8 @@ def u_parametros(request, id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
-
+	else:
+		print (form.errors)
 	context = {
 		"title": "Modificar Parametros",
 		"instance": instance,
@@ -489,6 +593,16 @@ def d_parametros(request, id=None):
 	return redirect("bsadmin:l_parametros")
 
 #diagnostico
+def j_diagnostico(request):
+	queryset = Diagnostico.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_diagnosticoid(request,id=None):
+	queryset = Diagnostico.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
 
 def l_diagnostico(request):
 	queryset = Diagnostico.objects.all()
@@ -504,6 +618,8 @@ def a_diagnostico(request):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title": "Nueva Diagnostico",
 		"form": form,
@@ -527,7 +643,8 @@ def u_diagnostico(request, id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
-
+	else:
+		print (form.errors)
 	context = {
 		"title": "Modificar Diagnostico",
 		"instance": instance,
@@ -541,6 +658,15 @@ def d_diagnostico(request, id=None):
 	return redirect("bsadmin:l_diagnostico")
 
 #valoresreferencia
+def j_valoresreferencia(request):
+	queryset = ValoresReferencia.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_valoresreferenciaid(request,id=None):
+	queryset = ValoresReferencia.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
 
 def l_valoresreferencia(request):
 	queryset = ValoresReferencia.objects.all()
@@ -556,6 +682,8 @@ def a_valoresreferencia(request):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
 	context = {
 		"title": "Nueva ValoresReferencia",
 		"form": form,
@@ -579,7 +707,8 @@ def u_valoresreferencia(request, id=None):
 		instance = form.save(commit=False)
 		instance.save()
 		return HttpResponseRedirect(instance.get_absolute_url())
-
+	else:
+		print (form.errors)
 	context = {
 		"title": "Modificar Valores Referencia",
 		"instance": instance,
@@ -594,6 +723,15 @@ def d_valoresreferencia(request, id=None):
 
 
 #veterinario
+def j_veterinario(request):
+	queryset = Veterinario.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_veterinarioid(request,id=None):
+	queryset = Veterinario.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
 
 def l_veterinario(request):
 	queryset = Veterinario.objects.all()
@@ -615,7 +753,6 @@ def a_veterinario(request):
 		instance = form.save(commit=False) # Guarda el M2M
 		
 		return HttpResponseRedirect(instance.get_absolute_url())
-	
 	else:
 		print (form.errors)
 
@@ -648,7 +785,8 @@ def u_veterinario(request, id=None):
 		instance = form.save(commit=False)
 		
 		return HttpResponseRedirect(instance.get_absolute_url())
-		
+	else:
+		print (form.errors)
 	context = {
 		"title": "Modificar veterinario",
 		"instance": instance,
@@ -662,6 +800,15 @@ def d_veterinario(request, id=None):
 	return redirect("bsadmin:l_veterinario")
 
 #establecimiento
+def j_establecimiento(request):
+	queryset = Establecimiento.objects.all()
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
+
+def j_establecimientoid(request,id=None):
+	queryset = Establecimiento.objects.filter(id=id)
+	queryset = serializers.serialize('json',queryset)
+	return HttpResponse(queryset,content_type='application/json')
 
 def l_establecimiento(request):
 	queryset = Establecimiento.objects.all()
@@ -722,7 +869,6 @@ def u_establecimiento(request, id=None):
 
 	else:
 		print(form.errors)
-
 
 	context = {
 		"title": "Modificar establecimiento",

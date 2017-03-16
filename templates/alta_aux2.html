@@ -11,7 +11,7 @@
 			<!-- Descripcion -->
 			<label class="control-label col-sm-2" for="descripcion">Descripcion:</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ descripcion }}">
+				<input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}">
 			</div>
 		</div>
 
@@ -23,7 +23,7 @@
 			<a href="#" id="load-courses" class="btn btn-primary">cargar datos</a>
 			<section id="courses" class="list"></section>
 			<div class="col-sm-4">
-				{{ form.especie }} 
+				{{ instance.especie }} 
 			</div>
 		</div>
 		<br>
@@ -47,7 +47,7 @@
 			var $section_courses = $('#courses');
 
 			$.ajax({
-				url: '{ url % url pruebaraza/ %}',
+				url: '{% url j_raza %}',
 				type: 'GET',
 				dataType: 'json',
 				success: function(){

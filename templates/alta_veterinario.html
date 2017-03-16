@@ -12,13 +12,13 @@
             <div class="col-md-6">
                 <div class="form-group">
 			    	<label for="nombre">Nombre:</label>
-			    	<input type="text" class="form-control" id="nombre" name="nombre" value="{{ nombre }}">
+			    	<input type="text" class="form-control" id="nombre" name="nombre" value="{{ instance.nombre }}">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
 			    	<label for="apellido">Apellido:</label>
-			    	<input type="text" class="form-control" id="apellido" name="apellido" value="{{ apellido }}">
+			    	<input type="text" class="form-control" id="apellido" name="apellido" value="{{ instance.apellido }}">
 			    </div>
             </div>
         </div>
@@ -27,19 +27,19 @@
             <div class="col-md-4">
                 <div class="form-group">
 			    	<label for="matricula">Matricula:</label>
-    				<input type="text" class="form-control" id="matricula" name="matricula" value="{{ matricula }}">
+    				<input type="text" class="form-control" id="matricula" name="matricula" value="{{ instance.matricula }}">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
 			    	<label for="dni">DNI:</label>
-			    	<input type="text" class="form-control" id="dni" name="dni" value="{{ dni }}">
+			    	<input type="text" class="form-control" id="dni" name="dni" value="{{ instance.dni }}">
 			    </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
 			    	<label for="cuit">CUIT:</label>
-			    	<input type="text" class="form-control" id="cuit" name="cuit" value="{{ cuit }}">
+			    	<input type="text" class="form-control" id="cuit" name="cuit" value="{{ instance.cuit }}">
 			    </div>
             </div>
         </div>
@@ -48,19 +48,19 @@
             <div class="col-md-2">
                 <div class="form-group">
 			    	<label for="cod_ar">Codigo de Area:</label>
-    				<input type="text" class="form-control" id="cod_ar" name="cod_ar" value="{{ codigo_area }}">
+    				<input type="text" class="form-control" id="cod_ar" name="cod_ar" value="{{ instance.codigo_area }}">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
 			    	<label for="tel1">Telefono 1:</label>
-			    	<input type="text" class="form-control" id="tel1" name="tel1" value="{{ telefono1 }}">
+			    	<input type="text" class="form-control" id="tel1" name="tel1" value="{{ instance.telefono1 }}">
 			    </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
 			    	<label for="tel2">Telefono 2:</label>
-			    	<input type="text" class="form-control" id="tel2" name="tel2" value="{{ telefono2 }}">
+			    	<input type="text" class="form-control" id="tel2" name="tel2" value="{{ instance.telefono2 }}">
 			    </div>
             </div>
             <div class="col-md-4">
@@ -68,7 +68,7 @@
 			    	<label for="email">Email:</label>
 	                <div class="input-group">
 	    				<span class="input-group-addon" id="basic-addon1">@</span>
-	  					<input type="text" id="email" name="email" class="form-control" value="{{ email }}" aria-describedby="basic-addon1">
+	  					<input type="text" id="email" name="email" class="form-control" value="{{ instance.email }}" aria-describedby="basic-addon1">
 	                </div>
                 </div>
             </div>
@@ -80,13 +80,13 @@
             <div class="col-md-9">
                 <div class="form-group">
 			    	<label for="dom_part">Domicilio Particular:</label>
-    				<input type="text" class="form-control" id="dom_part" name="dom_part" value="{{ domicilio_particular }}">
+    				<input type="text" class="form-control" id="dom_part" name="dom_part" value="{{ instance.domicilio_particular }}">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
 			    	<label for="cp_part">Codigo Postal:</label>
-    				<input type="text" class="form-control" id="cp_part" name="cp_part" value="{{ cp_domicilio_particular }}">
+    				<input type="text" class="form-control" id="cp_part" name="cp_part" value="{{ instance.cp_domicilio_particular }}">
                 </div>
             </div>
         </div>
@@ -95,13 +95,13 @@
             <div class="col-md-9">
                 <div class="form-group">
 			    	<label for="dom_fiscal">Domicilio Fiscal:</label>
-    				<input type="text" class="form-control" id="dom_fiscal" name="dom_fiscal" value="{{ domicilio_fiscal }}">
+    				<input type="text" class="form-control" id="dom_fiscal" name="dom_fiscal" value="{{ instance.domicilio_fiscal }}">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
 			    	<label for="cp_fiscal">Codigo Postal:</label>
-    				<input type="text" class="form-control" id="cp_fiscal" name="cp_fiscal" value="{{ cp_domicilio_fiscal }}">
+    				<input type="text" class="form-control" id="cp_fiscal" name="cp_fiscal" value="{{ instance.cp_domicilio_fiscal }}">
                 </div>
             </div>
         </div>
@@ -110,13 +110,13 @@
             <div class="col-md-6">
                 <div class="form-group">
 			    	<label for="f_alta">Fecha de Alta:</label>
-    	<input type="date" class="form-control" id="f_alta" name="f_alta" value="{{ fecha_ingreso }}" placeholder="AAAA-MM-DD">
+    	<input type="date" class="form-control" id="f_alta" name="f_alta" value="{{ instance.fecha_ingreso }}" placeholder="AAAA-MM-DD">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
 			    	<label for="f_baja">Fecha de Baja:</label>
-    				<input type="date" class="form-control" id="f_baja" name="f_baja" value="{{ fecha_baja }}">
+    				<input type="date" class="form-control" id="f_baja" name="f_baja" value="{{ instance.fecha_baja }}">
                 </div>
             </div>
         </div>
@@ -125,13 +125,13 @@
             <div class="col-md-6">
                 <div class="form-group">
 			    	<label for="ac_br">Acreditacion Brucelosis:</label>
-    				<input type="date" class="form-control" id="ac_br" name="ac_br" value="{{ acreditacion_brucelosis }}" placeholder="MONMJHB0303456">
+    				<input type="date" class="form-control" id="ac_br" name="ac_br" value="{{ instance.acreditacion_brucelosis }}" placeholder="MONMJHB0303456">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
 			    	<label for="ac_aie">Acreditacion AIE:</label>
-    				<input type="date" class="form-control" id="ac_aie" name="ac_aie" value="{{ acreditacion_aie }}" placeholder="0303456">
+    				<input type="date" class="form-control" id="ac_aie" name="ac_aie" value="{{ instance.acreditacion_aie }}" placeholder="0303456">
                 </div>
             </div>
         </div>
@@ -151,7 +151,7 @@
             <div class="col-md-6">
                 <div class="form-check disabled">
 			    	<label class="form-check-label" for="activo">
-    				<input type="checkbox" class="form-check-input" id="activo" name="activo" value="{{ activo }}" checked disabled> Activo</label>
+    				<input type="checkbox" class="form-check-input" id="activo" name="activo" value="{{ instance.activo }}" checked disabled> Activo</label>
                 </div>
             </div>
         </div>
@@ -167,3 +167,4 @@
 </div>
 		
 {% endblock %}
+
