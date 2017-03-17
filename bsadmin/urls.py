@@ -59,7 +59,7 @@ urlpatterns = [
 
     # Raza
     url(r'^raza/$', views.l_raza, name="l_raza"),
-    url(r'^raza/alta$', views.a_raza),
+    url(r'^raza/alta/$', views.a_raza),
     url(r'^raza/(?P<id>\d+)/$', views.v_raza, name="v_raza"),
     url(r'^raza/update/(?P<id>\d+)/$', views.u_raza),
     url(r'^raza/delete/(?P<id>\d+)/$', views.d_raza),        
