@@ -37,26 +37,23 @@
 		</div>
 	</div>
 </form>
+<div id="test"></div>
+{% endblock %}
 
-<script>
-(function($){
-	$(document).on('ready',function(){
-		$('#load-courses').on('click',onClickLoadCourses);
+{% block javascript %} 
+<script type="text/javascript">
+$(document).ready(function() {
+	$.ajax({
+            url:"/j_especie",
+            type:"GET",
+            dataType: "json",
+            contentType: "application/json",
+            success: function(data){
+            	$('#test').html(data);
+            }
+        });
 
-		function onClickLoadCourses(){
-			var $section_courses = $('#courses');
-
-			$.ajax({
-				url: '{% url j_raza %}',
-				type: 'GET',
-				dataType: 'json',
-				success: function(){
-
-				}
-			});
-			
-		}
-	});//end document ready
-})(jQuery);	
+	
+});  
 </script>
 {% endblock %}
