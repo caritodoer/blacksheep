@@ -41,21 +41,24 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="parametros">
-
 <form method="POST" action="">{% csrf_token %}
-	<table class="table table-striped table-bordered table condensed">
+<div class="panel panel-default">
+  <div class="panel-heading">
+
+				<label for="grupo">Grupo de Parametros</label>
+				<input type="text" class="form-control" id="grupo" name="grupo" value="{{ instance.grupo }}">
+
+  </div>
+  <div class="panel-body">
+    
+	<table class="table table-stripedtable condensed">
 		<thead>
-			<tr>
-				<td><label for="grupo">Grupo de Parametros</label></td>
-				<td colspan="3"><input type="text" class="form-control" id="grupo" name="grupo" value="{{ instance.grupo }}"></td>
-			</tr>
-		
 			<tr class="active">
 				<td><label for="descripcion">Descripcion</label></td>
 				<td>
 					<label for="tipo_de_dato">Tipo de Dato 
-						<a href="#">
-							<span class="glyphicon glyphicon-question-sign"></span>
+						<a href="#" data-toggle="modal" data-target="#myModal">
+						<span class="glyphicon glyphicon-question-sign"></span>
 						</a>
 					</label>
 				</td>
@@ -64,6 +67,38 @@
 				
 			</tr>
 		</thead>
+
+
+
+<!-- inicio modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Tipos de Datos</h4>
+      </div>
+      <div class="modal-body">
+        <strong>Numero Entero: </strong><p>3</p>
+        <strong>NUmero Decimal: </strong><p>1.2,</p>
+        <strong>Positivo/Negativo: </strong><p>Checkbox</p>
+        <strong>Texto: </strong><p>Textos Largos</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- fin modal -->
+
+
+
 		<tbody>
 			<tr id="parametro_js">
 				<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
@@ -85,6 +120,8 @@
 		</tbody>
 	</table>
 </form>
+  </div> <!-- fin div panel-body -->
+</div> <!-- fin div panel -->
 	
 		<div class="row">
 			<div class="col-md-12">
