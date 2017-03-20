@@ -37,23 +37,33 @@
 		</div>
 	</div>
 </form>
-<div id="test"></div>
+<div id="test">
+<select name="especie" id="sel_especie"></select>
+</div>
 {% endblock %}
 
 {% block javascript %} 
 <script type="text/javascript">
+
+
 $(document).ready(function() {
-	$.ajax({
-            url:"/j_especie",
+	$("#sel_especie").click(function carga_select(){
+		$.ajax({
+            url:"/j_especie/",
             type:"GET",
             dataType: "json",
-            contentType: "application/json",
-            success: function(data){
-            	$('#test').html(data);
-            }
-        });
+            success: function(especie){
+            	console.log(especie)
+				
+            	$.each(especie,function(index, obj) 
+				{	
+					$('#sel_especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+				});
 
-	
-});  
+            }
+        });	
+	});
+
+	});  
 </script>
 {% endblock %}

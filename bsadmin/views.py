@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse
 from .models import *
 from .forms import *
 from django.core import serializers
@@ -136,16 +136,21 @@ def d_explotacion(request,id=None):
 	instance.delete()
 	return redirect("bsadmin:l_explotacion")
 
-# Especie
+# # Especie
+# def j_especie(request):
+# 	queryset = Especie.objects.all()
+# 	queryset = serializers.serialize('json',queryset)
+# 	return HttpResponse(queryset,content_type='application/json')
+
 def j_especie(request):
-	queryset = Especie.objects.all()
-	queryset = serializers.serialize('json',queryset)
-	return HttpResponse(queryset,content_type='application/json')
+    queryset = Especie.objects.all().values()  # or simply .values() to get all fields
+    queryset = list(queryset)  # important: convert the QuerySet to a list object
+    return JsonResponse(queryset, safe=False)
 
 def j_especieid(request,id=None):
-	queryset = Especie.objects.filter(id=id)
-	queryset = serializers.serialize('json',queryset)
-	return HttpResponse(queryset,content_type='application/json')
+	queryset = Especie.objects.filter(id=id).values()  # or simply .values() to get all fields
+	queryset = list(queryset)  # important: convert the QuerySet to a list object
+	return JsonResponse(queryset, safe=False)
 
 def l_especie(request):
 	queryset = Especie.objects.all()
