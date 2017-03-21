@@ -20,7 +20,7 @@
 			    </div>
             </div>
             <div class="col-md-4">
-                <!-- SELECT que no funciona:  -->
+                <!-- SELECT que no funciona:  ?? Que select va aca ?-->
                 <div class="form-group">
 			    	<label for="RENSPA">RENSPA:</label>
 			    	<input type="text" class="form-control" id="RENSPA" name="RENSPA" value="{{ instance.RENSPA }}">
@@ -40,14 +40,14 @@
 
                 	<!-- select -->
 			    	<label for="veterinario">Veterinario:</label>
-			    	<input type="text" class="form-control" id="veterinario" name="veterinario" value="{{ instance.veterinario }}">
+                    <select class="form-control" name="veterinario" id="veterinario"></select>
 			    </div>
             </div>
             <div class="col-md-4">
                 <!-- checkbox que no funciona:  -->
                 <div class="form-group">
-			    	<label for="categorias">Categorias:</label>
-			    	<input type="text" class="form-control" id="categorias" name="categorias" value="{{ instance.categorias }}">
+			    	<label class="form-check-label" for="categorias">Categorias:</label>
+			    	<div form-check id="categorias"></div>
                 </div>
             </div>
         </div>
@@ -55,8 +55,8 @@
             <div class="col-md-4">
             	<!-- checkbox que no funciona:  -->
                 <div class="form-group">
-			    	<label for="explotacion">Explotacion:</label>
-			    	<input type="text" class="form-control" id="explotacion" name="explotacion" value="{{ instance.explotacion }}">
+			    	<label class="form-check-label" for="explotacion">Explotacion:</label>
+			    	<div  form-check id="explotacion"></div>
                 </div>
             </div>
         </div>
@@ -79,4 +79,47 @@
 </form>
 
 
+{% endblock %}
+{% block javascript %} 
+<script type="text/javascript">
+
+
+$(document).ready(function() {
+        $.ajax({
+            url:"/j_veterinario/",
+            type:"GET",
+            dataType: "json",
+            success: function(veterinario){
+                $.each(veterinario,function(index, obj) 
+                {   
+                    $('#veterinario').append('<option value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                });
+            }
+        }); // finaliza el primer select 
+        $.ajax({
+            url:"/j_categoria/",
+            type:"GET",
+            dataType: "json",
+            success: function(categoria){
+                $.each(categoria,function(index, obj) 
+                {   
+                    $('#categorias').append('<br><input type="checkbox" name="categorias" value="'+ obj.id+'"> '+obj.descripcion);
+                });
+            }
+        }); // primer checkbox
+        $.ajax({
+            url:"/j_explotacion/",
+            type:"GET",
+            dataType: "json",
+            success: function(explotacion){
+                $.each(explotacion,function(index, obj) 
+                {   
+                    $('#explotacion').append('<br><input type="checkbox" name="explotacion" value="'+ obj.id+'"> '+obj.descripcion);
+                });
+            }
+        }); // segundo checkbox
+
+
+    });  
+</script>
 {% endblock %}
