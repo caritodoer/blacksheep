@@ -49,13 +49,10 @@ $(document).ready(function() {
             type:"GET",
             dataType: "json",
             success: function(especie){
-            	console.log(especie)
-				
             	$.each(especie,function(index, obj) 
 				{	
 					$('#sel_especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
 				});
-
             }
         });	
 
