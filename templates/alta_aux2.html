@@ -19,9 +19,8 @@
 		<div class="row">
 			<!-- Especie -->
 			<label class="control-label col-sm-2" for="especie">especie:</label>
+			<select name="especie" id="sel_especie"></select>
 			<!-- Esto deberia ser un <select> pero no funciona -->
-			<a href="#" id="load-courses" class="btn btn-primary">cargar datos</a>
-			<section id="courses" class="list"></section>
 			<div class="col-sm-4">
 				{{ instance.especie }} 
 			</div>
@@ -37,9 +36,7 @@
 		</div>
 	</div>
 </form>
-<div id="test">
-<select name="especie" id="sel_especie"></select>
-</div>
+
 {% endblock %}
 
 {% block javascript %} 
@@ -47,7 +44,6 @@
 
 
 $(document).ready(function() {
-	$("#sel_especie").click(function carga_select(){
 		$.ajax({
             url:"/j_especie/",
             type:"GET",
@@ -62,7 +58,6 @@ $(document).ready(function() {
 
             }
         });	
-	});
 
 	});  
 </script>
