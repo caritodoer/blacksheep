@@ -32,7 +32,7 @@ nueva palabra: OPTIMIZACION, codigo limpio
 youtube: django 1.9 tutorial how to turn data to json ot xml
 taller jquery por alex arriaga
 
-
+** cuando usamos la lista, evitar cualquier "espaciado" innecesario
 AGREGAR EN CARPETA:
 - cambios en models de "nombre" a "descripcion" (raza y categoriaE)
 - agregar el campo grupos en models parametros y en las tablas de BDD

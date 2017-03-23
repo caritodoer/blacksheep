@@ -228,6 +228,10 @@
 {% block javascript %} 
 <script type="text/javascript">
 $(document).ready(function() {
+        var espelist = []
+            "{% for x in instance.especializacion.all %}"
+        espelist.push("{{x.id}}")
+            "{% endfor %}"
         $.ajax({
             url:"/j_especializacion/",
             type:"GET",
@@ -237,6 +241,17 @@ $(document).ready(function() {
                 {   
                     $('#especializacion').append('<br><input type="checkbox" name="especializacion" value="'+ obj.id+'"> '+obj.descripcion);
                 });
+
+                $("#especializacion > input").each(function(){
+                    for (var i = espelist.length - 1; i >= 0; i--) {
+                    
+                    if($(this).attr("value") == espelist[i])
+                    {
+                         this.setAttribute("checked", "checked")
+                    } //if
+                    } //for
+
+                }); // Explotacion Checked
             }
         }); 
 

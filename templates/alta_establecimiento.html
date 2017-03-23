@@ -39,7 +39,7 @@
                 <div class="form-group">
 
                 	<!-- select -->
-			    	<label for="veterinario">Veterinario:</label>
+                    <label for="veterinario">Veterinario:</label>
                     <select class="form-control" name="veterinario" id="veterinario"></select>
 			    </div>
             </div>
@@ -85,6 +85,17 @@
 
 
 $(document).ready(function() {
+        var selectveterinario = "{{ instance.veterinario.id }}"
+
+        var catelist = []
+            "{% for x in instance.categorias.all %}"
+        catelist.push("{{x.id}}")
+            "{% endfor %}"
+
+        var explolist = []    
+            "{% for x in instance.explotacion.all %}"
+        explolist.push("{{x.id}}")
+            "{% endfor %}"
         $.ajax({
             url:"/j_veterinario/",
             type:"GET",
@@ -92,7 +103,13 @@ $(document).ready(function() {
             success: function(veterinario){
                 $.each(veterinario,function(index, obj) 
                 {   
+                    if(obj.id == selectveterinario)
+                    {
+                    $('#veterinario').append('<option selected value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                    }
+                    else{
                     $('#veterinario').append('<option value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                    }
                 });
             }
         }); // finaliza el primer select 
@@ -101,10 +118,23 @@ $(document).ready(function() {
             type:"GET",
             dataType: "json",
             success: function(categoria){
+                console.log("categoria: " + catelist)
                 $.each(categoria,function(index, obj) 
                 {   
                     $('#categorias').append('<br><input type="checkbox" name="categorias" value="'+ obj.id+'"> '+obj.descripcion);
                 });
+
+                $("#categorias > input").each(function(){
+                    for (var i = catelist.length - 1; i >= 0; i--) {
+                    
+                    if($(this).attr("value") == catelist[i])
+                    {
+                         this.setAttribute("checked", "checked")
+                    } //if
+                    } //for
+
+                }); // Categorias Checked
+
             }
         }); // primer checkbox
         $.ajax({
@@ -112,10 +142,22 @@ $(document).ready(function() {
             type:"GET",
             dataType: "json",
             success: function(explotacion){
+                console.log("explotacion:" + explolist)
                 $.each(explotacion,function(index, obj) 
-                {   
+                {      
                     $('#explotacion').append('<br><input type="checkbox" name="explotacion" value="'+ obj.id+'"> '+obj.descripcion);
                 });
+
+                $("#explotacion > input").each(function(){
+                    for (var i = explolist.length - 1; i >= 0; i--) {
+                    
+                    if($(this).attr("value") == explolist[i])
+                    {
+                         this.setAttribute("checked", "checked")
+                    } //if
+                    } //for
+
+                }); // Explotacion Checked
             }
         }); // segundo checkbox
 

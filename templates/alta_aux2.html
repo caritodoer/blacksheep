@@ -22,7 +22,6 @@
 			<select name="especie" class="col-sm-2" id="sel_especie"></select>
 			<!-- Esto deberia ser un <select> pero no funciona -->
 			<div class="col-sm-4">
-				{{ instance.especie }} 
 			</div>
 		</div>
 		<br>
@@ -41,14 +40,20 @@
 {% block javascript %} 
 <script type="text/javascript">
 $(document).ready(function() {
+		var select = "{{ instance.especie.id }}"
 		$.ajax({
             url:"/j_especie/",
             type:"GET",
             dataType: "json",
             success: function(especie){
+            	console.log(select)
             	$.each(especie,function(index, obj) 
-				{	
-					$('#sel_especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+				{	if(obj.id == select){
+					$('#sel_especie').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+					}
+					else{
+					$('#sel_especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');	
+					}
 				});
             }
         });	

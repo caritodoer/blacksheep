@@ -10,7 +10,7 @@ def home_admin(request):
 # Categoria - Carito
 
 def j_categoria(request):
-	queryset = Categoria.objects.all().values()
+	queryset = Categoria.objects.all().values().order_by('id')
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
@@ -76,7 +76,7 @@ def d_categoria(request, id=None):
 
 ##explotacion
 def j_explotacion(request):
-	queryset = Explotacion.objects.all().values()    
+	queryset = Explotacion.objects.all().values().order_by('id')   
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
@@ -143,7 +143,7 @@ def d_explotacion(request,id=None):
 # 	return HttpResponse(queryset,content_type='application/json')
 
 def j_especie(request):
-    queryset = Especie.objects.all().values()  # or simply .values() to get all fields
+    queryset = Especie.objects.all().values().order_by('id')  # or simply .values() to get all fields
     queryset = list(queryset)  # important: convert the QuerySet to a list object
     return JsonResponse(queryset, safe=False)
 
@@ -206,7 +206,7 @@ def d_especie(request, id=None):
 
 # Muestra
 def j_muestra(request):
-	queryset = Muestra.objects.all().values()    
+	queryset = Muestra.objects.all().values().order_by('id')    
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
@@ -268,7 +268,7 @@ def d_muestra(request, id=None):
 
 # Especializacion
 def j_especializacion(request):
-	queryset = Especializacion.objects.all().values()    
+	queryset = Especializacion.objects.all().values().order_by('id')    
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
@@ -331,7 +331,7 @@ def d_especializacion(request, id=None):
 # motivos
 
 def j_motivos(request):
-	queryset = Motivos.objects.all().values()    
+	queryset = Motivos.objects.all().values().order_by('id')    
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
@@ -396,7 +396,7 @@ def d_motivos(request, id=None):
 #categoriaE
 
 def j_categoriae(request):
-	queryset = CategoriaE.objects.all().values()    
+	queryset = CategoriaE.objects.all().values().order_by('id')    
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
@@ -461,7 +461,7 @@ def d_categoriae(request, id=None):
 # Raza
 
 def j_raza(request):
-	queryset = Raza.objects.all().values()    
+	queryset = Raza.objects.all().values().order_by('id')    
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
@@ -535,7 +535,7 @@ def d_raza(request, id=None):
 #parametros
 
 def j_parametros(request):
-	queryset = Parametros.objects.all().values()    
+	queryset = Parametros.objects.all().values().order_by('id')    
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 	
@@ -599,7 +599,7 @@ def d_parametros(request, id=None):
 
 #diagnostico
 def j_diagnostico(request):
-	queryset = Diagnostico.objects.all().values()    
+	queryset = Diagnostico.objects.all().values().order_by('id')    
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
@@ -664,7 +664,7 @@ def d_diagnostico(request, id=None):
 
 #valoresreferencia
 def j_valoresreferencia(request):
-	queryset = ValoresReferencia.objects.all().values()    
+	queryset = ValoresReferencia.objects.all().values().order_by('id')    
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
@@ -729,7 +729,7 @@ def d_valoresreferencia(request, id=None):
 
 #veterinario
 def j_veterinario(request):
-	queryset = Veterinario.objects.all().values()
+	queryset = Veterinario.objects.all().values().order_by('id')
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
@@ -806,7 +806,7 @@ def d_veterinario(request, id=None):
 
 #establecimiento
 def j_establecimiento(request):
-	queryset = Establecimiento.objects.all().values()
+	queryset = Establecimiento.objects.all().values().order_by('id')
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
