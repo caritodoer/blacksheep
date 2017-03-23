@@ -40,7 +40,9 @@
 
                 	<!-- select -->
                     <label for="veterinario">Veterinario:</label>
-                    <select class="form-control" name="veterinario" id="veterinario"></select>
+                    <select class="form-control" name="veterinario" id="veterinario">
+                        
+                    </select>
 			    </div>
             </div>
             <div class="col-md-4">
@@ -85,7 +87,7 @@
 
 
 $(document).ready(function() {
-        var selectveterinario = "{{ instance.veterinario.id }}"
+        var selectveterinario = "{{instance.veterinario.id }}"
 
         var catelist = []
             "{% for x in instance.categorias.all %}"

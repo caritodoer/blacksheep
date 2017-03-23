@@ -229,7 +229,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
         var espelist = []
-            "{% for x in instance.especializacion.all %}"
+            "{% for x in instance.especializaciones.all %}"
         espelist.push("{{x.id}}")
             "{% endfor %}"
         $.ajax({
@@ -238,13 +238,15 @@ $(document).ready(function() {
             dataType: "json",
             success: function(especializacion){
                 $.each(especializacion,function(index, obj) 
-                {   
+                {  
+
                     $('#especializacion').append('<br><input type="checkbox" name="especializacion" value="'+ obj.id+'"> '+obj.descripcion);
                 });
 
                 $("#especializacion > input").each(function(){
                     for (var i = espelist.length - 1; i >= 0; i--) {
                     
+                    console.log($(this).attr("value"))
                     if($(this).attr("value") == espelist[i])
                     {
                          this.setAttribute("checked", "checked")
