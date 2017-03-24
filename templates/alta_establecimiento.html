@@ -20,6 +20,10 @@
 			    </div>
             </div>
             <div class="col-md-4">
+<<<<<<< HEAD
+=======
+                <!-- SELECT que no funciona:  ?? Que select va aca ?-->
+>>>>>>> 6e98b2775af64698694083add4c836dd085877c6
                 <div class="form-group">
 			    	<label for="RENSPA">RENSPA:</label>
 			    	<input type="text" class="form-control" id="RENSPA" name="RENSPA" value="{{ instance.RENSPA }}">
@@ -38,15 +42,17 @@
                 <div class="form-group">
 
                 	<!-- select -->
-			    	<label for="veterinario">Veterinario:</label>
-			    	<input type="text" class="form-control" id="veterinario" name="veterinario" value="{{ instance.veterinario }}">
+                    <label for="veterinario">Veterinario:</label>
+                    <select class="form-control" name="veterinario" id="veterinario">
+                        
+                    </select>
 			    </div>
             </div>
             <div class="col-md-4">
                 <!-- checkbox que no funciona:  -->
                 <div class="form-group">
-			    	<label for="categorias">Categorias:</label>
-			    	<input type="text" class="form-control" id="categorias" name="categorias" value="{{ instance.categorias }}">
+			    	<label class="form-check-label" for="categorias">Categorias:</label>
+			    	<div form-check id="categorias"></div>
                 </div>
             </div>
         </div>
@@ -54,8 +60,8 @@
             <div class="col-md-4">
             	<!-- checkbox que no funciona:  -->
                 <div class="form-group">
-			    	<label for="explotacion">Explotacion:</label>
-			    	<input type="text" class="form-control" id="explotacion" name="explotacion" value="{{ instance.explotacion }}">
+			    	<label class="form-check-label" for="explotacion">Explotacion:</label>
+			    	<div  form-check id="explotacion"></div>
                 </div>
             </div>
         </div>
@@ -78,4 +84,89 @@
 </form>
 
 
+{% endblock %}
+{% block javascript %} 
+<script type="text/javascript">
+
+
+$(document).ready(function() {
+        var selectveterinario = "{{instance.veterinario.id }}"
+
+        var catelist = []
+            "{% for x in instance.categorias.all %}"
+        catelist.push("{{x.id}}")
+            "{% endfor %}"
+
+        var explolist = []    
+            "{% for x in instance.explotacion.all %}"
+        explolist.push("{{x.id}}")
+            "{% endfor %}"
+        $.ajax({
+            url:"/j_veterinario/",
+            type:"GET",
+            dataType: "json",
+            success: function(veterinario){
+                $.each(veterinario,function(index, obj) 
+                {   
+                    if(obj.id == selectveterinario)
+                    {
+                    $('#veterinario').append('<option selected value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                    }
+                    else{
+                    $('#veterinario').append('<option value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                    }
+                });
+            }
+        }); // finaliza el primer select 
+        $.ajax({
+            url:"/j_categoria/",
+            type:"GET",
+            dataType: "json",
+            success: function(categoria){
+                console.log("categoria: " + catelist)
+                $.each(categoria,function(index, obj) 
+                {   
+                    $('#categorias').append('<br><input type="checkbox" name="categorias" value="'+ obj.id+'"> '+obj.descripcion);
+                });
+
+                $("#categorias > input").each(function(){
+                    for (var i = catelist.length - 1; i >= 0; i--) {
+                    
+                    if($(this).attr("value") == catelist[i])
+                    {
+                         this.setAttribute("checked", "checked")
+                    } //if
+                    } //for
+
+                }); // Categorias Checked
+
+            }
+        }); // primer checkbox
+        $.ajax({
+            url:"/j_explotacion/",
+            type:"GET",
+            dataType: "json",
+            success: function(explotacion){
+                console.log("explotacion:" + explolist)
+                $.each(explotacion,function(index, obj) 
+                {      
+                    $('#explotacion').append('<br><input type="checkbox" name="explotacion" value="'+ obj.id+'"> '+obj.descripcion);
+                });
+
+                $("#explotacion > input").each(function(){
+                    for (var i = explolist.length - 1; i >= 0; i--) {
+                    
+                    if($(this).attr("value") == explolist[i])
+                    {
+                         this.setAttribute("checked", "checked")
+                    } //if
+                    } //for
+
+                }); // Explotacion Checked
+            }
+        }); // segundo checkbox
+
+
+    });  
+</script>
 {% endblock %}

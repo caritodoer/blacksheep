@@ -52,10 +52,8 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="especializacion">Especializacion:</label>
-                    {% for x in especializaciones %}
-                     {{x}}
-                    {% endfor %}
+                    <label class="form-check-label" for="especializacion">Especializacion:</label>
+                    <div  form-check id="especializacion"></div>
                 </div>
             </div>
         </div> 
@@ -225,4 +223,40 @@
     </div>
 </div>
         
+{% endblock %}
+
+{% block javascript %} 
+<script type="text/javascript">
+$(document).ready(function() {
+        var espelist = []
+            "{% for x in instance.especializaciones.all %}"
+        espelist.push("{{x.id}}")
+            "{% endfor %}"
+        $.ajax({
+            url:"/j_especializacion/",
+            type:"GET",
+            dataType: "json",
+            success: function(especializacion){
+                $.each(especializacion,function(index, obj) 
+                {  
+
+                    $('#especializacion').append('<br><input type="checkbox" name="especializacion" value="'+ obj.id+'"> '+obj.descripcion);
+                });
+
+                $("#especializacion > input").each(function(){
+                    for (var i = espelist.length - 1; i >= 0; i--) {
+                    
+                    console.log($(this).attr("value"))
+                    if($(this).attr("value") == espelist[i])
+                    {
+                         this.setAttribute("checked", "checked")
+                    } //if
+                    } //for
+
+                }); // Explotacion Checked
+            }
+        }); 
+
+    });  
+</script>
 {% endblock %}

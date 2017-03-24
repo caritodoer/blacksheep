@@ -19,11 +19,9 @@
 		<div class="row">
 			<!-- Especie -->
 			<label class="control-label col-sm-2" for="especie">especie:</label>
+			<select name="especie" class="col-sm-2" id="sel_especie"></select>
 			<!-- Esto deberia ser un <select> pero no funciona -->
-			<a href="#" id="load-courses" class="btn btn-primary">cargar datos</a>
-			<section id="courses" class="list"></section>
 			<div class="col-sm-4">
-				{{ instance.especie }} 
 			</div>
 		</div>
 		<br>
@@ -37,32 +35,28 @@
 		</div>
 	</div>
 </form>
-<div id="test">
-<select name="especie" id="sel_especie"></select>
-</div>
 {% endblock %}
 
 {% block javascript %} 
 <script type="text/javascript">
-
-
 $(document).ready(function() {
-	$("#sel_especie").click(function carga_select(){
+		var select = "{{ instance.especie.id }}"
 		$.ajax({
             url:"/j_especie/",
             type:"GET",
             dataType: "json",
             success: function(especie){
-            	console.log(especie)
-				
+            	console.log(select)
             	$.each(especie,function(index, obj) 
-				{	
-					$('#sel_especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+				{	if(obj.id == select){
+					$('#sel_especie').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+					}
+					else{
+					$('#sel_especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');	
+					}
 				});
-
             }
         });	
-	});
 
 });  
 </script>
