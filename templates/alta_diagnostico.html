@@ -41,7 +41,7 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="parametros">
-<form method="POST" action="">{% csrf_token %}
+<!-- <form method="POST" action="">{% csrf_token %} -->
 <div class="panel panel-default">
   <div class="panel-heading">
 
@@ -51,7 +51,7 @@
   </div>
   <div class="panel-body">
     
-	<table class="table table-stripedtable condensed">
+	<table class="table table-stripedtable condensed" id="tabla">
 		<thead>
 			<tr class="active">
 				<td><label for="descripcion">Descripcion</label></td>
@@ -64,7 +64,7 @@
 				</td>
 				<td><label>Valor Predeterminado / Referencia</label></td>
 				<td><label for="unidadmedida">Unidad de Medida</label></td>
-				
+				<td></td>				
 			</tr>
 		</thead>
 
@@ -100,6 +100,23 @@
 
 
 		<tbody>
+			<!-- inicio fila base -->
+			<tr class="fila-base" style="display:None">
+				<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
+				<td>
+					<!-- REVISAR -->
+					<select class="selectpicker">
+						<option>Numero Entero</option>
+						<option>Numero con decimales</option>
+						<option>Positivo/Negativo</option>
+						<option>Texto</option>
+					</select>
+				</td>
+				<td><a href="#" class="btn btn-default">Ingresar</a></td>
+				<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
+				<td class="eliminar">Eliminar</td>
+			</tr>
+			<!-- fin fila base -->
 			<tr id="parametro_js">
 				<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
 				<td>
@@ -113,13 +130,16 @@
 				</td>
 				<td><a href="#" class="btn btn-default">Ingresar</a></td>
 				<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
-			</tr>
-			<tr>
-				<td colspan="4" align="right"><a href="#">Agregar parametro <span class="glyphicon glyphicon-plus"></span></a></td>
+				<td></td>
 			</tr>
 		</tbody>
 	</table>
-</form>
+	<input type="button" id="agregar" value="Agregar Parametro"/>
+
+	<!-- 			<td colspan="4" align="right"><a href="#">Agregar parametro <span class="glyphicon glyphicon-plus"></span></a></td> -->
+
+
+<!-- </form> -->
   </div> <!-- fin div panel-body -->
 </div> <!-- fin div panel -->
 	
@@ -162,5 +182,19 @@
     </div>
 </form>        
 
-		
 {% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function(){
+	console.log("fljgnekjg")
+	$(".eliminar").css("color", "red")
+
+	$("#agregar").on('click', function(){
+		$("#tabla tbody tr:eq(0)").clone().removeClass('fila-base').append("#tabla tbody");
+		console.log("entro")
+	});
+});
+</script> 
+		{% endblock %}
+
