@@ -130,7 +130,7 @@
 				</td>
 				<td><a href="#" class="btn btn-default">Ingresar</a></td>
 				<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
-				<td></td>
+				<td class="eliminar">Eliminar</td>
 			</tr>
 		</tbody>
 	</table>
@@ -190,8 +190,13 @@ $(document).ready(function(){
 	console.log("fljgnekjg")
 	$(".eliminar").css("color", "red")
 
+	$(".eliminar").on("click", function(){
+		var parent = $(this).parents().get(0);
+		$(parent).remove();
+	});
+
 	$("#agregar").on('click', function(){
-		$("#tabla tbody tr:eq(0)").clone().removeClass('fila-base').append("#tabla tbody");
+		$("#tabla tbody tr:eq(0)").clone().removeClass('fila-base').appendTo("#tabla-parametros tbody");
 		console.log("entro")
 	});
 });

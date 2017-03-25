@@ -1,0 +1,27 @@
+
+<!-- JQUERY 
+{% block javascript %} 
+ <script src="/static/js/jquery.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	console.log("Hola Adri")
+	$("#agregar").click(function(){
+		alert("entro al jquery");
+	});
+	$(".eliminar").css({"color": #000});
+	$(".fila-base").css({"display": none});
+
+
+	$("#agregar").on('click', function(){
+		$("#tabla-parametros tbody tr:eq(0)").clone().removeClass('fila-base').appendTo("#tabla-parametros tbody");
+	});
+
+	$(document).on("click", ".eliminar", function(){
+		var parent = $(this).parents().get(0);
+		$(parent).remove();
+	});
+});
+</script>
+{% endblock %}
+-->
