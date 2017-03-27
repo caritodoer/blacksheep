@@ -8,10 +8,11 @@ Activo de veterinario OK, y disabled  // arreglado checked disabled en el input
 Se arreglan con jquery {
 
 	Select <-- Terminado
- 	Otros datos(veterinario) <-- Terminado
+ 	Otros datos(veterinario) <-- Arreglar
 	Checkbox de veterinario/establecimiento Hacer // como se hace <-- Terminado
-	indicar erorres del Form en html 
+	indicar erorres del Form en html <--- terminado
 	indicar que tiene que tener un checkbox marcado (veterinario, establecimiento)
+
 	Ver como generar los "botones de agregar"
 	revisar diagnostico > select de tipo de dato (parametros)
 
@@ -26,7 +27,7 @@ Se arreglan con jquery {
 
 como traer datos con json + ajax
 
-como guardar dos form juntos y anidados
+como guardar dos form juntos y anidados 
 
 nueva palabra: OPTIMIZACION, codigo limpio
 youtube: django 1.9 tutorial how to turn data to json ot xml

@@ -229,9 +229,10 @@
 <script type="text/javascript">
 $(document).ready(function() {
         var espelist = []
-            "{% for x in instance.especializaciones.all %}"
+            "{% for x in instance.especializacion.all %}"
         espelist.push("{{x.id}}")
             "{% endfor %}"
+            
         $.ajax({
             url:"/j_especializacion/",
             type:"GET",

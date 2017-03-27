@@ -80,7 +80,6 @@
     </div>
 </form>
 
-
 {% endblock %}
 {% block javascript %} 
 <script type="text/javascript">
@@ -105,6 +104,7 @@ $(document).ready(function() {
             success: function(veterinario){
                 $.each(veterinario,function(index, obj) 
                 {   
+                    console.log(veterinario)
                     if(obj.id == selectveterinario)
                     {
                     $('#veterinario').append('<option selected value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
@@ -153,12 +153,11 @@ $(document).ready(function() {
                 $("#explotacion > input").each(function(){
                     for (var i = explolist.length - 1; i >= 0; i--) {
                     
-                    if($(this).attr("value") == explolist[i])
-                    {
-                         this.setAttribute("checked", "checked")
-                    } //if
+                        if($(this).attr("value") == explolist[i])
+                        {
+                             this.setAttribute("checked", "checked")
+                        } //if
                     } //for
-
                 }); // Explotacion Checked
             }
         }); // segundo checkbox
