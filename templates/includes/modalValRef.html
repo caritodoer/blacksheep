@@ -1,0 +1,54 @@
+<div class="modal fade" id="ModalValorRef" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="ModalValorRefLabel">Valores de referencia / Predeterminados</h4>
+      </div>
+      <div class="modal-body">
+      
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <label for="parametro">Parametro:</label>
+    <input type="text" class="form-control" id="parametro" name="parametro" value="aca va el parametro que ingreso el usuario antes" />
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped table-condensed" id="panelValores">
+      <thead>
+        <tr class="active">
+          <td><label for="especie">Especie</label></td>
+          <td><label for="valorRef">Valor Referencia</label></td>
+          <td><label for="valorDef">Valor Predeterminado</label></td>
+          <td><input type="button" id="agregar" value="Agregar Parametro"/></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <select id="especieSel">
+              <option>a</option>
+              <option>b</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="valRef" name="valRef" value="{{ instance.valorReferencia }}">
+          </td>
+          <td>
+            <input type="text" class="form-control" id="valDef" name="valDef" value="{{ instance.valorDef }}">
+          </td>
+          <td class="eliminar">Eliminar</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+ </div>  
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
