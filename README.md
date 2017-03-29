@@ -19,6 +19,7 @@ Se arreglan con jquery {
 	Ver como generar los "botones de agregar"
 	**revisar diagnostico > select de tipo de dato (parametros)
 
+
 	Valores de referencia popup de diagnostico, para unificar parametros, diagnostico y especie
 	y que los datos queden guardados al cerrar el popup
 	especie en valores por referencia pueda ser 0 por defecto
