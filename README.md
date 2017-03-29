@@ -7,25 +7,24 @@ Activo de veterinario OK, y disabled  // arreglado checked disabled en el input
 
 Se arreglan con jquery {
 
-<<<<<<< HEAD
+
 	ADRIAN Select
 	--> Otros datos(veterinario)
 	LEO indicar erorres del Form en html 
 	LEO & ADRIAN indicar que tiene que tener un checkbox marcado (veterinario, establecimiento)
 	--> Ver como generar los "botones de agregar" en diagnostico
 	ADRIAN Checkbox de veterinario Hacer // como se hace
-=======
-	Select <-- Terminado
- 	Otros datos(veterinario) <-- Arreglar
-	Checkbox de veterinario/establecimiento Hacer // como se hace <-- Terminado
-	indicar erorres del Form en html <--- terminado
 	indicar que tiene que tener un checkbox marcado (veterinario, establecimiento)
 
 	Ver como generar los "botones de agregar"
->>>>>>> 6e98b2775af64698694083add4c836dd085877c6
-	revisar diagnostico > select de tipo de dato (parametros)
+	**revisar diagnostico > select de tipo de dato (parametros)
 
 	Valores de referencia popup de diagnostico, para unificar parametros, diagnostico y especie
+	y que los datos queden guardados al cerrar el popup
+	especie en valores por referencia pueda ser 0 por defecto
+
+	** tabla parametros si se selecciona boolean se desactiva valores de referencia
+
 
 	pasar valores de django a jquery para agregar el selected o checked
 }

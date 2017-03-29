@@ -3,9 +3,7 @@
 
 
 <h1> {{ title }} </h1>
-
-<form method="POST" action="">{% csrf_token %}
-	<div class="controls">
+<div class="controls">
 		<div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -35,8 +33,7 @@
     				<input type="checkbox" class="form-check-input" id="tercerizacion" name="tercerizacion" value="{{ instance.tercerizacion }}" disabled> Tercerizacion</label>
                 </div>
             </div>
-        </div>
-
+</div>
 <!-- DIV PARAMETROS -->
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
@@ -50,7 +47,6 @@
 
   </div>
   <div class="panel-body">
-    
 	<table class="table table-stripedtable condensed" id="tabla">
 		<thead>
 			<tr class="active">
@@ -64,7 +60,8 @@
 				</td>
 				<td><label>Valor Predeterminado / Referencia</label></td>
 				<td><label for="unidadmedida">Unidad de Medida</label></td>
-				<td></td>				
+				<td>
+	<button id="agregar_parametros">Agregar parametro <span class="glyphicon glyphicon-plus"></button></td>				
 			</tr>
 		</thead>
 
@@ -93,63 +90,35 @@
     </div>
   </div>
 </div>
-
-
 <!-- fin modal -->
-
-
-
-		<tbody>
-			<!-- inicio fila base -->
-			<tr class="fila-base" style="display:None">
+		<tbody id="parametro_js">
+			<tr>
 				<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
 				<td>
-					<!-- REVISAR -->
 					<select class="selectpicker">
-						<option>Numero Entero</option>
-						<option>Numero con decimales</option>
-						<option>Positivo/Negativo</option>
-						<option>Texto</option>
+						<option value="I">Numero Entero</option>
+						<option value="F">Numero con decimales</option>
+						<option value="B">Positivo/Negativo</option>
+						<option value="S">Texto</option>
 					</select>
 				</td>
 				<td><a href="#" class="btn btn-default">Ingresar</a></td>
 				<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
-				<td class="eliminar">Eliminar</td>
-			</tr>
-			<!-- fin fila base -->
-			<tr id="parametro_js">
-				<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
-				<td>
-					<!-- REVISAR -->
-					<select class="selectpicker">
-						<option>Numero Entero</option>
-						<option>Numero con decimales</option>
-						<option>Positivo/Negativo</option>
-						<option>Texto</option>
-					</select>
-				</td>
-				<td><a href="#" class="btn btn-default">Ingresar</a></td>
-				<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
-				<td class="eliminar">Eliminar</td>
+				<td><div class="btn btn-danger">Eliminar</div></td>
 			</tr>
 		</tbody>
 	</table>
-	<input type="button" id="agregar" value="Agregar Parametro"/>
-
-	<!-- 			<td colspan="4" align="right"><a href="#">Agregar parametro <span class="glyphicon glyphicon-plus"></span></a></td> -->
-
-
-<!-- </form> -->
   </div> <!-- fin div panel-body -->
 </div> <!-- fin div panel -->
 	
 		<div class="row">
 			<div class="col-md-12">
-                <a href="#">Agregar grupo de parametros <span class="glyphicon glyphicon-plus"></span></a>
+                
             </div>
         </div>
 
 			</div>
+			<button id="agregar_block_parametros">Agregar grupo de parametro <span class="glyphicon glyphicon-plus"></button>
 		</div>
 	</div>
 	
@@ -176,30 +145,11 @@
 
         <div class="row">
 			<div class="col-md-12">
-                <input type="submit" class="btn btn-success btn-send" value="Enviar">
             </div>
         </div>
-    </div>
-</form>        
+    </div>     
 
 {% endblock %}
 
-{% block javascript %}
-<script type="text/javascript">
-$(document).ready(function(){
-	console.log("fljgnekjg")
-	$(".eliminar").css("color", "red")
 
-	$(".eliminar").on("click", function(){
-		var parent = $(this).parents().get(0);
-		$(parent).remove();
-	});
-
-	$("#agregar").on('click', function(){
-		$("#tabla tbody tr:eq(0)").clone().removeClass('fila-base').appendTo("#tabla-parametros tbody");
-		console.log("entro")
-	});
-});
-</script> 
-		{% endblock %}
-
+{% endblock %}
