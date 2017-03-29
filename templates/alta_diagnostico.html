@@ -3,13 +3,10 @@
 
 <!-- inicio modal -->
 {%  include 'includes/modalTipoDato.html' %}
-<!-- fin modal -->
-
-<!-- INICIO MODAL DE VALOR DE REFERENCIA -->
 {%  include 'includes/modalValRef.html' %}
-<!-- FIN MODAL DE VALOR DE REFERENCIA -->
+<!-- FIN MODAL -->
 <div class="row">
-    <div class="col-lg-8 col-lg-offset-2">
+<div class="col-md-10 col-md-offset-1">
 
 <h1> {{ title }} </h1>
 
@@ -35,7 +32,7 @@
                 <!-- SELECT que no funciona:  -->
                 <div class="form-group">
 			    	<label for="muestra">Muestra:</label>
-			    	<input type="text" class="form-control" id="muestra" name="muestra" value="{{ instance.muestra }}">
+			    	<select class="form-control" name="muestra" id="muestra"></select>
                 </div>
             </div>
             <div class="col-md-3">
@@ -48,8 +45,7 @@
 
 <!-- DIV PARAMETROS -->
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="parametros">
+		<div class="parametros">
 
 
 <div class="panel panel-default">
@@ -110,7 +106,6 @@
         </div>
 
 			</div>
-		</div>
 	</div>
 	
 <!-- FIN DEL DIV DE PARAMETROS -->
@@ -148,7 +143,7 @@
 {% block javascript %}
 <script type="text/javascript">
 $(document).ready(function(){
-	console.log("fljgnekjg")
+	console.log("entro js")
 	$(".eliminar").css("color", "red")
 
 	$(".eliminar").on("click", function(){
@@ -161,6 +156,33 @@ $(document).ready(function(){
 		console.log("entro")
 	});
 });
+
+
+
+$(document).ready(function() {
+        var selectmuestra = "{{instance.muestra.id }}"
+
+        $.ajax({
+            url:"/j_muestra/",
+            type:"GET",
+            dataType: "json",
+            success: function(muestra){
+                $.each(muestra,function(index, obj) 
+                {   
+                    console.log(muestra)
+                    if(obj.id == selectmuestra)
+                    {
+                    $('#muestra').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                    else{
+                    $('#muestra').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                });
+            }
+        }); // finaliza el primer select 
+        
+    });  
+
 </script> 
 		{% endblock %}
 

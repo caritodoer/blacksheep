@@ -626,7 +626,7 @@ def a_diagnostico(request):
 	else:
 		print (form.errors)
 	context = {
-		"title": "Nueva Diagnostico",
+		"title": "Nuevo Diagnostico",
 		"form": form,
 	}
 	return render(request, "alta_diagnostico.html", context)

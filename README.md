@@ -20,6 +20,8 @@ Se arreglan con jquery {
 	Valores de referencia popup de diagnostico, para unificar parametros, diagnostico y especie
 
 	pasar valores de django a jquery para agregar el selected o checked
+
+-- en la carga de "chiquiteses", verificar que cada cosa se cargue una sola vez. Por ejemplo, en Muestra no puedo cargar "Sangre" dos veces. Setear el model para que sea "unique".
 }
 
 {{ form }}
@@ -39,4 +41,5 @@ taller jquery por alex arriaga
 AGREGAR EN CARPETA:
 - cambios en models de "nombre" a "descripcion" (raza y categoriaE)
 - agregar el campo grupos en models parametros y en las tablas de BDD
+- Valores de referencia esta planteado en la carpeta como una pagina mas, pero nosotros lo estamos haciendo como pop-up(modal)
 
