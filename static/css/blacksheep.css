@@ -1,0 +1,4 @@
+/*CSS DE NUESTRO PROYECTO*/
+input[type="text"]{
+	text-transform: uppercase;
+}
