@@ -65,17 +65,16 @@
 									<tr>
 										<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
 										<td>
-											<select class="selectpicker">
-												<option value="I">Numero Entero</option>
-												<option value="F">Numero con decimales</option>
+											<select id="tipoDatoSelect" class="selectpicker">
+												<option value="I">Número Entero</option>
+												<option value="F">Número con decimales</option>
 												<option value="B">Positivo/Negativo</option>
 												<option value="S">Texto</option>
 											</select>
 										</td>
-										<td><a href="#" data-toggle="modal" data-target="#ModalValorRef" class="btn btn-default">Ingresar</a></td>
+										<td><a href="#" id="botonIngresarValorRef" data-toggle="modal" data-target="#ModalValorRef" class="btn btn-default">Ingresar</a><p style="display:none" id="pBtnIVR">Deshabilitado para ese tipo de dato</p></td>
 										<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
 										<td><div class="btn btn-danger">Eliminar</div></td>
-										<td><div id="test"></div></td>
 									</tr>
 								</tbody>
 							</table>
@@ -118,7 +117,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".parametros").on('click', "#agregar_parametros", function(){
-		$(this).parent().parent().parent().append("<tr><td><input type='text' class='form-control' id='descripcion' name='descripcion' value='{{ instance.descripcion }}'></td><td><select class='selectpicker'><option value='I'>Numero Entero</option><option value='F'>Numero con decimales</option><option value='B'>Positivo/Negativo</option><option value='S'>Texto</option></select></td><td><a href='#' data-toggle='modal' data-target='#ModalValorRef' class='btn btn-default'>Ingresar</a></td></td><td><input type='text' class='form-control' id='unidadmedida' name='unidadmedida' value='{{ instance.unidadmedida }}'></td><td><div class='btn btn-danger'>Eliminar</div></td>	<td><div id='test'></div></td></tr>")
+		$(this).parent().parent().parent().append("<tr><td><input type='text' class='form-control' id='descripcion' name='descripcion' value='{{ instance.descripcion }}'></td><td><select class='selectpicker'><option value='I'>Numero Entero</option><option value='F'>Numero con decimales</option><option value='B'>Positivo/Negativo</option><option value='S'>Texto</option></select></td><td><a href='#' data-toggle='modal' data-target='#ModalValorRef' class='btn btn-default'>Ingresar</a></td></td><td><input type='text' class='form-control' id='unidadmedida' name='unidadmedida' value='{{ instance.unidadmedida }}'></td><td><div class='btn btn-danger'>Eliminar</div></td></tr>")
 		});
 	$(".parametros").on('click', ".btn-danger", function(){
 		$(this).parent().parent().remove();
@@ -149,6 +148,21 @@ $(document).ready(function(){
             }
         }); // finaliza el select 
     
+// OCULTAR LA OPCION DE SELECCIONAR EL VALOR DE REFERENCIA SI ES UN BOOLEAN:
+	$('#tipoDatoSelect').click(function(){
+		var selectedValue = $('#tipoDatoSelect').find(":selected").text();
+		if (selectedValue == "Positivo/Negativo") {
+			console.log("ingresa al if")
+			$('#botonIngresarValorRef').hide()
+			$('#pBtnIVR').show()
+		} else {
+			console.log("ingresa al else")
+			$('#botonIngresarValorRef').show()
+			$('#pBtnIVR').hide()
+		}
+	}); 
+
+	
     var selectespecie = [] 
 
     $.ajax({
@@ -165,9 +179,6 @@ $(document).ready(function(){
     	}
     }); // select de especie 
 
-    $("body").on('each', "#test", function(){
-    	console.log('ACAA')
-    });
 
 });  
 
