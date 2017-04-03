@@ -72,7 +72,8 @@
 												<option value="S">Texto</option>
 											</select>
 										</td>
-										<td><a href="#" id="botonIngresarValorRef" data-toggle="modal" data-target="#ModalValorRef" class="btn btn-default">Ingresar</a><p style="display:none" id="pBtnIVR">Deshabilitado para ese tipo de dato</p></td>
+										<td><a
+										 id="botonIngresarValorRef" data-toggle="modal" data-target="#ModalValorRef" class="btn btn-default">Ingresar</a><p style="display:none" id="pBtnIVR">Deshabilitado para ese tipo de dato</p></td>
 										<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
 										<td><div class="btn btn-danger">Eliminar</div></td>
 									</tr>
@@ -172,14 +173,17 @@ $(document).ready(function(){
     	dataType: "json",
     	success: function(especie){
     		$.each(especie, function(index, obj){
-    			selectespecie.push(obj.id, obj.descripcion)
+    			selectespecie.push('<option value=' + obj.id + '>' + obj.descripcion + '</option>')
     		});
     		$.each(selectespecie, function(index, obj){
     			console.log(obj)
     		});
     	}
     }); // select de especie 
+    $(".btn-valref").each(function(){
 
+    	console.log("here")
+    });
 
 });  
 
