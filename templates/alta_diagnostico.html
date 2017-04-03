@@ -117,6 +117,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".parametros").on('click', "#agregar_parametros", function(){
+
 		$(this).parent().parent().parent().parent().append("<tr><td><input type='text' class='form-control' id='descripcion' name='descripcion' value='{{ instance.descripcion }}'></td><td><select class='selectpicker  tipoDatoSelect'><option value='I'>Numero Entero</option><option value='F'>Numero con decimales</option><option value='B'>Positivo/Negativo</option><option value='S'>Texto</option></select></td><td><a href='#' data-toggle='modal' data-target='#ModalValorRef' class='btn btn-default'>Ingresar</a><p style='display:none' id='pBtnIVR'>Deshabilitado para ese tipo de dato</p></td></td><td><input type='text' class='form-control' id='unidadmedida' name='unidadmedida' value='{{ instance.unidadmedida }}'></td><td><div class='btn btn-danger'>Eliminar</div></td></tr>")
 		});
 	$(".parametros").on('click', ".btn-danger", function(){
