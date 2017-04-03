@@ -20,7 +20,7 @@ def j_categoriaid(request,id=None):
 	return JsonResponse(queryset, safe=False)
 
 def l_categoria(request):
-	queryset = Categoria.objects.all()
+	queryset = Categoria.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado de Categorias de Establecimientos"
