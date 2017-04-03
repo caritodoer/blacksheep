@@ -86,7 +86,7 @@ def j_explotacionid(request,id=None):
 	return JsonResponse(queryset, safe=False)
 
 def l_explotacion(request):
-	queryset = Explotacion.objects.all()
+	queryset = Explotacion.objects.all().order_by('id')
 	context = {
 		"object_list":queryset,
 		"title":"Listado de Explotacion"
@@ -153,7 +153,7 @@ def j_especieid(request,id=None):
 	return JsonResponse(queryset, safe=False)
 
 def l_especie(request):
-	queryset = Especie.objects.all()
+	queryset = Especie.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado de Especies"
@@ -216,7 +216,7 @@ def j_muestraid(request,id=None):
 	return JsonResponse(queryset, safe=False)
 
 def l_muestra(request):
-	queryset = Muestra.objects.all()
+	queryset = Muestra.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado de Muestras"
@@ -278,7 +278,7 @@ def j_especializacionid(request,id=None):
 	return JsonResponse(queryset, safe=False)
 
 def l_especializacion(request):
-	queryset = Especializacion.objects.all()
+	queryset = Especializacion.objects.all().order_by('id')
 	context = {
 		"object_list" : queryset,
 		"title" : "Listado de Especializaciones",
@@ -364,7 +364,7 @@ def v_motivos(request, id=None):
 	return render(request, "detalle.html", context)
 
 def l_motivos(request):
-	queryset = Motivos.objects.all()
+	queryset = Motivos.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado Motivos"
@@ -428,7 +428,7 @@ def v_categoriae(request, id=None):
 	return render(request, "detalle2.html", context)
 
 def l_categoriae(request):
-	queryset = CategoriaE.objects.all()
+	queryset = CategoriaE.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado Categoria"
@@ -471,7 +471,7 @@ def j_razaid(request,id=None):
 	return JsonResponse(queryset, safe=False)
 
 def l_raza(request):
-	queryset = Raza.objects.all()
+	queryset = Raza.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado de Razas"
@@ -502,7 +502,7 @@ def v_raza(request, id=None):
 	return render(request, "detalle2.html", context)
 
 def l_raza(request):
-	queryset = Raza.objects.all()
+	queryset = Raza.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado Raza"
@@ -545,7 +545,7 @@ def j_parametrosid(request,id=None):
 	return JsonResponse(queryset, safe=False)
 
 def l_parametros(request):
-	queryset = Parametros.objects.all()
+	queryset = Parametros.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado de Parametros"
@@ -610,7 +610,7 @@ def j_diagnosticoid(request,id=None):
 
 
 def l_diagnostico(request):
-	queryset = Diagnostico.objects.all()
+	queryset = Diagnostico.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado de Diagnostico"
@@ -674,7 +674,7 @@ def j_valoresreferenciaid(request,id=None):
 	return JsonResponse(queryset, safe=False)
 
 def l_valoresreferencia(request):
-	queryset = ValoresReferencia.objects.all()
+	queryset = ValoresReferencia.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado de ValoresReferencia"
@@ -739,7 +739,7 @@ def j_veterinarioid(request,id=None):
 	return JsonResponse(queryset, safe=False)
 
 def l_veterinario(request):
-	queryset = Veterinario.objects.all()
+	queryset = Veterinario.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado de veterinario"
@@ -816,7 +816,7 @@ def j_establecimientoid(request,id=None):
 	return JsonResponse(queryset, safe=False)
 
 def l_establecimiento(request):
-	queryset = Establecimiento.objects.all()
+	queryset = Establecimiento.objects.all().order_by('id')
 	context = {
 		"object_list": queryset,
 		"title": "Listado de establecimiento"

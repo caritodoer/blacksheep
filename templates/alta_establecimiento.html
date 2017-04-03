@@ -7,19 +7,25 @@
 <form method="POST" action="">{% csrf_token %}
 	<div class="controls">
 		<div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ instance.nombre }}">
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="form-group">
 			    	<label for="partido">Partido:</label>
 			    	<input type="text" class="form-control" id="partido" name="partido" value="{{ instance.partido }}">
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
 			    	<label for="propietario">Propietario:</label>
 			    	<input type="text" class="form-control" id="propietario" name="propietario" value="{{ instance.propietario }}">
 			    </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
 
                 <div class="form-group">
 			    	<label for="RENSPA">RENSPA:</label>
