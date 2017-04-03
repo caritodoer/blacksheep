@@ -1,31 +1,77 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ title }}</h3>
+			</div>
+			<div class="panel-body">
 
-<h1> {{ title }} </h1>
+				<dl class="dl-horizontal">
+					<dt>ID</dt>
+					<dd>{{ instance.id }}</dd>
+					<dt>Nombre</dt>
+					<dd>{{ instance.nombre }}</dd>
+					<dt>Apellido</dt>
+					<dd>{{ instance.apellido }}</dd>
+					<dt>Matricula</dt>
+					<dd>{{ instance.matricula }}</dd>
+					<dt>DNI</dt>
+					<dd>{{ instance.dni }}</dd>
+					<dt>Domicilio Particular</dt>
+					<dd>{{ instance.domicilio_particular }}</dd>
+					<dt>CP (Dom. Part.)</dt>
+					<dd>{{ instance.cp_domicilio_particular }}</dd>
+					<dt>Domicilio Fiscal</dt>
+					<dd>{{ instance.domicilio_fiscal }}</dd>
+					<dt>CP (Dom. Fiscal)</dt>
+					<dd>{{ instance.cp_domicilio_fiscal }}</dd>
+					<dt>E-mail</dt>
+					<dd>{{ instance.email }}</dd>
+					<dt>CUIT</dt>
+					<dd>{{ instance.cuit }}</dd>
+					<dt>Codigo de Area</dt>
+					<dd>{{ instance.codigo_area }}</dd>
+					<dt>Telefono 1</dt>
+					<dd>{{ instance.telefono1 }}</dd>
+					<dt>Telefono 2</dt>
+					<dd>{{ instance.telefono2 }}</dd>
+					<dt>Fecha de Alta</dt>
+					<dd>{{ instance.fecha_ingreso }}</dd>
+					<dt>Fecha de Baja</dt>
+					<dd>{{ instance.fecha_baja }}</dd>
+					<dt>Acred. Brucelosis</dt>
+					<dd>{{ instance.acreditacion_brucelosis }}</dd>
+					<dt>Acred. AIE</dt>
+					<dd>{{ instance.acreditacion_aie }}</dd>
+					<dt>Especializacion/es</dt>
+					{% for x in instance.especializaciones.all %} <!-- nombre dentro del model m2m -->
+						<dd>{{ x.descripcion }} </dd><!-- nombre dentro del model base -->
+					{% endfor %}
+					<dt>Estado</dt>
+					<dd>{{ instance.activo }}</dd>
+				</dl>
 
-{{ instance.id }} <br>
-{{ instance.nombre }}<br>
-{{ instance.apellido }}<br>
-{{ instance.matricula }}<br>
-{{ instance.dni }}<br>
-{{ instance.domicilio_particular }}<br>
-{{ instance.cp_domicilio_particular }}<br>
-{{ instance.domicilio_fiscal }}<br>
-{{ instance.cp_domicilio_fiscal }}<br>
-{{ instance.email }}<br>
-{{ instance.cuit }}<br>
-{{ instance.codigo_area }}<br>
-{{ instance.telefono1 }}<br>
-{{ instance.telefono2 }}<br>
-{{ instance.fecha_ingreso }}<br>
-{{ instance.fecha_baja }}<br>
-{{ instance.acreditacion_brucelosis }}<br>
-{{ instance.acreditacion_aie }}<br>
-
-{% for x in instance.especializaciones.all %} <!-- nombre dentro del model m2m -->
-    {{ x.descripcion }} <br>  <!-- nombre dentro del model base -->
-{% endfor %}
-{{ instance.activo }}
+			</div>
+			<div class="panel-footer">
+				<ul class="list-inline">
+					<li>
+						<a href="../update/{{ instance.id }}">
+					Modificar<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+					</li>
+					<li>
+						<a href="../delete/{{ instance.id }}">
+					Eliminar<span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</li>
+				</ul>
+			
+			</div>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

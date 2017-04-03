@@ -2,29 +2,46 @@
 {% block content %}
 
 
-<h1> {{title}} </h1>
-<table class="table table-striped" align="center">
-	<tr>
-		<td>ID</td>
-		<td>Descripcion</td>
-		<td>Tecnica </td>
-		<td>Muestra</td>
-		<td>Tercerizacion </td>
-		<td>Activo </td>
-		<td>Pie de pagina </td>
-	</tr>
-	{% for obj in object_list %}
-	<tr>
-		<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
-		<td>{{ obj.descripcion }}</td>
-		<td>{{ obj.tecnica }}</td>
-		<td>{{ obj.muestra }}</td>
-		<td>{{ obj.tercerizacion }}</td>
-		<td>{{ obj.activo }}</td>
-		<td>{{ obj.piepagina }}</td>
-	
-	</tr>
-	{% endfor %}
-</table>
-
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{title}} </h3>
+			</div>
+			<div class="panel-body">
+				<table class="table table-striped table-hover table-condensed" align="center">
+					<thead class="thead-default">
+						<tr>
+							<th>ID</th>
+							<th>Descripcion</th>
+							<th>Tecnica</th>
+							<th>Muestra</th>
+							<th>Tercerizacion</th>
+							<th>Activo</th>
+							<th>Pie de pagina</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for obj in object_list %}
+							<tr>
+								<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
+								<td>{{ obj.descripcion }}</td>
+								<td>{{ obj.tecnica }}</td>
+								<td>{{ obj.muestra }}</td>
+								<td>{{ obj.tercerizacion }}</td>
+								<td>{{ obj.activo }}</td>
+								<td>{{ obj.piepagina }}</td>				
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+		  	</div>
+			<div class="panel-footer">
+				<a href="alta">
+					Crear <span class="glyphicon glyphicon-plus"></span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}

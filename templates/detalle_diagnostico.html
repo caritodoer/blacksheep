@@ -1,16 +1,50 @@
-			
 {% extends 'base.html' %}
 {% block content %}
 
 
-<h1> {{ title }} </h1>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ title }}</h3>
+			</div>
+			<div class="panel-body">
 
-{{ instance.id }} <br>
-{{ instance.descripcion }}<br>
-{{ instance.tecnica }}<br>
-{{ instance.muestra }}<br>
-{{ instance.tercerizacion }}<br>
-{{ instance.activo }}<br>
-{{ instance.piepagina }}
+				<dl class="dl-horizontal">
+					<dt>ID</dt>
+					<dd>{{ instance.id }}</dd>
+					<dt>Descripción</dt>
+					<dd>{{ instance.descripcion }}</dd>
+					<dt>Técnica</dt>
+					<dd>{{ instance.tecnica }}</dd>
+					<dt>Muestra</dt>
+					<dd>{{ instance.muestra }}</dd>
+					<dt>Tercerización</dt>
+					<dd>{{ instance.tercerizacion }}</dd>
+					<dt>Estado</dt>
+					<dd>{{ instance.activo }}<br></dd>
+					<dt>Pie de Pagina</dt>
+					<dd>{{ instance.piepagina }}</dd>
+				</dl>
+
+			</div>
+			<div class="panel-footer">
+				<ul class="list-inline">
+					<li>
+						<a href="../update/{{ instance.id }}">
+					Modificar<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+					</li>
+					<li>
+						<a href="../delete/{{ instance.id }}">
+					Eliminar<span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</li>
+				</ul>
+			
+			</div>
+		</div>
+	</div>
+</div>
 
 {% endblock %}
