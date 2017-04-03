@@ -1,25 +1,57 @@
-			
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ title }}</h3>
+			</div>
+			<div class="panel-body">
 
-<h1> {{ title }} </h1>
+				<dl class="dl-horizontal">
+					<dt>ID</dt>
+					<dd>{{ instance.id }}</dd>
+					<dt>Partido</dt>
+					<dd>{{ instance.partido }}</dd>
+					<dt>Propietario</dt>
+					<dd>{{ instance.propietario }}</dd>
+					<dt>RENSPA</dt>
+					<dd>{{ instance.RENSPA }}</dd>
+					<dt>CUIT</dt>
+					<dd>{{ instance.CUIT }}</dd>
+					<dt>Veterianrio</dt>
+					<dd>{{ instance.veterinario }} </dd>
+					<dt>Categoria/s</dt>
+					{% for x in instance.categorias.all %} 
+						<dd>{{ x.descripcion }}</dd>
+					{% endfor %}
+					<dt>Explotacion/es</dt>
+					{% for x in instance.explotacion.all %} 
+						<dd>{{ x.descripcion }}</dd>
+					{% endfor %}
+					<dt>Estado</dt>
+					<dd>{{ instance.activo }}</dd>
+				</dl>
 
-{{ instance.id }} <br>
-{{ instance.partido }}<br>
-{{ instance.propietario }}<br>
-{{ instance.RENSPA }}<br>
-{{ instance.CUIT }} <br>
-{{ instance.veterinario }} <br>
-
-{% for x in instance.categorias.all %} 
-    {{ x.descripcion }} <br>  
-{% endfor %}
-
-{% for x in instance.explotacion.all %} 
-    {{ x.descripcion }} <br>  
-{% endfor %}
-
-{{ instance.activo }}
+			</div>
+			<div class="panel-footer">
+				<ul class="list-inline">
+					<li>
+						<a href="../update/{{ instance.id }}">
+					Modificar<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+					</li>
+					<li>
+						<a href="../delete/{{ instance.id }}">
+					Eliminar<span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</li>
+				</ul>
+			
+			</div>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

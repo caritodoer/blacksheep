@@ -1,11 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ title }}</h3>
+			</div>
+			<div class="panel-body">
 
-<h1> {{ title }} </h1>
+				<dl class="dl-horizontal">
+					<dt>ID</dt>
+					<dd>{{ instance.id }}</dd>
+					<dt>Descripción</dt>
+					<dd>{{ instance.descripcion }}</dd>
+					<dt>Especie</dt>
+					<dd>{{ instance.especie }}</dd>
+				</dl>
 
-{{ instance.id }}
-{{ instance.descripcion }}
-{{ instance.especie }}
+			</div>
+			<div class="panel-footer">
+				<ul class="list-inline">
+					<li>
+						<a href="../update/{{ instance.id }}">
+					Modificar<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+					</li>
+					<li>
+						<a href="../delete/{{ instance.id }}">
+					Eliminar<span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</li>
+				</ul>
+			
+			</div>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

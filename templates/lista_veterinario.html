@@ -1,61 +1,76 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1> {{title}} </h1>
-<div class="table-responsive">
-<table class="table table-striped" align="center">
-	<tr>
-		<td>ID</td>
-		<td>nombre</td>
-		<td>apellido </td>
-		<td>matricula </td>
-		<td>dni</td>
-		<td>domicilio particular</td>
-		<td>cp domicilio particular </td>
-		<td>domicilio fiscal </td>
-		<td>cp domicilio fiscal</td>
-		<td>email</td>
-		<td>cuit </td>
-		<td>codigo area </td>
-		<td>telefono1</td>
-		<td>telefono2</td>
-		<td>fecha ingreso </td>
-		<td>fecha baja </td>
-		<td>acreditacion brucelosis</td>
-		<td>acreditacion aie </td>
-		<td>especializaciones </td>
-		<td>activo </td>
-
-	</tr>
-	{% for obj in object_list %}
-	<tr>
-		<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
-		<td>{{ obj.nombre }}</td>
-		<td>{{ obj.apellido }}</td>
-		<td>{{ obj.matricula }}</td>
-		<td>{{ obj.dni }}</td>
-		<td>{{ obj.domicilio_particular }}</td>
-		<td>{{ obj.cp_domicilio_particular }}</td>
-		<td>{{ obj.domicilio_fiscal }}</td>
-		<td>{{ obj.cp_domicilio_fiscal }}</td>
-		<td>{{ obj.email }}</td>
-		<td>{{ obj.cuit }} </td>
-		<td>{{ obj.codigo_area }} </td>
-		<td>{{ obj.telefono1 }}</td>
-		<td>{{ obj.telefono2 }}</td>
-		<td>{{ obj.fecha_ingreso }} </td>
-		<td>{{ obj.fecha_baja }} </td>
-		<td>{{ obj.acreditacion_brucelosis }}</td>
-		<td>{{ obj.acreditacion_aie }} </td>
-		<td>
-			{% for x in obj.especializaciones.all %} <!-- nombre dentro del model m2m -->
-			    {{ x.descripcion }} <br>  <!-- nombre dentro del model base -->
-			{% endfor %}
-		</td>
-		<td>{{ obj.activo }} </td>
-		
-	</tr>
-	{% endfor %}
-</table>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{title}} </h3>
+			</div>
+			<div class="panel-body" style="overflow-x:scroll">
+				<table class="table table-striped table-hover table-condensed table-responsive" align="center">
+					<thead class="thead-default">
+						<tr>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Apellido </th>
+							<!--<th>Matricula </th>
+							<th>DNI</th>
+							<th>Domicilio Particular</th>
+							<th>CP (Dom. Part.)</th>
+							<th>Domicilio Fiscal </th>
+							<th>CP (Dom. Fiscal)</th> -->
+							<th>E-mail</th>
+							<th>CUIT</th>
+							<th>Cód. Área </th>
+							<th>Tel. 1</th>
+							<!-- <th>Teléfono 2</th>
+							<th>Fecha de Alta </th>
+							<th>Fecha de Baja</th>
+							<th>Acreditación Brucelosis</th>
+							<th>Acreditacion AIE</th> -->
+							<th>Especializaciones </th>
+							<th>Estado</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for obj in object_list %}
+						<tr>
+							<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
+							<td>{{ obj.nombre }}</td>
+							<td>{{ obj.apellido }}</td>
+							<!-- <td>{{ obj.matricula }}</td>
+							<td>{{ obj.dni }}</td>
+							<td>{{ obj.domicilio_particular }}</td>
+							<td>{{ obj.cp_domicilio_particular }}</td>
+							<td>{{ obj.domicilio_fiscal }}</td>
+							<td>{{ obj.cp_domicilio_fiscal }}</td> -->
+							<td>{{ obj.email }}</td>
+							<td>{{ obj.cuit }} </td>
+							<td>{{ obj.codigo_area }} </td>
+							<td>{{ obj.telefono1 }}</td>
+							<!-- <td>{{ obj.telefono2 }}</td>
+							<td>{{ obj.fecha_ingreso }} </td>
+							<td>{{ obj.fecha_baja }} </td>
+							<td>{{ obj.acreditacion_brucelosis }}</td>
+							<td>{{ obj.acreditacion_aie }} </td> -->
+							<td>
+								{% for x in obj.especializaciones.all %} <!-- nombre dentro del model m2m -->
+								    {{ x.descripcion }} <br>  <!-- nombre dentro del model base -->
+								{% endfor %}
+							</td>
+							<td>{{ obj.activo }} </td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+		  	</div>
+			<div class="panel-footer">
+				<a href="alta">
+					Crear <span class="glyphicon glyphicon-plus"></span>
+				</a>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}
