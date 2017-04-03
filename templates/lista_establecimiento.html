@@ -13,6 +13,7 @@
 					<thead class="thead-default">
 						<tr>
 							<th>ID</th>
+							<th>Nombre</th>
 							<th>Partido</th>
 							<th>Propietario</th>
 							<th>RENSPA</th>
@@ -27,6 +28,7 @@
 						{% for obj in object_list %}
 						<tr>
 							<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
+							<td>{{ obj.nombre }}</td>
 							<td>{{ obj.partido }}</td>
 							<td>{{ obj.propietario }}</td>
 							<td>{{ obj.RENSPA }}</td>
