@@ -9,17 +9,18 @@
 			</div>
 			<div class="panel-body">
 
-				<form class="form-horizontal" method="POST" action="">{% csrf_token %}
+				<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="descripcion">Descripcion:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}">
+							<input type="text" class="form-control" id="descripcion" onkeyup="validacion('descripcion');" name="descripcion" value="{{ instance.descripcion }}">
+    						<span class="help-block"></span>
 						</div>
 					</div>
 
 					<div class="form-group">
 			    		<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-default">Enviar</button>
+							<button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
 						</div>
 					</div>
 				</form>
@@ -28,4 +29,86 @@
 	</div>
 </div>
 
+{% endblock %}
+
+{% block javascript %} 
+<script type="text/javascript">
+$(document).ready(function() {
+	$("span.help-block").hide();
+	String.prototype.trim = function() {// funcion para eliminar espacios anterior y posterior
+		return this.replace(/^\s+|\s+$/g,""); 
+	};
+});//ready
+
+$('#formvalidar').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
+});///descativa la tecla ENTER para que no confirme y saltee la verificacion en base de datos
+
+
+/*validacion*/
+function verificar(){
+	var v1=0;
+	v1 = validacion('descripcion');
+	if(v1 == true){
+		return true;
+	}
+	else{
+		return false;
+	}
+}//verificar
+
+$("#btnvalidar").click(function(){
+	if(verificar() == true){	
+	$("#formvalidar").submit();
+	}
+});// boton validar
+
+
+function validacion(campo){
+	if(campo==='descripcion'){
+		var descri = $('#descripcion').val();
+		$.ajax({
+	        url:"/j_categoria/",
+	        type:"GET",
+	        dataType: "json",
+	        success: function(categoria){
+	        	console.log(descri);
+	        	$.each(categoria,function(index, obj) 
+				{	
+					if(obj.descripcion == descri.toUpperCase().trim()){//
+						//alert(obj.descripcion+"  es igual  "+descri);
+						$("#icon"+campo).remove();
+						$('#'+campo).parent().parent().attr("class","form-group has-error has-feedback");
+						$('#'+campo).parent().children("span").text("Existe descripcion en base de datos").show();
+						$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+					}
+				});//each
+	        }//success
+	    });//ajax
+
+		descripcion = document.getElementById(campo).value;
+		if(descripcion == null || descripcion.length == 0 || /^\s+$/.test(descripcion)){
+			$("#icon"+campo).remove();
+			$('#'+campo).parent().parent().attr("class","form-group has-error has-feedback");
+			$('#'+campo).parent().children("span").text("Debe ingresar una descripcion").show();
+			$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+			return false;
+		}
+		else
+		{
+			$("#icon"+campo).remove();
+			$('#'+campo).parent().parent().attr("class","form-group has-success has-feedback");
+			$('#'+campo).parent().children("span").hide();
+			$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+			return true;				
+		}
+	}//descripcion
+}//validacion
+
+
+</script> 
 {% endblock %}

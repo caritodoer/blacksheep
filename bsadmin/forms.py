@@ -127,6 +127,7 @@ class EstablecimientoForm(forms.ModelForm):
 	class Meta:
 		model = Establecimiento
 		fields = [
+			"nombre",
 			"partido",
 			"propietario",
 			"RENSPA",

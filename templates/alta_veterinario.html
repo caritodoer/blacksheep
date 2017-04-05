@@ -9,35 +9,51 @@
             </div>
             <div class="panel-body">
 
-                <form class="form-horizontal" method="POST" action="">{% csrf_token %}
+                <form id="formvalidar" class="form-horizontal" method="POST" action="">{% csrf_token %}
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="nombre">Nombre:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ instance.nombre }}">
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="nombre" name="nombre" onkeyup="validacion('nombre');" value="{{ instance.nombre }}">
+                                    <span class="help-block"></span>
+                            </div>
                         </div>
-                        <label class="control-label col-sm-2" for="apellido">Apellido:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="apellido" name="apellido" value="{{ instance.apellido }}">
-                        </div>    
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="apellido">Apellido:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="apellido" name="apellido" onkeyup="validacion('apellido');" value="{{ instance.apellido }}">
+                                    <span class="help-block"></span>
+                            </div>
+                        </div>        
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="matricula">Matricula:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="matricula" name="matricula" value="{{ instance.matricula }}">
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="matricula">Matricula:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="matricula" name="matricula" onkeyup="validacion('matricula');" value="{{ instance.matricula }}">
+                                    <span class="help-block"></span>
+                            </div>
                         </div>
-                        <label class="control-label col-sm-2" for="dni">DNI:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="dni" name="dni" value="{{ instance.dni }}">
-                        </div>    
+                        <div class="divalidacion">    
+                            <label class="control-label col-sm-2" for="dni">DNI:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="dni" name="dni" onkeyup="validacion('dni');" value="{{ instance.dni }}">
+                                    <span class="help-block"></span>
+                            </div> 
+                        </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="especializacion">Especializacion:</label>
-                        <div class="col-sm-4">
-                            <label class="checkbox-inline  form-check-label" for="especializacion">
-                                <div form-check id="especializacion"></div>
-                            </label>
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="especializaciones">Especializacion:</label>
+                            <div class="col-sm-4">
+                                <label class="checkbox-inline  form-check-label" for="especializaciones">
+                                    <div form-check id="especializaciones" onchange="validacion('especializacionesin');">
+                                        <span class="help-block"></span>
+                                    </div>
+                                </label>
+                            </div>
                         </div>
                     </div>
                
@@ -48,38 +64,56 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="dom_part">Domicilio Particular:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="dom_part" name="dom_part" value="{{ instance.domicilio_particular }}">
-                        </div>
-                        <label class="control-label col-sm-2" for="cp_part">Codigo Postal:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="cp_part" name="cp_part" value="{{ instance.cp_domicilio_particular }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="email">Email:</label>
-                        <div class="col-sm-4">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="basic-addon1">@</span>
-                                <input type="text" id="email" name="email" class="form-control" value="{{ instance.email }}" aria-describedby="basic-addon1">
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="domicilio_particular">Domicilio Particular:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="domicilio_particular" name="domicilio_particular" onkeyup="validacion('domicilio_particular');" value="{{ instance.domicilio_particular }}">
+                                    <span class="help-block"></span>
                             </div>
                         </div>
-                        <label class="control-label col-sm-2" for="cod_ar">Codigo de Area:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="cod_ar" name="cod_ar" value="{{ instance.codigo_area }}">
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="cp_domicilio_particular">Codigo Postal:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="cp_domicilio_particular" name="cp_domicilio_particular" onkeyup="validacion('cp_domicilio_particular');" value="{{ instance.cp_domicilio_particular }}">
+                                    <span class="help-block"></span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="tel1">Telefono 1:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="tel1" name="tel1" value="{{ instance.telefono1 }}">
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="email">Email:</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">@</span>
+                                    <input type="text" id="email" name="email" class="form-control" onkeyup="validacion('email');" value="{{ instance.email }}" aria-describedby="basic-addon1">
+                                        <span class="help-block"></span>
+                                </div>
+                            </div>
                         </div>
-                        <label class="control-label col-sm-2" for="tel2">Telefono 2:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="tel2" name="tel2" value="{{ instance.telefono2 }}">
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="codigo_area">Codigo de Area:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="codigo_area" name="codigo_area" onkeyup="validacion('codigo_area');" value="{{ instance.codigo_area }}">
+                                    <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="telefono1">Telefono 1:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="telefono1" name="telefono1" onkeyup="validacion('telefono1');" value="{{ instance.telefono1 }}">
+                                    <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="divalidacion">    
+                            <label class="control-label col-sm-2" for="telefono2">Telefono 2:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="telefono2" name="telefono2" onkeyup="validacion('telefono2');" value="{{ instance.telefono2 }}">
+                                    <span class="help-block"></span>
+                            </div>
                         </div>
                     </div>
 
@@ -90,65 +124,71 @@
                     </div>
            
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="dom_fiscal">Domicilio Fiscal:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="dom_fiscal" name="dom_fiscal" value="{{ instance.domicilio_fiscal }}">
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="domicilio_fiscal">Domicilio Fiscal:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="domicilio_fiscal" name="domicilio_fiscal" onkeyup="validacion('domicilio_fiscal');" value="{{ instance.domicilio_fiscal }}">
+                                    <span class="help-block"></span>
+                            </div>
                         </div>
-                        <label class="control-label col-sm-2" for="cp_fiscal">Codigo Postal:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="cp_fiscal" name="cp_fiscal" value="{{ instance.cp_domicilio_fiscal }}">
+                        <div class="divalidacion">    
+                            <label class="control-label col-sm-2" for="cp_domicilio_fiscal">Codigo Postal:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="cp_domicilio_fiscal" name="cp_domicilio_fiscal" onkeyup="validacion('cp_domicilio_fiscal');" value="{{ instance.cp_domicilio_fiscal }}">
+                                    <span class="help-block"></span>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="cuit">CUIT:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="cuit" name="cuit" value="{{ instance.cuit }}">
+                        <div class="divalidacion">    
+                            <label class="control-label col-sm-2" for="cuit">CUIT:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="cuit" name="cuit" onkeyup="validacion('cuit');" value="{{ instance.cuit }}">
+                                    <span class="help-block"></span>
+                            </div>
                         </div>
                     </div>
             
-                         <!-- INICIO PANEL ACORDEON -->
-
-                    <div class="panel-group">
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#collapse1">Otros Datos Complementarios</a>
-                          </h4>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4>Otros datos complementarios</h4>
                         </div>
-                        <div id="collapse1" class="panel-collapse collapse">
-                          <div class="panel-body">
-
-                           <!-- INICIO PANEL BODY -->
+                    </div>                         
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="f_alta">Fecha de Alta:</label>
-                                <div class="col-sm-4">
-                                    <input type="date" class="form-control" id="f_alta" name="f_alta" value="{{ instance.fecha_ingreso }}" placeholder="AAAA-MM-DD">
+                                <div class="divalidacion">    
+                                    <label class="control-label col-sm-2" for="fecha_ingreso">Fecha de Alta:</label>
+                                    <div class="col-sm-4">
+                                        <input type="date" class="form-control" id="fecha_ingreso" name="fecha_ingreso" onkeyup="validacion('fecha_ingreso');" value="{{ instance.fecha_ingreso }}" placeholder="AAAA-MM-DD">
+                                            <span class="help-block"></span>
+                                    </div>
                                 </div>
-                                <label class="control-label col-sm-2"for="f_baja">Fecha de Baja:</label>
-                                <div class="col-sm-4">
-                                    <input type="date" class="form-control" id="f_baja" name="f_baja" value="{{ instance.fecha_baja }}">
+                                <div class="divalidacion">    
+                                    <label class="control-label col-sm-2" for="fecha_baja">Fecha de Baja:</label>
+                                    <div class="col-sm-4">
+                                        <input type="date" class="form-control" id="fecha_baja" name="fecha_baja" onkeyup="validacion('fecha_baja');" value="{{ instance.fecha_baja }}">
+                                            <span class="help-block"></span>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="ac_br">Acreditacion Brucelosis:</label>
-                                <div class="col-sm-4">
-                                    <input type="date" class="form-control" id="ac_br" name="ac_br" value="{{ instance.acreditacion_brucelosis }}" placeholder="MONMJHB0303456">
+                                <div class="divalidacion">    
+                                    <label class="control-label col-sm-2" for="acreditacion_brucelosis">Acreditacion Brucelosis:</label>
+                                    <div class="col-sm-4">
+                                        <input type="date" class="form-control" id="acreditacion_brucelosis" name="acreditacion_brucelosis" onkeyup="validacion('acreditacion_brucelosis');" value="{{ instance.acreditacion_brucelosis }}" placeholder="">
+                                            <span class="help-block"></span>
+                                    </div>
                                 </div>
-                                <label class="control-label col-sm-2" for="ac_aie">Acreditacion AIE:</label>
-                                <div class="col-sm-4">
-                                    <input type="date" class="form-control" id="ac_aie" name="ac_aie" value="{{ instance.acreditacion_aie }}" placeholder="0303456">
+                                <div class="divalidacion">    
+                                    <label class="control-label col-sm-2" for="acreditacion_aie">Acreditacion AIE:</label>
+                                    <div class="col-sm-4">
+                                        <input type="date" class="form-control" id="acreditacion_aie" name="acreditacion_aie" onkeyup="validacion('acreditacion_aie');" value="{{ instance.acreditacion_aie }}" placeholder="">
+                                            <span class="help-block"></span>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- FIN PANEL BODY -->
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-      
-                    <!-- FIN PANEL ACORDEON -->       
+                            
 
                      <div class="form-group">
                         <label class="control-label col-sm-2" for="activo">Estado:</label>
@@ -164,7 +204,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Enviar</button>
+                            <button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
                         </div>
                     </div>
                 </form>
@@ -178,36 +218,227 @@
 {% block javascript %} 
 <script type="text/javascript">
 $(document).ready(function() {
-        var espelist = []
-            "{% for x in instance.especializacion.all %}"
-        espelist.push("{{x.id}}")
-            "{% endfor %}"
-            
-        $.ajax({
-            url:"/j_especializacion/",
-            type:"GET",
-            dataType: "json",
-            success: function(especializacion){
-                $.each(especializacion,function(index, obj) 
-                {  
+    var espelist = []
+        "{% for x in instance.especializaciones.all %}"
+    espelist.push("{{x.id}}")
+        "{% endfor %}"
+        
+    $.ajax({
+        url:"/j_especializacion/",
+        type:"GET",
+        dataType: "json",
+        success: function(especializacion){
+            $.each(especializacion,function(index, obj) 
+            {  
 
-                    $('#especializacion').append('<input type="checkbox" name="especializacion" value="'+ obj.id+'"> '+obj.descripcion+'<br>');
-                });
+                $('#especializaciones').append('<br><input type="checkbox" name="especializaciones" id="especializacionesin" value="'+ obj.id+'"> '+obj.descripcion);
+            });//each
 
-                $("#especializacion > input").each(function(){
-                    for (var i = espelist.length - 1; i >= 0; i--) {
-                    
+            $("#especializaciones > input").each(function(){
+                for (var i = espelist.length - 1; i >= 0; i--) {
                     console.log($(this).attr("value"))
                     if($(this).attr("value") == espelist[i])
                     {
                          this.setAttribute("checked", "checked")
                     } //if
-                    } //for
+                } //for
+            }); // Explotacion Checked
+        }//success
+    });//ajax 
 
-                }); // Explotacion Checked
+/*validacion*/
+$("span.help-block").hide();
+});//ready  
+
+/*validacion*/
+function verificar(){
+    var v1=0,v2=0,v3=0,v4=0,v5=0,v6=0,v7=0,v8=0,v9=0,v10=0,v11=0,v12=0,v13=0,v14=0,v15=0,v16=0,v17=0,v18=0;
+
+    v1=validacion('nombre');
+    v2=validacion('apellido');
+    v3=validacion('matricula');
+    v4=validacion('dni');
+    v5=validacion('especializacionesin');
+    v6=validacion('domicilio_particular');
+    v7=validacion('cp_domicilio_particular');
+    v8=validacion('email');
+    v9=validacion('codigo_area');
+    v10=validacion('telefono1');
+    v11=validacion('telefono2');
+    v12=validacion('domicilio_fiscal');
+    v13=validacion('cp_domicilio_fiscal');
+    v14=validacion('cuit');
+    v15=validacion('fecha_ingreso');
+    v16=validacion('fecha_baja');
+    v17=validacion('acreditacion_brucelosis');
+    v18=validacion('acreditacion_aie');
+
+    console.log(v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11);
+    if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true && v7 == true && v8 == true && v9 == true && v10 == true && v11 == true && v12 == true && v13 == true && v14 == true && v15 == true && v16 == true && v17 == true && v18 == true){
+        return true;
+    }
+    else{
+        return false;
+    }
+}//verificar
+
+$("#btnvalidar").click(function(){
+    if(verificar() == true){
+        /*$("#formvalidar").submit();*/
+    }
+});// boton validar
+
+function validacion(campo){
+    if(campo==='nombre' || campo==='apellido' || campo==='matricula' || campo==='domicilio_particular' || campo==='domicilio_fiscal' || campo==='cp_domicilio_particular' || campo==='cp_domicilio_fiscal'  || campo==='acreditacion_brucelosis' || campo==='acreditacion_aie'){
+        inputtext = document.getElementById(campo).value;
+        console.log(inputtext);
+        if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
+            $('#icon'+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+            $('#'+campo).parent().children("span").text("Debe ingresar un "+campo+"").show();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+            return false;
+        }
+        else{
+            $("#icon"+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-success has-feedback");
+            $('#'+campo).parent().children("span").text("").hide();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+            return true;                
+        }
+    }//nombre,apellido,matricula
+
+    if(campo==='codigo_area' || campo==='telefono1' || campo==='telefono2'){
+        inputtext = document.getElementById(campo).value;
+        console.log(inputtext);
+        if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
+            $('#icon'+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+            $('#'+campo).parent().children("span").text("Debe ingresar un "+campo+"").show();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+            return false;
+        }
+        else
+        {
+            if(isNaN(inputtext)){
+                $('#icon'+campo).remove();
+                $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+                $('#'+campo).parent().children("span").text("No se acepta letras").show();
+                $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                return false;
             }
-        }); 
+            else{
+                $("#icon"+campo).remove();
+                $('#'+campo).parent().parent().attr("class","has-success has-feedback");
+                $('#'+campo).parent().children("span").text("").hide();
+                $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+                return true;
+            }
+                            
+        }
+    }//codigo area, telefono1,telefono2
 
-    });  
+
+    if(campo==='dni'){
+        dni = document.getElementById(campo).value;
+        console.log(dni);
+        if(dni == null || dni.length == 0 || /^\s+$/.test(dni)){
+            $('#icon'+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+            $('#'+campo).parent().children("span").text("Debe ingresar un "+campo+"").show();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+            return false;
+        }
+        else
+        {
+            if( isNaN(dni)){
+                $('#icon'+campo).remove();
+                $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+                $('#'+campo).parent().children("span").text("No se acepta letras").show();
+                $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                return false;
+            }
+            else
+            {
+                if (!(/^\d{8}$/.test(dni))){
+                    $('#icon'+campo).remove();
+                    $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+                    $('#'+campo).parent().children("span").text("Debe ingresar solo 8 digitos").show();
+                    $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                    return false;
+                }
+                else{
+                    $("#icon"+campo).remove();
+                    $('#'+campo).parent().parent().attr("class","has-success has-feedback");
+                    $('#'+campo).parent().children("span").text("").hide();
+                    $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+                    return true;
+                } 
+            }                
+        }
+    }//dni    
+
+    if(campo==='cuit'){
+        cuit = document.getElementById(campo).value;
+        console.log(cuit);
+        if(cuit == null || cuit.length == 0 || /^\s+$/.test(cuit)){
+            $('#icon'+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+            $('#'+campo).parent().children("span").text("Debe ingresar un "+campo+"").show();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+            return false;
+        }
+        else
+        {
+            if( isNaN(cuit)){
+                $('#icon'+campo).remove();
+                $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+                $('#'+campo).parent().children("span").text("No se acepta letras").show();
+                $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                return false;
+            }
+            else
+            {
+                if (!(/^\d{11}$/.test(cuit))){
+                    $('#icon'+campo).remove();
+                    $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+                    $('#'+campo).parent().children("span").text("Debe ingresar solo 11 digitos").show();
+                    $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                    return false;
+                }
+                else{
+                    $("#icon"+campo).remove();
+                    $('#'+campo).parent().parent().attr("class","has-success has-feedback");
+                    $('#'+campo).parent().children("span").text("").hide();
+                    $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+                    return true;
+                } 
+            }                
+        }
+    }//CUIT    
+
+    if(campo==='especializacionesin'){
+        especializacionesin = $("#especializaciones input:checked").length;
+        console.log(especializacionesin);
+        if(especializacionesin == 0 ){
+            $('#icon'+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+            $('#'+campo).parent().children("span").text("Debe seleccionar al menos una especializacion").show();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+            return false;
+        }
+        else{
+            $("#icon"+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-success has-feedback");
+            $('#'+campo).parent().children("span").text("").hide();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+            return true;                
+        }
+    }//categorias
+
+    
+
+}//validacion
+
 </script>
 {% endblock %}
