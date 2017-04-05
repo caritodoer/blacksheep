@@ -1,60 +1,75 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ title }}</h3>
+            </div>
+            <div class="panel-body">
 
-<h1> {{ title }} </h1>
+                <form class="form-horizontal" method="POST" action="">{% csrf_token %}
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ instance.nombre }}">
+                        </div>
+			    	    <label class="control-label col-sm-2" for="partido">Partido:</label>
+                        <div class="col-sm-4">
+			    	        <input type="text" class="form-control" id="partido" name="partido" value="{{ instance.partido }}">
+                        </div>
+                    </div>
 
-<form method="POST" action="">{% csrf_token %}
-	<div class="controls">
-		<div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ instance.nombre }}">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-			    	<label for="partido">Partido:</label>
-			    	<input type="text" class="form-control" id="partido" name="partido" value="{{ instance.partido }}">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-			    	<label for="propietario">Propietario:</label>
-			    	<input type="text" class="form-control" id="propietario" name="propietario" value="{{ instance.propietario }}">
-			    </div>
-            </div>
-            <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="propietario">Propietario:</label>
+                        <div class="col-sm-4">
+			    	        <input type="text" class="form-control" id="propietario" name="propietario" value="{{ instance.propietario }}">
+                        </div>
+                        <label class="control-label col-sm-2" for="veterinario">Veterinario:</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="veterinario" id="veterinario"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="RENSPA">RENSPA:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="RENSPA" name="RENSPA" value="{{ instance.RENSPA }}">
+                        </div>
+                        <label class="control-label col-sm-2" for="CUIT">CUIT:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="CUIT" name="CUIT" value="{{ instance.CUIT }}">
+                        </div>
+                    </div>    
 
-                <div class="form-group">
-			    	<label for="RENSPA">RENSPA:</label>
-			    	<input type="text" class="form-control" id="RENSPA" name="RENSPA" value="{{ instance.RENSPA }}">
-                </div>
-            </div>
-        </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="categorias">Categorias:</label>
+                        <div class="col-sm-4">
+                            <label class="checkbox-inline  form-check-label" for="categorias">
+                                <div form-check id="categorias"></div>
+                            </label>
+                        </div>
+                    
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-			    	<label for="CUIT">CUIT:</label>
-			    	<input type="text" class="form-control" id="CUIT" name="CUIT" value="{{ instance.CUIT }}">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="veterinario">Veterinario:</label>
-                    <select class="form-control" name="veterinario" id="veterinario"></select>
-			    </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-			    	<label class="form-check-label" for="categorias">Categorias:</label>
-			    	<div form-check id="categorias"></div>
-                </div>
-            </div>
-        </div>
-        
+<!--                <div class="form-group">
+                        <div class="col-sm-2">
+                            <div class="checkbox">
+                                <label class="checkbox-inline form-check-label" for="categorias">Categorias:</label>
+			    	            <div form-check id="categorias"></div>
+                            </div>
+                        </div>
+                    </div>
+ -->        
+                    
+                        <label class="control-label col-sm-2" for="explotacion">Explotación:</label>
+                        <div class="col-sm-4">
+                            <label class="checkbox-inline form-check-label" for="explotacion">
+                                <div form-check id="explotacion"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!--  
         <div class="row">
             <div class="col-md-4">
             	<div class="form-group">
@@ -62,24 +77,29 @@
 			    	<div  form-check id="explotacion"></div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="form-check disabled">
-			    	<label class="form-check-label" for="activo">
-    				<input type="checkbox" class="form-check-input" id="activo" name="activo" value="{{ instance.activo }}" checked disabled> Activo</label>
-                </div>
-            </div>
-        </div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="activo">Estado:</label>
+						<div class="col-sm-10">
+							<div class="checkbox form-check disabled">
+								<label class="form-check-label" for="activo">
+									<input type="checkbox" class="form-check-input" id="activo" name="activo" value="{{ instance.activo }}" checked disabled> Activo
+								</label>
+							</div>
+						</div>
+					</div>
 
-        <div class="row">
-			<div class="col-md-12">
-                <input type="submit" class="btn btn-success btn-send" value="Enviar">
-            </div>
+					<div class="form-group">
+			    		<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-default">Enviar</button>
+						</div>
+					</div>
+				</form>
+    		</div>
         </div>
     </div>
-</form>
+</div>
 
 {% endblock %}
 {% block javascript %} 
@@ -116,6 +136,7 @@ $(document).ready(function() {
                 });
             }
         }); // finaliza el primer select 
+
         $.ajax({
             url:"/j_categoria/",
             type:"GET",
@@ -124,7 +145,7 @@ $(document).ready(function() {
                 console.log("categoria: " + catelist)
                 $.each(categoria,function(index, obj) 
                 {   
-                    $('#categorias').append('<br><input type="checkbox" name="categorias" value="'+ obj.id+'"> '+obj.descripcion);
+                    $('#categorias').append('<input type="checkbox" name="categorias" value="'+ obj.id+'"> '+obj.descripcion+'<br>');
                 });
 
                 $("#categorias > input").each(function(){
@@ -140,6 +161,7 @@ $(document).ready(function() {
 
             }
         }); // primer checkbox
+
         $.ajax({
             url:"/j_explotacion/",
             type:"GET",
@@ -148,7 +170,7 @@ $(document).ready(function() {
                 console.log("explotacion:" + explolist)
                 $.each(explotacion,function(index, obj) 
                 {      
-                    $('#explotacion').append('<br><input type="checkbox" name="explotacion" value="'+ obj.id+'"> '+obj.descripcion);
+                    $('#explotacion').append('<input type="checkbox" name="explotacion" value="'+ obj.id+'"> '+obj.descripcion+'<br>');
                 });
 
                 $("#explotacion > input").each(function(){

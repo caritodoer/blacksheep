@@ -1,41 +1,58 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
-
-		<h1> {{ title }} </h1>
-
-<form class="form-horizontal" method="POST" action="">{% csrf_token %}
-	<div class="form-group">
-		<div class="row">
-			<!-- Descripcion -->
-			<label class="control-label col-sm-2" for="descripcion">Descripcion:</label>
-			<div class="col-sm-4">
-				<input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}">
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ title }}</h3>
 			</div>
-		</div>
+			<div class="panel-body">
 
-		<br>
-		<div class="row">
-			<!-- Especie -->
-			<label class="control-label col-sm-2" for="especie">especie:</label>
-			<select name="especie" class="col-sm-2" id="sel_especie"></select>
-			<!-- Esto deberia ser un <select> pero no funciona -->
-			<div class="col-sm-4">
-			</div>
-		</div>
-		<br>
-		<div class="row">
-			<div class="form-group">
-			    <div class="col-sm-12">
-					<button type="submit" class="btn btn-default">Enviar</button>
-				</div>
+				<form class="form-horizontal" method="POST" action="">{% csrf_token %}
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="descripcion">Descripcion:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}">
+						</div>
+					</div>
 
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="especie">Especie:</label>
+						<div class="col-sm-10">
+							<select name="especie" class="form-control" id="sel_especie"></select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+			    		<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-default">Enviar</button>
+						</div>
+					</div>
+				</form>
 			</div>
+			
+			<!-- <div class="panel-footer">
+				<ul class="list-inline">
+					<li>
+						<a href="#">
+					Modificar<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+					</li>
+					<li>
+						<a href="../delete/{{ instance.id }}">
+					Eliminar<span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</li>
+				</ul>
+			
+			</div> -->
 		</div>
 	</div>
-</form>
+</div>
+
 {% endblock %}
+
 
 {% block javascript %} 
 <script type="text/javascript">
