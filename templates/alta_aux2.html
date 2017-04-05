@@ -9,24 +9,25 @@
 			</div>
 			<div class="panel-body">
 
-				<form class="form-horizontal" method="POST" action="">{% csrf_token %}
+				<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="descripcion">Descripcion:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}">
+							<input type="text" class="form-control" id="descripcion" name="descripcion" onkeyup="validacion('descripcion');" value="{{ instance.descripcion }}">
+							<span class="help-block"></span>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="especie">Especie:</label>
+						<label class="control-label col-sm-2" for="sel_especie">Especie:</label>
 						<div class="col-sm-10">
-							<select name="especie" class="form-control" id="sel_especie"></select>
+							<select name="especie" class="form-control" id="sel_especie" onchange="validacion('sel_especie');"></select>
 						</div>
 					</div>
 					
 					<div class="form-group">
 			    		<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-default">Enviar</button>
+							<button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
 						</div>
 					</div>
 				</form>
@@ -57,25 +58,83 @@
 {% block javascript %} 
 <script type="text/javascript">
 $(document).ready(function() {
-		var select = "{{ instance.especie.id }}"
-		$.ajax({
-            url:"/j_especie/",
-            type:"GET",
-            dataType: "json",
-            success: function(especie){
-            	console.log(select)
-            	$.each(especie,function(index, obj) 
-				{	if(obj.id == select){
-					$('#sel_especie').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
-					}
-					else{
-					$('#sel_especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');	
-					}
-				});
-            }
-        });	
+	var select = "{{ instance.especie.id }}"
+	$.ajax({
+        url:"/j_especie/",
+        type:"GET",
+        dataType: "json",
+        success: function(especie){
+        	console.log(select)
+        	$('#sel_especie').append('<option selected value=""></option>');
+        	$.each(especie,function(index, obj) 
+			{	if(obj.id == select){
+				$('#sel_especie').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+				}
+				else{
+				$('#sel_especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');	
+				}
+			});
+        }
+    });	
 
+/*validacion*/
+$("span.help-block").hide();
+}); //ready 
 
-	});  
+/*validacion*/
+function verificar(){
+	var v1=0,v2=0;
+
+	v1=validacion('descripcion');
+	v2=validacion('sel_especie');
+	console.log(v1,v2);
+	if(v1 == true && v2 == true){
+		return true;
+	}
+	else{
+		return false;
+	}
+}//verificar
+
+$("#btnvalidar").click(function(){
+	if(verificar() == true){
+		$("#formvalidar").submit();
+	}
+});// boton validar
+
+function validacion(campo){
+	if(campo==='descripcion'){
+		descripcion = document.getElementById(campo).value;
+		console.log(descripcion);
+		if(descripcion == null || descripcion.length == 0 || /^\s+$/.test(descripcion)){
+			$('#icon'+campo).remove();
+			$('#'+campo).parent().parent().attr("class","form-group has-error has-feedback");
+			$('#'+campo).parent().children("span").text("Debe ingresar una descripcion").show();
+			$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+			return false;
+		}
+		else{
+			$("#icon"+campo).remove();
+			$('#'+campo).parent().parent().attr("class","form-group has-success has-feedback");
+			$('#'+campo).parent().children("span").text("").hide();
+			$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+			return true;				
+		}
+	}//descripcion
+	
+	if(campo==='sel_especie'){
+		indice = document.getElementById(campo).selectedIndex;
+		console.log(indice);
+		if(indice == null || indice == 0){
+			$('#sel_especie').parent().parent().attr("class","form-group has-error");
+			return false;
+		}
+		else{
+			$('#sel_especie').parent().parent().attr("class","form-group has-success");
+			return true;
+		}
+	}//especie			
+}//validacion
+
 </script>
 {% endblock %}
