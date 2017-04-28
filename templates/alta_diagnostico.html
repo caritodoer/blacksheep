@@ -3,8 +3,13 @@
 
 <!-- inicio modal -->
 {%  include 'includes/modalTipoDato.html' %}
-{%  include 'includes/modalValRef.html' %}
+{%  include 'includes/modalValRef.html' %} 
+{%  include 'includes/modalCopy.html' %} <!-- Copia del modal base de ValRef-->
+{%  include 'includes/grupoCopy.html' %} <!-- Copia del grupo de parametros completo -->
+
 <!-- FIN MODAL -->
+
+
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
         <div class="panel panel-default">
@@ -43,8 +48,7 @@
                 	</div>
             	
 <!-- DIV PARAMETROS -->
-		
-					<div class="parametros">
+					<div id="block-parametros">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<label class="control-label col-sm-3" for="grupo">Grupo de Parametros</label>
@@ -64,30 +68,44 @@
 										</tr>
 									</thead>
 									<tbody>		
-										<tr>
+										<tr id="hidden-row" style="display: none">
 											<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
 											<td>
-												<select class="selectpicker tipoDatoSelect">
+												<select id="select" class="selectpicker tipoDatoSelect">
 													<option value="I">Número Entero</option>
 													<option value="F">Número con decimales</option>
 													<option value="B">Positivo/Negativo</option>
 													<option value="S">Texto</option>
 												</select>
 											</td>
-											<td><a id="botonIngresarValorRef" data-toggle="modal" data-target="#ModalValorRef" class="btn btn-default">Ingresar</a><!-- <p style="display:none" id="pBtnIVR">Deshabilitado para ese tipo de dato</p> --></td>
-											<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
+											<td><a id="botonIngresarValorRef" class="btn btn-default ModalPara" data-toggle="modal" data-target="#ModalValorRef" class="btn btn-default">Ingresar</a></td>
+											<td><input type="text" class="form-control" id="unidadmedida0" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
+											<td><div class="btn btn-danger">Eliminar</div></td>
+										</tr>
+										<tr>
+											<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
+											<td>
+												<select id="select" class="selectpicker tipoDatoSelect">
+													<option value="I">Número Entero</option>
+													<option value="F">Número con decimales</option>
+													<option value="B">Positivo/Negativo</option>
+													<option value="S">Texto</option>
+												</select>
+											</td>
+											<td><a id="botonIngresarValorRef" class="btn btn-default ModalPara" data-toggle="modal" data-target="#ModalValorRef0" class="btn btn-default">Ingresar</a><!-- <p style="display:none" id="pBtnIVR">Deshabilitado para ese tipo de dato</p> --></td>
+											<td><input type="text" class="form-control" id="unidadmedida1" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
 											<td><div class="btn btn-danger">Eliminar</div></td>
 										</tr>
 									</tbody>
 								</table>
 							</div> <!-- fin div panel-body -->
 						</div> <!-- fin div panel -->
-					</div><!-- fin div class parametros -->
+					</div><!-- fin block-parametros -->
 					
 						
 					<div class="form-group">
 			    		<div class="col-sm-10">
-							<button id="agregar_block_parametros" class="btn btn-default btn-sm">Agregar Grupo de Parametros <span class="glyphicon glyphicon-plus"></button>
+							<button id="addBlockParametros" class="btn btn-default btn-sm">Agregar Grupo de Parametros <span class="glyphicon glyphicon-plus"></button>
 						</div>
 					</div>
 
@@ -126,18 +144,81 @@
 {% block javascript %}
 <script type="text/javascript">
 $(document).ready(function(){
-	$(".parametros").on('click', "#agregar_parametros", function(){
-		$(this).parent().parent().parent().parent().append("<tr><td><input type='text' class='form-control' id='descripcion' name='descripcion' value='{{ instance.descripcion }}'></td><td><select class='selectpicker  tipoDatoSelect'><option value='I'>Numero Entero</option><option value='F'>Numero con decimales</option><option value='B'>Positivo/Negativo</option><option value='S'>Texto</option></select></td><td><a href='#' data-toggle='modal' data-target='#ModalValorRef' class='btn btn-default'>Ingresar</a><p style='display:none' id='pBtnIVR'>Deshabilitado para ese tipo de dato</p></td></td><td><input type='text' class='form-control' id='unidadmedida' name='unidadmedida' value='{{ instance.unidadmedida }}'></td><td><div class='btn btn-danger'>Eliminar</div></td></tr>")
-		});
-	$(".parametros").on('click', ".btn-danger", function(){
-		$(this).parent().parent().remove();
-	});
-	$("#agregar_block_parametros").click(function(){
-		$(".parametros").append("<div class='panel panel-default'><div class='panel-heading'><label for='grupo'>Grupo de Parametros</label><input type='text' class='form-control' id='grupo' name='grupo' value='{{ instance.grupo }}'></div><div class='panel-body'><table class='table table-striped table-condensed' id='tabla'><thead><tr class='active'><td><label for='descripcion'>Descripcion</label></td><td><label for='tipo_de_dato'>Tipo de Dato <a href='#' data-toggle='modal' data-target='#myModal'><span class='glyphicon glyphicon-question-sign'></span></a></label></td><td><label>Valor Predeterminado / Referencia</label></td><td><label for='unidadmedida'>Unidad de Medida</label></td><td><button id='agregar_parametros'>Agregar parametro <span class='glyphicon glyphicon-plus'></button></td></tr></thead><tbody><tr><td><input type='text' class='form-control' id='descripcion' name='descripcion' value='{{ instance.descripcion }}'></td><td><!-- REVISAR --><select class='selectpicker tipoDatoSelect'><option value='I'>Numero Entero</option><option value='F'>Numero con decimales</option><option value='B'>Positivo/Negativo</option><option value='S'>Texto</option></select></td><td><a href='#' data-toggle='modal' data-target='#ModalValorRef' class='btn btn-default'>Ingresar</a><p style='display:none' id='pBtnIVR'>Deshabilitado para ese tipo de dato</p></td><td><input type='text' class='form-control' id='unidadmedida' name='unidadmedida' value='{{ instance.unidadmedida }}'></td><td><div class='btn btn-danger'>Eliminar</div></td></tr></tbody></table></div></div> ")
+	
+	var num = 0;
+
+	$("body").on('click', "#agregar_parametros", function(){
+		var newRow = $('#hidden-row').clone()
+						.removeAttr('id')
+						.removeAttr('style')
+						.show();
+		// Clona, remueve id (para evitar duplicados) y stylem y muestra.
+        
+        num = num+1; // incremento del numero final de los datos del id y data-target
+
+        var modId = "ModalValorRef" + num; // Nuevo Id del Modal
+        var modData = "#ModalValorRef" + num; // Nuevo Data-Target value del row recien creado
+
+		$('.modalBase').clone().attr('id', modId).removeClass('modalBase').appendTo( $('#block-parametros').parent()); 
+		// Crea el modal para el row recien creado.		
+        
+        newRow.find("#botonIngresarValorRef").attr('data-target', modData);
+    	// Reemplaza la el id que se usa para llamar al model 
+    	$(this).parent().parent().parent().parent().append(newRow);
+    	// posiciona el row en el grupo de parametros en el que fue pedido.
+
+   
+    return false;
 	});
 	
+	$("#block-parametros").on('click', ".ModalPara", function(){
+		var posRow = $(this).parent().parent(); // Posiciona la linea entera para usarla.
+		var modModel = posRow.find("#descripcion").val(); // busca el valor de descripcion-
+		var paraModel = posRow.find("#botonIngresarValorRef").attr('data-target'); // busca el id del modal
+		
+		$(paraModel).find('#parametro').attr('value', modModel); // remplaza parametros con el valor de descripcion-
+	});
+
+	$("#block-parametros").on('click', ".btn-danger", function(){
+		var delPos = $(this).parent().parent(); // La linea a eliminar
+		var delModel = delPos.find("#botonIngresarValorRef").attr('data-target'); // busca el id del modal
+		
+		$(delModel).remove(); // Delete Modal
+		delPos.remove();
+		//$(this).parent().parent().remove(); 
+		// Elimina el model y la linea.
+
+	});
+
+	$("body").on('click', ".btn-eliminar-vr", function(){
+		$(this).parent().parent().remove(); // Delete Row de valores referencia	
+	});
+
+
+    $("#addBlockParametros").click(function(){
+        
+        var newTable = $('#grupoParametros').clone()
+                        .removeAttr('id')
+                        .removeAttr('style')
+                        .show()
+                        .appendTo('#block-parametros')
+        // copia y pega el bloque.
+
+        return false;
+    });
 	
-    var selectmuestra = "{{instance.muestra.id }}"
+    $("body").on('click', "#addParametroVr", function(){
+		
+		var newRow = $('#hidden-row-vr').clone()
+						.removeAttr('id')
+						.removeAttr('style')
+						.show();
+
+		$(this).parent().parent().parent().parent().find('tbody').append(newRow);
+		//genera la nueva linea para los valores por referencia.
+	});
+	
+    var selectmuestra = "{{instance.muestra.id}}"
         $.ajax({
             url:"/j_muestra/",
             type:"GET",
@@ -177,11 +258,13 @@ $(document).ready(function(){
     	dataType: "json",
     	success: function(especie){
     		$.each(especie, function(index, obj){
-    			$('#especieSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+    			$('.especieSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
     		});
     	}
     }); // select de especie 
 });  
+
+
 </script> 
 
 {% endblock %}
