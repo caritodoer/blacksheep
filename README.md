@@ -16,7 +16,7 @@ HECHO -- agregar en models campo "activo" de tipo Boolean para intercambiar el v
 
 --> hacer tabla de registro de actividades que guarde: las acciones de los usuarios y admin. quien? que? cuando?
 
-
+--> controlar los delete si esta siendo utilizado o en que estado se encuentra(true-false)
 
 AGREGAR EN CARPETA:
 - cambios en models de "nombre" a "descripcion" (raza y categoriaE)
@@ -26,7 +26,8 @@ AGREGAR EN CARPETA:
 - Valores de referencia esta planteado en la carpeta como una pagina mas, pero nosotros lo estamos haciendo como pop-up(modal)
 
 
-
+// this es la posicion donde fue clickeado el boton, sin importar las veces que se repita
+	
 nueva palabra: OPTIMIZACION, codigo limpio
 
 youtube: django 1.9 tutorial how to turn data to json ot xml
