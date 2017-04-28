@@ -10,8 +10,9 @@ Se arreglan con jquery {
 
 }
 
--- en la carga de "chiquiteses", verificar que cada cosa se cargue una sola vez. Por ejemplo, en Muestra no puedo cargar "Sangre" dos veces. Setear el model para que sea "unique".
--- agregar en models campo "activo" de tipo Boolean para intercambiar el valor de activo a inactivo al eliminar
+HECHO -- en la carga de "chiquiteses", verificar que cada cosa se cargue una sola vez. Por ejemplo, en Muestra no puedo cargar "Sangre" dos veces. Setear el model para que sea "unique".
+
+HECHO -- agregar en models campo "activo" de tipo Boolean para intercambiar el valor de activo a inactivo al eliminar --> agregado a todos los models del BSAdmin
 
 --> hacer tabla de registro de actividades que guarde: las acciones de los usuarios y admin. quien? que? cuando?
 

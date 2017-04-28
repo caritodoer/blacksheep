@@ -3,7 +3,8 @@ from django.core.urlresolvers import reverse
 
 # Create your models here.
 class Especializacion(models.Model):
-	descripcion = models.CharField("Especializacion", max_length=30)
+	descripcion = models.CharField("Especializacion", max_length=30, unique=True)
+	activo = models.BooleanField(default=True)
 
 	def __str__(self):
 		return ('%s')%(self.descripcion)
@@ -16,7 +17,8 @@ class Especializacion(models.Model):
 		super(Especializacion, self).save(force_insert, force_update)
 
 class Categoria(models.Model):
-	descripcion = models.CharField("Categoria", max_length=30)
+	descripcion = models.CharField("Categoria", max_length=30, unique=True)
+	activo = models.BooleanField(default=True)
 
 	def __str__(self):
 		return ('%s')%(self.descripcion)
@@ -29,7 +31,8 @@ class Categoria(models.Model):
 		super(Categoria, self).save(force_insert, force_update)
 
 class Explotacion(models.Model):
-	descripcion = models.CharField("Explotacion", max_length=30)
+	descripcion = models.CharField("Explotacion", max_length=30, unique=True)
+	activo = models.BooleanField(default=True)
 
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_explotacion",kwargs={"id":self.id})
@@ -40,7 +43,8 @@ class Explotacion(models.Model):
 		super(Explotacion,self).save(force_insert,force_update)
 
 class Motivos(models.Model):
-	descripcion = models.CharField(max_length=30)
+	descripcion = models.CharField("Motivos", max_length=30, unique=True)
+	activo = models.BooleanField(default=True)
 
 	def __str__(self):
 		return ('%s')%(self.descripcion)
@@ -54,8 +58,9 @@ class Motivos(models.Model):
 
 
 class Especie(models.Model):
-	descripcion = models.CharField("Especie", max_length=30)
-	
+	descripcion = models.CharField("Especie", max_length=30, unique=True)
+	activo = models.BooleanField(default=True)
+
 	def __str__(self):
 		return ('%s')%(self.descripcion)
 
@@ -67,8 +72,10 @@ class Especie(models.Model):
 		super(Motivos, self).save(force_insert, force_update)
 
 class Raza(models.Model):
-	descripcion = models.CharField(max_length=30)
+	descripcion = models.CharField(max_length=30, unique=True)
 	especie = models.ForeignKey(Especie)
+	activo = models.BooleanField(default=True)
+
 	def __str__(self):
 		return('%s, %s')%(self.descripcion, self.especie)
 
@@ -80,8 +87,9 @@ class Raza(models.Model):
 		super(Raza, self).save(force_insert, force_update)
 
 class CategoriaE(models.Model):
-	descripcion = models.CharField(max_length=30)
+	descripcion = models.CharField(max_length=30, unique=True)
 	especie = models.ForeignKey(Especie)
+	activo = models.BooleanField(default=True)
 
 	def __str__(self):
 		return ('%s')%(self.descripcion)
@@ -95,7 +103,8 @@ class CategoriaE(models.Model):
 
 
 class Muestra(models.Model):
-	descripcion = models.CharField("Muestra", max_length=30)
+	descripcion = models.CharField("Muestra", max_length=30, unique=True)
+	activo = models.BooleanField(default=True)
 
 	def __str__(self):
 		return ('%s')%(self.descripcion)
@@ -118,9 +127,10 @@ class Parametros(models.Model):
 	tipo_de_dato = models.CharField("Tipo de Dato", max_length=1, choices=tipo_de_dato_choices)
 	unidadmedida = models.CharField("Unidad de Medida",max_length=10)
 	grupo = models.CharField(max_length=30, blank=True, null=True)
+	activo = models.BooleanField(default=True)
 
 	def __str__(self):
-		return ('%s')%(self.descripcion)
+		return ('%s, %s')%(self.descripcion, self.grupo)
 
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_parametros", kwargs={"id": self.id})
@@ -157,6 +167,7 @@ class ValoresReferencia(models.Model):
 	parametros = models.ForeignKey(Parametros)
 	valorRef = models.CharField(max_length=30, blank=True, null=True)
 	valorDef = models.CharField(max_length=30, blank=True, null=True)
+	activo = models.BooleanField(default=True)
 
 	class Meta:
 		unique_together = ('diagnostico', 'especie', 'parametros',)
