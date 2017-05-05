@@ -2,9 +2,9 @@
 
 Se arreglan con jquery {
 
-	Valores de referencia popup de diagnostico, para unificar parametros, diagnostico y especie
-	y que los datos queden guardados al cerrar el popup
-	especie en valores por referencia pueda ser 0 por defecto
+	HECHO -- Valores de referencia popup de diagnostico, para unificar parametros, diagnostico y especie y que los datos queden guardados al cerrar el popup
+	
+	-- especie en valores por referencia pueda ser 0 por defecto
 
 	** tabla parametros si se selecciona boolean se desactiva valores de referencia: REVISAR PORQUE FUNCIONA SOLO EN LA 1° LINEA, PERO EN LOS QUE SE AGREGAN YA NO FUNCIONA
 
@@ -31,3 +31,22 @@ AGREGAR EN CARPETA:
 nueva palabra: OPTIMIZACION, codigo limpio
 
 youtube: django 1.9 tutorial how to turn data to json ot xml
+
+
+
+
+
+
+-- views y urls de bsuser
+-- en diagnostico "VISTA PREVIA" en un modal que arregle los datos cargados para previsualizar Hoja de Trabajo
+
+
+a futuro:
+-- en detalle de diagnostico, que muestre:
+		GRUPO DE PARAMETRO 1
+			* PARAMETRO 1
+			* PARAMETRO 2
+		GRUPO DE PARAMETRO 2
+			* PARAMETRO 3
+			* PARAMETRO 4
+-- tipo de datos: arreglar visualmente

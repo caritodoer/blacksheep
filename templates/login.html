@@ -1,0 +1,51 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html >
+  <head>
+	 <meta charset="UTF-8">
+	 <title>BlackSheep</title>
+	 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"> <!-- meta viewport para maparatos mobiles -->
+
+	 <link rel="stylesheet" href="/static/css/bootstrap.css">
+	 <link rel="stylesheet" href="/static/css/blacksheep.css">
+	
+  </head>
+	<body>
+		<!-- CABECERA -->
+		<header>
+			<div class="container">
+				<ul class="list-inline">
+				  <li>
+				  		<h1>Laboratorio de Diagnóstico <small>Dr. Raul Chifflet</small></h1>
+				  </li>
+				</ul>
+			</div>
+		</header>
+		<!-- CONTENIDO -->
+		<div class="container">
+			<h1 align="center">Bienvenidos</h1>
+			<p align="center">Seleccione forma de ingreso al sistema</p>
+			<div class="row">
+				<div align="center" class="col-md-6">
+					<a class="btn btn-lg btn-primary" href="home_admin">Admin</a>
+				</div>
+				<div align="center" class="col-md-6">
+					<a class="btn btn-lg btn-primary" href="home_user">User</a>
+				</div>
+			</div>
+		</div>
+		<!-- PIE -->
+		<footer>
+			<div class="container">
+				<p align="center">Copyright (c) 2017</p>
+			</div>
+		</footer>
+		<!-- JAVASCRIPT -->
+		<script src="/static/js/jquery.js"></script>
+		<script src="/static/js/bootstrap.js"></script>
+		{% block javascript %} 
+		{% endblock %}
+	</body>
+</html>
+

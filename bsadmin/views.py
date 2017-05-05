@@ -7,7 +7,7 @@ from django.core import serializers
 def home_admin(request):
 	return render(request, "home_admin.html")
 
-# Categoria - Carito
+# Categoria
 
 def j_categoria(request):
 	queryset = Categoria.objects.all().values().order_by('id')

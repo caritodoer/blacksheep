@@ -16,6 +16,14 @@ class SolicitudAnalisis(models.Model):
 	def __str__(self):
 		return('%d')%(self.id)
 
+	def get_absolute_url(self):
+		return reverse("bsuser:v_solicitudAnalisis", kwargs={"id":self.id})
+
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion=self.descripcion.upper()
+		super(SolicitudAnalisis, self).save(force_insert, force_update)
+
+
 class Protocolo(models.Model):
 	numero = models.IntegerField("Numero de Protocolo", unique=True)
 	activo = models.BooleanField("Estado Confirmado", default=True)
@@ -23,11 +31,25 @@ class Protocolo(models.Model):
 	def __str__(self):
 		return('%d')%(self.numero)
 
+	def get_absolute_url(self):
+		return reverse("bsuser:v_protocolo", kwargs={"id":self.id})
+
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion=self.descripcion.upper()
+		super(Protocolo, self).save(force_insert, force_update)
+
 class IndividuoPadre(models.Model):
 	identificacion = models.CharField("Identificacion / N° de Caravana", max_length=30)
 	raza = models.ForeignKey(Raza)
 	def __str__(self):
 		return ('%s')%(self.identificacion)
+
+	def get_absolute_url(self):
+		return reverse("bsuser:v_individuopadre", kwargs={"id":self.id})
+
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion=self.descripcion.upper()
+		super(IndividuoPadre, self).save(force_insert, force_update)
 	
 class Individuos(models.Model):
 	padre = models.ForeignKey(IndividuoPadre)
@@ -45,6 +67,13 @@ class Individuos(models.Model):
 	def __str__(self):
 		return ('%s')%(self.padre)
 
+	def get_absolute_url(self):
+		return reverse("bsuser:v_individuos", kwargs={"id":self.id})
+
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion=self.descripcion.upper()
+		super(Individuos, self).save(force_insert, force_update)
+
 
 class DetalleAnalisis(models.Model):
 	solicitud = models.ForeignKey(SolicitudAnalisis)
@@ -61,6 +90,13 @@ class DetalleAnalisis(models.Model):
 	def __str__(self):
 		return ('%s, %s, %s, %s, %s')%(self.solicitud, self.protocolo, self.diagnostico, self.individuo, self.parametros)
 
+	def get_absolute_url(self):
+		return reverse("bsuser:v_detalleanalisis", kwargs={"id":self.id})
+
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion=self.descripcion.upper()
+		super(DetalleAnalisis, self).save(force_insert, force_update)
+
 
 class EliminacionProtocolo(models.Model):
 	protocolo = models.OneToOneField(Protocolo)
@@ -71,3 +107,10 @@ class EliminacionProtocolo(models.Model):
 	def __str__(self):
 		dia = str(fecha)
 		return('%s, %s')%(self.protocolo, self.dia)
+
+	def get_absolute_url(self):
+		return reverse("bsuser:v_eliminacionprotocolo", kwargs={"id":self.id})
+
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion=self.descripcion.upper()
+		super(EliminacionProtocolo, self).save(force_insert, force_update)
