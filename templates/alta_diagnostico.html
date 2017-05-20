@@ -48,10 +48,12 @@
                 	</div>
             	
 <!-- DIV PARAMETROS -->
+<div class="hideterce">
 					<div id="block-parametros">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<label class="control-label col-sm-3" for="grupo">Grupo de Parametros</label>
+							<div id="rmvBlockPara" align="right"> <span class="glyphicon glyphicon-remove"></div> 
 
 								<input type="text" class="form-control" id="grupo" name="grupo" value="{{ instance.grupo }}">
 							</div>
@@ -108,7 +110,7 @@
 							<button id="addBlockParametros" class="btn btn-default btn-sm">Agregar Grupo de Parametros <span class="glyphicon glyphicon-plus"></button>
 						</div>
 					</div>
-
+</div>
 	                <div class="form-group">
 				    	<label class="control-label col-sm-3" for="piepagina">Texto para incluir en pie de pagina:</label>
 			    		<div class="col-sm-9">
@@ -159,13 +161,16 @@ $(document).ready(function(){
         var modId = "ModalValorRef" + num; // Nuevo Id del Modal
         var modData = "#ModalValorRef" + num; // Nuevo Data-Target value del row recien creado
 
-		$('.modalBase').clone().attr('id', modId).removeClass('modalBase').appendTo( $('#block-parametros').parent()); 
+		var modPos = $('.modalBase').clone().attr('id', modId).removeClass('modalBase'); 
 		// Crea el modal para el row recien creado.		
         
         newRow.find("#botonIngresarValorRef").attr('data-target', modData);
     	// Reemplaza la el id que se usa para llamar al model 
     	$(this).parent().parent().parent().parent().append(newRow);
     	// posiciona el row en el grupo de parametros en el que fue pedido.
+
+    	$(this).parent().parent().parent().parent().append(modPos);
+    	// posiciona el model en el grupo de parametros en el que fue pedido.
 
    
     return false;
@@ -185,7 +190,7 @@ $(document).ready(function(){
 		
 		$(delModel).remove(); // Delete Modal
 		delPos.remove();
-		//$(this).parent().parent().remove(); 
+		//$(this).parent().parent().remove();  
 		// Elimina el model y la linea.
 
 	});
@@ -207,6 +212,12 @@ $(document).ready(function(){
         return false;
     });
 	
+    $("body").on('click', "#rmvBlockPara", function(){
+
+    	$(this).parent().parent().remove();
+
+	});
+	
     $("body").on('click', "#addParametroVr", function(){
 		
 		var newRow = $('#hidden-row-vr').clone()
@@ -218,6 +229,17 @@ $(document).ready(function(){
 		//genera la nueva linea para los valores por referencia.
 	});
 	
+    $(document).on('change', '#tercerizacion', function() {
+	    if(this.checked) {
+	      // checkbox is checked
+	      $('.hideterce').hide();
+	      
+	 	}
+	 	else{
+	 	  $('.hideterce').show();  
+	 	}
+	});
+
     var selectmuestra = "{{instance.muestra.id}}"
         $.ajax({
             url:"/j_muestra/",

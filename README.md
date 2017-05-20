@@ -25,7 +25,9 @@ AGREGAR EN CARPETA:
 - agregar el campo grupos en models parametros y en las tablas de BDD
 - Valores de referencia esta planteado en la carpeta como una pagina mas, pero nosotros lo estamos haciendo como pop-up(modal)
 
-
+ Necesitamos un jqueru para preguntar si esta seguro de la accion que va a realizar (principalmente para los eliminar grandes)
+//window.confirm(); 
+ Vistaprevia de diagnostico finalizado
 // this es la posicion donde fue clickeado el boton, sin importar las veces que se repita
 	
 nueva palabra: OPTIMIZACION, codigo limpio
