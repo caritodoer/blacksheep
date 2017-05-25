@@ -207,7 +207,7 @@ class Veterinario(models.Model):
 
 
 class Establecimiento(models.Model):
-	nombre = models.CharField(max_length=50)
+	nombre = models.CharField(max_length=50, unique=True)
 	partido = models.CharField(max_length=20)
 	propietario = models.CharField(max_length=30)
 	RENSPA = models.CharField(max_length=30)

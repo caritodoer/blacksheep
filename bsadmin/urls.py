@@ -10,7 +10,7 @@ from bsadmin import views
 # j: json
 
 urlpatterns = [
-    url(r'^$', views.home_admin),    
+    url(r'^home_admin/$', views.home_admin),    
 
     # Categoria
     url(r'^categoria/$', views.l_categoria, name="l_categoria"),
