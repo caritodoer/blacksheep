@@ -1,7 +1,137 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3 class="panel-title">{{ title }}</h3>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ title }}</h3>
+			</div>
+			<div class="panel-body">
+
+				<form class="form-horizontal" method="POST" action="">{% csrf_token %}
+					<div class="form-group">
+							<label class="control-label col-sm-2" for="protocolo">N° de Protocolo:</label>
+	                        <div class="col-sm-4">
+	                            <input type="number" class="form-control" id="protocolo" name="protocolo" value="{{ instance.protocolo }}">
+	                        </div>
+
+	                        <label class="control-label col-sm-2" for="muestra">Muestra:</label>
+			    			<div class="col-sm-4">
+			    				<select class="form-control" name="muestra" id="muestra"></select>
+			    			</div>
+                  	</div>
+
+                  	<!-- panel de Diagnostico -->
+
+                  	<div class="panel panel-default">
+                  		<div class="panel-heading">
+                  			<h4>DIAGNÓSTICO</h4>
+                  		</div>
+                  		<div class="panel-body">
+                  			<div class="form-group">
+	                  			<label class="control-label col-sm-2" for="diagnostico">Diagnóstico:</label>
+				    			<div class="col-sm-4">
+				    				<select class="form-control" name="diagnostico" id="diagnostico"></select>
+				    			</div>
+				    			<button id="eliminar_diagnostico"  class="btn btn-danger btn-sm">Eliminar Diagnóstico  <span class="glyphicon glyphicon-remove"></button>
+				    		</div>
+
+				    		<div align="right">
+				    			<button id="agregar_diagnostico"  class="btn btn-default btn-sm">Agregar Diagnóstico  <span class="glyphicon glyphicon-plus"></button>
+				    		</div>
+
+                  		</div>
+
+                  	</div>
+
+                  	<div class="form-group">
+			    		<div class="col-sm-offset-2 col-sm-10" align="right">
+                  			<button id="agregar_protocolo"  class="btn btn-default btn-sm">Agregar Protocolo  <span class="glyphicon glyphicon-plus"></button>
+						</div>
+					</div>
 
 
+					<div class="form-group">
+			    		<div class="col-sm-offset-2 col-sm-10" align="right">
+							<button type="submit" class="btn btn-success">Continuar</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+
+{% block javascript %} 
+
+
+<script type="text/javascript">
+// para los select
+$(document).ready(function() {
+	var selectmuestra = "{{instance.muestra.id}}"
+        $.ajax({
+            url:"/j_muestra/",
+            type:"GET",
+            dataType: "json",
+            success: function(muestra){
+                $.each(muestra,function(index, obj) 
+                {   
+                    if(obj.id == selectmuestra)
+                    {
+                    $('#muestra').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                    else{
+                    $('#muestra').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                });
+            }
+        }); // finaliza el select
+
+    var selectdiagnostico = "{{instance.diagnostico.id}}"
+        $.ajax({
+            url:"/j_diagnostico/",
+            type:"GET",
+            dataType: "json",
+            success: function(diagnostico){
+                $.each(diagnostico,function(index, obj) 
+                {   
+                    if(obj.id == selectdiagnostico)
+                    {
+                    $('#diagnostico').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                    else{
+                    $('#diagnostico').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                });
+            }
+        }); // finaliza el select
+}
+
+
+$(document).ready(function() {
+	$("span.help-block").hide();
+	String.prototype.trim = function() {// funcion para eliminar espacios anterior y posterior
+		return this.replace(/^\s+|\s+$/g,""); 
+	};
+});//ready
+
+$('#formvalidar').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
+});///descativa la tecla ENTER para que no confirme y saltee la verificacion en base de datos
+
+
+/*validacion*/
+
+
+
+</script> 
 {% endblock %}

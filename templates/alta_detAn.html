@@ -1,7 +1,173 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3 class="panel-title">{{ title }}</h3>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ title }}</h3>
+			</div>
+			<div class="panel-body">
+
+				<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
+					<div class="form-group">
+						<div class="divalidacion">
+							<label class="control-label col-sm-2" for="protocolo">Protocolo:</label>
+	                        <div class="col-sm-4">
+	                            <input type="text" class="form-control" id="protocolo" name="protocolo" onkeyup="validacion('protocolo');" value="{{ instance.protocolo }}">
+ 								<span class="help-block"></span>
+	                        </div>
+                        </div>
+
+                        <div class="divalidacion">
+	                        <label class="control-label col-sm-2" for="especie">Especie:</label>
+	                        <div class="col-sm-4">
+	                            <select class="form-control" name="especie" id="especie" onchange="validacion('especie');"></select>
+	                        </div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="divalidacion">    
+                            <label class="control-label col-sm-2" for="fecha">Fecha:</label>
+                            <div class="col-sm-4">
+                            	<input type="date" class="form-control" id="fecha" name="fecha" onkeyup="validacion('fecha');" value="{{ instance.fecha }}">
+ 								<span class="help-block"></span>
+                            </div>
+                        </div>
+					</div>
+
+					<div class="form-group">
+				    	<label class="control-label col-sm-3" for="obs">Observaciones:</label>
+			    		<div class="col-sm-9">
+					    	<textarea row="3" class="form-control" id="obs" name="obs" value="{{ instance.obs }}"> </textarea>
+			    		</div>
+				    </div>
+
+					<div class="form-group">
+			    		<div class="col-sm-offset-2 col-sm-10">
+							<button type="button" class="btn btn-default" id="btnvalidar">Registrar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 
+{% endblock %}
+
+
+{% block javascript %} 
+
+
+<script type="text/javascript">
+// para los select
+$(document).ready(function() {
+	var selectestablecimiento = "{{ instance.establecimiento.id }}"
+	var selectveterinario = "{{instance.veterinario.id }}"
+	var selectmotivo = "{{instance.motivo.id }}"
+	var selectespecie = "{{instance.especie.id }}"
+
+	$.ajax({
+            url:"/j_establecimiento/",
+            type:"GET",
+            dataType: "json",
+            success: function(establecimiento){
+                $('#establecimiento').append('<option selected value=""></option>');
+                $.each(establecimiento,function(index, obj) 
+                {   
+                    console.log(establecimiento)
+                    if(obj.id == selectestablecimiento)
+                    {
+                    $('#establecimiento').append('<option selected value=' + obj.id + '>' + obj.nombre + '</option>');
+                    }
+                    else{
+                    $('#establecimiento').append('<option value=' + obj.id + '>' + obj.nombre + '</option>');
+                    }
+                });
+            }
+        }); // fin select establecimiento
+    $.ajax({
+            url:"/j_veterinario/",
+            type:"GET",
+            dataType: "json",
+            success: function(veterinario){
+                $('#veterinario').append('<option selected value=""></option>');
+                $.each(veterinario,function(index, obj) 
+                {   
+                    console.log(veterinario)
+                    if(obj.id == selectveterinario)
+                    {
+                    $('#veterinario').append('<option selected value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                    }
+                    else{
+                    $('#veterinario').append('<option value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                    }
+                });
+            }
+        }); // fin select veterinario
+    $.ajax({
+            url:"/j_motivos/",
+            type:"GET",
+            dataType: "json",
+            success: function(motivo){
+                $('#motivo').append('<option selected value=""></option>');
+                $.each(motivo,function(index, obj) 
+                {   
+                    console.log(motivo)
+                    if(obj.id == selectmotivo)
+                    {
+                    $('#motivo').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                    else{
+                    $('#motivo').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                });
+            }
+        }); // fin select motivo
+    $.ajax({
+            url:"/j_especie/",
+            type:"GET",
+            dataType: "json",
+            success: function(especie){
+                $('#especie').append('<option selected value=""></option>');
+                $.each(especie,function(index, obj) 
+                {   
+                    console.log(especie)
+                    if(obj.id == selectespecie)
+                    {
+                    $('#especie').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                    else{
+                    $('#especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                });
+            }
+        }); // fin select especie
+}); //ready
+
+
+$(document).ready(function() {
+	$("span.help-block").hide();
+	String.prototype.trim = function() {// funcion para eliminar espacios anterior y posterior
+		return this.replace(/^\s+|\s+$/g,""); 
+	};
+});//ready
+
+$('#formvalidar').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
+});///descativa la tecla ENTER para que no confirme y saltee la verificacion en base de datos
+
+
+/*validacion*/
+
+
+
+</script> 
 {% endblock %}
