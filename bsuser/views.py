@@ -285,7 +285,7 @@ def l_detalleanalisis(request):
 	return render(request, "list_detAn.html", context)
 
 def a_detalleanalisis(request):
-	form = DetalleanAlisisForm(request.POST or None)
+	form = DetalleAnalisisForm(request.POST or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
