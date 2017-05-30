@@ -1,7 +1,169 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3 class="panel-title">{{ title }}</h3>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ title }}</h3>
+			</div>
+			<div class="panel-body">
+
+		<form class="form-horizontal" method="POST" action="">{% csrf_token %}
+			<div class="panel panel-default">
+
+				<div class="panel-heading">
+					<div class="row">
+						<label class="control-label col-sm-2" for="individuo">Individuo N°</label>
+						<div class="col-sm-2">
+							<input type="number" class="form-control" id="individuo" name="individuo" value="{{ instance.individuo }}">
+						</div>
+						<div class="col-sm-8" id="rmvBlockIndiv" align="right"> 
+							<a>
+								<span class="glyphicon glyphicon-remove">
+							</a>
+						</div> 
+					</div>
+				</div>
+				<div class="panel-body">
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="identificacion">Identificación:</label>
+	                    <div class="col-sm-4">
+	                        <input type="text" class="form-control" id="identificacion" name="identificacion" value="{{ instance.identificacion }}">
+	                        <small>N° de Caravana / DNI del Dueño + Nombre del Animal</small>
+	                    </div>
+					
+						<label class="control-label col-sm-2" for="raza">Raza:</label>
+			    		<div class="col-sm-4">
+			    			<select class="form-control" name="raza" id="raza"></select>
+			    		</div>
+					</div>
+<!-- Panel colapsado de "mas opciones" -->
+					<div class="panel-group">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h5 class="panel-title">
+									<a data-toggle="collapse" href="#collapse1" id="masopciones">Más Opciones  <span class="glyphicon glyphicon-chevron-down"></a>
+								</h5>
+							</div>
+							<div id="collapse1" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="nombre">Nombre:</label>
+					                    <div class="col-sm-4">
+					                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ instance.nombre }}">
+					                    </div>
+					                    
+					                    <label class="control-label col-sm-2" for="Edad">Edad:</label>
+					                    <div class="col-sm-4">
+					                        <input type="number" class="form-control" id="edad" name="edad" value="{{ instance.edad }}">
+					                    </div>
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="sexo">Sexo:</label>
+										<div class="col-sm-4">
+											<label class="checkbox-inline">
+												<input type="checkbox" value="">M
+											</label>
+											<label class="checkbox-inline">
+												<input type="checkbox" value="">H
+											</label>
+											<label class="checkbox-inline">
+												<input type="checkbox" value="">NS/NS
+											</label> 
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-sm-2" for="libreta">Libreta Sanitaria:</label>
+					                    <div class="col-sm-4">
+					                        <input type="text" class="form-control" id="libreta" name="libreta" value="{{ instance.libreta }}">
+					                    </div>
+					                </div>
+
+					                <div class="form-group">
+										<label class="control-label col-sm-2" for="categoriae">Categoría de Especie:</label>
+							    		<div class="col-sm-4">
+							    			<select class="form-control" name="categoriae" id="categoriae"></select>
+							    		</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 	<!-- fin panel colapsado -->
+
+				</div>
+			</div> 	<!-- fin panel individuo -->
+
+			<div class="form-group">
+	    		<div class="col-sm-offset-2 col-sm-10" align="right">
+          			<button id="agregar_individuo"  class="btn btn-default btn-sm">Agregar Individuo  <span class="glyphicon glyphicon-plus"></button>
+				</div>
+			</div>
 
 
+			<div class="form-group">
+	    		<div class="col-sm-offset-2 col-sm-10" align="right">
+					<a class="btn btn-success" href="#">Continuar</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	</div>
+</div>
+
+
+{% endblock %}
+
+
+{% block javascript %} 
+
+
+<script type="text/javascript">
+// para los select
+$(document).ready(function() {
+	var selectraza = "{{instance.raza.id}}"
+        $.ajax({
+            url:"/j_raza/",
+            type:"GET",
+            dataType: "json",
+            success: function(raza){
+                $.each(raza,function(index, obj) 
+                {   
+                    if(obj.id == selectraza)
+                    {
+                    $('#raza').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                    else{
+                    $('#raza').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                });
+            }
+        }); // finaliza el select
+
+    var selectcategoriae = "{{instance.categoriae.id}}"
+        $.ajax({
+            url:"/j_categoriae/",
+            type:"GET",
+            dataType: "json",
+            success: function(categoriae){
+                $.each(categoriae,function(index, obj) 
+                {   
+                    if(obj.id == selectcategoriae)
+                    {
+                    $('#categoriae').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                    else{
+                    $('#categoriae').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                });
+            }
+        }); // finaliza el select
+}
+
+
+</script> 
 {% endblock %}

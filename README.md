@@ -31,6 +31,7 @@ AGREGAR EN CARPETA:
 // this es la posicion donde fue clickeado el boton, sin importar las veces que se repita
 	
 nueva palabra: OPTIMIZACION, codigo limpio
+PoC : Pruebas de Concepto (Proof of Concept)
 
 youtube: django 1.9 tutorial how to turn data to json ot xml
 

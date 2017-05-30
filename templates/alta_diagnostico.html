@@ -148,7 +148,6 @@
 $(document).ready(function(){
 	
 	var num = 0;
-
 	$("body").on('click', "#agregar_parametros", function(){
 		var newRow = $('#hidden-row').clone()
 						.removeAttr('id')
@@ -157,10 +156,8 @@ $(document).ready(function(){
 		// Clona, remueve id (para evitar duplicados) y stylem y muestra.
         
         num = num+1; // incremento del numero final de los datos del id y data-target
-
         var modId = "ModalValorRef" + num; // Nuevo Id del Modal
         var modData = "#ModalValorRef" + num; // Nuevo Data-Target value del row recien creado
-
 		var modPos = $('.modalBase').clone().attr('id', modId).removeClass('modalBase'); 
 		// Crea el modal para el row recien creado.		
         
@@ -168,10 +165,8 @@ $(document).ready(function(){
     	// Reemplaza la el id que se usa para llamar al model 
     	$(this).parent().parent().parent().parent().append(newRow);
     	// posiciona el row en el grupo de parametros en el que fue pedido.
-
     	$(this).parent().parent().parent().parent().append(modPos);
     	// posiciona el model en el grupo de parametros en el que fue pedido.
-
    
     return false;
 	});
@@ -183,7 +178,6 @@ $(document).ready(function(){
 		
 		$(paraModel).find('#parametro').attr('value', modModel); // remplaza parametros con el valor de descripcion-
 	});
-
 	$("#block-parametros").on('click', ".btn-danger", function(){
 		var delPos = $(this).parent().parent(); // La linea a eliminar
 		var delModel = delPos.find("#botonIngresarValorRef").attr('data-target'); // busca el id del modal
@@ -192,14 +186,10 @@ $(document).ready(function(){
 		delPos.remove();
 		//$(this).parent().parent().remove();  
 		// Elimina el model y la linea.
-
 	});
-
 	$("body").on('click', ".btn-eliminar-vr", function(){
 		$(this).parent().parent().remove(); // Delete Row de valores referencia	
 	});
-
-
     $("#addBlockParametros").click(function(){
         
         var newTable = $('#grupoParametros').clone()
@@ -208,14 +198,11 @@ $(document).ready(function(){
                         .show()
                         .appendTo('#block-parametros')
         // copia y pega el bloque.
-
         return false;
     });
 	
     $("body").on('click', "#rmvBlockPara", function(){
-
     	$(this).parent().parent().remove();
-
 	});
 	
     $("body").on('click', "#addParametroVr", function(){
@@ -224,7 +211,6 @@ $(document).ready(function(){
 						.removeAttr('id')
 						.removeAttr('style')
 						.show();
-
 		$(this).parent().parent().parent().parent().find('tbody').append(newRow);
 		//genera la nueva linea para los valores por referencia.
 	});
@@ -239,7 +225,6 @@ $(document).ready(function(){
 	 	  $('.hideterce').show();  
 	 	}
 	});
-
     var selectmuestra = "{{instance.muestra.id}}"
         $.ajax({
             url:"/j_muestra/",
@@ -259,20 +244,6 @@ $(document).ready(function(){
             }
         }); // finaliza el select 
     
-// OCULTAR LA OPCION DE SELECCIONAR EL VALOR DE REFERENCIA SI ES UN BOOLEAN:
-	/*$('.tipoDatoSelect').click(function(){
-		var selectedValue = $('.tipoDatoSelect').find(":selected").text();
-		if (selectedValue == "Positivo/Negativo") {
-			console.log("ingresa al if")
-			$('#botonIngresarValorRef').hide()
-			$('#pBtnIVR').show()
-		} else {
-			console.log("ingresa al else")
-			$('#botonIngresarValorRef').show()
-			$('#pBtnIVR').hide()
-		}
-	}); */
-
 
     $.ajax({
     	url: "/j_especie/",
@@ -285,8 +256,6 @@ $(document).ready(function(){
     	}
     }); // select de especie 
 });  
-
-
 </script> 
 
 {% endblock %}

@@ -167,7 +167,7 @@ def a_individuopadre(request):
 	else:
 		print (form.errors)
 	context = {
-		"title" : "Nuevo Individuo Padre",
+		"title" : "Registrar Individuo/s",
 		"form" : form,
 	}
 	return render(request, "alta_indivp.html", context)

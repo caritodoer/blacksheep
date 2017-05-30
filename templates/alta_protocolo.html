@@ -53,8 +53,8 @@
 
 
 					<div class="form-group">
-			    		<div class="col-sm-offset-2 col-sm-10" align="right">
-							<a class="btn btn-success" href="alta_indivp">Continuar</a>
+			    		<div class="col-sm-12" align="right">
+							<a class="btn btn-success" href="../../individuopadre/alta">Continuar</a>
 						</div>
 					</div>
 
@@ -111,25 +111,6 @@ $(document).ready(function() {
             }
         }); // finaliza el select
 }
-
-
-$(document).ready(function() {
-	$("span.help-block").hide();
-	String.prototype.trim = function() {// funcion para eliminar espacios anterior y posterior
-		return this.replace(/^\s+|\s+$/g,""); 
-	};
-});//ready
-
-$('#formvalidar').on('keyup keypress', function(e) {
-  var keyCode = e.keyCode || e.which;
-  if (keyCode === 13) { 
-    e.preventDefault();
-    return false;
-  }
-});///descativa la tecla ENTER para que no confirme y saltee la verificacion en base de datos
-
-
-/*validacion*/
 
 
 
