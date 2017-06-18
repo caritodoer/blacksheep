@@ -10,7 +10,13 @@ def login(request):
 	return render(request, "login.html")
 
 def home_user(request):
-	return render(request, "home_user.html")
+	DetAna_queryset = DetalleAnalisis.objects.all().order_by('-protocolo')
+
+	context = {
+		"object_list": DetAna_queryset,
+		"title": "Últimos Protocolos Registrados"
+	}
+	return render(request, "home_user.html", context)
 
 # Solicitud Analisis
 

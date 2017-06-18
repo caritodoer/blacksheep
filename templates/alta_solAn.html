@@ -2,72 +2,77 @@
 {% block content %}
 
 <div class="row">
-	<div class="col-md-10 col-md-offset-1">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">{{ title }}</h3>
-			</div>
-			<div class="panel-body">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ title }}</h3>
+            </div>
+            <form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
+                <div class="panel-body">
 
-				<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
-					<div class="form-group">
-						<div class="divalidacion">
-							<label class="control-label col-sm-2" for="establecimiento">Establecimiento:</label>
-	                        <div class="col-sm-4">
-	                            <select class="form-control" name="establecimiento" id="establecimiento" onchange="validacion('establecimiento');"></select>
-	                        </div>
-                        </div>
-
+                    <div class="form-group">
                         <div class="divalidacion">
-	                        <label class="control-label col-sm-2" for="veterinario">Veterinario:</label>
-	                        <div class="col-sm-4">
-	                            <select class="form-control" name="veterinario" id="veterinario" onchange="validacion('veterinario');"></select>
-	                        </div>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="divalidacion">
-							<label class="control-label col-sm-2" for="motivo">Motivo:</label>
-	                        <div class="col-sm-4">
-	                            <select class="form-control" name="motivo" id="motivo" onchange="validacion('motivo');"></select>
-	                        </div>
-                        </div>
-
-                        <div class="divalidacion">
-	                        <label class="control-label col-sm-2" for="especie">Especie:</label>
-	                        <div class="col-sm-4">
-	                            <select class="form-control" name="especie" id="especie" onchange="validacion('especie');"></select>
-	                        </div>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="divalidacion">    
-                            <label class="control-label col-sm-2" for="fecha">Fecha:</label>
+                            <label class="control-label col-sm-2" for="establecimiento">Establecimiento:</label>
                             <div class="col-sm-4">
-                            	<input type="date" class="form-control" id="fecha" name="fecha" onkeyup="validacion('fecha');" value="{{ instance.fecha }}">
- 								<span class="help-block"></span>
+                                <select class="form-control" name="establecimiento" id="establecimiento" onchange="validacion('establecimiento');"></select>
                             </div>
                         </div>
-					</div>
 
-					<div class="form-group">
-				    	<label class="control-label col-sm-3" for="obs">Observaciones:</label>
-			    		<div class="col-sm-9">
-					    	<textarea row="3" class="form-control" id="obs" name="obs" value="{{ instance.obs }}"> </textarea>
-			    		</div>
-				    </div>
-
-					<div class="form-group">
-                        <div class="col-sm-12" align="right">
-                            <a class="btn btn-success" href="../../protocolo/alta">Continuar</a>
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="veterinario">Veterinario:</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="veterinario" id="veterinario" onchange="validacion('veterinario');"></select>
+                            </div>
                         </div>
                     </div>
-				</form>
-			</div>
-		</div>
-	</div>
+
+                    <div class="form-group">
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="motivo">Motivo:</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="motivo" id="motivo" onchange="validacion('motivo');"></select>
+                            </div>
+                        </div>
+
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="especie">Especie:</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="especie" id="especie" onchange="validacion('especie');"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="divalidacion">    
+                            <label class="control-label col-sm-2" for="fecha">Fecha:</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" id="fecha" name="fecha" onkeyup="validacion('fecha');" value="{{ instance.fecha }}">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="obs">Observaciones:</label>
+                        <div class="col-sm-9">
+                            <textarea row="3" class="form-control" id="obs" name="obs" value="{{ instance.obs }}"> </textarea>
+                        </div>
+                    </div>
+
+                </div> <!--fin panel body-->
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-12" align="right">
+                            <a href="../../protocolo/alta" >
+                            <button type="button" class="btn btn-default" id="btnvalidar">Continuar</button>
+                            </a>
+                        </div>
+                    </div>
+                </div> <!--fin panel footer-->
+            </form>
+        </div>
+    </div>
 </div>
 
 

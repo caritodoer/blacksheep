@@ -7,9 +7,9 @@
             <div class="panel-heading">
                 <h3 class="panel-title">{{ title }}</h3>
             </div>
-            <div class="panel-body">
+            <form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
+                <div class="panel-body">
 
-                <form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
                     <div class="form-group">
                         <div class="divalidacion">
                             <label class="control-label col-sm-2" for="nombre">Nombre:</label>
@@ -17,11 +17,11 @@
                                 <input type="text" class="form-control" id="nombre" name="nombre" onkeyup="validacion('nombre');" value="{{ instance.nombre }}">
                                 <span class="help-block"></span>
                             </div>
-    			    	</div>
+                        </div>
                         <div class="divalidacion">
                             <label class="control-label col-sm-2" for="partido">Partido:</label>
                             <div class="col-sm-4">
-    			    	        <input type="text" class="form-control" id="partido" name="partido" onkeyup="validacion('partido');" value="{{ instance.partido }}">
+                                <input type="text" class="form-control" id="partido" name="partido" onkeyup="validacion('partido');" value="{{ instance.partido }}">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                         <div class="divalidacion">
                             <label class="control-label col-sm-2" for="propietario">Propietario:</label>
                             <div class="col-sm-4">
-    			    	        <input type="text" class="form-control" id="propietario" name="propietario" onkeyup="validacion('propietario');" value="{{ instance.propietario }}">
+                                <input type="text" class="form-control" id="propietario" name="propietario" onkeyup="validacion('propietario');" value="{{ instance.propietario }}">
                                 <span class="help-block"></span>
                             </div>
                         </div>    
@@ -70,16 +70,7 @@
                                 </label>
                             </div>
                         </div>
-
-<!--                <div class="form-group">
-                        <div class="col-sm-2">
-                            <div class="checkbox">
-                                <label class="checkbox-inline form-check-label" for="categorias">Categorias:</label>
-			    	            <div form-check id="categorias"></div>
-                            </div>
-                        </div>
-                    </div>
- -->        
+  
                         <div class="divalidacion">
                             <label class="control-label col-sm-2" for="explotacion">Explotación:</label>
                             <div class="col-sm-4">
@@ -92,34 +83,26 @@
                         </div>    
                     </div>
 
-                    <!--  
-        <div class="row">
-            <div class="col-md-4">
-            	<div class="form-group">
-			    	<label class="form-check-label" for="explotacion">Explotacion:</label>
-			    	<div  form-check id="explotacion"></div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="activo">Estado:</label>
+                        <div class="col-sm-10">
+                            <div class="checkbox form-check disabled">
+                                <label class="form-check-label" for="activo">
+                                    <input type="checkbox" class="form-check-input" id="activo" name="activo" value="{{ instance.activo }}" checked disabled> Activo
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div> -->
 
-					<div class="form-group">
-						<label class="control-label col-sm-2" for="activo">Estado:</label>
-						<div class="col-sm-10">
-							<div class="checkbox form-check disabled">
-								<label class="form-check-label" for="activo">
-									<input type="checkbox" class="form-check-input" id="activo" name="activo" value="{{ instance.activo }}" checked disabled> Activo
-								</label>
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group">
-			    		<div class="col-sm-offset-2 col-sm-10">
-							<button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
-						</div>
-					</div>
-				</form>
-    		</div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-12" align="right">
+                            <button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

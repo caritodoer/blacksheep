@@ -16,9 +16,9 @@
             <div class="panel-heading">
                 <h3 class="panel-title">{{ title }}</h3>
             </div>
+                <!-- <form class="form-horizontal" method="POST" action="">{% csrf_token %} -->
             <div class="panel-body">
 
-                <!-- <form class="form-horizontal" method="POST" action="">{% csrf_token %} -->
                 <div class="form-horizontal">
                     <div class="form-group">
 			    		<label class="control-label col-sm-2" for="descripcion">Descripcion:</label>
@@ -52,10 +52,12 @@
 					<div id="block-parametros">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<label class="control-label col-sm-3" for="grupo">Grupo de Parametros</label>
-							<div id="rmvBlockPara" align="right"> <span class="glyphicon glyphicon-remove"></div> 
-
-								<input type="text" class="form-control" id="grupo" name="grupo" value="{{ instance.grupo }}">
+								<div class="form-group">
+									<label class="control-label col-sm-3" for="grupo">Grupo de Parametros</label>
+									<div class="col-sm-9">
+									<input type="text" class="form-control" id="grupo" name="grupo" value="{{ instance.grupo }}">
+									</div>
+								</div>
 							</div>
 							
 							<div class="panel-body"  style="overflow-x:scroll">
@@ -66,7 +68,7 @@
 											<th class="col-sm-3"><label for="tipo_de_dato">Tipo de Dato <a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-question-sign"></span></a></label></th>
 											<th class="col-sm-1"><label>Valor Pred./Ref.</label></th>
 											<th class="col-sm-2"><label for="unidadmedida">Unidad de Medida</label></th>
-											<th class="col-sm-1"><button id="agregar_parametros"  class="btn btn-default btn-sm">Agregar<br>Parametro <span class="glyphicon glyphicon-plus"></button></th>		
+											<th class="col-sm-1"><button id="agregar_parametros"  class="btn btn-default btn-sm">Agregar<br>Parametro <span class="glyphicon glyphicon-plus"></span></button></th>		
 										</tr>
 									</thead>
 									<tbody>		
@@ -101,16 +103,26 @@
 									</tbody>
 								</table>
 							</div> <!-- fin div panel-body -->
+
+							<div class="panel-footer">
+								<div id="rmvBlockPara" align="right">
+									<div  class="btn btn-sm" >
+										Eliminar Grupo <span class="glyphicon glyphicon-remove"></span>
+									</div>
+								</div> 
+							</div> <!-- fin div panel footer -->
 						</div> <!-- fin div panel -->
 					</div><!-- fin block-parametros -->
 					
 						
 					<div class="form-group">
 			    		<div class="col-sm-12" align="right">
-							<button id="addBlockParametros" class="btn btn-default btn-sm">Agregar Grupo de Parametros <span class="glyphicon glyphicon-plus"></button>
+							<button id="addBlockParametros" class="btn btn-default btn-sm">Agregar Grupo de Parametros <span class="glyphicon glyphicon-plus"></span></button>
 						</div>
 					</div>
-</div>
+</div> <!-- fin div hideterce -->
+<!-- FIN DIV PARAMETROS -->
+
 	                <div class="form-group">
 				    	<label class="control-label col-sm-3" for="piepagina">Texto para incluir en pie de pagina:</label>
 			    		<div class="col-sm-9">
@@ -129,20 +141,22 @@
 						</div>
 					</div>
 
-					<div class="form-group">
-			    		<div class="col-sm-offset-2 col-sm-10" align="right">
-							<button type="submit" class="btn btn-success">Enviar</button>
-						</div>
+					</div>				<!-- fin div form-horizontal -->
+    		</div> <!--fin panel body-->
+
+			<div class="panel-footer">
+				<div class="row">
+					<div class="col-sm-12" align="right">
+						<button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
 					</div>
-				<!-- </form> -->
 				</div>
-    		</div>
+			</div> <!--fin panel footer-->
+			<!-- </form> -->
         </div>
     </div>
 </div>
 
 {% endblock %}
-
 {% block javascript %}
 <script type="text/javascript">
 $(document).ready(function(){

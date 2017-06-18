@@ -7,9 +7,8 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">{{ title }}</h3>
 			</div>
-			<div class="panel-body">
-
-				<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
+			<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
+				<div class="panel-body">
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="descripcion">Descripcion:</label>
 						<div class="col-sm-10">
@@ -19,35 +18,21 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="sel_especie">Especie:</label>
+						<label class="control-label col-sm-2" for="especie">Especie:</label>
 						<div class="col-sm-10">
-							<select name="especie" class="form-control" id="sel_especie" onchange="validacion('sel_especie');"></select>
+							<select name="especie" class="form-control" id="especie" onchange="validacion('especie');"></select>
 						</div>
 					</div>
-					
-					<div class="form-group">
-			    		<div class="col-sm-offset-2 col-sm-10">
+				</div>
+			
+				<div class="panel-footer">
+					<div class="row">
+				   		<div class="col-sm-12" align="right">
 							<button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
 						</div>
 					</div>
-				</form>
-			</div>
-			
-			<!-- <div class="panel-footer">
-				<ul class="list-inline">
-					<li>
-						<a href="#">
-					Modificar<span class="glyphicon glyphicon-pencil"></span>
-						</a>
-					</li>
-					<li>
-						<a href="../delete/{{ instance.id }}">
-					Eliminar<span class="glyphicon glyphicon-remove"></span>
-						</a>
-					</li>
-				</ul>
-			
-			</div> -->
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
