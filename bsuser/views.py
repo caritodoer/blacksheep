@@ -62,7 +62,7 @@ def v_solicitudanalisis(request, id=None):
 
 def u_solicitudanalisis(request, id=None):
 	instance = get_object_or_404(SolicitudAnalisis,id=id)
-	form = SolicitudAnalisisaForm(request.POST or None, instance=instance)
+	form = SolicitudAnalisisForm(request.POST or None, instance=instance)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()

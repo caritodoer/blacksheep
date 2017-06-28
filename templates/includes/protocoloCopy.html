@@ -1,0 +1,47 @@
+<div class="panel panel-default" id="panelProtocolo" style="display: none">
+            <div class="panel-heading">
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="protocolo">N° de Protocolo:</label>
+                  <div class="col-sm-3">
+                      <input type="number" class="form-control" id="protocolo" name="protocolo" value="{{ instance.protocolo }}">
+                  </div>
+              </div>
+            </div><!-- fin panel heading2 -->
+            
+            <div class="panel-body">
+              <div class="form-group">
+                              <label class="control-label col-sm-2" for="muestra">Muestra:</label>
+                    <div class="col-sm-4">
+                      <select class="form-control" name="muestra" id="muestra"></select>
+                    </div>
+                    <div class="col-sm-6" align="right">
+                      <button id="addBlockDiagnostico"  class="btn btn-default btn-sm">Agregar Diagnóstico  <span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                </div>
+                
+          <!-- panel de Diagnostico -->
+                   
+                            <div id="block-diagnostico">
+
+                              <div class="form-group">
+                                <label class="control-label col-sm-2" for="diagnostico">Diagnóstico:</label>
+                                <div class="col-sm-4">
+                                  <select class="form-control" name="diagnostico" id="diagnostico"></select>
+                                </div>
+                                <button id="eliminar_diagnostico"  class="btn btn-danger btn-sm">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
+                              </div>
+
+                            </div>
+
+         <!-- fin panel de Diagnostico -->               
+              </div>
+
+              <div class="panel-footer">
+                <div id="rmvBlock" align="right">
+                  <div  class="btn btn-sm" >
+                    Eliminar Protocolo <span class="glyphicon glyphicon-remove"></span>
+                  </div>
+                </div> 
+              </div> <!-- fin div panel footer -->
+
+          </div>

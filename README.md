@@ -52,4 +52,4 @@ a futuro:
 		GRUPO DE PARAMETRO 2
 			* PARAMETRO 3
 			* PARAMETRO 4
--- tipo de datos: arreglar visualmente
+HECHO-- tipo de datos: arreglar visualmente
