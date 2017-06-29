@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% include 'includes/protocoloCopy.html' %}
+
+{% include 'includes/diagnosticoCopy.html' %}
+
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
     <div class="panel panel-default">
@@ -10,44 +14,45 @@
       <form class="form-horizontal" method="POST" action="">{% csrf_token %}
         <div class="panel-body">
 
-                  <!-- panel de numero de protocolo -->
+  <!-- panel de numero de protocolo -->
+        <div id="block-protocolo">
+
           <div class="panel panel-default">
             <div class="panel-heading">
               <div class="form-group">
                 <label class="control-label col-sm-3" for="protocolo">N° de Protocolo:</label>
-                <div class="col-sm-3">
-                    <input type="number" class="form-control" id="protocolo" name="protocolo" value="{{ instance.protocolo }}">
-                </div>
+                  <div class="col-sm-3">
+                      <input type="number" class="form-control" id="protocolo" name="protocolo" value="{{ instance.protocolo }}">
+                  </div>
               </div>
             </div><!-- fin panel heading2 -->
             
             <div class="panel-body">
               <div class="form-group">
-                  <div class="divalidacion">  
-                    <label class="control-label col-sm-2" for="muestra">Muestra:</label>
+                              <label class="control-label col-sm-2" for="muestra">Muestra:</label>
                     <div class="col-sm-4">
-                      <select class="form-control" name="muestra" id="muestra" onchange="validacion('muestra');"></select>
+                      <select class="form-control" name="muestra" id="muestra"></select>
                     </div>
-                  </div>  
-               </div>
+                    <div class="col-sm-6" align="right">
+                      <button id="addBlockDiagnostico"  class="btn btn-default btn-sm">Agregar Diagnóstico  <span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                </div>
                 
-                        <!-- panel de Diagnostico -->
-                        <div class="panel panel-default">
-                          <div class="panel-body">
-                            <div class="form-group">
-                              <label class="control-label col-sm-2" for="diagnostico">Diagnóstico:</label>
-                      <div class="col-sm-4">
-                        <select class="form-control" name="diagnostico" id="diagnostico"></select>
-                      </div>
-                      <button id="eliminar_diagnostico"  class="btn btn-danger btn-sm">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
-                    </div>
-                    <div align="right">
-                      <button id="agregar_diagnostico"  class="btn btn-default btn-sm">Agregar Diagnóstico  <span class="glyphicon glyphicon-plus"></span></button>
-                    </div>
+          <!-- panel de Diagnostico -->
+                   
+                            <div id="block-diagnostico">
 
-                          </div>
-                        </div>
-              <!-- fin panel de Diagnostico -->               
+                              <div class="form-group">
+                                <label class="control-label col-sm-2" for="diagnostico">Diagnóstico:</label>
+                                <div class="col-sm-4">
+                                  <select class="form-control" name="diagnostico" id="diagnostico"></select>
+                                </div>
+                                <button id="eliminar_diagnostico"  class="btn btn-danger btn-sm">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
+                              </div>
+
+                            </div>
+
+         <!-- fin panel de Diagnostico -->               
               </div>
 
               <div class="panel-footer">
@@ -58,11 +63,13 @@
                 </div> 
               </div> <!-- fin div panel footer -->
 
-          </div> <!-- fin panel de numero de protocolo -->
-               
-                    <div class="form-group">
+          </div> 
+        </div>   
+  <!-- fin panel de numero de protocolo -->
+
+          <div class="form-group">
               <div class="col-sm-12" align="right">
-                        <button id="agregar_protocolo"  class="btn btn-default btn-sm">Agregar Protocolo  <span class="glyphicon glyphicon-plus"></span></button>
+               <button id="addBlockProtocolo"  class="btn btn-default btn-sm">Agregar Protocolo  <span class="glyphicon glyphicon-plus"></span></button>
             </div>
           </div>
               
@@ -71,7 +78,7 @@
         <div class="panel-footer">
           <div class="row">
             <div class="col-sm-12" align="right">
-              <!-- <a href="../../individuopadre/alta" > -->
+              <a href="../../../individuopadre/alta" >
               <button type="button" class="btn btn-default" id="btnvalidar">Continuar</button>
               </a>
             </div>
@@ -89,14 +96,32 @@
 <script type="text/javascript">
 // el javascript de los select muestra y diagnostico estan en BS_select.js
 $(document).ready(function() {
-
+  var num = 0;
+  $("body").on('click',"#addBlockDiagnostico", function(){
+    var newLine = $('#linea_diagnostico').clone()
+                    .removeAttr('id')
+                    .removeAttr('style')
+                    .show();
+    num = num + 1;
+    var lineaId = "linea_diagnostico" + num;
+    var lineaNueva = $('.diagBase').clone().attr('id', lineaId).removeClass('diagBase');
+    $(this).parent().parent().parent().append(newLine);
+    return false;
+  });
+  $("#addBlockProtocolo").click(function(){
+    var newProt = $('#panelProtocolo').clone()
+                        .removeAttr('id')
+                        .removeAttr('style')
+                        .show()
+                        .appendTo('#block-protocolo')
+    return false;
+  });
     var selectmuestra = "{{instance.muestra.id}}"
         $.ajax({
             url:"/j_muestra/",
             type:"GET",
             dataType: "json",
             success: function(muestra){
-                $('#muestra').append('<option selected value=""></option>');
                 $.each(muestra,function(index, obj) 
                 {   
                     if(obj.id == selectmuestra)
@@ -109,8 +134,6 @@ $(document).ready(function() {
                 });
             }
         }); // fin selectmuestra
-
-
     var selectdiagnostico = "{{instance.diagnostico.id}}"
         $.ajax({
             url:"/j_diagnostico/",
@@ -129,64 +152,8 @@ $(document).ready(function() {
                 });
             }
         }); // fin selectdiagnostico
-
-/*validacion*/
-$("span.help-block").hide();
-    });//ready  
-
-
-/*validacion*/
-function verificar(){
-    var v1=0;
-
-    v1=validacion('muestra');
-
-    console.log(v1);
-    if(v1 == true){
-        return true;
-    }
-    else{
-        return false;
-    }
-}//verificar
-
-$("#btnvalidar").click(function(){
-    if(verificar() == true){
-        $("#formvalidar").submit();
-        $(location).attr('href',"../../individuopadre/alta");
-    }
-});// boton validar
-
-//funcion retorna array de consulta bd 
-function getconbd(url, method)
-{
-    return JSON.parse($.ajax({
-        type: method,
-        url: url,
-        dataType: 'json',
-        async:false,
-        success: function(data)
-        {
-            return data;
-        }
-    }).responseText);
-}//consulta bd
-
-function validacion(campo){
-    if(campo==='muestra'){
-        indice = document.getElementById(campo).selectedIndex;
-        console.log(indice);
-        if(indice == null || indice == 0){
-            $('#'+campo).parent().parent().attr("class","has-error");
-            return false;
-        }
-        else{
-            $('#'+campo).parent().parent().attr("class","has-success");
-            return true;
-        }
-    }//veterinario          
-
-}//validacion
-
-</script>
+    
+});
+</script> 
 {% endblock %}
+

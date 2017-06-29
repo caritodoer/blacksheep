@@ -18,6 +18,8 @@
             <div class="panel-body">
 
 				<dl class="dl-horizontal">
+					<!-- <dt>ID de Protocolo</dt>
+					<dd>{{ instance.protocolo.id }}</dd> -->
 					<dt>Numero de Protocolo</dt>
 					<dd>{{ instance.protocolo.numero }}</dd>
 					<dt>Muestra</dt>
@@ -25,7 +27,9 @@
 					<dt>Diagnostico/s</dt>
 					<dd>{{ instance.diagnostico.descripcion }}</dd>
 				</dl>
-
+			</div>
+            <div class="panel-footer">
+            	<a href="../../protocolo/update/{{ instance.protocolo.id }}">Modificar <span class="glyphicon glyphicon-pencil"></span></a>
             </div>
         </div>
 
@@ -52,6 +56,9 @@
 				</dl>
 
             </div>
+            <div class="panel-footer">
+            	<a href="../../solicitudanalisis/update/{{ instance.solicitud.id }}">Modificar <span class="glyphicon glyphicon-pencil"></span></a>
+            </div>
         </div>
 
 <!-- IINDIVIDUOS -->
@@ -70,6 +77,8 @@
 							<th>Sexo</th>
 							<th>Libreta Sanitaria</th>
 							<th>Categoria</th>
+							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -81,6 +90,8 @@
 							<td>{{ instance.individuo.sexo }}</td>
 							<td>{{ instance.individuo.libretasanitaria }}</td>
 							<td>{{ instance.individuo.categoriae }}</td>
+							<td><a href="../../individuopadre/update/{{ instance.individuo.id }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+							<td><a href="../../individuopadre/delete/{{ instance.individuo.id }}"><span class="glyphicon glyphicon-remove"></span></a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -89,21 +100,10 @@
         </div>
 
 
-                </div>
-                			<div class="panel-footer">
-				<ul class="list-inline">
-					<li>
-						<a href="../update/{{ instance.id }}">
-					Modificar<span class="glyphicon glyphicon-pencil"></span>
-						</a>
-					</li>
-					<li>
-						<a href="../delete/{{ instance.id }}">
-					Eliminar<span class="glyphicon glyphicon-remove"></span>
-						</a>
-					</li>
-				</ul>
-			
+    </div>
+    
+		    <div class="panel-footer" align="right">
+				<a href="../delete/{{ instance.id }}">Eliminar<span class="glyphicon glyphicon-remove"></span></a>
 			</div>
 		</div>
 	</div>
