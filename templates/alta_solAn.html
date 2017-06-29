@@ -64,7 +64,7 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-sm-12" align="right">
-                            <a href="../../protocolo/alta" >
+                            <!-- <a href="../../protocolo/alta" > -->
                             <button type="button" class="btn btn-default" id="btnvalidar">Continuar</button>
                             </a>
                         </div>
@@ -74,7 +74,6 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}
 
@@ -166,28 +165,67 @@ $(document).ready(function() {
                 });
             }
         }); // fin select especie
-}); //ready
 
-
-$(document).ready(function() {
-	$("span.help-block").hide();
-	String.prototype.trim = function() {// funcion para eliminar espacios anterior y posterior
-		return this.replace(/^\s+|\s+$/g,""); 
-	};
-});//ready
-
-$('#formvalidar').on('keyup keypress', function(e) {
-  var keyCode = e.keyCode || e.which;
-  if (keyCode === 13) { 
-    e.preventDefault();
-    return false;
-  }
-});///descativa la tecla ENTER para que no confirme y saltee la verificacion en base de datos
+/*validacion*/
+$("span.help-block").hide();
+    });//ready  
 
 
 /*validacion*/
+function verificar(){
+    var v1=0,v2=0,v3=0,v4=0;
 
+    v1=validacion('establecimiento');
+    v2=validacion('veterinario');
+    v3=validacion('motivo');
+    v4=validacion('especie');
 
+    console.log(v1,v2,v3,v4);
+    if(v1 == true && v2 == true && v3 == true && v4){
+        return true;
+    }
+    else{
+        return false;
+    }
+}//verificar
 
-</script> 
+$("#btnvalidar").click(function(){
+    if(verificar() == true){
+        $("#formvalidar").submit();
+        $(location).attr('href',"../../protocolo/alta");
+    }
+});// boton validar
+
+//funcion retorna array de consulta bd 
+function getconbd(url, method)
+{
+    return JSON.parse($.ajax({
+        type: method,
+        url: url,
+        dataType: 'json',
+        async:false,
+        success: function(data)
+        {
+            return data;
+        }
+    }).responseText);
+}//consulta bd
+
+function validacion(campo){
+    if(campo==='establecimiento' || campo==='veterinario' || campo==='motivo' || campo==='especie'){
+        indice = document.getElementById(campo).selectedIndex;
+        console.log(indice);
+        if(indice == null || indice == 0){
+            $('#'+campo).parent().parent().attr("class","has-error");
+            return false;
+        }
+        else{
+            $('#'+campo).parent().parent().attr("class","has-success");
+            return true;
+        }
+    }//veterinario          
+
+}//validacion
+
+</script>
 {% endblock %}

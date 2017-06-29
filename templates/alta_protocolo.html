@@ -15,19 +15,21 @@
             <div class="panel-heading">
               <div class="form-group">
                 <label class="control-label col-sm-3" for="protocolo">N° de Protocolo:</label>
-                            <div class="col-sm-3">
-                                <input type="number" class="form-control" id="protocolo" name="protocolo" value="{{ instance.protocolo }}">
-                            </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" id="protocolo" name="protocolo" value="{{ instance.protocolo }}">
+                </div>
               </div>
             </div><!-- fin panel heading2 -->
             
             <div class="panel-body">
               <div class="form-group">
-                              <label class="control-label col-sm-2" for="muestra">Muestra:</label>
+                  <div class="divalidacion">  
+                    <label class="control-label col-sm-2" for="muestra">Muestra:</label>
                     <div class="col-sm-4">
-                      <select class="form-control" name="muestra" id="muestra"></select>
+                      <select class="form-control" name="muestra" id="muestra" onchange="validacion('muestra');"></select>
                     </div>
-                </div>
+                  </div>  
+               </div>
                 
                         <!-- panel de Diagnostico -->
                         <div class="panel panel-default">
@@ -69,7 +71,7 @@
         <div class="panel-footer">
           <div class="row">
             <div class="col-sm-12" align="right">
-              <a href="../../individuopadre/alta" >
+              <!-- <a href="../../individuopadre/alta" > -->
               <button type="button" class="btn btn-default" id="btnvalidar">Continuar</button>
               </a>
             </div>
@@ -94,6 +96,7 @@ $(document).ready(function() {
             type:"GET",
             dataType: "json",
             success: function(muestra){
+                $('#muestra').append('<option selected value=""></option>');
                 $.each(muestra,function(index, obj) 
                 {   
                     if(obj.id == selectmuestra)
@@ -126,7 +129,64 @@ $(document).ready(function() {
                 });
             }
         }); // fin selectdiagnostico
-    
-});
-</script> 
+
+/*validacion*/
+$("span.help-block").hide();
+    });//ready  
+
+
+/*validacion*/
+function verificar(){
+    var v1=0;
+
+    v1=validacion('muestra');
+
+    console.log(v1);
+    if(v1 == true){
+        return true;
+    }
+    else{
+        return false;
+    }
+}//verificar
+
+$("#btnvalidar").click(function(){
+    if(verificar() == true){
+        $("#formvalidar").submit();
+        $(location).attr('href',"../../individuopadre/alta");
+    }
+});// boton validar
+
+//funcion retorna array de consulta bd 
+function getconbd(url, method)
+{
+    return JSON.parse($.ajax({
+        type: method,
+        url: url,
+        dataType: 'json',
+        async:false,
+        success: function(data)
+        {
+            return data;
+        }
+    }).responseText);
+}//consulta bd
+
+function validacion(campo){
+    if(campo==='muestra'){
+        indice = document.getElementById(campo).selectedIndex;
+        console.log(indice);
+        if(indice == null || indice == 0){
+            $('#'+campo).parent().parent().attr("class","has-error");
+            return false;
+        }
+        else{
+            $('#'+campo).parent().parent().attr("class","has-success");
+            return true;
+        }
+    }//veterinario          
+
+}//validacion
+
+</script>
 {% endblock %}

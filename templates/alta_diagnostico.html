@@ -21,21 +21,29 @@
 
                 <div class="form-horizontal">
                     <div class="form-group">
-			    		<label class="control-label col-sm-2" for="descripcion">Descripcion:</label>
-			    		<div class="col-sm-4">
-			    			<input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}">
-			    		</div>
-			    		<label class="control-label col-sm-2" for="tecnica">Tecnica:</label>
-			    		<div class="col-sm-4">
-			    			<input type="text" class="form-control" id="tecnica" name="tecnica" value="{{ instance.tecnica }}">
-			    		</div>
+				    	<div class="divalidacion">	
+				    		<label class="control-label col-sm-2" for="descripciondiag">Descripcion:</label>
+				    		<div class="col-sm-4">
+				    			<input type="text" class="form-control" id="descripciondiag" onkeyup="validacion('descripciondiag');" name="descripcion" value="{{ instance.descripcion }}">
+	    						<span class="help-block"></span>
+				    		</div>
+				    	</div>
+				    	<div class="divalidacion">	
+				    		<label class="control-label col-sm-2" for="tecnica">Tecnica:</label>
+				    		<div class="col-sm-4">
+				    			<input type="text" class="form-control" id="tecnica" onkeyup="validacion('tecnica');" name="tecnica" value="{{ instance.tecnica }}">
+				    			<span class="help-block"></span>
+				    		</div>
+				    	</div>	
 				    </div>
 
                 	<div class="form-group">
-			    		<label class="control-label col-sm-2" for="muestra">Muestra:</label>
-			    		<div class="col-sm-4">
-			    			<select class="form-control" name="muestra" id="muestra"></select>
-			    		</div>
+				    	<div class="divalidacion"> 	
+				    		<label class="control-label col-sm-2" for="muestra">Muestra:</label>
+				    		<div class="col-sm-4">
+				    			<select class="form-control" name="muestra" id="muestra" onchange="validacion('muestra');"></select>
+				    		</div>
+				    	</div>
                 	
                 		<label class="control-label col-sm-2" for="tercerizacion">Tercerizacion:</label>
 						<div class="col-sm-4">
@@ -245,6 +253,7 @@ $(document).ready(function(){
             type:"GET",
             dataType: "json",
             success: function(muestra){
+                $('#muestra').append('<option selected value=""></option>');
                 $.each(muestra,function(index, obj) 
                 {   
                     if(obj.id == selectmuestra)
@@ -269,7 +278,70 @@ $(document).ready(function(){
     		});
     	}
     }); // select de especie 
-});  
+
+/*validacion*/
+$("span.help-block").hide();
+});//ready  
+
+
+/*validacion*/
+function verificar(){
+    var v1=0,v2=0,v3=0;
+
+    v1=validacion('descripciondiag');
+    v2=validacion('tecnica');
+    v3=validacion('muestra');
+
+    console.log(v1,v2,v3);
+    if(v1 == true && v2 == true && v3 == true){
+        return true;
+    }
+    else{
+        return false;
+    }
+}//verificar
+
+$("#btnvalidar").click(function(){
+    if(verificar() == true){
+        $("#formvalidar").submit();
+    }
+});// boton validar
+
+
+function validacion(campo){
+    if(campo==='descripciondiag' || campo==='tecnica'){
+        inputtext = document.getElementById(campo).value;
+        console.log(inputtext);
+        if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
+            $('#icon'+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+            $('#'+campo).parent().children("span").text("Debe ingresar algun dato ").show();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+            return false;
+        }
+        else{
+            $("#icon"+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-success has-feedback");
+            $('#'+campo).parent().children("span").text("").hide();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+            return true;                
+        }
+    }//descripcion,tecnica
+
+    if(campo==='muestra'){
+        indice = document.getElementById(campo).selectedIndex;
+        console.log(indice);
+        if(indice == null || indice == 0){
+            $('#muestra').parent().parent().attr("class","has-error");
+            return false;
+        }
+        else{
+            $('#muestra').parent().parent().attr("class","has-success");
+            return true;
+        }
+    }//muestra          
+
+}//validacion 
 </script> 
 
 {% endblock %}

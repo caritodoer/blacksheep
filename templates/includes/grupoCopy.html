@@ -1,9 +1,12 @@
 <div class="panel panel-default" id="grupoParametros" style="display: none">
 	<div class="panel-heading">
 		<div class="form-group">
-			<label class="control-label col-sm-3" for="grupo">Grupo de Parametros</label>
-			<div class="col-sm-9">
-			<input type="text" class="form-control" id="grupo" name="grupo" value="{{ instance.grupo }}">
+			<div class="divalidacion">	
+				<label class="control-label col-sm-3" for="grupo">Grupo de Parametros</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" id="grupo" onkeyup="validacion('grupo');" name="grupo" value="{{ instance.grupo }}">
+					<span class="help-block"></span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -46,3 +49,185 @@
 		</div> 
 	</div> <!-- fin div panel footer -->
 </div> <!-- fin div panel -->
+
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	var num = 0;
+	$("body").on('click', "#agregar_parametros", function(){
+		var newRow = $('#hidden-row').clone()
+						.removeAttr('id')
+						.removeAttr('style')
+						.show();
+		// Clona, remueve id (para evitar duplicados) y stylem y muestra.
+        
+        num = num+1; // incremento del numero final de los datos del id y data-target
+        var modId = "ModalValorRef" + num; // Nuevo Id del Modal
+        var modData = "#ModalValorRef" + num; // Nuevo Data-Target value del row recien creado
+		var modPos = $('.modalBase').clone().attr('id', modId).removeClass('modalBase'); 
+		// Crea el modal para el row recien creado.		
+        
+        newRow.find("#botonIngresarValorRef").attr('data-target', modData);
+    	// Reemplaza la el id que se usa para llamar al model 
+    	$(this).parent().parent().parent().parent().append(newRow);
+    	// posiciona el row en el grupo de parametros en el que fue pedido.
+    	$(this).parent().parent().parent().parent().append(modPos);
+    	// posiciona el model en el grupo de parametros en el que fue pedido.
+   
+    return false;
+	});
+	
+	$("#block-parametros").on('click', ".ModalPara", function(){
+		var posRow = $(this).parent().parent(); // Posiciona la linea entera para usarla.
+		var modModel = posRow.find("#descripcion").val(); // busca el valor de descripcion-
+		var paraModel = posRow.find("#botonIngresarValorRef").attr('data-target'); // busca el id del modal
+		
+		$(paraModel).find('#parametro').attr('value', modModel); // remplaza parametros con el valor de descripcion-
+	});
+	$("#block-parametros").on('click', ".btn-danger", function(){
+		var delPos = $(this).parent().parent(); // La linea a eliminar
+		var delModel = delPos.find("#botonIngresarValorRef").attr('data-target'); // busca el id del modal
+		
+		$(delModel).remove(); // Delete Modal
+		delPos.remove();
+		//$(this).parent().parent().remove();  
+		// Elimina el model y la linea.
+	});
+	$("body").on('click', ".btn-eliminar-vr", function(){
+		$(this).parent().parent().remove(); // Delete Row de valores referencia	
+	});
+    $("#addBlockParametros").click(function(){
+        
+        var newTable = $('#grupoParametros').clone()
+                        .removeAttr('id')
+                        .removeAttr('style')
+                        .show()
+                        .appendTo('#block-parametros')
+        // copia y pega el bloque.
+        return false;
+    });
+	
+    $("body").on('click', "#rmvBlockPara", function(){
+    	$(this).parent().parent().remove();
+	});
+	
+    $("body").on('click', "#addParametroVr", function(){
+		
+		var newRow = $('#hidden-row-vr').clone()
+						.removeAttr('id')
+						.removeAttr('style')
+						.show();
+		$(this).parent().parent().parent().parent().find('tbody').append(newRow);
+		//genera la nueva linea para los valores por referencia.
+	});
+	
+    $(document).on('change', '#tercerizacion', function() {
+	    if(this.checked) {
+	      // checkbox is checked
+	      $('.hideterce').hide();
+	      
+	 	}
+	 	else{
+	 	  $('.hideterce').show();  
+	 	}
+	});
+    var selectmuestra = "{{instance.muestra.id}}"
+        $.ajax({
+            url:"/j_muestra/",
+            type:"GET",
+            dataType: "json",
+            success: function(muestra){
+                $('#muestra').append('<option selected value=""></option>');
+                $.each(muestra,function(index, obj) 
+                {   
+                    if(obj.id == selectmuestra)
+                    {
+                    $('#muestra').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                    else{
+                    $('#muestra').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    }
+                });
+            }
+        }); // finaliza el select 
+    
+
+    $.ajax({
+    	url: "/j_especie/",
+    	type: "GET",
+    	dataType: "json",
+    	success: function(especie){
+    		$.each(especie, function(index, obj){
+    			$('.especieSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+    		});
+    	}
+    }); // select de especie 
+
+/*validacion*/
+$("span.help-block").hide();
+});//ready  
+
+
+/*validacion*/
+function verificar(){
+    var v1=0,v2=0,v3=0,v4=0;
+
+    v1=validacion('descripciondiag');
+    v2=validacion('tecnica');
+    v3=validacion('muestra');
+    v4=validacion('grupo');
+
+    console.log(v1,v2,v3);
+    if(v1 == true && v2 == true && v3 == true && v4 == true){
+        return true;
+    }
+    else{
+        return false;
+    }
+}//verificar
+
+$("#btnvalidar").click(function(){
+    if(verificar() == true){
+        $("#formvalidar").submit();
+    }
+});// boton validar
+
+
+function validacion(campo){
+    if(campo==='descripciondiag' || campo==='tecnica' || campo==='grupo'){
+        inputtext = document.getElementById(campo).value;
+        console.log(inputtext);
+        if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
+            $('#icon'+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+            $('#'+campo).parent().children("span").text("Debe ingresar algun dato ").show();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+            return false;
+        }
+        else{
+            $("#icon"+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-success has-feedback");
+            $('#'+campo).parent().children("span").text("").hide();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+            return true;                
+        }
+    }//descripcion,tecnica
+
+    if(campo==='muestra'){
+        indice = document.getElementById(campo).selectedIndex;
+        console.log(indice);
+        if(indice == null || indice == 0){
+            $('#muestra').parent().parent().attr("class","has-error");
+            return false;
+        }
+        else{
+            $('#muestra').parent().parent().attr("class","has-success");
+            return true;
+        }
+    }//muestra          
+
+}//validacion 
+</script> 
+
+{% endblock %}

@@ -68,45 +68,84 @@ $("#btnvalidar").click(function(){
 	}
 });// boton validar
 
+//funcion retorna array de consulta bd 
+function getconbd(url, method)
+{
+    return JSON.parse($.ajax({
+        type: method,
+        url: url,
+        dataType: 'json',
+        async:false,
+        success: function(data)
+        {
+            return data;
+        }
+    }).responseText);
+}//consulta bd
+
 
 function validacion(campo){
 	if(campo==='descripcion'){
 		var descri = $('#descripcion').val();
-		$.ajax({
-	        url:"/j_categoria/",
-	        type:"GET",
-	        dataType: "json",
-	        success: function(categoria){
-	        	console.log(descri);
-	        	$.each(categoria,function(index, obj) 
-				{	
-					if(obj.descripcion == descri.toUpperCase().trim()){//
-						//alert(obj.descripcion+"  es igual  "+descri);
-						$("#icon"+campo).remove();
-						$('#'+campo).parent().parent().attr("class","form-group has-error has-feedback");
-						$('#'+campo).parent().children("span").text("Existe descripcion en base de datos").show();
-						$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
-					}
-				});//each
-	        }//success
-	    });//ajax
+		var truefalse = true;
+		var conbd = {};//variable consulta base datos
+        var surl='{{title}}';//variable para url capta titulo
+		/*surl=surl.substr(6).toLowerCase().replace(/\s/g,"");//quita palabara "nueva" y tranf minuscula, elimina espacios*/
+		var vurl=surl.split(' ');//vector del titulo
+		var nuevmodif=vurl[0];//guarda dato nuevo o modificar
+		vurl.shift();//elimina elemento inicial
+		if(vurl.length == 2){vurl=(vurl[0]+vurl[1]).toLowerCase();}
+		else{vurl=(vurl[0]).toLowerCase();}
+		console.log('var vurl ',vurl);
+		conbd = getconbd("/j_"+vurl+"/", "GET");//consulta json a tabla especificada
+        console.log('conbd',conbd);
+        if(nuevmodif != 'Modificar'){
+            for(var i=0;i < conbd.length;i++){
+                console.log('conbd[i]',conbd[i].descripcion);
+                if(conbd[i].descripcion.toUpperCase() == descri.toUpperCase().trim()){
+                    console.log(conbd[i].descripcion,'-',descri);
+                    truefalse=false;
+                    console.log('truefalse adentro',truefalse);
+                    break;      
+                }
+            }
+        }
+        else{
+	        for(var i=0;i < conbd.length;i++){    
+	            if(conbd[i].descripcion.toUpperCase() == descri.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
+	                console.log(conbd[i].descripcion,'-',descri);
+	                truefalse=false;
+	                console.log('truefalse adentro',truefalse);      
+	            }
+	        }
+        }//selector de modificacion
+        console.log('truefalse afuera',truefalse);
 
 		descripcion = document.getElementById(campo).value;
-		if(descripcion == null || descripcion.length == 0 || /^\s+$/.test(descripcion)){
+		if(truefalse == false){
 			$("#icon"+campo).remove();
 			$('#'+campo).parent().parent().attr("class","form-group has-error has-feedback");
-			$('#'+campo).parent().children("span").text("Debe ingresar una descripcion").show();
+			$('#'+campo).parent().children("span").text("Existe descripcion en base de datos").show();
 			$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
 			return false;
 		}
-		else
-		{
-			$("#icon"+campo).remove();
-			$('#'+campo).parent().parent().attr("class","form-group has-success has-feedback");
-			$('#'+campo).parent().children("span").hide();
-			$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
-			return true;				
-		}
+		else{			
+			if(descripcion == null || descripcion.length == 0 || /^\s+$/.test(descripcion)){
+				$("#icon"+campo).remove();
+				$('#'+campo).parent().parent().attr("class","form-group has-error has-feedback");
+				$('#'+campo).parent().children("span").text("Debe ingresar una descripcion").show();
+				$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+				return false;
+			}
+			else
+			{
+				$("#icon"+campo).remove();
+				$('#'+campo).parent().parent().attr("class","form-group has-success has-feedback");
+				$('#'+campo).parent().children("span").hide();
+				$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+				return true;				
+			}
+		}	
 	}//descripcion
 }//validacion
 
