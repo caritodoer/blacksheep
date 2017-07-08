@@ -11,7 +11,9 @@
       <div class="panel-heading">
         <h3 class="panel-title">{{ title }}</h3>
       </div>
-      <form class="form-horizontal" method="POST" action="">{% csrf_token %}
+      <!-- <form class="form-horizontal" method="POST" action="">{% csrf_token %} -->
+        <div class="form-horizontal">
+
         <div class="panel-body">
 
   <!-- panel de numero de protocolo -->
@@ -31,7 +33,7 @@
               <div class="form-group">
                               <label class="control-label col-sm-2" for="muestra">Muestra:</label>
                     <div class="col-sm-4">
-                      <select class="form-control" name="muestra" id="muestra"></select>
+                      <select class="form-control muestraSel" name="muestra"></select>
                     </div>
                     <div class="col-sm-6" align="right">
                       <button id="addBlockDiagnostico"  class="btn btn-default btn-sm">Agregar Diagnóstico  <span class="glyphicon glyphicon-plus"></span></button>
@@ -45,9 +47,9 @@
                               <div class="form-group">
                                 <label class="control-label col-sm-2" for="diagnostico">Diagnóstico:</label>
                                 <div class="col-sm-4">
-                                  <select class="form-control" name="diagnostico" id="diagnostico"></select>
+                                  <select class="form-control diagnosticoSel" name="diagnostico"></select>
                                 </div>
-                                <button id="eliminar_diagnostico"  class="btn btn-danger btn-sm">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
+                                <button class="btn btn-danger btn-sm btn-eliminar-linea">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
                               </div>
 
                             </div>
@@ -56,7 +58,7 @@
               </div>
 
               <div class="panel-footer">
-                <div id="rmvBlock" align="right">
+                <div id="rmvBlockProt" align="right">
                   <div  class="btn btn-sm" >
                     Eliminar Protocolo <span class="glyphicon glyphicon-remove"></span>
                   </div>
@@ -84,7 +86,8 @@
             </div>
           </div>
         </div> <!--fin panel footer-->
-      </form>
+        </div>
+      <!-- </form> -->
     </div>
   </div>
 </div>
@@ -108,6 +111,7 @@ $(document).ready(function() {
     $(this).parent().parent().parent().append(newLine);
     return false;
   });
+
   $("#addBlockProtocolo").click(function(){
     var newProt = $('#panelProtocolo').clone()
                         .removeAttr('id')
@@ -116,6 +120,7 @@ $(document).ready(function() {
                         .appendTo('#block-protocolo')
     return false;
   });
+
     var selectmuestra = "{{instance.muestra.id}}"
         $.ajax({
             url:"/j_muestra/",
@@ -126,10 +131,10 @@ $(document).ready(function() {
                 {   
                     if(obj.id == selectmuestra)
                     {
-                    $('#muestra').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    $('.muestraSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
                     else{
-                    $('#muestra').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    $('.muestraSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
                 });
             }
@@ -144,14 +149,22 @@ $(document).ready(function() {
                 {   
                     if(obj.id == selectdiagnostico)
                     {
-                    $('#diagnostico').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    $('.diagnosticoSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
                     else{
-                    $('#diagnostico').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    $('.diagnosticoSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
                 });
             }
         }); // fin selectdiagnostico
+
+  $("body").on('click', ".btn-eliminar-linea", function(){
+    $(this).parent().parent().remove(); // elimina linea de diagnostico 
+  });      
+
+  $("body").on('click', "#rmvBlockProt", function(){
+      $(this).parent().parent().remove();
+  });
     
 });
 </script> 

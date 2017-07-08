@@ -36,7 +36,7 @@
 									<div class="divalidacion">
 										<label class="control-label col-sm-1" for="raza">Raza:</label>
 							    		<div class="col-sm-2">
-							    			<select class="form-control" name="raza" id="raza"  onchange="validacion('raza');"></select>
+							    			<select class="form-control razaSel" name="raza" onchange="validacion('raza');"></select>
 							    		</div>
 							    	</div>	
 							    		<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse0" aria-expanded="false" aria-controls="collapse0">Más Opciones  <span class="glyphicon glyphicon-chevron-down"></span></button>
@@ -66,7 +66,7 @@
 
 											<label class="control-label col-sm-2" for="categoriae">Categoría de Especie:</label>
 								    		<div class="col-sm-4">
-								    			<select class="form-control" name="categoriae" id="categoriae"></select>
+								    			<select class="form-control categoriaeSel" name="categoriae"></select>
 								    		</div>
 										</div>
 										
@@ -90,7 +90,7 @@
 							</div> <!-- fin panel body -->
 							
 							<div class="panel-footer">
-								<div id="rmvBlockPara" align="right">
+								<div id="rmvBlockIndiv" align="right">
 									<div  class="btn btn-sm" >
 										Eliminar Individuo <span class="glyphicon glyphicon-remove"></span>
 									</div>
@@ -150,10 +150,10 @@ $(document).ready(function() {
                 {   
                     if(obj.id == selectraza)
                     {
-                    $('#raza').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    $('.razaSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
                     else{
-                    $('#raza').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    $('.razaSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
                 });
             }
@@ -169,89 +169,96 @@ $(document).ready(function() {
                 {   
                     if(obj.id == selectcategoriae)
                     {
-                    $('#categoriae').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    $('.categoriaeSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
                     else{
-                    $('#categoriae').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    $('.categoriaeSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
                 });
             }
         }); // finaliza el select
 
-/*validacion*/
-$("span.help-block").hide();
+	$("body").on('click', "#rmvBlockIndiv", function(){
+		$(this).parent().parent().remove();
+	});
+	
+	/*validacion*/
+	$("span.help-block").hide();
+
+
 }); //ready 
 
-/*validacion*/
-function verificar(){
-	var v1=0,v2=0;
+	/*validacion*/
+	function verificar(){
+		var v1=0,v2=0;
 
-	v1=validacion('identificacion');
-	v2=validacion('raza');
-	console.log(v1,v2);
-	if(v1 == true && v2 == true){
-		return true;
-	}
-	else{
-		return false;
-	}
-}//verificar
-
-$("#btnvalidar").click(function(){
-	if(verificar() == true){
-		$("#formvalidar").submit();
-		$(location).attr('href',"../../home_user");
-	}
-});// boton validar
-
-//funcion retorna array de consulta bd 
-function getconbd(url, method)
-{
-    return JSON.parse($.ajax({
-        type: method,
-        url: url,
-        dataType: 'json',
-        async:false,
-        success: function(data)
-        {
-            return data;
-        }
-    }).responseText);
-}//consulta bd
-
-function validacion(campo){
-	if(campo==='identificacion'){
-        inputtext = document.getElementById(campo).value;
-        console.log(inputtext);
-        if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
-            $('#icon'+campo).remove();
-            $('#'+campo).parent().parent().attr("class","has-error has-feedback");
-            $('#'+campo).parent().children("span").text("Debe ingresar una "+campo+"").show();
-            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
-            return false;
-        }
-        else{
-            $("#icon"+campo).remove();
-            $('#'+campo).parent().parent().attr("class","has-success has-feedback");
-            $('#'+campo).parent().children("span").text("").hide();
-            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
-            return true;                
-        }
-    }//identificacion
-	
-	if(campo==='raza'){
-		indice = document.getElementById(campo).selectedIndex;
-		console.log(indice);
-		if(indice == null || indice == 0){
-			$('#raza').parent().parent().attr("class","form-group has-error");
-			return false;
-		}
-		else{
-			$('#raza').parent().parent().attr("class","form-group has-success");
+		v1=validacion('identificacion');
+		v2=validacion('raza');
+		console.log(v1,v2);
+		if(v1 == true && v2 == true){
 			return true;
 		}
-	}//especie			
-}//validacion
+		else{
+			return false;
+		}
+	}//verificar
+
+	$("#btnvalidar").click(function(){
+		if(verificar() == true){
+			$("#formvalidar").submit();
+			$(location).attr('href',"../../home_user");
+		}
+	});// boton validar
+
+	//funcion retorna array de consulta bd 
+	function getconbd(url, method)
+	{
+	    return JSON.parse($.ajax({
+	        type: method,
+	        url: url,
+	        dataType: 'json',
+	        async:false,
+	        success: function(data)
+	        {
+	            return data;
+	        }
+	    }).responseText);
+	}//consulta bd
+
+	function validacion(campo){
+		if(campo==='identificacion'){
+	        inputtext = document.getElementById(campo).value;
+	        console.log(inputtext);
+	        if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
+	            $('#icon'+campo).remove();
+	            $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+	            $('#'+campo).parent().children("span").text("Debe ingresar una "+campo+"").show();
+	            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+	            return false;
+	        }
+	        else{
+	            $("#icon"+campo).remove();
+	            $('#'+campo).parent().parent().attr("class","has-success has-feedback");
+	            $('#'+campo).parent().children("span").text("").hide();
+	            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+	            return true;                
+	        }
+	    }//identificacion
+		
+		if(campo==='raza'){
+			indice = document.getElementById(campo).selectedIndex;
+			console.log(indice);
+			if(indice == null || indice == 0){
+				$('#raza').parent().parent().attr("class","form-group has-error");
+				return false;
+			}
+			else{
+				$('#raza').parent().parent().attr("class","form-group has-success");
+				return true;
+			}
+		}//especie			
+	}//validacion
+
 
 </script>
 {% endblock %}
