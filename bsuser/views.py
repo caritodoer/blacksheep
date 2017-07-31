@@ -10,7 +10,13 @@ def login(request):
 	return render(request, "login.html")
 
 def home_user(request):
-	return render(request, "home_user.html")
+	DetAna_queryset = DetalleAnalisis.objects.all().order_by('-protocolo')
+
+	context = {
+		"object_list": DetAna_queryset,
+		"title": "Últimos Protocolos Registrados"
+	}
+	return render(request, "home_user.html", context)
 
 # Solicitud Analisis
 
@@ -56,7 +62,7 @@ def v_solicitudanalisis(request, id=None):
 
 def u_solicitudanalisis(request, id=None):
 	instance = get_object_or_404(SolicitudAnalisis,id=id)
-	form = SolicitudAnalisisaForm(request.POST or None, instance=instance)
+	form = SolicitudAnalisisForm(request.POST or None, instance=instance)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
@@ -167,7 +173,7 @@ def a_individuopadre(request):
 	else:
 		print (form.errors)
 	context = {
-		"title" : "Nuevo Individuo Padre",
+		"title" : "Registrar Individuo/s",
 		"form" : form,
 	}
 	return render(request, "alta_indivp.html", context)

@@ -2,74 +2,78 @@
 {% block content %}
 
 <div class="row">
-	<div class="col-md-10 col-md-offset-1">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">{{ title }}</h3>
-			</div>
-			<div class="panel-body">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ title }}</h3>
+            </div>
+            <form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
+                <div class="panel-body">
 
-				<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
-					<div class="form-group">
-						<div class="divalidacion">
-							<label class="control-label col-sm-2" for="establecimiento">Establecimiento:</label>
-	                        <div class="col-sm-4">
-	                            <select class="form-control" name="establecimiento" id="establecimiento" onchange="validacion('establecimiento');"></select>
-	                        </div>
-                        </div>
-
+                    <div class="form-group">
                         <div class="divalidacion">
-	                        <label class="control-label col-sm-2" for="veterinario">Veterinario:</label>
-	                        <div class="col-sm-4">
-	                            <select class="form-control" name="veterinario" id="veterinario" onchange="validacion('veterinario');"></select>
-	                        </div>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="divalidacion">
-							<label class="control-label col-sm-2" for="motivo">Motivo:</label>
-	                        <div class="col-sm-4">
-	                            <select class="form-control" name="motivo" id="motivo" onchange="validacion('motivo');"></select>
-	                        </div>
-                        </div>
-
-                        <div class="divalidacion">
-	                        <label class="control-label col-sm-2" for="especie">Especie:</label>
-	                        <div class="col-sm-4">
-	                            <select class="form-control" name="especie" id="especie" onchange="validacion('especie');"></select>
-	                        </div>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="divalidacion">    
-                            <label class="control-label col-sm-2" for="fecha">Fecha:</label>
+                            <label class="control-label col-sm-2" for="establecimiento">Establecimiento:</label>
                             <div class="col-sm-4">
-                            	<input type="date" class="form-control" id="fecha" name="fecha" onkeyup="validacion('fecha');" value="{{ instance.fecha }}">
- 								<span class="help-block"></span>
+                                <select class="form-control" name="establecimiento" id="establecimiento" onchange="validacion('establecimiento');"></select>
                             </div>
                         </div>
-					</div>
 
-					<div class="form-group">
-				    	<label class="control-label col-sm-3" for="obs">Observaciones:</label>
-			    		<div class="col-sm-9">
-					    	<textarea row="3" class="form-control" id="obs" name="obs" value="{{ instance.obs }}"> </textarea>
-			    		</div>
-				    </div>
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="veterinario">Veterinario:</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="veterinario" id="veterinario" onchange="validacion('veterinario');"></select>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="form-group">
-			    		<div class="col-sm-offset-2 col-sm-10">
-							<button type="button" class="btn btn-default" id="btnvalidar">Registrar</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+                    <div class="form-group">
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="motivo">Motivo:</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="motivo" id="motivo" onchange="validacion('motivo');"></select>
+                            </div>
+                        </div>
+
+                        <div class="divalidacion">
+                            <label class="control-label col-sm-2" for="especie">Especie:</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="especie" id="especie" onchange="validacion('especie');"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="divalidacion">    
+                            <label class="control-label col-sm-2" for="fecha">Fecha:</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" id="fecha" name="fecha" onkeyup="validacion('fecha');" value="{{ instance.fecha }}">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="obs">Observaciones:</label>
+                        <div class="col-sm-9">
+                            <textarea row="3" class="form-control" id="obs" name="obs" value="{{ instance.obs }}"> </textarea>
+                        </div>
+                    </div>
+
+                </div> <!--fin panel body-->
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-12" align="right">
+                            <!-- <a href="../../protocolo/alta" > -->
+                            <button type="button" class="btn btn-default" id="btnvalidar">Continuar</button>
+                            </a>
+                        </div>
+                    </div>
+                </div> <!--fin panel footer-->
+            </form>
+        </div>
+    </div>
 </div>
-
 
 {% endblock %}
 
@@ -161,28 +165,67 @@ $(document).ready(function() {
                 });
             }
         }); // fin select especie
-}); //ready
 
-
-$(document).ready(function() {
-	$("span.help-block").hide();
-	String.prototype.trim = function() {// funcion para eliminar espacios anterior y posterior
-		return this.replace(/^\s+|\s+$/g,""); 
-	};
-});//ready
-
-$('#formvalidar').on('keyup keypress', function(e) {
-  var keyCode = e.keyCode || e.which;
-  if (keyCode === 13) { 
-    e.preventDefault();
-    return false;
-  }
-});///descativa la tecla ENTER para que no confirme y saltee la verificacion en base de datos
+/*validacion*/
+$("span.help-block").hide();
+    });//ready  
 
 
 /*validacion*/
+function verificar(){
+    var v1=0,v2=0,v3=0,v4=0;
 
+    v1=validacion('establecimiento');
+    v2=validacion('veterinario');
+    v3=validacion('motivo');
+    v4=validacion('especie');
 
+    console.log(v1,v2,v3,v4);
+    if(v1 == true && v2 == true && v3 == true && v4){
+        return true;
+    }
+    else{
+        return false;
+    }
+}//verificar
 
-</script> 
+$("#btnvalidar").click(function(){
+    if(verificar() == true){
+        $("#formvalidar").submit();
+        $(location).attr('href',"../../protocolo/alta");
+    }
+});// boton validar
+
+//funcion retorna array de consulta bd 
+function getconbd(url, method)
+{
+    return JSON.parse($.ajax({
+        type: method,
+        url: url,
+        dataType: 'json',
+        async:false,
+        success: function(data)
+        {
+            return data;
+        }
+    }).responseText);
+}//consulta bd
+
+function validacion(campo){
+    if(campo==='establecimiento' || campo==='veterinario' || campo==='motivo' || campo==='especie'){
+        indice = document.getElementById(campo).selectedIndex;
+        console.log(indice);
+        if(indice == null || indice == 0){
+            $('#'+campo).parent().parent().attr("class","has-error");
+            return false;
+        }
+        else{
+            $('#'+campo).parent().parent().attr("class","has-success");
+            return true;
+        }
+    }//veterinario          
+
+}//validacion
+
+</script>
 {% endblock %}

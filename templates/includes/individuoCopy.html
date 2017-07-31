@@ -1,0 +1,81 @@
+<div class="panel panel-default" id="panelIndividuo" style="display: none">
+	<div class="panel-heading">
+		<div class="panel-title">
+			<ol><li>° Individuo</li></ol>
+		</div>
+		
+	</div>
+	<div class="panel-body">
+
+		<!-- <div class="row"> -->
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="identificacion">Identificación:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="identificacion" name="identificacion" value="{{ instance.identificacion }}">
+                    <small>N° de Caravana / DNI del Dueño + Nombre del Animal</small>
+                </div>
+			
+				<label class="control-label col-sm-1" for="raza">Raza:</label>
+	    		<div class="col-sm-2">
+	    			<select class="form-control razaSel" name="raza" onchange="validacion('raza');"></select>
+	    		</div>
+	    		<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">Más Opciones  <span class="glyphicon glyphicon-chevron-down"></span></button>
+
+	   
+			</div>
+		<!-- </div> -->
+
+		<!-- Panel colapsado de "mas opciones" -->
+		<div class="collapse" id="collapse1">
+				<div class="well">
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="nombre">Nombre:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ instance.nombre }}">
+                    </div>
+                    
+                    <label class="control-label col-sm-2" for="Edad">Edad:</label>
+                    <div class="col-sm-4">
+                        <input type="number" class="form-control" id="edad" name="edad" value="{{ instance.edad }}">
+                    </div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="libreta">Libreta Sanitaria:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="libreta" name="libreta" value="{{ instance.libreta }}">
+                    </div>
+
+					<label class="control-label col-sm-2" for="categoriae">Categoría de Especie:</label>
+		    		<div class="col-sm-4">
+		    			<select class="form-control categoriaeSel" name="categoriae"></select>
+		    		</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="sexo">Sexo:</label>
+					<div class="col-sm-4">
+						<label class="checkbox-inline">
+							<input type="checkbox" value="">M
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" value="">H
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" value="">NS/NC
+						</label> 
+					</div>
+				</div>
+				</div>	<!-- fin well -->
+			</div>	<!-- fin collapsado -->
+
+	</div> <!-- fin panel body -->
+	
+	<div class="panel-footer">
+		<div id="rmvBlockIndiv" align="right">
+			<div  class="btn btn-sm" >
+				Eliminar Individuo <span class="glyphicon glyphicon-remove"></span>
+			</div>
+		</div> 
+	</div>
+</div> 	<!-- fin panel individuo -->

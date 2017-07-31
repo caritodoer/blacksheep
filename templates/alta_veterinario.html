@@ -7,9 +7,9 @@
             <div class="panel-heading">
                 <h3 class="panel-title">{{ title }}</h3>
             </div>
-            <div class="panel-body">
+            <form id="formvalidar" class="form-horizontal" method="POST" action="">{% csrf_token %}
+                <div class="panel-body">
 
-                <form id="formvalidar" class="form-horizontal" method="POST" action="">{% csrf_token %}
                     <div class="form-group">
                         <div class="divalidacion">
                             <label class="control-label col-sm-2" for="nombre">Nombre:</label>
@@ -84,11 +84,8 @@
                         <div class="divalidacion">
                             <label class="control-label col-sm-2" for="email">Email:</label>
                             <div class="col-sm-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1">@</span>
-                                    <input type="text" id="email" name="email" class="form-control" onkeyup="validacion('email');" value="{{ instance.email }}" aria-describedby="basic-addon1">
+                                    <input type="text" id="email" name="email" class="form-control" onkeyup="validacion('email');" value="{{ instance.email }}">
                                         <span class="help-block"></span>
-                                </div>
                             </div>
                         </div>
                         <div class="divalidacion">
@@ -150,50 +147,47 @@
                         </div>
                     </div>
             
-                         <!-- INICIO PANEL ACORDEON -->
-                        <div class="row">
+                    <div class="row">
                         <div class="col-sm-12">
                             <h4>Datos Complementarios</h4>
                         </div>
                     </div>
-                          <div class="panel-body">
 
-                           <!-- INICIO PANEL BODY -->
-                            <div class="form-group">
-                                <div class="divalidacion">    
-                                    <label class="control-label col-sm-2" for="fecha_ingreso">Fecha de Alta:</label>
-                                    <div class="col-sm-4">
-                                        <input type="date" class="form-control" id="fecha_ingreso" name="fecha_ingreso" onkeyup="validacion('fecha_ingreso');" value="{{ instance.fecha_ingreso }}" placeholder="AAAA-MM-DD">
-                                            <span class="help-block"></span>
-                                    </div>
-                                </div>
-                                <div class="divalidacion">    
-                                    <label class="control-label col-sm-2" for="fecha_baja">Fecha de Baja:</label>
-                                    <div class="col-sm-4">
-                                        <input type="date" class="form-control" id="fecha_baja" name="fecha_baja" onkeyup="validacion('fecha_baja');" value="{{ instance.fecha_baja }}">
-                                            <span class="help-block"></span>
-                                    </div>
-                                </div>
+                    <div class="form-group">
+                        <div class="divalidacion">    
+                            <label class="control-label col-sm-2" for="fecha_ingreso">Fecha de Alta:</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" id="fecha_ingreso" name="fecha_ingreso" onkeyup="validacion('fecha_ingreso');" value="{{ instance.fecha_ingreso }}" placeholder="AAAA-MM-DD">
+                                <span class="help-block"></span>
                             </div>
-
-                            <div class="form-group">
-                                <div class="divalidacion">    
-                                    <label class="control-label col-sm-2" for="acreditacion_brucelosis">Acreditacion Brucelosis:</label>
-                                    <div class="col-sm-4">
-                                        <input type="date" class="form-control" id="acreditacion_brucelosis" name="acreditacion_brucelosis" onkeyup="validacion('acreditacion_brucelosis');" value="{{ instance.acreditacion_brucelosis }}" placeholder="">
-                                            <span class="help-block"></span>
-                                    </div>
-                                </div>
-                                <div class="divalidacion">    
-                                    <label class="control-label col-sm-2" for="acreditacion_aie">Acreditacion AIE:</label>
-                                    <div class="col-sm-4">
-                                        <input type="date" class="form-control" id="acreditacion_aie" name="acreditacion_aie" onkeyup="validacion('acreditacion_aie');" value="{{ instance.acreditacion_aie }}" placeholder="">
-                                            <span class="help-block"></span>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="divalidacion">    
+                            <label class="control-label col-sm-2" for="fecha_baja">Fecha de Baja:</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control" id="fecha_baja" name="fecha_baja" onkeyup="validacion('fecha_baja');" value="{{ instance.fecha_baja }}">
+                                <span class="help-block"></span>
                             </div>
+                        </div>
+                    </div>
 
-                     <div class="form-group">
+                    <div class="form-group">
+                        <div class="divalidacion">    
+                            <label class="control-label col-sm-2" for="acreditacion_brucelosis">Acreditacion Brucelosis:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="acreditacion_brucelosis" name="acreditacion_brucelosis" onkeyup="validacion('acreditacion_brucelosis');" value="{{ instance.acreditacion_brucelosis }}" placeholder="">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="divalidacion">    
+                            <label class="control-label col-sm-2" for="acreditacion_aie">Acreditacion AIE:</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="acreditacion_aie" name="acreditacion_aie" onkeyup="validacion('acreditacion_aie');" value="{{ instance.acreditacion_aie }}" placeholder="">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label class="control-label col-sm-2" for="activo">Estado:</label>
                         <div class="col-sm-10">
                             <div class="checkbox form-check disabled">
@@ -204,14 +198,16 @@
                         </div>
                     </div>
 
+                </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-12" align="right">
                             <button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -262,22 +258,22 @@ function verificar(){
     v3=validacion('matricula');
     v4=validacion('dni');
     v5=validacion('especializacionesin');
-    v6=validacion('domicilio_particular');
-    v7=validacion('cp_domicilio_particular');
-    v8=validacion('email');
+/*    v6=validacion('domicilio_particular');*/
+/*    v7=validacion('cp_domicilio_particular');*/
+/*    v8=validacion('email');*/
     v9=validacion('codigo_area');
     v10=validacion('telefono1');
-    v11=validacion('telefono2');
+/*    v11=validacion('telefono2');*/
     v12=validacion('domicilio_fiscal');
     v13=validacion('cp_domicilio_fiscal');
     v14=validacion('cuit');
     v15=validacion('fecha_ingreso');
-    v16=validacion('fecha_baja');
-    v17=validacion('acreditacion_brucelosis');
-    v18=validacion('acreditacion_aie');
+/*    v16=validacion('fecha_baja');*/
+/*    v17=validacion('acreditacion_brucelosis');*/
+/*    v18=validacion('acreditacion_aie');*/
 
     console.log(v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11);
-    if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true && v7 == true && v8 == true && v9 == true && v10 == true && v11 == true && v12 == true && v13 == true && v14 == true && v15 == true && v16 == true && v17 == true && v18 == true){
+    if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v9 == true && v10 == true && v12 == true && v13 == true && v14 == true && v15 == true){
         return true;
     }
     else{
@@ -291,14 +287,72 @@ $("#btnvalidar").click(function(){
     }
 });// boton validar
 
+//funcion retorna array de consulta bd 
+function getconbd(url, method)
+{
+    return JSON.parse($.ajax({
+        type: method,
+        url: url,
+        dataType: 'json',
+        async:false,
+        success: function(data)
+        {
+            return data;
+        }
+    }).responseText);
+}//consulta bd
+
 function validacion(campo){
-    if(campo==='nombre' || campo==='apellido' || campo==='matricula' || campo==='domicilio_particular' || campo==='domicilio_fiscal' || campo==='cp_domicilio_particular' || campo==='cp_domicilio_fiscal'  || campo==='acreditacion_brucelosis' || campo==='acreditacion_aie'){
+    if(campo==='matricula'){
         inputtext = document.getElementById(campo).value;
+        var truefalse = true;
+        var conbd = {};//variable consulta base datos
+        var surl='{{title}}';//variable para url capta titulo
+        /*surl=surl.substr(6).toLowerCase().replace(/\s/g,"");//quita palabara "nueva" y tranf minuscula, elimina espacios*/
+        var vurl=surl.split(' ');//vector del titulo
+        var nuevmodif=vurl[0];//guarda dato nuevo o modificar
+        vurl.shift();//elimina elemento inicial
+        if(vurl.length == 2){vurl=(vurl[0]+vurl[1]).toLowerCase();}
+        else{vurl=(vurl[0]).toLowerCase();}
+        console.log('var vurl ',vurl);
+        conbd = getconbd("/j_"+vurl+"/", "GET");//consulta json a tabla especificada
+        console.log('conbd',conbd);
+        if(nuevmodif != 'Modificar'){
+            for(var i=0;i < conbd.length;i++){
+                console.log('conbd[i]',conbd[i].matricula);
+                if(conbd[i].matricula.toUpperCase() == inputtext.toUpperCase().trim()){
+                    console.log(conbd[i].matricula,'-',inputtext);
+                    truefalse=false;
+                    console.log('truefalse adentro',truefalse);
+                    break;      
+                }
+            }
+        }
+        else{
+            for(var i=0;i < conbd.length;i++){    
+                if(conbd[i].matricula.toUpperCase() == inputtext.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
+                    console.log(conbd[i].matricula,'-',inputtext);
+                    truefalse=false;
+                    console.log('truefalse adentro',truefalse);      
+                }
+            }
+        }//selector de modificacion
+        console.log('truefalse afuera',truefalse);
+
+        
         console.log(inputtext);
+    if(truefalse == false){
+        $("#icon"+campo).remove();
+        $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+        $('#'+campo).parent().children("span").text("Existe "+campo+" en base de datos").show();
+        $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+        return false;
+    }
+    else{
         if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");
-            $('#'+campo).parent().children("span").text("Debe ingresar un "+campo+"").show();
+            $('#'+campo).parent().children("span").text("Debe ingresar una "+campo+"").show();
             $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
             return false;
         }
@@ -309,7 +363,73 @@ function validacion(campo){
             $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
             return true;                
         }
-    }//nombre,apellido,matricula
+    }    
+    }//matricula
+
+    if(campo==='nombre' || campo==='apellido' || campo==='domicilio_fiscal' || campo==='cp_domicilio_fiscal'){
+        inputtext = document.getElementById(campo).value;
+        console.log(inputtext);
+        if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
+            $('#icon'+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+            $('#'+campo).parent().children("span").text("Debe ingresar un "+campo.replace('/_/g',' ')+"").show();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+            return false;
+        }
+        else{
+            $("#icon"+campo).remove();
+            $('#'+campo).parent().parent().attr("class","has-success has-feedback");
+            $('#'+campo).parent().children("span").text("").hide();
+            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+            return true;                
+        }
+    }//nombre,apellido,domicilio fiscal,cp domicilio fiscal
+
+    if(campo==='domicilio_particular' || campo==='cp_domicilio_particular' || campo==='acreditacion_brucelosis' || campo==='acreditacion_aie'){
+        inputtext = document.getElementById(campo).value;
+        console.log(inputtext);
+        if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
+            $('#icon'+campo).remove();
+            /*$('#'+campo).parent().parent().attr("class","has-error has-feedback");*/
+            $('#'+campo).parent().children("span").text("Ingreso de datos opcional").show();
+            /*$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");*/
+            return false;
+        }
+        else{
+            $("#icon"+campo).remove();
+            /*$('#'+campo).parent().parent().attr("class","has-success has-feedback");*/
+            $('#'+campo).parent().children("span").text("").hide();
+            /*$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");*/
+            return true;                
+        }
+    }//dom particluar,cp dom particular,acreditacion brucelosis,acreditacion aie
+
+    if (campo==='email'){
+        inputtext = document.getElementById(campo).value;
+        if( inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext) ) {
+            $("#icon"+campo).remove();
+            /*$('#'+campo).parent().parent().attr("class","has-error has-feedback");*/
+            $('#'+campo).parent().children('span').text("Ingreso de datos opcional").show();
+            /*$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");*/
+            return false;
+        }
+        else{
+            if (!(/\S+@\S+\.\S+/.test(inputtext))) {
+                $("#icon"+campo).remove();
+                /*$('#'+campo).parent().parent().attr("class","has-error has-feedback");*/
+                $('#'+campo).parent().children('span').text("Ingrese un Email valido.Ej:mail@mail.com").show();
+                /*$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");*/
+                return false;
+            }
+            else{
+                $("#icon"+campo).remove();
+                /*$('#'+campo).parent().parent().attr("class","has-success has-feedback");*/
+                $('#'+campo).parent().children('span').hide();
+                /*$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");*/
+                return true;
+            }
+        }
+    }//email
 
     if(campo==='codigo_area' || campo==='telefono1' || campo==='telefono2'){
         inputtext = document.getElementById(campo).value;
@@ -345,6 +465,48 @@ function validacion(campo){
     if(campo==='dni'){
         dni = document.getElementById(campo).value;
         console.log(dni);
+        /*inputtext = document.getElementById(campo).value;*/
+        var truefalse = true;
+        var conbd = {};//variable consulta base datos
+        var surl='{{title}}';//variable para url capta titulo
+        /*surl=surl.substr(6).toLowerCase().replace(/\s/g,"");//quita palabara "nueva" y tranf minuscula, elimina espacios*/
+        var vurl=surl.split(' ');//vector del titulo
+        var nuevmodif=vurl[0];//guarda dato nuevo o modificar
+        vurl.shift();//elimina elemento inicial
+        if(vurl.length == 2){vurl=(vurl[0]+vurl[1]).toLowerCase();}
+        else{vurl=(vurl[0]).toLowerCase();}
+        console.log('var vurl ',vurl);
+        conbd = getconbd("/j_"+vurl+"/", "GET");//consulta json a tabla especificada
+        console.log('conbd',conbd);
+        if(nuevmodif != 'Modificar'){
+            for(var i=0;i < conbd.length;i++){
+                console.log('conbd[i]',conbd[i].dni);
+                if(conbd[i].dni.toUpperCase() == dni.toUpperCase().trim()){
+                    console.log(conbd[i].dni,'-',dni);
+                    truefalse=false;
+                    console.log('truefalse adentro',truefalse);
+                    break;      
+                }
+            }
+        }
+        else{
+            for(var i=0;i < conbd.length;i++){    
+                if(conbd[i].dni.toUpperCase() == dni.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
+                    console.log(conbd[i].dni,'-',dni);
+                    truefalse=false;
+                    console.log('truefalse adentro',truefalse);      
+                }
+            }
+        }//selector de modificacion
+        console.log('truefalse afuera',truefalse);
+        console.log(dni);
+    if(truefalse == false){
+        $("#icon"+campo).remove();
+        $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+        $('#'+campo).parent().children("span").text("Existe "+campo+" en base de datos").show();
+        $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+        return false;
+    }
         if(dni == null || dni.length == 0 || /^\s+$/.test(dni)){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");
