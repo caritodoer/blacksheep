@@ -58,6 +58,15 @@ urlpatterns = [
     url(r'^j_detalleanalisis/$', views.j_detalleanalisis),
     url(r'^j_detalleanalisisid/(?P<id>\d+)/$', views.j_detalleanalisisid),
 
+    # Detalle Analisis
+    url(r'^DetalleAnalisisPadre/$', views.l_DetalleAnalisisPadre, name="l_DetalleAnalisisPadre"),
+    url(r'^DetalleAnalisisPadre/alta/$', views.a_DetalleAnalisisPadre),
+    url(r'^DetalleAnalisisPadre/(?P<id>\d+)/$', views.v_DetalleAnalisisPadre, name="v_DetalleAnalisisPadre"),
+    url(r'^DetalleAnalisisPadre/update/(?P<id>\d+)/$', views.u_DetalleAnalisisPadre),
+    url(r'^DetalleAnalisisPadre/delete/(?P<id>\d+)/$', views.d_DetalleAnalisisPadre),
+    url(r'^j_DetalleAnalisisPadre/$', views.j_DetalleAnalisisPadre),
+    url(r'^j_DetalleAnalisisPadreid/(?P<id>\d+)/$', views.j_DetalleAnalisisPadreid),
+
     # eliminacion Protocolo
     url(r'^eliminacionprotocolo/$', views.l_eliminacionprotocolo, name="l_eliminacionprotocolo"),
     url(r'^eliminacionprotocolo/alta/$', views.a_eliminacionprotocolo),

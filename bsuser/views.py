@@ -119,7 +119,7 @@ def v_protocolo(request, id=None):
 	instance = get_object_or_404(Protocolo, id=id)
 	context = {
 		"instance" : instance,
-		"title": "Detalle de Protocolo",
+		"title": "Detalle de Protocolo (Emitir Hoja de Trabajo, generar informe individual/grupal)",
 	}
 	return render(request, "ver_protocolo.html", context)
 
@@ -332,6 +332,69 @@ def d_detalleanalisis(request, id=None):
 	instance = get_object_or_404(DetalleAnalisis, id=id)
 	instance.delete()
 	return redirect("bsadmin:l_detalleanalisis")
+
+# Detalle Analisis
+
+def j_DetalleAnalisisPadre(request):
+	queryset = DetalleAnalisisPadre.objects.all().values().order_by('id')
+	queryset = list(queryset)  
+	return JsonResponse(queryset, safe=False)
+
+def j_DetalleAnalisisPadreid(request,id=None):
+	queryset = DetalleAnalisisPadre.objects.filter(id=id).values()    
+	queryset = list(queryset)  
+	return JsonResponse(queryset, safe=False)
+
+def l_DetalleAnalisisPadre(request):
+	queryset = DetalleAnalisisPadre.objects.all().order_by('id')
+	context = {
+		"object_list": queryset,
+		"title": "Listado de Detalle Analisis"
+	}
+	return render(request, "list_detAn.html", context)
+
+def a_DetalleAnalisisPadre(request):
+	form = DetalleAnalisisPadreForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
+	context = {
+		"title" : "Nuevo Detalle Analisis",
+		"form" : form,
+	}
+	return render(request, "alta_detAn.html", context)
+
+def v_DetalleAnalisisPadre(request, id=None):
+	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
+	context = {
+		"instance" : instance,
+		"title": "Detalle de Analisis",
+	}
+	return render(request, "ver_detAn.html", context)
+
+def u_DetalleAnalisisPadre(request, id=None):
+	instance = get_object_or_404(DetalleAnalisisPadre,id=id)
+	form = DetalleAnalisisPadreForm(request.POST or None, instance=instance)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
+	context = {
+		"title" : "Modificar Detalle Analisis",
+		"instance" : instance,
+		"form" : form,
+	}
+	return render(request, "alta_detAn.html", context)
+
+def d_DetalleAnalisisPadre(request, id=None):
+	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
+	instance.delete()
+	return redirect("bsadmin:l_DetalleAnalisisPadre")
 
 # Eliminacion Protocolo
 

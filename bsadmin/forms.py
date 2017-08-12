@@ -61,6 +61,17 @@ class RazaForm(forms.ModelForm):
 			"especie"
 		]
 
+class ParametrosForm(forms.ModelForm):
+	class Meta:
+		model = Parametros
+		fields = [
+			"diagnostico",
+			"descripcion",
+			"tipo_de_dato",
+			"unidadmedida",
+			"grupo"
+		]	
+
 class DiagnosticoForm(forms.ModelForm):
 	class Meta:
 		model = Diagnostico
