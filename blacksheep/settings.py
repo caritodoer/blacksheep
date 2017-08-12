@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'blacksheep.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bs_bd',
+        'NAME': 'bs_bd_m',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',

@@ -116,7 +116,28 @@ class Muestra(models.Model):
 		self.descripcion = self.descripcion.upper()
 		super(Muestra, self).save(force_insert, force_update)
 
+class Diagnostico(models.Model):
+	descripcion = models.CharField("Diagnostico", max_length=30)
+	## esta comentado porque ValoresReferencia es el vinculo entre Diagnostico y Parametros
+	## parametros = models.ManyToManyField(Parametros) 
+	tecnica = models.CharField(max_length=30)
+	muestra = models.ForeignKey(Muestra)
+	tercerizacion = models.BooleanField()
+	activo = models.BooleanField(default=True)
+	piepagina = models.TextField("Pie de Pagina", null=True, blank=True)
+
+	def __str__(self):
+		return ('%s')%(self.descripcion)
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_diagnostico", kwargs={"id": self.id})
+
+	def save(self, force_insert=False, force_update=False):
+		self.descripcion = self.descripcion.upper()
+		self.tecnica = self.tecnica.upper()
+		super(Diagnostico, self).save(force_insert, force_update)
+
 class Parametros(models.Model):
+	diagnostico = models.ForeignKey(Diagnostico,default=0)
 	descripcion = models.CharField("Parametro", max_length=30)
 	tipo_de_dato_choices = (
 		('I', 'Entero'),
@@ -140,37 +161,13 @@ class Parametros(models.Model):
 		self.grupo = self.grupo.upper()
 		super(Parametros, self).save(force_insert, force_update)
 
-
-class Diagnostico(models.Model):
-	descripcion = models.CharField("Diagnostico", max_length=30)
-	## esta comentado porque ValoresReferencia es el vinculo entre Diagnostico y Parametros
-	## parametros = models.ManyToManyField(Parametros) 
-	tecnica = models.CharField(max_length=30)
-	muestra = models.ForeignKey(Muestra)
-	tercerizacion = models.BooleanField()
-	activo = models.BooleanField(default=True)
-	piepagina = models.TextField("Pie de Pagina", null=True, blank=True)
-
-	def __str__(self):
-		return ('%s')%(self.descripcion)
-	def get_absolute_url(self):
-		return reverse("bsadmin:v_diagnostico", kwargs={"id": self.id})
-
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion = self.descripcion.upper()
-		self.tecnica = self.tecnica.upper()
-		super(Diagnostico, self).save(force_insert, force_update)
-
 class ValoresReferencia(models.Model):
-	diagnostico = models.ForeignKey(Diagnostico)
 	especie = models. ForeignKey(Especie)
 	parametros = models.ForeignKey(Parametros)
 	valorRef = models.CharField(max_length=30, blank=True, null=True)
 	valorDef = models.CharField(max_length=30, blank=True, null=True)
 	activo = models.BooleanField(default=True)
 
-	class Meta:
-		unique_together = ('diagnostico', 'especie', 'parametros',)
 
 	def __str__(self):
 		return ('%s %s %s')%(self.diagnostico, self.especie, self.parametros)

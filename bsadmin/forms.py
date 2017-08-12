@@ -65,6 +65,7 @@ class ParametrosForm(forms.ModelForm):
 	class Meta:
 		model = Parametros
 		fields = [
+			"diagnostico",
 			"descripcion",
 			"tipo_de_dato",
 			"unidadmedida",
@@ -87,7 +88,6 @@ class ValoresReferenciaForm(forms.ModelForm):
 	class Meta:
 		model = ValoresReferencia
 		fields = [
-			"diagnostico",
 			"especie",
 			"parametros",
 			"valorRef",

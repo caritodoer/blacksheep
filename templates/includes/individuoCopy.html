@@ -17,9 +17,10 @@
 			
 				<label class="control-label col-sm-1" for="raza">Raza:</label>
 	    		<div class="col-sm-2">
-	    			<select class="form-control" name="raza" id="raza"></select>
+	    			<select class="form-control razaSel" name="raza" onchange="validacion('raza');"></select>
 	    		</div>
 	    		<button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">Más Opciones  <span class="glyphicon glyphicon-chevron-down"></span></button>
+
 	   
 			</div>
 		<!-- </div> -->
@@ -47,7 +48,7 @@
 
 					<label class="control-label col-sm-2" for="categoriae">Categoría de Especie:</label>
 		    		<div class="col-sm-4">
-		    			<select class="form-control" name="categoriae" id="categoriae"></select>
+		    			<select class="form-control categoriaeSel" name="categoriae"></select>
 		    		</div>
 				</div>
 				
@@ -71,7 +72,7 @@
 	</div> <!-- fin panel body -->
 	
 	<div class="panel-footer">
-		<div id="rmvBlockPara" align="right">
+		<div id="rmvBlockIndiv" align="right">
 			<div  class="btn btn-sm" >
 				Eliminar Individuo <span class="glyphicon glyphicon-remove"></span>
 			</div>
