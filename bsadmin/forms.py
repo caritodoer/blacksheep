@@ -61,16 +61,6 @@ class RazaForm(forms.ModelForm):
 			"especie"
 		]
 
-class ParametrosForm(forms.ModelForm):
-	class Meta:
-		model = Parametros
-		fields = [
-			"descripcion",
-			"tipo_de_dato",
-			"unidadmedida",
-			"grupo"
-		]	
-
 class DiagnosticoForm(forms.ModelForm):
 	class Meta:
 		model = Diagnostico
@@ -83,16 +73,27 @@ class DiagnosticoForm(forms.ModelForm):
 			"piepagina"	
 		]
 
+class ParametrosForm(forms.ModelForm):
+	class Meta:
+		model = Parametros
+		fields = [
+			"diagnostico",
+			"descripcion",
+			"tipo_de_dato",
+			"unidadmedida",
+			"grupo"
+		]
+			
 class ValoresReferenciaForm(forms.ModelForm):
 	class Meta:
 		model = ValoresReferencia
 		fields = [
-			"diagnostico",
 			"especie",
 			"parametros",
 			"valorRef",
 			"valorDef"
 		]
+
 
 class VeterinarioForm(forms.ModelForm):
 	especializaciones = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Especializacion.objects.all())
