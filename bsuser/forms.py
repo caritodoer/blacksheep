@@ -42,13 +42,20 @@ class IndividuosForm(forms.ModelForm):
 			"categoriae",
 		]
 
+class DetalleAnalisisFormPadre(forms.ModelForm):
+	class Meta:
+		model = DetalleAnalisisPadre
+		fields = [
+			"solicitud",
+			"protocolo",
+			"diagnostico"
+		]
+
 class DetalleAnalisisForm(forms.ModelForm):
 	class Meta:
 		model = DetalleAnalisis
 		fields = [
-			"solicitud",
-			"protocolo",
-			"diagnostico",
+			"padre",
 			"individuo",
 			"parametros",
 			"valor"
