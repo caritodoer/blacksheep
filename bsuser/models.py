@@ -74,29 +74,28 @@ class Individuos(models.Model):
 		self.descripcion=self.descripcion.upper()
 		super(Individuos, self).save(force_insert, force_update)
 
-
-class DetalleAnalisis(models.Model):
+class DetalleAnalisisPadre(models.Model):
 	solicitud = models.ForeignKey(SolicitudAnalisis)
 	protocolo = models.ForeignKey(Protocolo)
 	diagnostico = models.ForeignKey(Diagnostico)
+	
+	def __str__(self):
+		return ('%s, %s, %s')%(self.solicitud, self.protocolo, self.diagnostico)
+
+	def get_absolute_url(self):
+		return reverse("bsuser:v_detalleanalisispadre", kwargs={"id":self.id})
+
+class DetalleAnalisis(models.Model):
+	padre = models.ForeignKey(DetalleAnalisisPadre)
 	parametros = models.ForeignKey(Parametros)
 	individuo = models.ForeignKey(Individuos)
 	valor = models.CharField(max_length=30)
 
-	class Meta:
-		unique_together = ('solicitud','protocolo','diagnostico', 'individuo', 'parametros',)
-
-
 	def __str__(self):
-		return ('%s, %s, %s, %s, %s')%(self.solicitud, self.protocolo, self.diagnostico, self.individuo, self.parametros)
+		return ('%s, %s, %s')%(self.individuo, self.parametros, self.valor)
 
 	def get_absolute_url(self):
 		return reverse("bsuser:v_detalleanalisis", kwargs={"id":self.id})
-
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion=self.descripcion.upper()
-		super(DetalleAnalisis, self).save(force_insert, force_update)
-
 
 class EliminacionProtocolo(models.Model):
 	protocolo = models.OneToOneField(Protocolo)

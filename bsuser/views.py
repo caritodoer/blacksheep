@@ -119,7 +119,7 @@ def v_protocolo(request, id=None):
 	instance = get_object_or_404(Protocolo, id=id)
 	context = {
 		"instance" : instance,
-		"title": "Detalle de Protocolo",
+		"title": "Detalle de Protocolo (Emitir Hoja de Trabajo, generar informe individual/grupal)",
 	}
 	return render(request, "ver_protocolo.html", context)
 
