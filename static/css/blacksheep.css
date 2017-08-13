@@ -27,6 +27,7 @@ src: url("../fonts/ubuntu-font-family-0.83/Ubuntu-L.ttf");
 
 body{
 	font-family: Ubuntu-L;
+	padding-top: 70px;   /*linea agregada para usar en el menu provisorio*/
 }
 
 #menu {

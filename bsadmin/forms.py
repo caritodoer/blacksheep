@@ -21,7 +21,7 @@ class MotivosForm(forms.ModelForm):
 	class Meta:
 		model = Motivos
 		fields = [
-			"descripcion" 
+			"descripcion", 
 		]
 
 class EspecieForm(forms.ModelForm):
