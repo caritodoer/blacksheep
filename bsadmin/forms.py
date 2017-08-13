@@ -84,6 +84,17 @@ class DiagnosticoForm(forms.ModelForm):
 			"piepagina"	
 		]
 
+class ParametrosForm(forms.ModelForm):
+	class Meta:
+		model = Parametros
+		fields = [
+			"diagnostico",
+			"descripcion",
+			"tipo_de_dato",
+			"unidadmedida",
+			"grupo"
+		]
+			
 class ValoresReferenciaForm(forms.ModelForm):
 	class Meta:
 		model = ValoresReferencia
@@ -93,6 +104,7 @@ class ValoresReferenciaForm(forms.ModelForm):
 			"valorRef",
 			"valorDef"
 		]
+
 
 class VeterinarioForm(forms.ModelForm):
 	especializaciones = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=Especializacion.objects.all())
