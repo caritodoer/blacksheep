@@ -128,25 +128,13 @@ class Diagnostico(models.Model):
 
 	def __str__(self):
 		return ('%s')%(self.descripcion)
-<<<<<<< HEAD
 	
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_diagnostico", kwargs={"id": self.id})
 
-class Parametros(models.Model):
-	diagnostico = models.ForeignKey(Diagnostico, default=0)
-=======
-	def get_absolute_url(self):
-		return reverse("bsadmin:v_diagnostico", kwargs={"id": self.id})
-
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion = self.descripcion.upper()
-		self.tecnica = self.tecnica.upper()
-		super(Diagnostico, self).save(force_insert, force_update)
 
 class Parametros(models.Model):
 	diagnostico = models.ForeignKey(Diagnostico,default=0)
->>>>>>> af196ef10454a222bf459b44723f609fcead57cc
 	descripcion = models.CharField("Parametro", max_length=30)
 	tipo_de_dato_choices = (
 		('I', 'Entero'),
@@ -169,11 +157,7 @@ class Parametros(models.Model):
 		self.descripcion = self.descripcion.upper()
 		self.grupo = self.grupo.upper()
 		super(Parametros, self).save(force_insert, force_update)
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> af196ef10454a222bf459b44723f609fcead57cc
 class ValoresReferencia(models.Model):
 	especie = models. ForeignKey(Especie)
 	parametros = models.ForeignKey(Parametros)
@@ -181,13 +165,11 @@ class ValoresReferencia(models.Model):
 	valorDef = models.CharField(max_length=30, blank=True, null=True)
 	activo = models.BooleanField(default=True)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> af196ef10454a222bf459b44723f609fcead57cc
 	def __str__(self):
 		return ('%s %s')%(self.especie, self.parametros)
 
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_valoresreferencia", kwargs={"id": self.id})
 
 class Veterinario(models.Model):
 	nombre = models.CharField("Nombre", max_length=30)
