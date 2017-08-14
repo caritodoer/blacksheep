@@ -69,7 +69,7 @@ class Especie(models.Model):
 
 	def save(self, force_insert=False, force_update=False):
 		self.descripcion = self.descripcion.upper()
-		super(Motivos, self).save(force_insert, force_update)
+		super(Especie, self).save(force_insert, force_update)
 
 class Raza(models.Model):
 	descripcion = models.CharField(max_length=30, unique=True)
@@ -132,8 +132,14 @@ class Diagnostico(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_diagnostico", kwargs={"id": self.id})
 
+<<<<<<< HEAD
 class Parametros(models.Model):
 	diagnostico = models.ForeignKey(Diagnostico, default=0)
+=======
+
+class Parametros(models.Model):
+	diagnostico = models.ForeignKey(Diagnostico,default=0)
+>>>>>>> 6bd7f511246e9e690b08ea84f5ca11e8613be440
 	descripcion = models.CharField("Parametro", max_length=30)
 	tipo_de_dato_choices = (
 		('I', 'Entero'),
@@ -167,6 +173,8 @@ class ValoresReferencia(models.Model):
 	def __str__(self):
 		return ('%s %s')%(self.especie, self.parametros)
 
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_valoresreferencia", kwargs={"id": self.id})
 
 class Veterinario(models.Model):
 	nombre = models.CharField("Nombre", max_length=30)
