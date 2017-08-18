@@ -1,5 +1,18 @@
 # blacksheep
 
+
+18-08-2017
+- NO GUARDA VETERINARIO
+
+
+
+
+
+
+
+
+
+
 Se arreglan con jquery {
 
 	HECHO -- Valores de referencia popup de diagnostico, para unificar parametros, diagnostico y especie y que los datos queden guardados al cerrar el popup

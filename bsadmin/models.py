@@ -132,7 +132,6 @@ class Diagnostico(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_diagnostico", kwargs={"id": self.id})
 
-
 class Parametros(models.Model):
 	diagnostico = models.ForeignKey(Diagnostico,default=0)
 	descripcion = models.CharField("Parametro", max_length=30)
