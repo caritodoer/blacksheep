@@ -59,7 +59,7 @@
 					<tbody>
 						{% for obj in object_list %}
 							<tr>
-								<td><a href="{{ obj.get_absolute_url }}">{{ obj.protocolo.numero }} - {{ obj.diagnostico.descripcion }}</a></td>
+								<td><a href="{{ obj.get_absolute_url }}">{{ obj.protocolo.numero }}</a></td>
 								<td>{{ obj.solicitud.veterinario }}</td>
 								<td>{{ obj.solicitud.establecimiento }}</td>
 								<td>{{ obj.solicitud.fecha }}</td>

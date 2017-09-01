@@ -10,7 +10,8 @@ def login(request):
 	return render(request, "login.html")
 
 def home_user(request):
-	DetAna_queryset = DetalleAnalisisPadre.objects.all().order_by('-protocolo')
+	#DetAna_queryset = DetalleAnalisisPadre.objects.all().order_by('-protocolo')
+	DetAna_queryset = DetalleAnalisisPadre.objects.distinct('protocolo')
 
 	context = {
 		"object_list": DetAna_queryset,
