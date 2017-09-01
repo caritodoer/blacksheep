@@ -115,14 +115,6 @@ def a_protocolo(request):
 	}
 	return render(request, "alta_protocolo.html", context)
 
-def v_protocolo(request, id=None):
-	instance = get_object_or_404(Protocolo, id=id)
-	context = {
-		"instance" : instance,
-		"title": "Detalle de Protocolo (Emitir Hoja de Trabajo, generar informe individual/grupal)",
-	}
-	return render(request, "ver_protocolo.html", context)
-
 def u_protocolo(request, id=None):
 	instance = get_object_or_404(Protocolo,id=id)
 	form = ProtocoloForm(request.POST or None, instance=instance)
@@ -369,14 +361,23 @@ def a_DetalleAnalisisPadre(request):
 
 def v_DetalleAnalisisPadre(request, id=None):
 	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
+	prot = instance.protocolo
+	queryset = DetalleAnalisisPadre.objects.all().order_by('id').filter(protocolo=prot)
+	# INSTANCIA_INDIVIDUOS
+	solic = instance.solicitud
+	queryset_Ind = DetalleAnalisis.objects.all().order_by('id').filter(solicitud=solic)
 	context = {
+		"object_list_ind": queryset_Ind,
+		"object_list": queryset,
 		"instance" : instance,
-		"title": "Detalle de Analisis",
+			"title": "Detalle de Analisis",
 	}
 	return render(request, "ver_detAn.html", context)
 
 def u_DetalleAnalisisPadre(request, id=None):
 	instance = get_object_or_404(DetalleAnalisisPadre,id=id)
+	# INSTANCIA_INDIVIDUOS
+	# INSTANCIA_DIAGNOSTICO
 	form = DetalleAnalisisPadreForm(request.POST or None, instance=instance)
 	if form.is_valid():
 		instance = form.save(commit=False)
@@ -387,6 +388,8 @@ def u_DetalleAnalisisPadre(request, id=None):
 	context = {
 		"title" : "Modificar Detalle Analisis",
 		"instance" : instance,
+		# INSTANCIA_INDIVIDUOS
+		# INSTANCIA_DIAGNOSTICO
 		"form" : form,
 	}
 	return render(request, "alta_detAn.html", context)
@@ -458,3 +461,61 @@ def d_eliminacionprotocolo(request, id=None):
 	instance = get_object_or_404(EliminacionProtocolo, id=id)
 	instance.delete()
 	return redirect("bsadmin:l_eliminacionprotocolo")
+
+# Eliminacion Protocolo
+
+def j_tercerizar(request):
+	queryset = Tercerizar.objects.all().values().order_by('id')
+	queryset = list(queryset)  
+	return JsonResponse(queryset, safe=False)
+
+def j_tercerizarid(request,id=None):
+	queryset = Tercerizar.objects.filter(id=id).values()    
+	queryset = list(queryset)  
+	return JsonResponse(queryset, safe=False)
+
+def l_tercerizar(request):
+	queryset = Tercerizar.objects.all().order_by('id')
+	context = {
+		"object_list": queryset,
+		"title": "Listado de Tercerización"
+	}
+	return render(request, "list_tercerizar.html", context)
+
+def a_tercerizar(request):
+	form = TercerizarForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
+	context = {
+		"title" : "Nueva Tercerización",
+		"form" : form,
+	}
+	return render(request, "alta_tercerizar.html", context)
+
+def v_tercerizar(request, id=None):
+	instance = get_object_or_404(Tercerizar, id=id)
+	context = {
+		"instance" : instance,
+		"title": "Detalle de Tercerización",
+	}
+	return render(request, "ver_tercerizar.html", context)
+
+def u_tercerizar(request, id=None):
+	instance = get_object_or_404(Tercerizar,id=id)
+	form = TercerizarForm(request.POST or None, instance=instance)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
+	context = {
+		"title" : "Modificar Tercerización",
+		"instance" : instance,
+		"form" : form,
+	}
+	return render(request, "alta_tercerizar.html", context)

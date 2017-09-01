@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{%  include 'includes/modalindividuos.html' %}
+
+
 <div class="row">
 	<div class="col-md-10 col-md-offset-1">
 		<div class="panel panel-default">
@@ -8,106 +11,116 @@
 				<h3 class="panel-title">{{ title }}</h3>
 			</div>
 			
-                <div class="panel-body">
-
-<!-- PROTOCOLO -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Protocolo</h3>
-            </div>
             <div class="panel-body">
 
-				<dl class="dl-horizontal">
-					<!-- <dt>ID de Protocolo</dt>
-					<dd>{{ instance.protocolo.id }}</dd> -->
-					<dt>Numero de Protocolo</dt>
-					<dd>{{ instance.protocolo.numero }}</dd>
-					<dt>Muestra</dt>
-					<dd>{{ instance.diagnostico.muestra }}</dd>
-					<dt>Diagnostico/s</dt>
-					<dd>{{ instance.diagnostico.descripcion }}</dd>
-				</dl>
+			<!-- SOLICITUD DE ANALISIS -->
+			<div class="col-sm-6">
+		        <div class="panel panel-default">
+		            <div class="panel-heading">
+		                <h3 class="panel-title">Solicitud de Analisis</h3>
+		            </div>
+		            <div class="panel-body">
+
+						<dl class="dl-horizontal">
+							<dt>Establecimiento</dt>
+							<dd>{{ instance.solicitud.establecimiento }}</dd>
+							<dt>Veterinario</dt>
+							<dd>{{ instance.solicitud.veterinario }}</dd>
+							<dt>Motivo</dt>
+							<dd>{{ instance.solicitud.motivo }}</dd>
+							<dt>Especie</dt>
+							<dd>{{ instance.solicitud.especie }}</dd>
+							<dt>Fecha</dt>
+							<dd>{{ instance.solicitud.fecha }}</dd>
+							<dt>Observaciones</dt>
+							<dd>{{ instance.solicitud.obs }}</dd>
+						</dl>
+
+		            </div>
+		        </div>
 			</div>
-            <div class="panel-footer">
-            	<a href="../../protocolo/update/{{ instance.protocolo.id }}">Modificar <span class="glyphicon glyphicon-pencil"></span></a>
-            </div>
-        </div>
 
-<!-- SOLICITUD DE ANALISIS -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Solicitud de Analisis</h3>
-            </div>
-            <div class="panel-body">
+			<!-- PROTOCOLO -->
+			<div class="col-sm-6">
+		        <div class="panel panel-default">
+		            <div class="panel-heading">
+		                <h3 class="panel-title">Protocolo</h3>
+		            </div>
+		            <div class="panel-body">
 
-				<dl class="dl-horizontal">
-					<dt>Establecimiento</dt>
-					<dd>{{ instance.solicitud.establecimiento }}</dd>
-					<dt>Veterinario</dt>
-					<dd>{{ instance.solicitud.veterinario }}</dd>
-					<dt>Motivo</dt>
-					<dd>{{ instance.solicitud.motivo }}</dd>
-					<dt>Especie</dt>
-					<dd>{{ instance.solicitud.especie }}</dd>
-					<dt>Fecha</dt>
-					<dd>{{ instance.solicitud.fecha }}</dd>
-					<dt>Observaciones</dt>
-					<dd>{{ instance.solicitud.obs }}</dd>
-				</dl>
+						<dl class="dl-horizontal">
+							<!-- <dt>ID de Protocolo</dt>
+							<dd>{{ instance.protocolo.id }}</dd> -->
+							<dt>Numero de Protocolo</dt>
+							<dd>{{ instance.protocolo.numero }}</dd>
+							<dt>Muestra</dt>
+							<dd>{{ instance.diagnostico.muestra }}</dd>
+						</dl>
+					</div>
 
-            </div>
-            <div class="panel-footer">
-            	<a href="../../solicitudanalisis/update/{{ instance.solicitud.id }}">Modificar <span class="glyphicon glyphicon-pencil"></span></a>
-            </div>
-        </div>
+		        </div>
 
-<!-- IINDIVIDUOS -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Individuo/s</h3>
-            </div>
-            <div class="panel-body">
-            	<table class="table table-striped table-hover table-condensed" align="center">
-					<thead class="thead-default">
-						<tr>
-							<th>Identificacion</th>
-							<th>Raza</th>
-							<th>Nombre</th>
-							<th>Edad</th>
-							<th>Sexo</th>
-							<th>Libreta Sanitaria</th>
-							<th>Categoria</th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>{{ instance.individuo.padre.identificacion }}</td>
-							<td>{{ instance.individuo.padre.raza }}</td>
-							<td>{{ instance.individuo.nombre }}</td>
-							<td>{{ instance.individuo.edad }}</td>
-							<td>{{ instance.individuo.sexo }}</td>
-							<td>{{ instance.individuo.libretasanitaria }}</td>
-							<td>{{ instance.individuo.categoriae }}</td>
-							<td><a href="../../individuopadre/update/{{ instance.individuo.id }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-							<td><a href="../../individuopadre/delete/{{ instance.individuo.id }}"><span class="glyphicon glyphicon-remove"></span></a></td>
-						</tr>
-					</tbody>
-				</table>
-
-            </div>
-        </div>
+				<div>
+					<!-- INDIVIDUOS -->
+					<a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#myModal">Ver Individuo/s  <span class="glyphicon glyphicon-list-alt"></span></a> 
+					<a href="#" class="btn btn-danger" role="button">Eliminar <span class="glyphicon glyphicon-remove"></span></a>
+					<!-- deberia ir a eliminacionprotocolo/alta -->
+				</div>
+			</div>
 
 
-    </div>
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Diagnósticos Asociados</h3>
+						</div>
+						<div class="form-horizontal">
+							<div class="panel-body">
+								<table class="table table-striped table-hover table-condensed" align="center">
+									<thead class="thead-default">
+										<tr>
+											<th>Diagnóstico</th>
+											<th>Estado</th>
+											<th>Hoja de Trabajo</th>
+											<th>Resultados</th>
+											<th>Informes</th>
+											<th>Tercerización</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- poner con un for -->
+										{% for obj in object_list %}
+										<tr>
+											<td>{{ obj.diagnostico.descripcion }}</td>
+											<td></td>
+											<td><button class="btn btn-default btn-sm">Imprimir</button></td>
+											<td><button class="btn btn-default btn-sm">Cargar</button></td>
+											<td><button class="btn btn-default btn-sm">Generar</button></td>
+											<td><button class="btn btn-default btn-sm">Tercerizar</button></td>
+										</tr>
+										{% endfor%}
+										<!-- cerrar for -->
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><button class="btn btn-default btn-sm">Informe General</button></td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+			</div>
+
+    		</div>
     
-		    <div class="panel-footer" align="right">
-				<a href="../delete/{{ instance.id }}">Eliminar<span class="glyphicon glyphicon-remove"></span></a>
-			</div>
 		</div>
 	</div>
 </div>
+
 
 
 {% endblock %}

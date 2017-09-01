@@ -25,7 +25,6 @@ urlpatterns = [
     # Protocolo
     url(r'^protocolo/$', views.l_protocolo, name="l_protocolo"),
     url(r'^protocolo/alta/$', views.a_protocolo),
-    url(r'^protocolo/(?P<id>\d+)/$', views.v_protocolo, name="v_protocolo"),
     url(r'^protocolo/update/(?P<id>\d+)/$', views.u_protocolo),
     url(r'^protocolo/delete/(?P<id>\d+)/$', views.d_protocolo),
     url(r'^j_protocolo/$', views.j_protocolo),
@@ -61,7 +60,7 @@ urlpatterns = [
     # Detalle Analisis
     url(r'^DetalleAnalisisPadre/$', views.l_DetalleAnalisisPadre, name="l_DetalleAnalisisPadre"),
     url(r'^DetalleAnalisisPadre/alta/$', views.a_DetalleAnalisisPadre),
-    url(r'^DetalleAnalisisPadre/(?P<id>\d+)/$', views.v_DetalleAnalisisPadre, name="v_DetalleAnalisisPadre"),
+    url(r'^DetalleAnalisisPadre/(?P<id>\d+)/$', views.v_DetalleAnalisisPadre, name="v_detalleanalisispadre"),
     url(r'^DetalleAnalisisPadre/update/(?P<id>\d+)/$', views.u_DetalleAnalisisPadre),
     url(r'^DetalleAnalisisPadre/delete/(?P<id>\d+)/$', views.d_DetalleAnalisisPadre),
     url(r'^j_DetalleAnalisisPadre/$', views.j_DetalleAnalisisPadre),
@@ -75,5 +74,13 @@ urlpatterns = [
     url(r'^eliminacionprotocolo/delete/(?P<id>\d+)/$', views.d_eliminacionprotocolo),
     url(r'^j_eliminacionprotocolo/$', views.j_eliminacionprotocolo),
     url(r'^j_eliminacionprotocoloid/(?P<id>\d+)/$', views.j_eliminacionprotocoloid),
+
+    # Tercerizar
+    url(r'^tercerizar/$', views.l_tercerizar, name="l_tercerizar"),
+    url(r'^tercerizar/alta/$', views.a_tercerizar),
+    url(r'^tercerizar/(?P<id>\d+)/$', views.v_tercerizar, name="v_tercerizar"),
+    url(r'^tercerizar/update/(?P<id>\d+)/$', views.u_tercerizar),
+    url(r'^j_tercerizar/$', views.j_tercerizar),
+    url(r'^j_tercerizarid/(?P<id>\d+)/$', views.j_tercerizarid),
 
 ]

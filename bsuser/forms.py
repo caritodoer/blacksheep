@@ -55,7 +55,8 @@ class DetalleAnalisisForm(forms.ModelForm):
 	class Meta:
 		model = DetalleAnalisis
 		fields = [
-			"padre",
+			# "padre",
+			"solicitud",
 			"individuo",
 			"parametros",
 			"valor"
@@ -71,3 +72,12 @@ class EliminacionProtocoloForm(forms.ModelForm):
 			#"usuario",
 		]
 
+class TercerizarForm(forms.ModelForm):
+	class Meta:
+		model = Tercerizar
+		fields = [
+			"fecha_envio",
+			"fecha_devolucion",
+			"institucion",
+			"detalleanalisispadre"
+		]
