@@ -5,22 +5,21 @@ https://stackoverflow.com/questions/1377446/render-html-to-pdf-in-django-site
 http://pythonpiura.org/posts/2016/05/13/reporte-pdf-en-django-con-reportlab/
 
 OBJETIVOS:
-- en ver_detAn.html: columna "Estado"
-- Alta Diagnostico: 
- 	+ Guardar
- 	+ vista previa: Boton junto a "guardar" & modal(html)
- 	+ visualizacion: modal info con tipo de diseño por grupo de parametros (Tablas/Items)
-- Trasladar datos de SolAn.html a Protocolo, y a  Individuo Padre (por views)
+## 	+ Guardar alta diag.
+##- Trasladar datos de SolAn.html a Protocolo, y a  Individuo Padre (por views)
 - Hacer en HTML: 
->>>>>>>>>>>>>>>	+ Hoja_de_Trabajo/Cargar_Resulatados (desde ahi generar los PDF para imprimir HDT)
-	+ Alta_EliminarProtocolo
-	+ Tercerizacion
+##>>>>>>>>>>>>>>>	+ Hoja_de_Trabajo/Cargar_Resulatados (desde ahi generar los PDF para imprimir HDT): ver que corte el grupo de parametros cada "x" parametros
+##	+ Alta_EliminarProtocolo
+##	+ Tercerizacion
 - en /DetalleAnalisisPadre/(id)/:
-	+ Permitir que el ítem "Diagnostico" en el panel de Protocolo pueda mostrar varios 
-		Diagnosticos 
-	+ crear Boton "Eliminar Protocolo" (tiene que trasladar la info del protocolo)
-- en AltaIndividuoPadre.html: lista número de órden que sea autoincremental (JS)
-- PDF a generar:
+##	+ Boton "Eliminar Protocolo" (tiene que trasladar la info del protocolo)
+##- en AltaIndividuoPadre.html: lista número de órden que sea autoincremental (JS)
+
+- Alta Diagnostico: 
+ 	+ visualizacion: modal info con tipo de diseño por grupo de parametros (Tablas/Items)
+ 	+ vista previa: Boton junto a "guardar" & modal(html)
+- en ver_detAn.html: columna "Estado"
+- PDF a generar: (o exel)
 	+ HDT Vacía
 	+ INFORMES
 	+ TERCERIZACION

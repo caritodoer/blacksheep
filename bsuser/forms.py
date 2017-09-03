@@ -57,7 +57,7 @@ class DetalleAnalisisForm(forms.ModelForm):
 		fields = [
 			# "padre",
 			"solicitud",
-			"individuo",
+			"individuoPadre",
 			"parametros",
 			"valor"
 		]

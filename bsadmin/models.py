@@ -148,7 +148,7 @@ class Parametros(models.Model):
 		('T', 'Tabla'),
 		('I', 'Items'),
 		)
-	visualizacion = models.CharField("Tipo de Visualización", max_length=1, choices=visualizacion_choices)
+	visualizacion1 = models.CharField("Tipo de Visualización", max_length=1, choices=visualizacion_choices)
 	activo = models.BooleanField(default=True)
 
 	def __str__(self):

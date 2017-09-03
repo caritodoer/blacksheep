@@ -83,4 +83,8 @@ urlpatterns = [
     url(r'^j_tercerizar/$', views.j_tercerizar),
     url(r'^j_tercerizarid/(?P<id>\d+)/$', views.j_tercerizarid),
 
+
+    #Hoja de Trabajo
+    url(r'^hojadetrabajo/(?P<id>\d+)/$', views.hojadetrabajo),
+
 ]

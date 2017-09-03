@@ -77,11 +77,11 @@ class DetalleAnalisis(models.Model):
 	#padre = models.ForeignKey(DetalleAnalisisPadre)
 	solicitud = models.ForeignKey(SolicitudAnalisis)
 	parametros = models.ForeignKey(Parametros, null=False, blank=False)
-	individuo = models.ForeignKey(Individuos)
+	individuoPadre = models.ForeignKey(IndividuoPadre)
 	valor = models.CharField(max_length=30, null=False, blank=False)
 
 	def __str__(self):
-		return ('%s, %s, %s')%(self.individuo, self.parametros, self.valor)
+		return ('%s, %s, %s')%(self.individuoPadre, self.parametros, self.valor)
 
 	def get_absolute_url(self):
 		return reverse("bsuser:v_detalleanalisis", kwargs={"id":self.id})

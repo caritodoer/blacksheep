@@ -7,6 +7,17 @@
 					<input type="text" class="form-control" id="grupo" onkeyup="validacion('grupo');" name="grupo" value="{{ instance.grupo }}">
 					<span class="help-block"></span>
 				</div>
+				<label class="control-label col-sm-3" for="radio"> Visualización del Grupo <a href="#" data-toggle="modal" data-target="#ModalVisualizacion"><span class="glyphicon glyphicon-question-sign"></span></a></label>
+				<div class="col-sm-9">
+					<label class="control-label col-sm-4" for="radio">Tablas <small>(Para caravanas)</small></label>
+					<div class="col-sm-1">	
+						<input type="radio" class="form-control" id="radio" name="radio1" value="{{ instance.radio }}">
+					</div>
+					<label class="control-label col-sm-4" for="radio">Ítems <small>(Para datos unicos)</small></label>
+					<div class="col-sm-1">
+						<input type="radio" class="form-control" id="radio" name="radio1" value="{{ instance.radio }}">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

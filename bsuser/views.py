@@ -520,3 +520,27 @@ def u_tercerizar(request, id=None):
 		"form" : form,
 	}
 	return render(request, "alta_tercerizar.html", context)
+
+def hojadetrabajo(request, id=None):
+	#traigo info de toda la solicitud de analisis
+	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
+	# traigo los parametros asociados al diagnostico
+	diag = instance.diagnostico
+	queryset_Param = Parametros.objects.all().filter(diagnostico=diag)
+	# traigo los individuos asociados a la solicitud
+	solic = instance.solicitud
+	queryset_Ind = DetalleAnalisis.objects.distinct('individuoPadre').filter(solicitud=solic)
+
+	grupo_list_t = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="T")
+	grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
+
+	context = {
+		"title" : "Hoja de Trabajo",
+		"instance" : instance,
+		"parametros_list" : queryset_Param,
+		"object_list_ind": queryset_Ind,
+		"grupot" : grupo_list_t,
+		"grupoi" : grupo_list_i,
+
+	}
+	return render(request, "hojadetrabajo.html", context)
