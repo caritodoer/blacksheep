@@ -87,19 +87,21 @@ class DetalleAnalisis(models.Model):
 		return reverse("bsuser:v_detalleanalisis", kwargs={"id":self.id})
 
 class EliminacionProtocolo(models.Model):
+	## en vez de Protocolo no debería ser DetalleAnalisisPadre?????????
 	protocolo = models.OneToOneField(Protocolo)
+
 	fecha = models.DateField(auto_now=False)
 	motivoBaja = models.TextField("Motivo de Baja")
 	#usuario = 
 
 	def __str__(self):
-		dia = str(fecha)
-		return('%s, %s')%(self.protocolo, self.dia)
+		dia = str(self.fecha)
+		return('%s, %s')%(self.protocolo, dia)
 
 	def get_absolute_url(self):
 		return reverse("bsuser:v_eliminacionprotocolo", kwargs={"id":self.id})
 
-class Tercerizar(models.Model):
+class Tercerizacion(models.Model):
 	fecha_envio = models.DateField("Fecha de Envío", auto_now=False)
 	fecha_devolucion = models.DateField("Fecha de Devolución", auto_now=False, null=True, blank=True)
 	institucion = models.CharField(max_length=20)

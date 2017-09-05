@@ -72,9 +72,9 @@ class EliminacionProtocoloForm(forms.ModelForm):
 			#"usuario",
 		]
 
-class TercerizarForm(forms.ModelForm):
+class TercerizacionForm(forms.ModelForm):
 	class Meta:
-		model = Tercerizar
+		model = Tercerizacion
 		fields = [
 			"fecha_envio",
 			"fecha_devolucion",

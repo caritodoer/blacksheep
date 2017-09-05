@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^protocolo/$', views.l_protocolo, name="l_protocolo"),
     url(r'^protocolo/alta/$', views.a_protocolo),
     url(r'^protocolo/update/(?P<id>\d+)/$', views.u_protocolo),
-    url(r'^protocolo/delete/(?P<id>\d+)/$', views.d_protocolo),
+    #url(r'^protocolo/delete/(?P<id>\d+)/$', views.d_protocolo),
     url(r'^j_protocolo/$', views.j_protocolo),
     url(r'^j_protocoloid/(?P<id>\d+)/$', views.j_protocoloid),
 
@@ -62,13 +62,14 @@ urlpatterns = [
     url(r'^DetalleAnalisisPadre/alta/$', views.a_DetalleAnalisisPadre),
     url(r'^DetalleAnalisisPadre/(?P<id>\d+)/$', views.v_DetalleAnalisisPadre, name="v_detalleanalisispadre"),
     url(r'^DetalleAnalisisPadre/update/(?P<id>\d+)/$', views.u_DetalleAnalisisPadre),
-    url(r'^DetalleAnalisisPadre/delete/(?P<id>\d+)/$', views.d_DetalleAnalisisPadre),
+    #detalleAnalisisPadre - Eliminar es eliminar protocolo
+    url(r'^DetalleAnalisisPadre/delete/(?P<id>\d+)/$', views.a_eliminacionprotocolo),
     url(r'^j_DetalleAnalisisPadre/$', views.j_DetalleAnalisisPadre),
     url(r'^j_DetalleAnalisisPadreid/(?P<id>\d+)/$', views.j_DetalleAnalisisPadreid),
 
     # eliminacion Protocolo
     url(r'^eliminacionprotocolo/$', views.l_eliminacionprotocolo, name="l_eliminacionprotocolo"),
-    url(r'^eliminacionprotocolo/alta/$', views.a_eliminacionprotocolo),
+    #url(r'^eliminacionprotocolo/alta/$', views.a_eliminacionprotocolo),
     url(r'^eliminacionprotocolo/(?P<id>\d+)/$', views.v_eliminacionprotocolo, name="v_eliminacionprotocolo"),
     url(r'^eliminacionprotocolo/update/(?P<id>\d+)/$', views.u_eliminacionprotocolo),
     url(r'^eliminacionprotocolo/delete/(?P<id>\d+)/$', views.d_eliminacionprotocolo),
@@ -78,7 +79,7 @@ urlpatterns = [
     # Tercerizar
     url(r'^tercerizar/$', views.l_tercerizar, name="l_tercerizar"),
     url(r'^tercerizar/alta/$', views.a_tercerizar),
-    url(r'^tercerizar/(?P<id>\d+)/$', views.v_tercerizar, name="v_tercerizar"),
+    url(r'^tercerizar_ver/(?P<id>\d+)/$', views.v_tercerizar, name="v_tercerizar"),
     url(r'^tercerizar/update/(?P<id>\d+)/$', views.u_tercerizar),
     url(r'^j_tercerizar/$', views.j_tercerizar),
     url(r'^j_tercerizarid/(?P<id>\d+)/$', views.j_tercerizarid),
@@ -86,5 +87,8 @@ urlpatterns = [
 
     #Hoja de Trabajo
     url(r'^hojadetrabajo/(?P<id>\d+)/$', views.hojadetrabajo),
+
+    #Tercerizar
+    url(r'^tercerizar/(?P<id>\d+)/$', views.tercerizar),
 
 ]

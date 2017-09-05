@@ -63,7 +63,7 @@
 				<div>
 					<!-- INDIVIDUOS -->
 					<a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#myModal">Ver Individuo/s  <span class="glyphicon glyphicon-list-alt"></span></a> 
-					<a href="#" class="btn btn-danger" role="button">Eliminar <span class="glyphicon glyphicon-remove"></span></a>
+					<a href="../delete/{{ instance.id }}" class="btn btn-danger" role="button">Eliminar <span class="glyphicon glyphicon-remove"></span></a>
 					<!-- deberia ir a eliminacionprotocolo/alta -->
 				</div>
 			</div>
@@ -96,7 +96,7 @@
 											<td><a href="../../hojadetrabajo/{{ obj.id }}" class="btn btn-default btn-sm" role="button">Imprimir</a></td>
 											<td><a href="#" class="btn btn-default btn-sm" role="button">Cargar</a></td>
 											<td><a href="#" class="btn btn-default btn-sm" role="button">Generar</a></td>
-											<td><a href="#" class="btn btn-default btn-sm" role="button">Tercerizar</a></td>
+											<td><a href="../../tercerizar/{{ obj.id }}" class="btn btn-default btn-sm" role="button">Tercerizar</a></td>
 										</tr>
 										{% endfor%}
 										<!-- cerrar for -->
