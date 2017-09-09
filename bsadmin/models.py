@@ -144,6 +144,11 @@ class Parametros(models.Model):
 	tipo_de_dato = models.CharField("Tipo de Dato", max_length=1, choices=tipo_de_dato_choices)
 	unidadmedida = models.CharField("Unidad de Medida",max_length=10)
 	grupo = models.CharField(max_length=30, blank=True, null=True)
+	visualizacion_choices = (
+		('T', 'Tabla'),
+		('I', 'Items'),
+		)
+	visualizacion1 = models.CharField("Tipo de Visualización", max_length=1, choices=visualizacion_choices)
 	activo = models.BooleanField(default=True)
 
 	def __str__(self):

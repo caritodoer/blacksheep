@@ -12,7 +12,6 @@ from bsadmin import views
 urlpatterns = [
     url(r'^home_admin/$', views.home_admin),
 
-
     #Diagnostico Ajax
     url(r'^diagnosticoAjax/$', views.diagnosticoAjax),
 
@@ -54,7 +53,7 @@ urlpatterns = [
 
     # MOTIVOS
     url(r'^motivos/$', views.l_motivos, name="l_motivos"),
-    url(r'^motivos/alta$', views.a_motivos),
+    url(r'^motivos/alta/$', views.a_motivos),
     url(r'^motivos/(?P<id>\d+)/$', views.v_motivos, name="v_motivos"),
     url(r'^motivos/update/(?P<id>\d+)/$', views.u_motivos),
     url(r'^motivos/delete/(?P<id>\d+)/$', views.d_motivos),
@@ -132,4 +131,6 @@ urlpatterns = [
     url(r'^establecimiento/delete/(?P<id>\d+)/$', views.d_establecimiento),
     url(r'^j_establecimiento/$', views.j_establecimiento),
     url(r'^j_establecimientoid/(?P<id>\d+)/$', views.j_establecimientoid),
+
+
 ]

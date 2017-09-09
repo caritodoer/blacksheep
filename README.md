@@ -1,4 +1,58 @@
 # blacksheep
+27-08-2017
+
+https://stackoverflow.com/questions/1377446/render-html-to-pdf-in-django-site
+http://pythonpiura.org/posts/2016/05/13/reporte-pdf-en-django-con-reportlab/
+
+OBJETIVOS:
+- HTML: Hoja_de_Trabajo, EliminarProtocolo & Tercerizacion: falta guardar y generar informes/Hoja en PDF
+
+## 	+ Guardar alta diag.
+##- Trasladar datos de SolAn.html a Protocolo, y a  Individuo Padre (por views)
+- Hacer en HTML: 
+## + Cargar_Resulatados (desde ahi generar los PDF para imprimir HDT): ver que corte el grupo de parametros cada "x" parametros
+- en /DetalleAnalisisPadre/(id)/:
+##- en AltaIndividuoPadre.html: lista número de órden que sea autoincremental (JS)
+
+- en alta de protocolo, los diagnosticos que propone deberian ser segun la muestra
+- Alta Diagnostico: 
+ 	+ visualizacion: modal info con tipo de diseño por grupo de parametros (Tablas/Items)
+ 	+ vista previa: Boton junto a "guardar" & modal(html)
+- en ver_detAn.html: columna "Estado"
+- PDF a generar: (o exel)
+	+ HDT Vacía
+	+ INFORMES
+	+ TERCERIZACION
+	+ ELIMINACION DE PROTOCOLO
+- User --> login --> Menu
+-- en detalle de diagnostico, que muestre:
+		GRUPO DE PARAMETRO 1
+			* PARAMETRO 1
+			* PARAMETRO 2
+		GRUPO DE PARAMETRO 2
+			* PARAMETRO 3
+			* PARAMETRO 4
+- Actualizar modificaciones en la carpeta de proyecto
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+hecho:
++ Boton "Eliminar Protocolo" (tiene que trasladar la info del protocolo)
+
+#############################################
+#											#
+# para la creacion de PDF instalar libreria	#
+# pip3 install reportlab					#
+# 											#
+#############################################
+
+* para incluir imagenes en PDF, revisar libreria Pillow  (pip3 install Pillow)
+
+
+
+
+
+
+
 
 Se arreglan con jquery {
 
@@ -45,11 +99,4 @@ youtube: django 1.9 tutorial how to turn data to json ot xml
 
 
 a futuro:
--- en detalle de diagnostico, que muestre:
-		GRUPO DE PARAMETRO 1
-			* PARAMETRO 1
-			* PARAMETRO 2
-		GRUPO DE PARAMETRO 2
-			* PARAMETRO 3
-			* PARAMETRO 4
 HECHO-- tipo de datos: arreglar visualmente

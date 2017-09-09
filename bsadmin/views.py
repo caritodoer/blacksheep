@@ -370,7 +370,7 @@ def a_motivos(request):
 	else:
 		print (form.errors)
 	context = {
-		"title": "Nuevo Motivo",
+		"title": "Nuevo Motivos",
 		"form": form,
 	}
 

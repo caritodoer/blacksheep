@@ -19,10 +19,7 @@ class SolicitudAnalisis(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsuser:v_solicitudAnalisis", kwargs={"id":self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion=self.descripcion.upper()
-		super(SolicitudAnalisis, self).save(force_insert, force_update)
-
+	
 
 class Protocolo(models.Model):
 	numero = models.IntegerField("Numero de Protocolo", unique=True)
@@ -34,10 +31,7 @@ class Protocolo(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsuser:v_protocolo", kwargs={"id":self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion=self.descripcion.upper()
-		super(Protocolo, self).save(force_insert, force_update)
-
+	
 class IndividuoPadre(models.Model):
 	identificacion = models.CharField("Identificacion / N° de Caravana", max_length=30)
 	raza = models.ForeignKey(Raza)
@@ -47,9 +41,6 @@ class IndividuoPadre(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsuser:v_individuopadre", kwargs={"id":self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion=self.descripcion.upper()
-		super(IndividuoPadre, self).save(force_insert, force_update)
 	
 class Individuos(models.Model):
 	padre = models.ForeignKey(IndividuoPadre)
@@ -70,10 +61,7 @@ class Individuos(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsuser:v_individuos", kwargs={"id":self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion=self.descripcion.upper()
-		super(Individuos, self).save(force_insert, force_update)
-
+	
 class DetalleAnalisisPadre(models.Model):
 	solicitud = models.ForeignKey(SolicitudAnalisis)
 	protocolo = models.ForeignKey(Protocolo)
@@ -86,30 +74,42 @@ class DetalleAnalisisPadre(models.Model):
 		return reverse("bsuser:v_detalleanalisispadre", kwargs={"id":self.id})
 
 class DetalleAnalisis(models.Model):
-	padre = models.ForeignKey(DetalleAnalisisPadre)
-	parametros = models.ForeignKey(Parametros)
-	individuo = models.ForeignKey(Individuos)
-	valor = models.CharField(max_length=30)
+	#padre = models.ForeignKey(DetalleAnalisisPadre)
+	solicitud = models.ForeignKey(SolicitudAnalisis)
+	parametros = models.ForeignKey(Parametros, null=False, blank=False)
+	individuoPadre = models.ForeignKey(IndividuoPadre)
+	valor = models.CharField(max_length=30, null=False, blank=False)
 
 	def __str__(self):
-		return ('%s, %s, %s')%(self.individuo, self.parametros, self.valor)
+		return ('%s, %s, %s')%(self.individuoPadre, self.parametros, self.valor)
 
 	def get_absolute_url(self):
 		return reverse("bsuser:v_detalleanalisis", kwargs={"id":self.id})
 
 class EliminacionProtocolo(models.Model):
+	## en vez de Protocolo no debería ser DetalleAnalisisPadre?????????
 	protocolo = models.OneToOneField(Protocolo)
+
 	fecha = models.DateField(auto_now=False)
 	motivoBaja = models.TextField("Motivo de Baja")
 	#usuario = 
 
 	def __str__(self):
-		dia = str(fecha)
-		return('%s, %s')%(self.protocolo, self.dia)
+		dia = str(self.fecha)
+		return('%s, %s')%(self.protocolo, dia)
 
 	def get_absolute_url(self):
 		return reverse("bsuser:v_eliminacionprotocolo", kwargs={"id":self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion=self.descripcion.upper()
-		super(EliminacionProtocolo, self).save(force_insert, force_update)
+class Tercerizacion(models.Model):
+	fecha_envio = models.DateField("Fecha de Envío", auto_now=False)
+	fecha_devolucion = models.DateField("Fecha de Devolución", auto_now=False, null=True, blank=True)
+	institucion = models.CharField(max_length=20)
+	detalleanalisispadre = models.ForeignKey(DetalleAnalisisPadre)
+	
+	def __str__(self):
+		return ('%s %s %s')%(self.fecha_envio, self.fecha_devolucion, self.institucion)
+
+	def get_absolute_url(self):
+		return reverse("bsadmin:v_tercerizar", kwargs={"id": self.id}) #keyword args
+		

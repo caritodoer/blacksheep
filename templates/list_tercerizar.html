@@ -12,17 +12,21 @@
 					<thead class="thead-default">
 						<tr>
 							<th>Protocolo N°</th>
-							<th>fecha </th>
-							<th>motivo baja</th>
+							<th>Diagnostico</th>
+							<th>fecha envio</th>
+							<th>fecha devolucion</th>
+							<th>institución</th>
 							<th>Informe</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for obj in object_list %}
 						<tr>
-							<td>{{ obj.protocolo.numero }}</td>
-							<td>{{ obj.fecha }}</td>
-							<td>{{ obj.motivoBaja }}</td>
+							<td>{{ obj.detalleanalisispadre.protocolo.numero }}</td>
+							<td>{{ obj.detalleanalisispadre.diagnostico.descripcion }}</td>
+							<td>{{ obj.fecha_envio }}</td>
+							<td>{{ obj.fecha_devolucion }}</td>
+							<td>{{ obj.institucion }}</td>
 							<td><a href="#" class="btn btn-default btn-sm" role="button">Ver</a></td> <!-- tiene que ir al informe en PDF  -->
 						</tr>
 						{% endfor %}

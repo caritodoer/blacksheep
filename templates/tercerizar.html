@@ -52,16 +52,24 @@
 			            	<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
 			                    <div class="form-group">
 			                        <div class="divalidacion">    
-			                            <label class="control-label col-sm-2" for="fecha">Fecha:</label>
+			                            <label class="control-label col-sm-2" for="fecha_envio">Fecha de Envío:</label>
 			                            <div class="col-sm-3">
-			                                <input type="date" class="form-control" id="fecha" name="fecha" value="">
+			                                <input type="date" class="form-control" id="fecha_envio" name="fecha_envio" value="">
 			                            </div>
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
-			                        <label class="control-label col-sm-2" for="motivoBaja">Motivo:</label>
+			                        <div class="divalidacion">    
+			                            <label class="control-label col-sm-2" for="fecha_devolucion">Fecha de Devolución:</label>
+			                            <div class="col-sm-3">
+			                                <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="">
+			                            </div>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-2" for="institucion">Institución a la que se envía:</label>
 			                        <div class="col-sm-9">
-			                            <textarea row="3" class="form-control" id="motivoBaja" name="motivoBaja" value=""> </textarea>
+			                        	<input type="text" class="form-control" id="institucion" name="institucion" value="">
 			                        </div>
 			                    </div>
 				            </form>
@@ -75,8 +83,8 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-sm-12" align="right">
-                    	<!-- tiene que generar pdf en ventana a parte y despues volver al home_user -->
-                    	<a href="#" class="btn btn-default" role="button">Generar informe de baja</a>
+                    	<!-- tiene que generar pdf en ventana a parte y despues volver al ver_detAn.html -->
+                    	<a href="#" class="btn btn-default" role="button">Generar informe de Tercerización</a>
                     </div>
                 </div>
             </div> <!--fin panel footer-->

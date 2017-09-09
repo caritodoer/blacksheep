@@ -69,7 +69,8 @@ class ParametrosForm(forms.ModelForm):
 			"descripcion",
 			"tipo_de_dato",
 			"unidadmedida",
-			"grupo"
+			"grupo",
+			"visualizacion1",
 		]	
 
 class DiagnosticoForm(forms.ModelForm):
@@ -84,17 +85,7 @@ class DiagnosticoForm(forms.ModelForm):
 			"piepagina"	
 		]
 
-class ParametrosForm(forms.ModelForm):
-	class Meta:
-		model = Parametros
-		fields = [
-			"diagnostico",
-			"descripcion",
-			"tipo_de_dato",
-			"unidadmedida",
-			"grupo"
-		]
-			
+	
 class ValoresReferenciaForm(forms.ModelForm):
 	class Meta:
 		model = ValoresReferencia
