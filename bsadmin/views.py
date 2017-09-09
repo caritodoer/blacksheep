@@ -15,7 +15,13 @@ def diagnosticoAjax(request):
 		tecnica = request.POST['tecnica']
 		posMuestra = request.POST['muestra']
 		muestra = get_object_or_404(Muestra,id=posMuestra)
+		
 		tercerizacion = request.POST['tercerizacion']
+		if tercerizacion == "true":
+			tercerizacion = True
+		else:
+			tercerizacion = False
+			
 		piepagina = request.POST['piepagina']
 			
 		Diagnostico.objects.create(
