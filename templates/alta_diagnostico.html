@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{%  include 'includes/modalvisualizacion.html' %}
 {%  include 'includes/modalTipoDato.html' %}
 {%  include 'includes/modalValRef.html' %} 
 {%  include 'includes/modalCopy.html' %} <!-- Copia del modal base de ValRef-->
@@ -64,7 +65,7 @@
 									<input type="text" class="form-control" id="grupo" name="grupo" value="{{ instance.grupo }}">
 									</div>
 
-									<label class="control-label col-sm-3" for="radio"> Visualización del Grupo <a href="#" data-toggle="modal" data-target="#ModalVisualizacion"><span class="glyphicon glyphicon-question-sign"></span></a></label>
+									<label class="control-label col-sm-3" for="radio"> Visualización del Grupo <a href="#" data-toggle="modal" data-target="#modalVisualizacion"><span class="glyphicon glyphicon-question-sign"></span></a></label>
 									<div class="col-sm-9">
 										<label class="control-label col-sm-4" for="radio">Tablas <small>(Para caravanas)</small></label>
 										<div class="col-sm-1">	
@@ -327,7 +328,7 @@ $(document).ready(function(){
 
     			tecnica: $('#tecnica').val(),
     			muestra: $('#muestra').val(),
-    			tercerizacion: $('#tercerizacion').val(),
+    			tercerizacion: $('#tercerizacion').is(":checked"),
     			piepagina: $('#piepagina').val(),
     			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
     		},
