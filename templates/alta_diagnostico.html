@@ -68,11 +68,11 @@
 									<div class="col-sm-9">
 										<label class="control-label col-sm-4" for="radio">Tablas <small>(Para caravanas)</small></label>
 										<div class="col-sm-1">	
-											<input type="radio" class="form-control" id="radio" name="radio1" value="{{ instance.radio }}">
+											<input type="radio" class="form-control" id="radioTabla" name="radio0" value="{{ instance.radio }}">
 										</div>
 										<label class="control-label col-sm-4" for="radio">Ítems <small>(Para datos unicos)</small></label>
 										<div class="col-sm-1">
-											<input type="radio" class="form-control" id="radio" name="radio1" value="{{ instance.radio }}">
+											<input type="radio" class="form-control" id="radioItem" name="radio0" value="{{ instance.radio }}">
 										</div>
 									</div>
 								</div>
@@ -104,7 +104,7 @@
 											<td><input type="text" class="form-control" id="unidadmedida0" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
 											<td><div class="btn btn-danger">Eliminar</div></td>
 										</tr>
-										<tr>
+										<tr class="paraList">
 											<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
 											<td>
 												<select id="select" class="selectpicker tipoDatoSelect">
@@ -186,6 +186,7 @@ $(document).ready(function(){
 		var newRow = $('#hidden-row').clone()
 						.removeAttr('id')
 						.removeAttr('style')
+                        .addClass('paraList')
 						.show();
 		// Clona, remueve id (para evitar duplicados) y stylem y muestra.
         
@@ -224,6 +225,9 @@ $(document).ready(function(){
 	$("body").on('click', ".btn-eliminar-vr", function(){
 		$(this).parent().parent().remove(); // Delete Row de valores referencia	
 	});
+	
+	var incRadio = 0;
+
     $("#addBlockParametros").click(function(){
         
         var newTable = $('#grupoParametros').clone()
@@ -233,14 +237,36 @@ $(document).ready(function(){
                         .show()
                         .appendTo('#block-parametros')
         // copia y pega el bloque.
+        incRadio = incRadio + 1; 
+		var radioUp = "radio" + incRadio; 
+        newTable.find("input:radio").attr('name', radioUp);
+
         return false;
     });
 	
 	$("body").on("click", "#pruebaeach", function(){
 		$(".blockGrupo").each(function(i, v){
 			var grupo = $(this).find("#grupo").val();
-			console.log(a);
-			// jQuery("input[name='my_button_group']:checked")
+			console.log(grupo);
+			if($(this).find("#radioTabla").is(":checked")){
+				console.log("Tabla");
+				var tabletype = "T";	
+			}
+
+			if($(this).find("#radioItem").is(":checked")){
+				console.log("Items");
+				var tabletype = "I";	
+			}
+
+			// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
+
+			var tBody = $(this).find('.paraList');
+			console.log(tBody);
+			
+			$(tBody).find('td').each(function(){
+				var asq = $(this).find('#descripcion').val();
+				console.log('1');
+			});
 		});
 	});
 
@@ -298,6 +324,7 @@ $(document).ready(function(){
     		url: '/diagnosticoAjax/',
     		data:{
     			descripcion: $('#descripciondiag').val(), 
+
     			tecnica: $('#tecnica').val(),
     			muestra: $('#muestra').val(),
     			tercerizacion: $('#tercerizacion').val(),

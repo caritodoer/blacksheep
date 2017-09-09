@@ -11,11 +11,11 @@
 				<div class="col-sm-9">
 					<label class="control-label col-sm-4" for="radio">Tablas <small>(Para caravanas)</small></label>
 					<div class="col-sm-1">	
-						<input type="radio" class="form-control" id="radio" name="radio1" value="{{ instance.radio }}">
+						<input type="radio" class="form-control" id="radioTabla" name="radio" value="{{ instance.radio }}">
 					</div>
 					<label class="control-label col-sm-4" for="radio">Ítems <small>(Para datos unicos)</small></label>
 					<div class="col-sm-1">
-						<input type="radio" class="form-control" id="radio" name="radio1" value="{{ instance.radio }}">
+						<input type="radio" class="form-control" id="radioItem" name="radio" value="{{ instance.radio }}">
 					</div>
 				</div>
 			</div>
@@ -70,6 +70,7 @@ $(document).ready(function(){
 		var newRow = $('#hidden-row').clone()
 						.removeAttr('id')
 						.removeAttr('style')
+                        .addClass('paraList')
 						.show();
 		// Clona, remueve id (para evitar duplicados) y stylem y muestra.
         
