@@ -14,7 +14,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">{{ title }}</h3>
             </div>
-                <!-- <form class="form-horizontal" method="POST" action="">{% csrf_token %} -->
+		<form id="formAjax">{% csrf_token %} 
             <div class="panel-body">
 
                 <div class="form-horizontal">
@@ -56,7 +56,7 @@
 <!-- DIV PARAMETROS -->
 <div class="hideterce">
 					<div id="block-parametros">
-						<div class="panel panel-default">
+						<div class="panel panel-default blockGrupo">
 							<div class="panel-heading">
 								<div class="form-group">
 									<label class="control-label col-sm-3" for="grupo">Grupo de Parametros</label>
@@ -153,11 +153,13 @@
 			<div class="panel-footer">
 				<div class="row">
 					<div class="col-sm-12" align="right">
+						<button id="pruebaeach">TEST</button>
+						<input type="submit" value="Cargar">
 						<button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
 					</div>
 				</div>
 			</div> <!--fin panel footer-->
-			<!-- </form> -->
+		 </form> 
         </div>
     </div>
 </div>
@@ -215,12 +217,21 @@ $(document).ready(function(){
         var newTable = $('#grupoParametros').clone()
                         .removeAttr('id')
                         .removeAttr('style')
+                        .addClass('blockGrupo')
                         .show()
                         .appendTo('#block-parametros')
         // copia y pega el bloque.
         return false;
     });
 	
+	$("body").on("click", "#pruebaeach", function(){
+		$(".blockGrupo").each(function(i, v){
+			var grupo = $(this).find("#grupo").val();
+			console.log(a);
+			// jQuery("input[name='my_button_group']:checked")
+		});
+	});
+
     $("body").on('click', "#rmvBlockPara", function(){
     	$(this).parent().parent().remove();
 	});
@@ -265,6 +276,28 @@ $(document).ready(function(){
             }
         }); // finaliza el select 
     
+
+
+    $(document).on('submit', '#formAjax', function(e){
+		e.preventDefault();
+		
+		$.ajax({
+    		type: 'POST',
+    		url: '/diagnosticoAjax/',
+    		data:{
+    			descripcion: $('#descripciondiag').val(), 
+    			tecnica: $('#tecnica').val(),
+    			muestra: $('#muestra').val(),
+    			tercerizacion: $('#tercerizacion').val(),
+    			piepagina: $('#piepagina').val(),
+    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+    		},
+    		success: function(){
+    			alert('Done');
+
+    		}
+    	});
+    });
 
     $.ajax({
     	url: "/j_especie/",
@@ -338,7 +371,6 @@ function validacion(campo){
             return true;
         }
     }//muestra          
-
 }//validacion 
 </script> 
 
