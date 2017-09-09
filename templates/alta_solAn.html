@@ -46,7 +46,7 @@
                         <div class="divalidacion">    
                             <label class="control-label col-sm-2" for="fecha">Fecha:</label>
                             <div class="col-sm-4">
-                                <input type="date" class="form-control" id="fecha" name="fecha" onkeyup="validacion('fecha');" value="{{ instance.fecha }}">
+                                <input type="date" class="form-control fecha" id="fecha" name="fecha" onkeyup="validacion('fecha');" value="{{ instance.fecha }}">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -166,9 +166,10 @@ $(document).ready(function() {
             }
         }); // fin select especie
 
+
 /*validacion*/
 $("span.help-block").hide();
-    });//ready  
+});//ready  
 
 
 /*validacion*/

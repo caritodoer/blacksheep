@@ -2,8 +2,10 @@
 	<div class="form-group">
 	  <label class="control-label col-sm-2" for="diagnostico">Diagnóstico:</label>
 	  <div class="col-sm-4">
-	    <select class="form-control diagnosticoSel" name="diagnostico"></select>
-	  </div>
+	      <div class="divalidacion">
+	        <select class="form-control diagnosticoSel diagnostico" name="diagnostico" onchange="validacion('diagnostico');"></select>
+	      </div>
+	   </div>
 	  <button class="btn btn-danger btn-sm btn-eliminar-linea">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
 	</div>
 </div>

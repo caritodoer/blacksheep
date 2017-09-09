@@ -33,7 +33,9 @@
               <div class="form-group">
                               <label class="control-label col-sm-2" for="muestra">Muestra:</label>
                     <div class="col-sm-4">
-                      <select class="form-control muestraSel" name="muestra"></select>
+                    <div class="divalidacion">
+                      <select class="form-control muestraSel muestra" name="muestra" onchange="validacion('muestra');"></select>
+                    </div>
                     </div>
                     <div class="col-sm-6" align="right">
                       <button id="addBlockDiagnostico"  class="btn btn-default btn-sm">Agregar Diagnóstico  <span class="glyphicon glyphicon-plus"></span></button>
@@ -47,7 +49,9 @@
                               <div class="form-group">
                                 <label class="control-label col-sm-2" for="diagnostico">Diagnóstico:</label>
                                 <div class="col-sm-4">
-                                  <select class="form-control diagnosticoSel" name="diagnostico"></select>
+                                  <div class="divalidacion">
+                                    <select class="form-control diagnosticoSel diagnostico" name="diagnostico" onchange="validacion('diagnostico');"></select>
+                                  </div>
                                 </div>
                                 <button class="btn btn-danger btn-sm btn-eliminar-linea">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
                               </div>
@@ -80,7 +84,7 @@
         <div class="panel-footer">
           <div class="row">
             <div class="col-sm-12" align="right">
-              <a href="../../../individuopadre/alta" >
+              <!-- <a href="../../../individuopadre/alta" > -->
               <button type="button" class="btn btn-default" id="btnvalidar">Continuar</button>
               </a>
             </div>
@@ -127,11 +131,12 @@ $(document).ready(function() {
             type:"GET",
             dataType: "json",
             success: function(muestra){
+                $('.muestra').append('<option selected value=""></option>');
                 $.each(muestra,function(index, obj) 
                 {   
                     if(obj.id == selectmuestra)
                     {
-                    $('.muestraSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    $('.muestraSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
                     else{
                     $('.muestraSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
@@ -145,11 +150,12 @@ $(document).ready(function() {
             type:"GET",
             dataType: "json",
             success: function(diagnostico){
+                $('.diagnosticoSel').append('<option selected value=""></option>');
                 $.each(diagnostico,function(index, obj) 
                 {   
                     if(obj.id == selectdiagnostico)
                     {
-                    $('.diagnosticoSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    $('.diagnosticoSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
                     else{
                     $('.diagnosticoSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
@@ -166,7 +172,76 @@ $(document).ready(function() {
       $(this).parent().parent().remove();
   });
     
-});
+/*validacion*/
+$("span.help-block").hide();
+
+}); //ready 
+
+
+  /*validacion*/
+  function verificar(){
+    var v1=0,v2=0;
+
+    v1=validacion('muestra');
+    v2=validacion('diagnostico');
+    console.log(v1,v2);
+    if(v1 == true && v2 == true){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }//verificar
+
+  $("#btnvalidar").click(function(){
+    if(verificar() == true){
+      $("#formvalidar").submit();
+      $(location).attr('href',"../../../individuopadre/alta");
+    }
+  });// boton validar
+
+  //funcion retorna array de consulta bd 
+  function getconbd(url, method)
+  {
+      return JSON.parse($.ajax({
+          type: method,
+          url: url,
+          dataType: 'json',
+          async:false,
+          success: function(data)
+          {
+              return data;
+          }
+      }).responseText);
+  }//consulta bd
+
+  function validacion(campo){
+    if(campo==='muestra' || campo==='diagnostico'){
+      var truefalse=true;
+      var error=-1;
+      if(campo==='diagnostico'){error=-2}//solo para diagnostico
+      $('.'+campo).each(function(i, elem){
+      var indice = $(elem).val();
+      console.log('indice  ',indice);
+      if(indice == null || indice == 0 ){
+        $(elem).parent().attr("class","has-error has-feedback");
+        error++;
+        console.log('indice2  ',indice);
+        }
+      else{
+        $(elem).parent().attr("class","has-success has-feedback");
+        console.log('indice3  ',indice);
+        } 
+      });
+      
+      if(error > 0){
+        return false;
+      }
+      else{
+        return true;
+      }   
+    }//muestra      
+  }//validacion
 </script> 
 {% endblock %}
 
