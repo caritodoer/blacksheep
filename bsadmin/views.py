@@ -22,11 +22,11 @@ def diagnosticoAjax(request):
 			descripcion = descripcion,
 			tecnica = tecnica,
 			muestra = muestra,
-			tercerizacion = True,
+			tercerizacion = tercerizacion,
 			piepagina = piepagina,
     	)
-
-		return HttpResponse('')
+		PosicionDiagnostico = Diagnostico.objetcs.latest('id')
+		return HttpResponse(PosicionDiagnostico)
 
 # Categoria
 
