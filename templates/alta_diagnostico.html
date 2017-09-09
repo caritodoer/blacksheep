@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{%  include 'includes/modalvisualizacion.html' %}
 {%  include 'includes/modalTipoDato.html' %}
 {%  include 'includes/modalValRef.html' %} 
 {%  include 'includes/modalCopy.html' %} <!-- Copia del modal base de ValRef-->
@@ -67,7 +68,7 @@
 										</div>
 									</div>
 
-									<label class="control-label col-sm-3" for="radio"> Visualización del Grupo <a href="#" data-toggle="modal" data-target="#ModalVisualizacion"><span class="glyphicon glyphicon-question-sign"></span></a></label>
+									<label class="control-label col-sm-3" for="radio"> Visualización del Grupo <a href="#" data-toggle="modal" data-target="#modalVisualizacion"><span class="glyphicon glyphicon-question-sign"></span></a></label>
 									<div class="col-sm-9">
 									<div class="divalidacion">
 										<label class="control-label col-sm-4" for="radio">Tablas <small>(Para caravanas)</small></label>
@@ -120,7 +121,7 @@
 												</select>
 											</td>
 											<td><a id="botonIngresarValorRef" class="btn btn-default ModalPara" data-toggle="modal" data-target="#ModalValorRef0" class="btn btn-default">Ingresar</a><!-- <p style="display:none" id="pBtnIVR">Deshabilitado para ese tipo de dato</p> --></td>
-											<td><input type="text" class="form-control" id="unidadmedida1" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
+											<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
 											<td><div class="btn btn-danger">Eliminar</div></td>
 										</tr>
 									</tbody>
@@ -230,7 +231,7 @@ $(document).ready(function(){
 	$("body").on('click', ".btn-eliminar-vr", function(){
 		$(this).parent().parent().remove(); // Delete Row de valores referencia	
 	});
-	
+
 	var incRadio = 0;
 
     $("#addBlockParametros").click(function(){
@@ -264,13 +265,14 @@ $(document).ready(function(){
 			}
 
 			// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
-
+			console.log("{{PosicionDiagnostico}}")
 			var tBody = $(this).find('.paraList');
-			console.log(tBody);
 			
 			$(tBody).find('td').each(function(){
-				var asq = $(this).find('#descripcion').val();
-				console.log('1');
+				var descripcion = $(this).find('#descripcion').val();
+				var tipoDato = $(this).find(":selected").val();
+				var unidadmedida = $(this).find('#unidadmedida').val();
+				
 			});
 		});
 	});
@@ -332,7 +334,7 @@ $(document).ready(function(){
 
     			tecnica: $('#tecnica').val(),
     			muestra: $('#muestra').val(),
-    			tercerizacion: $('#tercerizacion').val(),
+    			tercerizacion: $('#tercerizacion').is(":checked"),
     			piepagina: $('#piepagina').val(),
     			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
     		},
