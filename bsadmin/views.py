@@ -7,6 +7,27 @@ from django.core import serializers
 def home_admin(request):
 	return render(request, "home_admin.html")
 
+#Alta diagnostico
+
+def diagnosticoAjax(request):
+	if request.method == 'POST':
+		descripcion = request.POST['descripcion'] 
+		tecnica = request.POST['tecnica']
+		posMuestra = request.POST['muestra']
+		muestra = get_object_or_404(Muestra,id=posMuestra)
+		tercerizacion = request.POST['tercerizacion']
+		piepagina = request.POST['piepagina']
+			
+		Diagnostico.objects.create(
+			descripcion = descripcion,
+			tecnica = tecnica,
+			muestra = muestra,
+			tercerizacion = True,
+			piepagina = piepagina,
+    	)
+
+		return HttpResponse('')
+
 # Categoria
 
 def j_categoria(request):

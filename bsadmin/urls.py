@@ -12,6 +12,9 @@ from bsadmin import views
 urlpatterns = [
     url(r'^home_admin/$', views.home_admin),
 
+    #Diagnostico Ajax
+    url(r'^diagnosticoAjax/$', views.diagnosticoAjax),
+
     # Categoria
     url(r'^categoria/$', views.l_categoria, name="l_categoria"),
     url(r'^categoria/alta/$', views.a_categoria),

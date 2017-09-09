@@ -14,7 +14,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">{{ title }}</h3>
             </div>
-                <!-- <form class="form-horizontal" method="POST" action="">{% csrf_token %} -->
+		<form id="formAjax">{% csrf_token %} 
             <div class="panel-body">
 
                 <div class="form-horizontal">
@@ -56,7 +56,7 @@
 <!-- DIV PARAMETROS -->
 <div class="hideterce">
 					<div id="block-parametros">
-						<div class="panel panel-default">
+						<div class="panel panel-default blockGrupo">
 							<div class="panel-heading">
 								<div class="form-group">
 									<label class="control-label col-sm-3" for="grupo">Grupo de Parametros</label>
@@ -72,11 +72,11 @@
 									<div class="divalidacion">
 										<label class="control-label col-sm-4" for="radio">Tablas <small>(Para caravanas)</small></label>
 										<div class="col-sm-1">	
-											<input type="radio" class="form-control vistagrupo" id="vistagrupo" onchange="validacion('vistagrupo')" name="radio1" value="{{ instance.radio }}">
+											<input type="radio" class="form-control vistagrupo" id="radioTabla" onchange="validacion('vistagrupo')" name="radio0" value="{{ instance.radio }}">
 										</div>
 										<label class="control-label col-sm-4" for="radio">Ítems <small>(Para datos unicos)</small></label>
 										<div class="col-sm-1">
-											<input type="radio" class="form-control vistagrupo" id="vistagrupo" onchange="validacion('vistagrupo')" name="radio1" value="{{ instance.radio }}">
+											<input type="radio" class="form-control vistagrupo" id="radioItem" onchange="validacion('vistagrupo')" name="radio0" value="{{ instance.radio }}">
 										</div>
 									</div>
 									</div>
@@ -109,7 +109,7 @@
 											<td><input type="text" class="form-control" id="unidadmedida0" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
 											<td><div class="btn btn-danger">Eliminar</div></td>
 										</tr>
-										<tr>
+										<tr class="paraList">
 											<td><input type="text" class="form-control descripciongrupo" id="descripcion" onkeyup="validacion('descripciongrupo');" name="descripcion" value="{{ instance.descripcion }}"></td>
 											<td>
 												<select id="select" class="selectpicker tipoDatoSelect">
@@ -170,11 +170,13 @@
 			<div class="panel-footer">
 				<div class="row">
 					<div class="col-sm-12" align="right">
+						<button id="pruebaeach">TEST</button>
+						<input type="submit" value="Cargar">
 						<button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
 					</div>
 				</div>
 			</div> <!--fin panel footer-->
-			<!-- </form> -->
+		 </form> 
         </div>
     </div>
 </div>
@@ -189,6 +191,7 @@ $(document).ready(function(){
 		var newRow = $('#hidden-row').clone()
 						.removeAttr('id')
 						.removeAttr('style')
+                        .addClass('paraList')
 						.show();
 		// Clona, remueve id (para evitar duplicados) y stylem y muestra.
         
@@ -227,17 +230,51 @@ $(document).ready(function(){
 	$("body").on('click', ".btn-eliminar-vr", function(){
 		$(this).parent().parent().remove(); // Delete Row de valores referencia	
 	});
+	
+	var incRadio = 0;
+
     $("#addBlockParametros").click(function(){
         
         var newTable = $('#grupoParametros').clone()
                         .removeAttr('id')
                         .removeAttr('style')
+                        .addClass('blockGrupo')
                         .show()
                         .appendTo('#block-parametros')
         // copia y pega el bloque.
+        incRadio = incRadio + 1; 
+		var radioUp = "radio" + incRadio; 
+        newTable.find("input:radio").attr('name', radioUp);
+
         return false;
     });
 	
+	$("body").on("click", "#pruebaeach", function(){
+		$(".blockGrupo").each(function(i, v){
+			var grupo = $(this).find("#grupo").val();
+			console.log(grupo);
+			if($(this).find("#radioTabla").is(":checked")){
+				console.log("Tabla");
+				var tabletype = "T";	
+			}
+
+			if($(this).find("#radioItem").is(":checked")){
+				console.log("Items");
+				var tabletype = "I";	
+			}
+
+			// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
+
+			var tBody = $(this).find('.paraList');
+			console.log(tBody);
+			
+			$(tBody).find('td').each(function(){
+				var asq = $(this).find('#descripcion').val();
+				console.log('1');
+			});
+		});
+	});
+
     $("body").on('click', "#rmvBlockPara", function(){
     	$(this).parent().parent().remove();
 	});
@@ -282,6 +319,29 @@ $(document).ready(function(){
             }
         }); // finaliza el select 
     
+
+
+    $(document).on('submit', '#formAjax', function(e){
+		e.preventDefault();
+		
+		$.ajax({
+    		type: 'POST',
+    		url: '/diagnosticoAjax/',
+    		data:{
+    			descripcion: $('#descripciondiag').val(), 
+
+    			tecnica: $('#tecnica').val(),
+    			muestra: $('#muestra').val(),
+    			tercerizacion: $('#tercerizacion').val(),
+    			piepagina: $('#piepagina').val(),
+    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+    		},
+    		success: function(){
+    			alert('Done');
+
+    		}
+    	});
+    });
 
     $.ajax({
     	url: "/j_especie/",
@@ -414,20 +474,20 @@ function validacion(campo){
 		}
 	}//descripciongrupo
 
-	if (campo==='vistagrupo'){
+	/*if (campo==='vistagrupo'){
 		var truefalse=true;
 		var seleccionado=false;
 		$('.'+campo).each(function(i, elem){
 		console.log('elem1  ',elem);	
-		radio = $(elem).val();
+		radio = $(elem).find("#radioTabla").is(":checked");
         console.log('radio1  ',radio);
-        if(radio == 0){
+        if($(elem).find("#radioTabla").is(":checked")){
 			$(elem).parent().parent().attr("class","has-error has-feedback");
 			seleccionado=true;
 			console.log('radio2  ',radio);
 			}
 		else{
-			$(elem).parent().parent().removeClass("has-success has-feedback");
+			$(elem).parent().parent().attr("class","has-success has-feedback");
 			console.log('radio3  ',radio);				
 			}
 		});
@@ -437,7 +497,7 @@ function validacion(campo){
 		}
 		else{
 			return true;
-		}
+		}*/
         /*opciones = document.getElementsByName(campo);
         var seleccionado = false;
         for(var i=0; i<opciones.length; i++) {    
@@ -460,6 +520,7 @@ function validacion(campo){
             return true;
         }*/
     }//vistagrupo
+
 
 }//validacion 
 </script> 
