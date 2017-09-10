@@ -21,7 +21,8 @@
 							<th>Veterinario </th>
 							<th>Categoria</th>
 							<th>Explotacion</th>
-							<th>Activo</th>
+							<th>Estado</th>
+							<th></th>				
 						</tr>
 					</thead>
 					<tbody>
@@ -46,6 +47,11 @@
 							
 							</td>
 							<td>{{ obj.activo }}</td>
+							{% if obj.activo == True %}
+							<td><a class="btn btn-default btn-sm"href="delete/{{ obj.id }}">Eliminar</a></td>
+							{% else %}
+							<td><a class="btn btn-default btn-sm"href="activar/{{ obj.id }}">Activar</a></td>
+							{% endif%}
 						</tr>
 						{% endfor %}
 					</tbody>

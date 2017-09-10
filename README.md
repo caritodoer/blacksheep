@@ -5,9 +5,9 @@ https://stackoverflow.com/questions/1377446/render-html-to-pdf-in-django-site
 http://pythonpiura.org/posts/2016/05/13/reporte-pdf-en-django-con-reportlab/
 
 OBJETIVOS:
+- delete setedar desde el views que cambie estado de activo a false
 - HTML: Hoja_de_Trabajo, EliminarProtocolo & Tercerizacion: falta guardar y generar informes/Hoja en PDF
 
-## 	+ Guardar alta diag.
 ##- Trasladar datos de SolAn.html a Protocolo, y a  Individuo Padre (por views)
 - Hacer en HTML: 
 ## + Cargar_Resulatados (desde ahi generar los PDF para imprimir HDT): ver que corte el grupo de parametros cada "x" parametros
@@ -16,7 +16,6 @@ OBJETIVOS:
 
 - en alta de protocolo, los diagnosticos que propone deberian ser segun la muestra
 - Alta Diagnostico: 
- 	+ visualizacion: modal info con tipo de diseño por grupo de parametros (Tablas/Items)
  	+ vista previa: Boton junto a "guardar" & modal(html)
 - en ver_detAn.html: columna "Estado"
 - PDF a generar: (o exel)
@@ -25,6 +24,10 @@ OBJETIVOS:
 	+ TERCERIZACION
 	+ ELIMINACION DE PROTOCOLO
 - User --> login --> Menu
+- Actualizar modificaciones en la carpeta de proyecto
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+hecho:
 -- en detalle de diagnostico, que muestre:
 		GRUPO DE PARAMETRO 1
 			* PARAMETRO 1
@@ -32,10 +35,6 @@ OBJETIVOS:
 		GRUPO DE PARAMETRO 2
 			* PARAMETRO 3
 			* PARAMETRO 4
-- Actualizar modificaciones en la carpeta de proyecto
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-hecho:
 + Boton "Eliminar Protocolo" (tiene que trasladar la info del protocolo)
 
 #############################################

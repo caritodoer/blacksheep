@@ -10,6 +10,8 @@
 		<td>Tipo de dato </td>
 		<td>Unidad Medida </td>
 		<td>Grupo </td>
+		<th>Estado</th>
+		<th></th>
 	</tr>
 	{% for obj in object_list %}
 	<tr>
@@ -18,6 +20,12 @@
 		<td>{{ obj.tipo_de_dato }}</td>
 		<td>{{ obj.unidadmedida }}</td>
 		<td>{{ obj.grupo }}</td>
+		<td>{{ obj.activo }}</td>
+		{% if obj.activo == True %}
+		<td><a class="btn btn-default btn-sm"href="delete/{{ obj.id }}">Eliminar</a></td>
+		{% else %}
+		<td><a class="btn btn-default btn-sm"href="activar/{{ obj.id }}">Activar</a></td>
+		{% endif%}
 	
 	</tr>
 	{% endfor %}
