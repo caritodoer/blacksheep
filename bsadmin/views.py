@@ -31,8 +31,8 @@ def diagnosticoAjax(request):
 			tercerizacion = tercerizacion,
 			piepagina = piepagina,
     	)
-
-		return HttpResponse('')
+		PosicionDiagnostico = Diagnostico.objetcs.latest('id')
+		return HttpResponse(PosicionDiagnostico)
 
 # Categoria
 

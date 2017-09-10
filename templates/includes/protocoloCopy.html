@@ -12,7 +12,9 @@
               <div class="form-group">
                               <label class="control-label col-sm-2" for="muestra">Muestra:</label>
                     <div class="col-sm-4">
-                      <select class="form-control muestraSel" name="muestra"></select>
+                      <div class="divalidacion">
+                        <select class="form-control muestraSel muestra" name="muestra" onchange="validacion('muestra');"></select>
+                      </div>
                     </div>
                     <div class="col-sm-6" align="right">
                       <button id="addBlockDiagnostico"  class="btn btn-default btn-sm">Agregar Diagnóstico  <span class="glyphicon glyphicon-plus"></span></button>
@@ -26,7 +28,9 @@
                               <div class="form-group">
                                 <label class="control-label col-sm-2" for="diagnostico">Diagnóstico:</label>
                                 <div class="col-sm-4">
-                                  <select class="form-control diagnosticoSel" name="diagnostico"></select>
+                                  <div class="divalidacion">
+                                    <select class="form-control diagnosticoSel diagnostico" name="diagnostico" onchange="validacion('diagnostico');"></select>
+                                  </div>
                                 </div>
                                 <button class="btn btn-danger btn-sm btn-eliminar-linea">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
                               </div>

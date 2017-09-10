@@ -62,19 +62,24 @@
 								<div class="form-group">
 									<label class="control-label col-sm-3" for="grupo">Grupo de Parametros</label>
 									<div class="col-sm-9">
-									<input type="text" class="form-control" id="grupo" name="grupo" value="{{ instance.grupo }}">
+										<div class="divalidacion">
+										<input type="text" class="form-control grupo" id="grupo" onkeyup="validacion('grupo');" name="grupo" value="{{ instance.grupo }}">
+										<span class="help-block"></span>
+										</div>
 									</div>
 
 									<label class="control-label col-sm-3" for="radio"> Visualización del Grupo <a href="#" data-toggle="modal" data-target="#modalVisualizacion"><span class="glyphicon glyphicon-question-sign"></span></a></label>
 									<div class="col-sm-9">
+									<div class="divalidacion">
 										<label class="control-label col-sm-4" for="radio">Tablas <small>(Para caravanas)</small></label>
 										<div class="col-sm-1">	
-											<input type="radio" class="form-control" id="radioTabla" name="radio0" value="{{ instance.radio }}">
+											<input type="radio" class="form-control vistagrupo" id="radioTabla" onchange="validacion('vistagrupo')" name="radio0" value="{{ instance.radio }}">
 										</div>
 										<label class="control-label col-sm-4" for="radio">Ítems <small>(Para datos unicos)</small></label>
 										<div class="col-sm-1">
-											<input type="radio" class="form-control" id="radioItem" name="radio0" value="{{ instance.radio }}">
+											<input type="radio" class="form-control vistagrupo" id="radioItem" onchange="validacion('vistagrupo')" name="radio0" value="{{ instance.radio }}">
 										</div>
+									</div>
 									</div>
 								</div>
 							</div>
@@ -106,7 +111,7 @@
 											<td><div class="btn btn-danger">Eliminar</div></td>
 										</tr>
 										<tr class="paraList">
-											<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
+											<td><input type="text" class="form-control descripciongrupo" id="descripcion" onkeyup="validacion('descripciongrupo');" name="descripcion" value="{{ instance.descripcion }}"></td>
 											<td>
 												<select id="select" class="selectpicker tipoDatoSelect">
 													<option value="I">Número Entero</option>
@@ -116,7 +121,7 @@
 												</select>
 											</td>
 											<td><a id="botonIngresarValorRef" class="btn btn-default ModalPara" data-toggle="modal" data-target="#ModalValorRef0" class="btn btn-default">Ingresar</a><!-- <p style="display:none" id="pBtnIVR">Deshabilitado para ese tipo de dato</p> --></td>
-											<td><input type="text" class="form-control" id="unidadmedida1" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
+											<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
 											<td><div class="btn btn-danger">Eliminar</div></td>
 										</tr>
 									</tbody>
@@ -226,7 +231,7 @@ $(document).ready(function(){
 	$("body").on('click', ".btn-eliminar-vr", function(){
 		$(this).parent().parent().remove(); // Delete Row de valores referencia	
 	});
-	
+
 	var incRadio = 0;
 
     $("#addBlockParametros").click(function(){
@@ -260,13 +265,14 @@ $(document).ready(function(){
 			}
 
 			// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
-
+			console.log("{{PosicionDiagnostico}}")
 			var tBody = $(this).find('.paraList');
-			console.log(tBody);
 			
 			$(tBody).find('td').each(function(){
-				var asq = $(this).find('#descripcion').val();
-				console.log('1');
+				var descripcion = $(this).find('#descripcion').val();
+				var tipoDato = $(this).find(":selected").val();
+				var unidadmedida = $(this).find('#unidadmedida').val();
+				
 			});
 		});
 	});
@@ -306,7 +312,7 @@ $(document).ready(function(){
                 {   
                     if(obj.id == selectmuestra)
                     {
-                    $('#muestra').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    $('#muestra').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
                     else{
                     $('#muestra').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
@@ -357,14 +363,17 @@ $("span.help-block").hide();
 
 /*validacion*/
 function verificar(){
-    var v1=0,v2=0,v3=0;
+    var v1=0,v2=0,v3=0;v4=0;v5=0;v6=0;
 
     v1=validacion('descripciondiag');
     v2=validacion('tecnica');
     v3=validacion('muestra');
+    v4=validacion('grupo');
+    v5=validacion('descripciongrupo');
+    v6=validacion('vistagrupo');
 
-    console.log(v1,v2,v3);
-    if(v1 == true && v2 == true && v3 == true){
+    console.log(v1,v2,v3,v4,v5,v6);
+    if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
         return true;
     }
     else{
@@ -375,6 +384,7 @@ function verificar(){
 $("#btnvalidar").click(function(){
     if(verificar() == true){
         $("#formvalidar").submit();
+        $(location).attr('href',"../../home_admin");
     }
 });// boton validar
 
@@ -411,6 +421,109 @@ function validacion(campo){
             return true;
         }
     }//muestra          
+
+    if(campo==='grupo'){
+		var truefalse=true;
+		var error=-1;
+		$('.'+campo).each(function(i, elem){
+		console.log('elem1  ',elem);	
+		inputtext = $(elem).val();
+        console.log('inputtext  ',inputtext);
+		if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
+			$(elem).parent().attr("class","has-error has-feedback");
+			$(elem).parent().children("span").text("Debe ingresar algun dato ").show();
+			error++;
+			console.log('inputtext2  ',inputtext);
+			}
+		else{
+			$(elem).parent().attr("class","has-success has-feedback");
+			$(elem).parent().children("span").text("").hide();
+			console.log('inputtext3  ',inputtext);				
+			}	
+		});
+		
+		if(error > 0){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}//identificacion
+
+	    if(campo==='descripciongrupo'){
+		var truefalse=true;
+		var error=-2;
+		$('.'+campo).each(function(i, elem){
+		console.log('elem1  ',elem);	
+		inputtext = $(elem).val();
+        console.log('inputtext  ',inputtext);
+		if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
+			$(elem).parent().attr("class","has-error has-feedback");
+			error++;
+			console.log('inputtext2  ',inputtext);
+			}
+		else{
+			$(elem).parent().attr("class","has-success has-feedback");
+			console.log('inputtext3  ',inputtext);				
+			}	
+		});
+		
+		if(error > 0){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}//descripciongrupo
+
+	/*if (campo==='vistagrupo'){
+		var truefalse=true;
+		var seleccionado=false;
+		$('.'+campo).each(function(i, elem){
+		console.log('elem1  ',elem);	
+		radio = $(elem).find("#radioTabla").is(":checked");
+        console.log('radio1  ',radio);
+        if($(elem).find("#radioTabla").is(":checked")){
+			$(elem).parent().parent().attr("class","has-error has-feedback");
+			seleccionado=true;
+			console.log('radio2  ',radio);
+			}
+		else{
+			$(elem).parent().parent().attr("class","has-success has-feedback");
+			console.log('radio3  ',radio);				
+			}
+		});
+
+		if(seleccionado == true){
+			return false;
+		}
+		else{
+			return true;
+		}*/
+        /*opciones = document.getElementsByName(campo);
+        var seleccionado = false;
+        for(var i=0; i<opciones.length; i++) {    
+          if(opciones[i].checked) {
+            seleccionado = true;
+            break;
+          }
+        }
+         
+        if(!seleccionado) {
+            $('#male').parent().parent().parent().attr("class", "form-group has-error has-feedback");
+            $('#male').parent().parent().next().append("<span id='sexo'  class='glyphicon glyphicon-remove form-control-feedback'></span>");
+
+
+            return false;
+        }
+        else{
+            $("#sexo").remove();
+            $('#male').parent().parent().parent().attr("class", "form-group has-success");
+            return true;
+        }*/
+    }//vistagrupo
+
+
 }//validacion 
 </script> 
 
