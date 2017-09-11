@@ -5,12 +5,11 @@ https://stackoverflow.com/questions/1377446/render-html-to-pdf-in-django-site
 http://pythonpiura.org/posts/2016/05/13/reporte-pdf-en-django-con-reportlab/
 
 OBJETIVOS:
-- delete setedar desde el views que cambie estado de activo a false
 - HTML: Hoja_de_Trabajo, EliminarProtocolo & Tercerizacion: falta guardar y generar informes/Hoja en PDF
 
 ##- Trasladar datos de SolAn.html a Protocolo, y a  Individuo Padre (por views)
 - Hacer en HTML: 
-## + Cargar_Resulatados (desde ahi generar los PDF para imprimir HDT): ver que corte el grupo de parametros cada "x" parametros
+## + Cargar_Resulatados (desde ahi generar los PDF para imprimir HDT): 
 - en /DetalleAnalisisPadre/(id)/:
 ##- en AltaIndividuoPadre.html: lista número de órden que sea autoincremental (JS)
 
@@ -28,6 +27,8 @@ OBJETIVOS:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 hecho:
+- ver que corte el grupo de parametros cada "x" parametros
+- delete setedar desde el views que cambie estado de activo a false
 -- en detalle de diagnostico, que muestre:
 		GRUPO DE PARAMETRO 1
 			* PARAMETRO 1

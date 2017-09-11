@@ -529,21 +529,45 @@ def hojadetrabajo(request, id=None):
 	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
 	# traigo los parametros asociados al diagnostico
 	diag = instance.diagnostico
-	queryset_Param = Parametros.objects.all().filter(diagnostico=diag)
+	all_param_del_diag = Parametros.objects.all().filter(diagnostico=diag)
 	# traigo los individuos asociados a la solicitud
 	solic = instance.solicitud
-	queryset_Ind = DetalleAnalisis.objects.distinct('individuoPadre').filter(solicitud=solic)
+	all_indiv_de_solic = DetalleAnalisis.objects.distinct('individuoPadre').filter(solicitud=solic)
 
 	grupo_list_t = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="T")
 	grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
+	
+	grupos = {}
+	for g in grupo_list_t:
+		cant=0
+		for p in all_param_del_diag:
+			if g.grupo == p.grupo:
+				cant=cant+1
+		inicio=0
+		fin=5
+		k=g.grupo
+		list_r=[]
+		ban=True
+		while ban:
+			rango= Parametros.objects.all().filter(diagnostico=diag, visualizacion1="T", grupo=k)[inicio:fin]
+			#print("g rango  ", rango)
+			list_r.append(rango)
+			inicio = inicio+5
+			fin = fin+5
+			if fin <= cant:
+				ban=True
+			else:
+				ban=False
+		grupos[k] = list_r
+	print(grupos)
 
 	context = {
 		"title" : "Hoja de Trabajo",
 		"instance" : instance,
-		"parametros_list" : queryset_Param,
-		"object_list_ind": queryset_Ind,
-		"grupot" : grupo_list_t,
+		"parametros_list" : all_param_del_diag,
+		"object_list_ind": all_indiv_de_solic,
 		"grupoi" : grupo_list_i,
+		"grupos": grupos,
 
 	}
 	return render(request, "hojadetrabajo.html", context)
