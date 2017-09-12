@@ -97,7 +97,14 @@ def u_categoria(request, id=None):
 
 def d_categoria(request, id=None):
 	instance = get_object_or_404(Categoria, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_categoria")
+
+def activar_categoria(request, id=None):
+	instance = get_object_or_404(Categoria, id=id)
+	instance.activo = True
+	instance.save()
 	return redirect("bsadmin:l_categoria")
 
 
@@ -159,8 +166,15 @@ def u_explotacion(request,id=None):
 	return render(request,"alta_aux.html",context)
 
 def d_explotacion(request,id=None):
-	instance=get_object_or_404(Explotacion, id=id)
-	instance.delete()
+	instance = get_object_or_404(Explotacion, id=id)
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_explotacion")
+
+def activar_explotacion(request, id=None):
+	instance = get_object_or_404(Explotacion, id=id)
+	instance.activo = True
+	instance.save()
 	return redirect("bsadmin:l_explotacion")
 
 # # Especie
@@ -227,9 +241,15 @@ def u_especie(request, id=None):
 
 def d_especie(request, id=None):
 	instance = get_object_or_404(Especie, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
 	return redirect("bsadmin:l_especie")
 
+def activar_especie(request, id=None):
+	instance = get_object_or_404(Especie, id=id)
+	instance.activo = True
+	instance.save()
+	return redirect("bsadmin:l_especie")
 
 # Muestra
 def j_muestra(request):
@@ -290,7 +310,14 @@ def u_muestra(request, id=None):
 
 def d_muestra(request, id=None):
 	instance = get_object_or_404(Muestra, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_muestra")
+
+def activar_muestra(request, id=None):
+	instance = get_object_or_404(Muestra, id=id)
+	instance.activo = True
+	instance.save()
 	return redirect("bsadmin:l_muestra")
 
 # Especializacion
@@ -352,7 +379,14 @@ def u_especializacion(request, id=None):
 
 def d_especializacion(request, id=None):
 	instance = get_object_or_404(Especializacion, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_especializacion")
+
+def activar_especializacion(request, id=None):
+	instance = get_object_or_404(Especializacion, id=id)
+	instance.activo = True
+	instance.save()
 	return redirect("bsadmin:l_especializacion")
 
 # motivos
@@ -417,7 +451,14 @@ def u_motivos(request, id=None):
 
 def d_motivos(request, id=None):
 	instance = get_object_or_404(Motivos, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_motivos")
+
+def activar_motivos(request, id=None):
+	instance = get_object_or_404(Motivos, id=id)
+	instance.activo = True
+	instance.save()
 	return redirect("bsadmin:l_motivos")
 
 #categoriaE
@@ -481,7 +522,14 @@ def u_categoriae(request, id=None):
 
 def d_categoriae(request, id=None):
 	instance = get_object_or_404(CategoriaE, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_categoriae")
+
+def activar_categoriae(request, id=None):
+	instance = get_object_or_404(CategoriaE, id=id)
+	instance.activo = True
+	instance.save()
 	return redirect("bsadmin:l_categoriae")
 
 
@@ -555,9 +603,15 @@ def u_raza(request, id=None):
 
 def d_raza(request, id=None):
 	instance = get_object_or_404(Raza, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
 	return redirect("bsadmin:l_raza")
 
+def activar_raza(request, id=None):
+	instance = get_object_or_404(Raza, id=id)
+	instance.activo = True
+	instance.save()
+	return redirect("bsadmin:l_raza")
 
 #parametros
 
@@ -621,7 +675,14 @@ def u_parametros(request, id=None):
 
 def d_parametros(request, id=None):
 	instance = get_object_or_404(Parametros, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_parametros")
+
+def activar_parametros(request, id=None):
+	instance = get_object_or_404(Parametros, id=id)
+	instance.activo = True
+	instance.save()
 	return redirect("bsadmin:l_parametros")
 
 #diagnostico
@@ -660,8 +721,14 @@ def a_diagnostico(request):
 
 def v_diagnostico(request, id=None):
 	instance = get_object_or_404(Diagnostico, id=id)
+	diag = instance.id
+	param_list = Parametros.objects.all().filter(diagnostico=diag)
+	grupo_list = Parametros.objects.distinct('grupo').filter(diagnostico=diag)
+
 	context = {
 		"instance": instance,
+		"param_list": param_list,
+		"grupo_list": grupo_list,
 		"title": "Detalle de Diagnostico"
 	}	
 	return render(request, "detalle_diagnostico.html", context)
@@ -686,7 +753,14 @@ def u_diagnostico(request, id=None):
 
 def d_diagnostico(request, id=None):
 	instance = get_object_or_404(Diagnostico, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_diagnostico")
+
+def activar_diagnostico(request, id=None):
+	instance = get_object_or_404(Diagnostico, id=id)
+	instance.activo = True
+	instance.save()
 	return redirect("bsadmin:l_diagnostico")
 
 #valoresreferencia
@@ -750,9 +824,15 @@ def u_valoresreferencia(request, id=None):
 
 def d_valoresreferencia(request, id=None):
 	instance = get_object_or_404(ValoresReferencia, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
 	return redirect("bsadmin:l_valoresreferencia")
 
+def activar_valoresreferencia(request, id=None):
+	instance = get_object_or_404(ValoresReferencia, id=id)
+	instance.activo = True
+	instance.save()
+	return redirect("bsadmin:l_valoresreferencia")
 
 #veterinario
 def j_veterinario(request):
@@ -828,7 +908,14 @@ def u_veterinario(request, id=None):
 
 def d_veterinario(request, id=None):
 	instance = get_object_or_404(Veterinario, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_veterinario")
+
+def activar_veterinario(request, id=None):
+	instance = get_object_or_404(Veterinario, id=id)
+	instance.activo = True
+	instance.save()
 	return redirect("bsadmin:l_veterinario")
 
 #establecimiento
@@ -911,5 +998,12 @@ def u_establecimiento(request, id=None):
 
 def d_establecimiento(request, id=None):
 	instance = get_object_or_404(Establecimiento, id=id)
-	instance.delete()
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_establecimiento")
+
+def activar_establecimiento(request, id=None):
+	instance = get_object_or_404(Establecimiento, id=id)
+	instance.activo = True
+	instance.save()
 	return redirect("bsadmin:l_establecimiento")

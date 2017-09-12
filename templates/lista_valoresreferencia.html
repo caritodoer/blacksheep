@@ -11,6 +11,8 @@
 		<td>Parametros</td>
 		<td>Valor Referencia </td>
 		<td>Valor Defecto </td>
+		<th>Estado</th>
+		<th></th>
 	</tr>
 	{% for obj in object_list %}
 	<tr>
@@ -20,6 +22,12 @@
 		<td>{{ obj.parametros }}</td>
 		<td>{{ obj.valorRef }}</td>
 		<td>{{ obj.valorDef }}</td>
+		<td>{{ obj.activo }}</td>
+		{% if obj.activo == True %}
+		<td><a class="btn btn-default btn-sm"href="delete/{{ obj.id }}">Eliminar</a></td>
+		{% else %}
+		<td><a class="btn btn-default btn-sm"href="activar/{{ obj.id }}">Activar</a></td>
+		{% endif%}
 	
 	</tr>
 	{% endfor %}
