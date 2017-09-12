@@ -24,29 +24,27 @@
 								<th class="col-sm-3"><label for="numero"><button id="agregar_individuo"  class="btn btn-default btn-sm">Agregar Individuo  <span class="glyphicon glyphicon-plus"></span></button></label></th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody >
 							<tr id="hidden-row-ind" style="display: none">
-								<td>
-									<ol>
-										<li></li>
-									</ol>
+								<td class=numeracion>
+									<p>1</p>
 								</td>
-								<td><input type="text" class="form-control" id="identificacion" onkeyup="validacion('identificacion');" name="identificacion" value="{{ instance.identificacion }}"></td>
-								<td><select class="form-control razaSel" name="raza" onchange="validacion('raza');"></select></td>
+								<td><input type="text" class="form-control identificacion" id="identificacion" onkeyup="validacion('identificacion');" name="identificacion" value="{{ instance.identificacion }}"></td>
+								<td><select class="form-control razaSel raza" name="raza" onchange="validacion('raza');"></select></td>
 								<td><a id="botonIngresarMasOpciones" class="btn btn-default ModalMasOp" data-toggle="modal" data-target="#ModalMasOp" class="btn btn-default">Mas Opciones</a></td>
 								<td><button class="btn btn-danger btn-eliminar-indi">Eliminar</button></td>
 							</tr>
-							<tr>
+							<!-- <tr>
 								<td>
 									<ol>
 										<li></li>
 									</ol>
 								</td>
-								<td><input type="text" class="form-control" id="identificacion" onkeyup="validacion('identificacion');" name="identificacion" value="{{ instance.identificacion }}"></td>
-								<td><select class="form-control razaSel" name="raza" onchange="validacion('raza');"></select></td>
+								<td><input type="text" class="form-control identificacion" id="identificacion" onkeyup="validacion('identificacion');" name="identificacion" value="{{ instance.identificacion }}"></td>
+								<td><select class="form-control razaSel raza" name="raza" onchange="validacion('raza');"></select></td>
 								<td><a id="botonIngresarMasOpciones" class="btn btn-default ModalMasOp" data-toggle="modal" data-target="#ModalMasOp0" class="btn btn-default">Mas Opciones</a></td>
 								<td><button class="btn btn-danger btn-eliminar-indi">Eliminar</button></td>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 				
@@ -75,6 +73,7 @@
 $(document).ready(function() {
 
 	var num = 0;
+	var count=1;
 	$("body").on('click', "#agregar_individuo", function(){
 		var newInd = $('#hidden-row-ind').clone()
 			.removeAttr('id')
@@ -88,6 +87,8 @@ $(document).ready(function() {
 			$(this).parent().parent().parent().parent().append(newInd);
 			$(this).parent().parent().parent().parent().append(modBase);
 			
+			var numeracion = $('#tabla tbody').find('.numeracion').append(count);
+
 		return false;
 	});
 
@@ -101,16 +102,18 @@ $(document).ready(function() {
             type:"GET",
             dataType: "json",
             success: function(raza){
-            	$('#raza').append('<option selected value=""></option>');
+            	$('.razaSel').append('<option selected value=""></option>');
                 $.each(raza,function(index, obj) 
                 {   
-                    if(obj.id == selectraza)
-                    {
-                    $('.razaSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
-                    else{
-                    $('.razaSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
+                	if(obj.activo == true){
+	                    if(obj.id == selectraza)
+	                    {
+	                    $('.razaSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+	                    }
+	                    else{
+	                    $('.razaSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+	                    }
+                	}
                 });
             }
         }); // fin selectraza
@@ -123,13 +126,15 @@ $(document).ready(function() {
             success: function(categoriae){
                 $.each(categoriae,function(index, obj) 
                 {   
-                    if(obj.id == selectcategoriae)
-                    {
-                    $('.categoriaeSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
-                    else{
-                    $('.categoriaeSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
+                	if(obj.activo == true){
+	                    if(obj.id == selectcategoriae)
+	                    {
+	                    $('.categoriaeSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+	                    }
+	                    else{
+	                    $('.categoriaeSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+	                    }
+	                }    
                 });
             }
         }); // finaliza el select
@@ -141,8 +146,8 @@ $(document).ready(function() {
 	/*validacion*/
 	$("span.help-block").hide();
 
-
 }); //ready 
+
 
 	/*validacion*/
 	function verificar(){
@@ -183,6 +188,31 @@ $(document).ready(function() {
 
 	function validacion(campo){
 		if(campo==='identificacion'){
+			var truefalse=true;
+			var error=-1;
+			$('.'+campo).each(function(i, elem){
+			console.log('elem1  ',elem);	
+			inputtext = $(elem).val();
+	        console.log('inputtext  ',inputtext);
+			if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
+				$(elem).parent().attr("class","has-error has-feedback");
+				error++;
+				console.log('inputtext2  ',inputtext);
+				}
+			else{
+				$(elem).parent().attr("class","has-success has-feedback");
+				console.log('inputtext3  ',inputtext);				
+				}	
+			});
+			
+			if(error > 0){
+				return false;
+			}
+			else{
+				return true;
+			}
+		}//identificacion
+		/*if(campo==='identificacion'){
 	        inputtext = document.getElementById(campo).value;
 	        console.log(inputtext);
 	        if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
@@ -199,20 +229,44 @@ $(document).ready(function() {
 	            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
 	            return true;                
 	        }
-	    }//identificacion
-		
+	    }//identificacion*/
+
 		if(campo==='raza'){
-			indice = document.getElementById(campo).selectedIndex;
-			console.log(indice);
-			if(indice == null || indice == 0){
-				$('#raza').parent().parent().attr("class","form-group has-error");
+			var truefalse=true;
+			var error=-1;
+			$('.'+campo).each(function(i, elem){
+			var indice = $(elem).val();
+			console.log('indice  ',indice);
+			if(indice == null || indice == 0 ){
+				$(elem).parent().attr("class","has-error has-feedback");
+				error++;
+				console.log('indice2  ',indice);
+				}
+			else{
+				$(elem).parent().attr("class","has-success has-feedback");
+				console.log('indice3  ',indice);
+				}	
+			});
+			
+			if(error > 0){
 				return false;
 			}
 			else{
-				$('#raza').parent().parent().attr("class","form-group has-success");
+				return true;
+			}		
+		}//raza
+		/*if(campo==='raza'){
+			indice = document.getElementById(campo).selectedIndex;
+			console.log(indice);
+			if(indice == null || indice == 0){
+				$('.razaSel').parent().parent().attr("class","form-group has-error");
+				return false;
+			}
+			else{
+				$('.razaSel').parent().parent().attr("class","form-group has-success");
 				return true;
 			}
-		}//especie			
+		}//especie*/			
 	}//validacion
 
 

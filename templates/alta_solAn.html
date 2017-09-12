@@ -46,7 +46,7 @@
                         <div class="divalidacion">    
                             <label class="control-label col-sm-2" for="fecha">Fecha:</label>
                             <div class="col-sm-4">
-                                <input type="date" class="form-control" id="fecha" name="fecha" onkeyup="validacion('fecha');" value="{{ instance.fecha }}">
+                                <input type="date" class="form-control fecha" id="fecha" name="fecha" onkeyup="validacion('fecha');" value="{{ instance.fecha }}">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -98,13 +98,15 @@ $(document).ready(function() {
                 $.each(establecimiento,function(index, obj) 
                 {   
                     console.log(establecimiento)
-                    if(obj.id == selectestablecimiento)
-                    {
-                    $('#establecimiento').append('<option selected value=' + obj.id + '>' + obj.nombre + '</option>');
-                    }
-                    else{
-                    $('#establecimiento').append('<option value=' + obj.id + '>' + obj.nombre + '</option>');
-                    }
+                    if(obj.activo == true){    
+                        if(obj.id == selectestablecimiento)
+                        {
+                        $('#establecimiento').append('<option selected value=' + obj.id + '>' + obj.nombre + '</option>');
+                        }
+                        else{
+                        $('#establecimiento').append('<option value=' + obj.id + '>' + obj.nombre + '</option>');
+                        }
+                    }    
                 });
             }
         }); // fin select establecimiento
@@ -117,12 +119,14 @@ $(document).ready(function() {
                 $.each(veterinario,function(index, obj) 
                 {   
                     console.log(veterinario)
-                    if(obj.id == selectveterinario)
-                    {
-                    $('#veterinario').append('<option selected value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
-                    }
-                    else{
-                    $('#veterinario').append('<option value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                    if(obj.activo == true){    
+                        if(obj.id == selectveterinario)
+                        {
+                        $('#veterinario').append('<option selected value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                        }
+                        else{
+                        $('#veterinario').append('<option value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                        }
                     }
                 });
             }
@@ -136,12 +140,14 @@ $(document).ready(function() {
                 $.each(motivo,function(index, obj) 
                 {   
                     console.log(motivo)
-                    if(obj.id == selectmotivo)
-                    {
-                    $('#motivo').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
-                    else{
-                    $('#motivo').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    if(obj.activo == true){    
+                        if(obj.id == selectmotivo)
+                        {
+                        $('#motivo').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                        }
+                        else{
+                        $('#motivo').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                        }
                     }
                 });
             }
@@ -155,20 +161,23 @@ $(document).ready(function() {
                 $.each(especie,function(index, obj) 
                 {   
                     console.log(especie)
-                    if(obj.id == selectespecie)
-                    {
-                    $('#especie').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
-                    else{
-                    $('#especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                    if(obj.activo == true){    
+                        if(obj.id == selectespecie)
+                        {
+                        $('#especie').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+                        }
+                        else{
+                        $('#especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+                        }
                     }
                 });
             }
         }); // fin select especie
 
+
 /*validacion*/
 $("span.help-block").hide();
-    });//ready  
+});//ready  
 
 
 /*validacion*/

@@ -229,8 +229,9 @@ $(document).ready(function() {
         success: function(especializacion){
             $.each(especializacion,function(index, obj) 
             {  
-
+                if(obj.activo == true){
                 $('#especializaciones').append('<br><input type="checkbox" name="especializaciones" id="especializacionesin" value="'+ obj.id+'"> '+obj.descripcion);
+                }
             });//each
 
             $("#especializaciones > input").each(function(){

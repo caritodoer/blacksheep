@@ -14,23 +14,13 @@
 							<th>ID</th>
 							<th>Nombre</th>
 							<th>Apellido </th>
-							<!--<th>Matricula </th>
-							<th>DNI</th>
-							<th>Domicilio Particular</th>
-							<th>CP (Dom. Part.)</th>
-							<th>Domicilio Fiscal </th>
-							<th>CP (Dom. Fiscal)</th> -->
 							<th>E-mail</th>
 							<th>CUIT</th>
 							<th>Cód. Área </th>
 							<th>Tel. 1</th>
-							<!-- <th>Teléfono 2</th>
-							<th>Fecha de Alta </th>
-							<th>Fecha de Baja</th>
-							<th>Acreditación Brucelosis</th>
-							<th>Acreditacion AIE</th> -->
 							<th>Especializaciones </th>
 							<th>Estado</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -39,27 +29,21 @@
 							<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
 							<td>{{ obj.nombre }}</td>
 							<td>{{ obj.apellido }}</td>
-							<!-- <td>{{ obj.matricula }}</td>
-							<td>{{ obj.dni }}</td>
-							<td>{{ obj.domicilio_particular }}</td>
-							<td>{{ obj.cp_domicilio_particular }}</td>
-							<td>{{ obj.domicilio_fiscal }}</td>
-							<td>{{ obj.cp_domicilio_fiscal }}</td> -->
 							<td>{{ obj.email }}</td>
 							<td>{{ obj.cuit }} </td>
 							<td>{{ obj.codigo_area }} </td>
 							<td>{{ obj.telefono1 }}</td>
-							<!-- <td>{{ obj.telefono2 }}</td>
-							<td>{{ obj.fecha_ingreso }} </td>
-							<td>{{ obj.fecha_baja }} </td>
-							<td>{{ obj.acreditacion_brucelosis }}</td>
-							<td>{{ obj.acreditacion_aie }} </td> -->
 							<td>
 								{% for x in obj.especializaciones.all %} <!-- nombre dentro del model m2m -->
 								    {{ x.descripcion }} <br>  <!-- nombre dentro del model base -->
 								{% endfor %}
 							</td>
-							<td>{{ obj.activo }} </td>
+							<td>{{ obj.activo }}</td>
+							{% if obj.activo == True %}
+							<td><a class="btn btn-default btn-sm"href="delete/{{ obj.id }}">Eliminar</a></td>
+							{% else %}
+							<td><a class="btn btn-default btn-sm"href="activar/{{ obj.id }}">Activar</a></td>
+							{% endif%}
 						</tr>
 						{% endfor %}
 					</tbody>
