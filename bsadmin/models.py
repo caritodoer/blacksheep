@@ -152,15 +152,15 @@ class Parametros(models.Model):
 	activo = models.BooleanField(default=True)
 
 	def __str__(self):
-		return ('%s, %s, %s')%(self.descripcion, self.grupo, self.visualizacion1)
+		return ('%s, %s, %s')%(self.descripcion, self.grupo, self.visualizacion1,)
 
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_parametros", kwargs={"id": self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion = self.descripcion.upper()
-		self.grupo = self.grupo.upper()
-		super(Parametros, self).save(force_insert, force_update)
+	# def save(self, force_insert=False, force_update=False):
+	# 	self.descripcion = self.descripcion.upper()
+	# 	self.grupo = self.grupo.upper()
+	# 	super(Parametros, self).save(force_insert, force_update)
 
 class ValoresReferencia(models.Model):
 	especie = models. ForeignKey(Especie)
