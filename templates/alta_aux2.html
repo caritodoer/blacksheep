@@ -52,11 +52,14 @@ $(document).ready(function() {
         	console.log(select)
         	$('#sel_especie').append('<option selected value=""></option>');
         	$.each(especie,function(index, obj) 
-			{	if(obj.id == select){
-				$('#sel_especie').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
-				}
-				else{
-				$('#sel_especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');	
+			{	
+				if(obj.activo == true){
+					if(obj.id == select){
+					$('#sel_especie').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+					}
+					else{
+						$('#sel_especie').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');	
+					}
 				}
 			});
         }

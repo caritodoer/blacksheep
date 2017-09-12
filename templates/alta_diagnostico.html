@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{%  include 'includes/modalvisualizacion.html' %}
+
 {%  include 'includes/modalTipoDato.html' %}
 {%  include 'includes/modalValRef.html' %} 
 {%  include 'includes/modalCopy.html' %} <!-- Copia del modal base de ValRef-->
@@ -310,13 +310,15 @@ $(document).ready(function(){
                 $('#muestra').append('<option selected value=""></option>');
                 $.each(muestra,function(index, obj) 
                 {   
-                    if(obj.id == selectmuestra)
-                    {
-                    $('#muestra').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
-                    else{
-                    $('#muestra').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
+                	if(obj.activo == true){
+	                    if(obj.id == selectmuestra)
+	                    {
+	                    $('#muestra').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+	                    }
+	                    else{
+	                    $('#muestra').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+	                    }
+	                }    
                 });
             }
         }); // finaliza el select 
@@ -351,7 +353,9 @@ $(document).ready(function(){
     	dataType: "json",
     	success: function(especie){
     		$.each(especie, function(index, obj){
+    			if(obj.activo == true){
     			$('.especieSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+    			}
     		});
     	}
     }); // select de especie 
@@ -521,7 +525,7 @@ function validacion(campo){
             $('#male').parent().parent().parent().attr("class", "form-group has-success");
             return true;
         }*/
-    }//vistagrupo
+    //}//vistagrupo
 
 
 }//validacion 

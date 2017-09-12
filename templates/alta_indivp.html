@@ -105,13 +105,15 @@ $(document).ready(function() {
             	$('.razaSel').append('<option selected value=""></option>');
                 $.each(raza,function(index, obj) 
                 {   
-                    if(obj.id == selectraza)
-                    {
-                    $('.razaSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
-                    else{
-                    $('.razaSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
+                	if(obj.activo == true){
+	                    if(obj.id == selectraza)
+	                    {
+	                    $('.razaSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+	                    }
+	                    else{
+	                    $('.razaSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+	                    }
+                	}
                 });
             }
         }); // fin selectraza
@@ -124,13 +126,15 @@ $(document).ready(function() {
             success: function(categoriae){
                 $.each(categoriae,function(index, obj) 
                 {   
-                    if(obj.id == selectcategoriae)
-                    {
-                    $('.categoriaeSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
-                    else{
-                    $('.categoriaeSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
+                	if(obj.activo == true){
+	                    if(obj.id == selectcategoriae)
+	                    {
+	                    $('.categoriaeSel').append('<option selected value=' + obj.id + '>' + obj.descripcion + '</option>');
+	                    }
+	                    else{
+	                    $('.categoriaeSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
+	                    }
+	                }    
                 });
             }
         }); // finaliza el select

@@ -134,6 +134,7 @@ $(document).ready(function() {
                 $('.muestra').append('<option selected value=""></option>');
                 $.each(muestra,function(index, obj) 
                 {   
+                  if(obj.activo == true){
                     if(obj.id == selectmuestra)
                     {
                     $('.muestraSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
@@ -141,6 +142,7 @@ $(document).ready(function() {
                     else{
                     $('.muestraSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
+                  }  
                 });
             }
         }); // fin selectmuestra
@@ -152,7 +154,8 @@ $(document).ready(function() {
             success: function(diagnostico){
                 $('.diagnosticoSel').append('<option selected value=""></option>');
                 $.each(diagnostico,function(index, obj) 
-                {   
+                {  
+                  if(obj.activo == true){
                     if(obj.id == selectdiagnostico)
                     {
                     $('.diagnosticoSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
@@ -160,6 +163,7 @@ $(document).ready(function() {
                     else{
                     $('.diagnosticoSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
                     }
+                  }  
                 });
             }
         }); // fin selectdiagnostico

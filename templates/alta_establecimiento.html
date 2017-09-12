@@ -133,13 +133,15 @@ $(document).ready(function() {
                 $.each(veterinario,function(index, obj) 
                 {   
                     console.log(veterinario)
-                    if(obj.id == selectveterinario)
-                    {
-                    $('#veterinario').append('<option selected value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
-                    }
-                    else{
-                    $('#veterinario').append('<option value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
-                    }
+                    if(obj.activo == true){
+                        if(obj.id == selectveterinario)
+                        {
+                        $('#veterinario').append('<option selected value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                        }
+                        else{
+                        $('#veterinario').append('<option value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                        }
+                    }    
                 });
             }
         }); // finaliza el primer select 
@@ -151,7 +153,9 @@ $(document).ready(function() {
                 console.log("categoria: " + catelist)
                 $.each(categoria,function(index, obj) 
                 {   
+                    if(obj.activo == true){
                     $('#categorias').append('<br><input type="checkbox" id="categoriasin" name="categorias" value="'+ obj.id+'"> '+obj.descripcion);
+                    }
                 });
 
                 $("#categorias > input").each(function(){
@@ -172,8 +176,10 @@ $(document).ready(function() {
             success: function(explotacion){
                 console.log("explotacion:" + explolist)
                 $.each(explotacion,function(index, obj) 
-                {      
+                {    
+                    if(obj.activo == true){  
                     $('#explotacion').append('<br><input type="checkbox" id="explotacionin" name="explotacion" value="'+ obj.id+'"> '+obj.descripcion);
+                    }
                 });
 
                 $("#explotacion > input").each(function(){
