@@ -31,8 +31,43 @@ def diagnosticoAjax(request):
 			tercerizacion = tercerizacion,
 			piepagina = piepagina,
     	)
-		PosicionDiagnostico = Diagnostico.objetcs.latest('id')
-		return HttpResponse(PosicionDiagnostico)
+
+		data = Diagnostico.objects.latest('id')
+		data = data.id
+		return HttpResponse(data)
+
+# Alta Parametros
+
+def parametrosAjax(request):
+	if request.method == 'POST':
+		posDiagnostico = request.POST['diagnostico']
+		diagnostico = get_object_or_404(Diagnostico,id=posDiagnostico)
+		
+		descripcion = request.POST['descripcion']
+		tipo_de_dato = request.POST['tipo_de_dato']
+		unidadmedida = request.POST['unidadmedida']
+		grupo = request.POST['grupo']
+		visualizacion1 = request.POST['visualizacion1']
+		
+		print(diagnostico.id)
+		print(descripcion)
+		print(tipo_de_dato)
+		print(unidadmedida)
+		print(grupo)
+		print(visualizacion1)
+		
+		Parametros.objects.create(
+			diagnostico = diagnostico,
+			descripcion = descripcion,
+			tipo_de_dato = tipo_de_dato,
+			unidadmedida = unidadmedida,
+			grupo = grupo,
+			visualizacion1 = visualizacion1,
+    	)
+
+		dataPara = Parametros.objects.latest('id')
+		dataPara = dataPara.id
+		return HttpResponse(dataPara)
 
 # Categoria
 

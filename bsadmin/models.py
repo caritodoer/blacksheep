@@ -152,7 +152,7 @@ class Parametros(models.Model):
 	activo = models.BooleanField(default=True)
 
 	def __str__(self):
-		return ('%s, %s')%(self.descripcion, self.grupo)
+		return ('%s, %s, %s')%(self.descripcion, self.grupo, self.visualizacion1)
 
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_parametros", kwargs={"id": self.id})

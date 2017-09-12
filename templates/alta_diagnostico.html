@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{%  include 'includes/modalvisualizacion.html' %}
 {%  include 'includes/modalTipoDato.html' %}
 {%  include 'includes/modalValRef.html' %} 
 {%  include 'includes/modalCopy.html' %} <!-- Copia del modal base de ValRef-->
@@ -90,7 +89,7 @@
 											<th class="col-sm-1"><button id="agregar_parametros"  class="btn btn-default btn-sm">Agregar<br>Parametro <span class="glyphicon glyphicon-plus"></span></button></th>		
 										</tr>
 									</thead>
-									<tbody>		
+									<tbody class="paraList">		
 										<tr id="hidden-row" style="display: none">
 											<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
 											<td>
@@ -105,7 +104,7 @@
 											<td><input type="text" class="form-control" id="unidadmedida0" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
 											<td><div class="btn btn-danger">Eliminar</div></td>
 										</tr>
-										<tr class="paraList">
+										<tr>
 											<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
 											<td>
 												<select id="select" class="selectpicker tipoDatoSelect">
@@ -245,32 +244,27 @@ $(document).ready(function(){
         return false;
     });
 	
-	$("body").on("click", "#pruebaeach", function(){
-		$(".blockGrupo").each(function(i, v){
-			var grupo = $(this).find("#grupo").val();
-			console.log(grupo);
-			if($(this).find("#radioTabla").is(":checked")){
-				console.log("Tabla");
-				var tabletype = "T";	
-			}
-
-			if($(this).find("#radioItem").is(":checked")){
-				console.log("Items");
-				var tabletype = "I";	
-			}
-
-			// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
-			console.log("{{PosicionDiagnostico}}")
-			var tBody = $(this).find('.paraList');
+	// $("#block-parametros").on("click", "#pruebaeach", function(){
+	// 	$(".blockGrupo").each(function(i, v){
+	// 		var grupo = $(this).find("#grupo").val();
+	// 		if($(this).find("#radioTabla").is(":checked")){
+	// 			var tabletype = "T";	
+	// 		}
+	// 		if($(this).find("#radioItem").is(":checked")){
+	// 			var tabletype = "I";	
+	// 		}
+	// 		// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
 			
-			$(tBody).find('td').each(function(){
-				var descripcion = $(this).find('#descripcion').val();
-				var tipoDato = $(this).find(":selected").val();
-				var unidadmedida = $(this).find('#unidadmedida').val();
+	// 		var tBody = $(this).find('.paraList');
+			
+	// 		$(tBody).find('td').each(function(){
+	// 			var descripcion = $(this).find('#descripcion').val();
+	// 			var tipoDato = $(this).find(":selected").val();
+	// 			var unidadmedida = $(this).find('#unidadmedida').val();
 				
-			});
-		});
-	});
+	// 		});
+	// 	});
+	// });
 
     $("body").on('click', "#rmvBlockPara", function(){
     	$(this).parent().parent().remove();
@@ -333,12 +327,57 @@ $(document).ready(function(){
     			piepagina: $('#piepagina').val(),
     			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
     		},
-    		success: function(){
-    			alert('Done');
+    		success: function(data){
+    			
+    			var diagPos = data;
+				
+				$(".blockGrupo").each(function(){
 
-    		}
-    	});
-    });
+					var grupo = $(this).find("#grupo").val();
+					if($(this).find("#radioTabla").is(":checked")){
+						var tabletype = "T";	
+					}
+					if($(this).find("#radioItem").is(":checked")){
+						var tabletype = "I";	
+					}
+					// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
+					
+
+					var tBody = $(this).find('.paraList');
+					// recorrer los td individualmente sin repetirse						
+						$(tBody).find('tr:visible').each(function(){
+							var descripcionPara = $(this).find('#descripcion').val();
+							console.log(descripcionPara)
+							var tipoDato = $(this).find(":selected").val();
+							console.log(tipoDato)
+							var unidadmedida = $(this).find('#unidadmedida').val();
+							console.log(unidadmedida)
+						$.ajax({
+				    		type: 'POST',
+				    		url: '/parametrosAjax/',
+				    		data:{
+				    			diagnostico: diagPos, 
+				    			descripcion: descripcionPara, 
+				    			tipo_de_dato: tipoDato, 
+				    			unidadmedida: unidadmedida,
+				    			visualizacion1: tabletype,  
+				    			grupo: grupo,
+				    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+				    		},
+				    		success: function(dataPara){
+				    			alert(dataPara);
+
+				    		} // succes
+				    	}); // ajaxdparametros
+
+
+
+
+						}); // parametros 1x1
+				}); // blockgroup
+    		} // succes
+    	}); // ajaxdiagnostico
+    }); // submit completo
 
     $.ajax({
     	url: "/j_especie/",
