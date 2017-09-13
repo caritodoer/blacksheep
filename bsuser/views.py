@@ -366,9 +366,17 @@ def v_DetalleAnalisisPadre(request, id=None):
 	queryset = DetalleAnalisisPadre.objects.all().order_by('id').filter(protocolo=prot)
 	# INSTANCIA_INDIVIDUOS
 	solic = instance.solicitud
-	queryset_Ind = DetalleAnalisis.objects.all().order_by('id').filter(solicitud=solic)
+	queryset_Ind = DetalleAnalisis.objects.distinct('individuoPadre').filter(solicitud=solic)
+	dict_ind={}
+	for ind in queryset_Ind:
+		k=ind
+		det_ind = Individuos.objects.all().order_by('id').filter(padre=ind.individuoPadre)
+		dict_ind[k]=det_ind
+	print(dict_ind)
+		
+	
 	context = {
-		"object_list_ind": queryset_Ind,
+		"dict_ind": dict_ind, #queryset_Ind,
 		"object_list": queryset,
 		"instance" : instance,
 			"title": "Detalle de Analisis",
