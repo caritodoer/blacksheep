@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 9b205c31fe6ddd380d9c327999ffe58cb0450d27
 {%  include 'includes/modalTipoDato.html' %}
 {%  include 'includes/modalValRef.html' %} 
 {%  include 'includes/modalCopy.html' %} <!-- Copia del modal base de ValRef-->
@@ -266,11 +262,13 @@ $(document).ready(function(){
 			
 	// 		var tBody = $(this).find('.paraList');
 			
-	// 		$(tBody).find('td').each(function(){
+	// 		$(tBody).find('tr:visible').each(function(){
 	// 			var descripcion = $(this).find('#descripcion').val();
+	// 			console.log(descripcion)
 	// 			var tipoDato = $(this).find(":selected").val();
+	// 			console.log(tipoDato)
 	// 			var unidadmedida = $(this).find('#unidadmedida').val();
-				
+	// 			console.log(unidadmedida)
 	// 		});
 	// 	});
 	// });
@@ -340,10 +338,9 @@ $(document).ready(function(){
     		},
     		success: function(data){
     			
-    			var diagPos = data;
-				
+    			var diagPos = data;	
 				$(".blockGrupo").each(function(){
-
+					
 					var grupo = $(this).find("#grupo").val();
 					if($(this).find("#radioTabla").is(":checked")){
 						var tabletype = "T";	
@@ -356,13 +353,14 @@ $(document).ready(function(){
 
 					var tBody = $(this).find('.paraList');
 					// recorrer los td individualmente sin repetirse						
+						
 						$(tBody).find('tr:visible').each(function(){
+						// segundo each, recorre linea por linea del grupo
+
 							var descripcionPara = $(this).find('#descripcion').val();
-							console.log(descripcionPara)
 							var tipoDato = $(this).find(":selected").val();
-							console.log(tipoDato)
 							var unidadmedida = $(this).find('#unidadmedida').val();
-							console.log(unidadmedida)
+						
 						$.ajax({
 				    		type: 'POST',
 				    		url: '/parametrosAjax/',
@@ -376,14 +374,10 @@ $(document).ready(function(){
 				    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 				    		},
 				    		success: function(dataPara){
-				    			alert(dataPara);
+				    			console.log(dataPara);
 
 				    		} // succes
 				    	}); // ajaxdparametros
-
-
-
-
 						}); // parametros 1x1
 				}); // blockgroup
     		} // succes
