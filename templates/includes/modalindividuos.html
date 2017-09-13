@@ -21,16 +21,27 @@
       </tr>
     </thead>
     <tbody>
-      {% for obj in object_list_ind %}
-      <tr>
-        <td>{{ obj.individuo.padre.identificacion }}</td>
-        <td>{{ obj.individuo.padre.raza }}</td>
-        <td>{{ obj.individuo.nombre }}</td>
-        <td>{{ obj.individuo.edad }}</td>
-        <td>{{ obj.individuo.sexo }}</td>
-        <td>{{ obj.individuo.libretasanitaria }}</td>
-        <td>{{ obj.individuo.categoriae }}</td>
-      </tr>
+      {% for key, value in dict_ind.items %}
+          {% if value %}
+      
+        {% for v in value %}
+          <tr>
+            <td>{{ key.individuoPadre }}</td>
+            <td>{{ key.individuoPadre.raza }}</td>
+            <td>{{ v.nombre }}</td>
+            <td>{{ v.edad }}</td>
+            <td>{{ v.sexo }}</td>
+            <td>{{ v.libretasanitaria }}</td>
+            <td>{{ v.categoriae }}</td>
+          </tr>
+        {% endfor %}
+          {% else %}
+          <tr>
+            <td>{{ key.individuoPadre }}</td>
+            <td>{{ key.individuoPadre.raza }}</td>
+            <td colspan="5">Sin Datos</td>
+          </tr>
+          {% endif %}
       {% endfor %}
     </tbody>
   </table>
