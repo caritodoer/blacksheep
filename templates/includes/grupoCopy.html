@@ -37,7 +37,7 @@
 					<th class="col-sm-1"><button id="agregar_parametros"  class="btn btn-default btn-sm">Agregar<br>Parametro <span class="glyphicon glyphicon-plus"></button></th>		
 				</tr>
 			</thead>
-			<tbody>		
+			<tbody class="paraList">		
 				<tr id="hidden-row" style="display: none">
 					<td><input type="text" class="form-control descripciongrupo" id="descripcion" onkeyup="validacion('descripciongrupo');" name="descripcion" value="{{ instance.descripcion }}"></td>
 					<td>
@@ -65,7 +65,7 @@
 	</div> <!-- fin div panel footer -->
 </div> <!-- fin div panel -->
 
-{% block javascript %}
+<!-- {% block javascript %}
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -246,4 +246,4 @@ function validacion(campo){
 }//validacion 
 </script> 
 
-{% endblock %}
+{% endblock %} -->

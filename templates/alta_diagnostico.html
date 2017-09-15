@@ -172,7 +172,7 @@
 				<div class="row">
 					<div class="col-sm-12" align="right">
 						<button id="pruebaeach">TEST</button>
-						<input type="submit" value="Cargar">
+						<input type="submit" class="btn btn-default" id="btnvalidar" value="Cargar">
 						<button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
 					</div>
 				</div>
@@ -263,11 +263,13 @@ $(document).ready(function(){
 			
 	// 		var tBody = $(this).find('.paraList');
 			
-	// 		$(tBody).find('td').each(function(){
+	// 		$(tBody).find('tr:visible').each(function(){
 	// 			var descripcion = $(this).find('#descripcion').val();
+	// 			console.log(descripcion)
 	// 			var tipoDato = $(this).find(":selected").val();
+	// 			console.log(tipoDato)
 	// 			var unidadmedida = $(this).find('#unidadmedida').val();
-				
+	// 			console.log(unidadmedida)
 	// 		});
 	// 	});
 	// });
@@ -318,9 +320,7 @@ $(document).ready(function(){
             }
         }); // finaliza el select 
     
-
-
-    $(document).on('submit', '#formAjax', function(e){
+    $(document).on('submit', '#formAjax', function(e){	
 		e.preventDefault();
 		
 		$.ajax({
@@ -337,10 +337,9 @@ $(document).ready(function(){
     		},
     		success: function(data){
     			
-    			var diagPos = data;
-				
+    			var diagPos = data;	
 				$(".blockGrupo").each(function(){
-
+					
 					var grupo = $(this).find("#grupo").val();
 					if($(this).find("#radioTabla").is(":checked")){
 						var tabletype = "T";	
@@ -353,13 +352,14 @@ $(document).ready(function(){
 
 					var tBody = $(this).find('.paraList');
 					// recorrer los td individualmente sin repetirse						
+						
 						$(tBody).find('tr:visible').each(function(){
+						// segundo each, recorre linea por linea del grupo
+
 							var descripcionPara = $(this).find('#descripcion').val();
-							console.log(descripcionPara)
 							var tipoDato = $(this).find(":selected").val();
-							console.log(tipoDato)
 							var unidadmedida = $(this).find('#unidadmedida').val();
-							console.log(unidadmedida)
+						
 						$.ajax({
 				    		type: 'POST',
 				    		url: '/parametrosAjax/',
@@ -373,19 +373,17 @@ $(document).ready(function(){
 				    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 				    		},
 				    		success: function(dataPara){
-				    			alert(dataPara);
+				    			console.log(dataPara);
 
 				    		} // succes
 				    	}); // ajaxdparametros
-
-
-
-
 						}); // parametros 1x1
 				}); // blockgroup
     		} // succes
     	}); // ajaxdiagnostico
-    }); // submit completo
+    }); // submit completo        
+
+
 
     $.ajax({
     	url: "/j_especie/",
@@ -407,17 +405,17 @@ $("span.help-block").hide();
 
 /*validacion*/
 function verificar(){
-    var v1=0,v2=0,v3=0;v4=0;v5=0;v6=0;
+    var v1=0,v2=0,v3=0;v4=0;v5=0;
 
     v1=validacion('descripciondiag');
     v2=validacion('tecnica');
     v3=validacion('muestra');
     v4=validacion('grupo');
     v5=validacion('descripciongrupo');
-    v6=validacion('vistagrupo');
+    /*v6=validacion('vistagrupo');*/
 
-    console.log(v1,v2,v3,v4,v5,v6);
-    if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
+    console.log(v1,v2,v3,v4,v5);
+    if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true){
         return true;
     }
     else{
@@ -427,7 +425,7 @@ function verificar(){
 
 $("#btnvalidar").click(function(){
     if(verificar() == true){
-        $("#formvalidar").submit();
+        /*$("#formvalidar").submit();*/
         $(location).attr('href',"../../home_admin");
     }
 });// boton validar
@@ -496,7 +494,7 @@ function validacion(campo){
 
 	    if(campo==='descripciongrupo'){
 		var truefalse=true;
-		var error=-2;
+		var error=-1;
 		$('.'+campo).each(function(i, elem){
 		console.log('elem1  ',elem);	
 		inputtext = $(elem).val();
