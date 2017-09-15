@@ -282,6 +282,7 @@ $(document).ready(function(){
 		var newRow = $('#hidden-row-vr').clone()
 						.removeAttr('id')
 						.removeAttr('style')
+                        .addClass('valRefList')
 						.show();
 		$(this).parent().parent().parent().parent().find('tbody').append(newRow);
 		//genera la nueva linea para los valores por referencia.
@@ -360,6 +361,7 @@ $(document).ready(function(){
 							var descripcionPara = $(this).find('#descripcion').val();
 							var tipoDato = $(this).find(":selected").val();
 							var unidadmedida = $(this).find('#unidadmedida').val();
+							var valRef = $(this).find("#botonIngresarValorRef").attr('data-target');
 						
 						$.ajax({
 				    		type: 'POST',
@@ -374,9 +376,36 @@ $(document).ready(function(){
 				    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 				    		},
 				    		success: function(dataPara){
-				    			console.log(dataPara);
+				    			paraPos = dataPara;
 
-				    		} // succes
+				    			var valRefModal = $(valRef);
+
+				    			$(valRefModal).find('.valRefList').each(function(){
+				    				"especie",
+									"parametros",
+									"valorRef",
+									"valorDef"
+				    				var especie = $(this).find(':selected').val();
+				    				var parametros = paraPos;
+				    				var valorRef = $(this).find('#valRef').val();
+				    				var valorDef = $(this).find('#valDef').val();
+
+				    				$.ajax({
+				    					type: 'POST',
+				    					url: '/valRefAjax/',
+				    					data:{
+				    						especie: especie,
+				    						parametros: parametros,
+				    						valorRef: valorRef,
+				    						valorDef: valorDef,
+				    						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+				    					},
+				    					succes: function(){
+				    						console.log('Guardado');
+				    					}//succes
+				    				}); // ajaxValRef							
+								});// recorrer cada modal
+				    		}// succes
 				    	}); // ajaxdparametros
 						}); // parametros 1x1
 				}); // blockgroup
@@ -433,7 +462,7 @@ $("#btnvalidar").click(function(){
 function validacion(campo){
     if(campo==='descripciondiag' || campo==='tecnica'){
         inputtext = document.getElementById(campo).value;
-        console.log(inputtext);
+        //console.log(inputtext);
         if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");
@@ -452,7 +481,7 @@ function validacion(campo){
 
     if(campo==='muestra'){
         indice = document.getElementById(campo).selectedIndex;
-        console.log(indice);
+        //console.log(indice);
         if(indice == null || indice == 0){
             $('#muestra').parent().parent().attr("class","has-error");
             return false;
@@ -467,19 +496,19 @@ function validacion(campo){
 		var truefalse=true;
 		var error=-1;
 		$('.'+campo).each(function(i, elem){
-		console.log('elem1  ',elem);	
+		//console.log('elem1  ',elem);	
 		inputtext = $(elem).val();
-        console.log('inputtext  ',inputtext);
+        //console.log('inputtext  ',inputtext);
 		if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
 			$(elem).parent().attr("class","has-error has-feedback");
 			$(elem).parent().children("span").text("Debe ingresar algun dato ").show();
 			error++;
-			console.log('inputtext2  ',inputtext);
+			//console.log('inputtext2  ',inputtext);
 			}
 		else{
 			$(elem).parent().attr("class","has-success has-feedback");
 			$(elem).parent().children("span").text("").hide();
-			console.log('inputtext3  ',inputtext);				
+			//console.log('inputtext3  ',inputtext);				
 			}	
 		});
 		
@@ -495,17 +524,17 @@ function validacion(campo){
 		var truefalse=true;
 		var error=-2;
 		$('.'+campo).each(function(i, elem){
-		console.log('elem1  ',elem);	
+		//console.log('elem1  ',elem);	
 		inputtext = $(elem).val();
-        console.log('inputtext  ',inputtext);
+        //console.log('inputtext  ',inputtext);
 		if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
 			$(elem).parent().attr("class","has-error has-feedback");
 			error++;
-			console.log('inputtext2  ',inputtext);
+			//console.log('inputtext2  ',inputtext);
 			}
 		else{
 			$(elem).parent().attr("class","has-success has-feedback");
-			console.log('inputtext3  ',inputtext);				
+			//console.log('inputtext3  ',inputtext);				
 			}	
 		});
 		

@@ -15,7 +15,8 @@ urlpatterns = [
     #Diagnostico Ajax
     url(r'^diagnosticoAjax/$', views.diagnosticoAjax),
     url(r'^parametrosAjax/$', views.parametrosAjax),
-
+    url(r'^valRefAjax/$', views.valRefAjax),
+    
     # Categoria
     url(r'^categoria/$', views.l_categoria, name="l_categoria"),
     url(r'^categoria/alta/$', views.a_categoria),
