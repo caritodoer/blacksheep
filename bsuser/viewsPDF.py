@@ -26,6 +26,7 @@ pdfmetrics.registerFont(TTFont('Ubuntu-M', '../blacksheep/static/fonts/ubuntu-fo
 styles.add(ParagraphStyle(name='tit2', alignment=TA_CENTER, fontName = "Ubuntu-B",
 			fontSize = 14))
 tit2 = styles["tit2"]
+
 def hojadetrabajo(request, id=None):
 	# Hacemos los pedidos a BDD que necesitamos
 	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
@@ -57,6 +58,7 @@ def hojadetrabajo(request, id=None):
 			else:
 				ban=False
 		grupos[k] = list_r
+	
 	# Aca comienza la configuracion del PDF
 	response = HttpResponse(content_type='application/pdf')
 	pdf_name = "hojadetrabajo_%s.pdf" %instance.diagnostico
@@ -108,7 +110,6 @@ def hojadetrabajo(request, id=None):
 
 		canvas.restoreState()
 
-
 	#Definimos las caracteristicas fijas de la primera página
 	def myFirstPage(canvas, doc):
 		encabezado(canvas)
@@ -139,7 +140,6 @@ def hojadetrabajo(request, id=None):
 		
 		#Definimos un estilo
 		style = styles["Normal"]
-		
 		Story.append(Spacer(1, 12))
 
 		for key, value in grupos.items():
@@ -185,7 +185,113 @@ def hojadetrabajo(request, id=None):
 		Story.append(Spacer(1, 12))
 		return Story
 
-#un if que condicione el diseño de diagnostico a presentar
+	Story = cuerpo(canvas)
+	#Creamos un documento basándonos en una plantilla
+	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, 
+							leftMargin=72, topMargin=72, bottomMargin=75)
+	#Construimos el documento a partir de los argumentos definidos
+	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=myLaterPages)
+	#doc.build(Story)
+	response.write(buff.getvalue())
+	buff.close()
+	return response
+
+def tercerizar(request, id=None):
+	instance_dap = get_object_or_404(DetalleAnalisisPadre, id=id)
+	ter = Tercerizacion.objects.all().filter(detalleanalisispadre=instance_dap)
+	# Aca comienza la configuracion del PDF
+	response = HttpResponse(content_type='application/pdf')
+	pdf_name = "tercerizacion_%s.pdf" %instance_dap.protocolo
+	response['Content-Disposition'] = 'filename=%s; pagesize=A4' %pdf_name
+
+	buff = BytesIO()
+	
+	def encabezado(canvas):
+		canvas.saveState()
+		canvas.setFont('Existence-Light', 22)
+		canvas.drawString(0.75*inch, PAGE_HEIGHT - 40, "Laboratorio de Diagnóstico")
+		canvas.setFont('Existence-Light', 16)
+		canvas.drawString(0.75*inch, PAGE_HEIGHT - 60, "Dr.Raul Chifflet")
+		contacto_parts = ["El Esquilador 138 - Casilla de Correo 155", "(9420) Río Grande, Tierra del Fuego", "TEL: (02964) 441429 / 441024", "E-mail: laboratorio@asociacionruraltdf.org"]
+		canvas.setFont("Ubuntu-M", 9)
+		y=PAGE_HEIGHT-35
+		for part in contacto_parts:
+			canvas.drawRightString (PAGE_WIDTH - 0.75*inch, y, part)
+			y=y-10
+		canvas.setLineWidth(1.0) 
+		canvas.line (0.70*inch, PAGE_HEIGHT-75 , PAGE_WIDTH-50, PAGE_HEIGHT-75) #horizontal
+		canvas.restoreState()
+
+	def solicitud(canvas):
+		canvas.saveState()
+		canvas.setFont('Ubuntu-B', 15)
+		title = "Tercerizacion de Protocolo N°%d" %instance_dap.protocolo.numero
+		canvas.drawCentredString(PAGE_WIDTH/2.0, PAGE_HEIGHT-100, title)
+
+		establ= instance_dap.solicitud.establecimiento
+		prop=instance_dap.solicitud.establecimiento.propietario
+		renspa= instance_dap.solicitud.establecimiento.RENSPA
+		vet= instance_dap.solicitud.veterinario
+		solicitud_parts  = ["Establecimiento: %s" %(establ), "Propietario: %s" %(prop), "R.E.N.S.P.A.: %s" %(renspa), "Veterinario: %s" %(vet)]
+		canvas.setFont("Helvetica", 9)
+		y=PAGE_HEIGHT-130
+		for part in solicitud_parts:
+			canvas.drawString (0.75*inch, y, part)
+			y=y-10
+
+		fecha="22/10/2010"
+		motivo= instance_dap.solicitud.motivo
+		protocolo=instance_dap.protocolo
+		solicitud_parts  = ["Fecha Recepción: %s" %(fecha), "Motivo: %s" %(motivo), "N° de Protocolo: %s" %(protocolo)]
+		canvas.setFont("Helvetica", 9)
+		y=PAGE_HEIGHT-130
+		for part in solicitud_parts:
+			canvas.drawString (PAGE_WIDTH/2.0, y, part)
+			y=y-10
+
+		canvas.restoreState()
+
+
+	#Definimos las caracteristicas fijas de la primera página
+	def myFirstPage(canvas, doc):
+		encabezado(canvas)
+		solicitud(canvas)
+		canvas.saveState()
+		# pie de pagina:
+		canvas.setFont('Times-Roman', 9)
+		canvas.drawString(inch, 0.75 * inch, "Primera pagina / Laboratorio de Diagnóstico Dr. Raul Chifflet")
+		canvas.restoreState()
+
+	#Definimos disposiciones alternas para las caracteristicas de las otras páginas
+	def myLaterPages(canvas, doc):
+		canvas.saveState()
+		encabezado(canvas)
+		# pie de pagina
+		canvas.setFont('Times-Roman', 9)
+		canvas.drawString(inch, 0.75 * inch, "Página %d / Laboratorio de Diagnóstico Dr. Raul Chifflet" %(doc.page))
+		canvas.restoreState()
+
+	def cuerpo(canvas):
+		Story = [Spacer(1, 150)]
+		style = styles["Normal"]
+		print(ter)
+		for t in ter:
+			f_e=str(t.fecha_envio)
+			print(f_e)
+			print(type(f_e))
+			fecha_envio = Paragraph("Fecha de Envío: "+f_e, style) 
+			Story.append(fecha_envio)
+			Story.append(Spacer(1, 12))
+			f_d=str(t.fecha_devolucion)
+			fecha_devolucion = Paragraph("Fecha de Devolución: "+f_d, style)
+			Story.append(fecha_devolucion)
+			Story.append(Spacer(1, 12))
+			institucion = Paragraph("Institución a la que se envia: "+t.institucion, style) 
+			Story.append(institucion)
+			Story.append(Spacer(1, 12))
+
+		return Story
+
 	Story = cuerpo(canvas)
 	#Creamos un documento basándonos en una plantilla
 	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, 
