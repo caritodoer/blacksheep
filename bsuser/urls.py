@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.contrib import admin
 from bsuser import views
+from bsuser import viewsPDF
 
 # l: listado
 # a: alta
@@ -91,4 +92,10 @@ urlpatterns = [
     #Tercerizar
     url(r'^tercerizar/(?P<id>\d+)/$', views.tercerizar),
 
+    # PDF
+    url(r'^hojadetrabajo/(?P<id>\d+)/pdf/$', viewsPDF.hojadetrabajo),
+    url(r'^tercerizar/(?P<id>\d+)/pdf/$', viewsPDF.tercerizar),
+
+
 ]
+

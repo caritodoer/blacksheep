@@ -48,14 +48,7 @@ def parametrosAjax(request):
 		unidadmedida = request.POST['unidadmedida']
 		grupo = request.POST['grupo']
 		visualizacion1 = request.POST['visualizacion1']
-		
-		print(diagnostico.id)
-		print(descripcion)
-		print(tipo_de_dato)
-		print(unidadmedida)
-		print(grupo)
-		print(visualizacion1)
-		
+				
 		Parametros.objects.create(
 			diagnostico = diagnostico,
 			descripcion = descripcion,
@@ -68,6 +61,27 @@ def parametrosAjax(request):
 		dataPara = Parametros.objects.latest('id')
 		dataPara = dataPara.id
 		return HttpResponse(dataPara)
+
+def valRefAjax(request):
+	if request.method == 'POST':
+		posEspecie = request.POST['especie']
+		especie = get_object_or_404(Especie,id=posEspecie)
+		
+		posParametros = request.POST['parametros']
+		parametros = get_object_or_404(Parametros,id=posParametros)
+
+		valorRef = request.POST['valorRef']
+		valorDef = request.POST['valorDef']
+		
+		
+		ValoresReferencia.objects.create(
+			especie = especie,
+			parametros = parametros,
+			valorRef = valorRef,
+			valorDef = valorDef,
+		)
+
+		return HttpResponse('')
 
 # Categoria
 
