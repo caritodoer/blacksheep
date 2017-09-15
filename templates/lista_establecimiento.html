@@ -46,10 +46,11 @@
 							{% endfor %}
 							
 							</td>
-							<td>{{ obj.activo }}</td>
 							{% if obj.activo == True %}
+							<td>Activo</td>
 							<td><a class="btn btn-default btn-sm"href="delete/{{ obj.id }}">Eliminar</a></td>
 							{% else %}
+							<td>Inactivo</td>
 							<td><a class="btn btn-default btn-sm"href="activar/{{ obj.id }}">Activar</a></td>
 							{% endif%}
 						</tr>

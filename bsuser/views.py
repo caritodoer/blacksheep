@@ -372,7 +372,7 @@ def v_DetalleAnalisisPadre(request, id=None):
 		k=ind
 		det_ind = Individuos.objects.all().order_by('id').filter(padre=ind.individuoPadre)
 		dict_ind[k]=det_ind
-	print(dict_ind)
+	#print(dict_ind)
 		
 	
 	context = {
@@ -560,14 +560,16 @@ def hojadetrabajo(request, id=None):
 			rango= Parametros.objects.all().filter(diagnostico=diag, visualizacion1="T", grupo=k)[inicio:fin]
 			#print("g rango  ", rango)
 			list_r.append(rango)
-			inicio = inicio+5
-			fin = fin+5
 			if fin <= cant:
+				#print(" ---entra al if-------- ")
 				ban=True
+				inicio = inicio+5
+				fin = fin+5
 			else:
+				#print(" ---entra al else-------- ")
 				ban=False
 		grupos[k] = list_r
-	print(grupos)
+	#print(grupos)
 
 	context = {
 		"title" : "Hoja de Trabajo",
