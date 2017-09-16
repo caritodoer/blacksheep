@@ -11,9 +11,10 @@
 		<td colspan="2" align="center"><strong>menu usuario</strong></td>
 	</tr> 
 	<tr>
-		<td><a href="/solicitudanalisis/">Solcitud Analisis</a></td>
-		<td><a href="/solicitudanalisis/alta"/alta>Crear <span class="glyphicon glyphicon-plus"></span></a></td>
+		<!-- <td><a href="/solicitudanalisis/">Solcitud Analisis</a></td> -->
+		<td><a href="/solicitudanalisis/alta"/alta>Crear Solicitu de Analisis <span class="glyphicon glyphicon-plus"></span></a></td>
 	</tr>
+	<!-- 
 	<tr>
 		<td><a href="/protocolo">Protocolo</a></td>
 		<td><a href="/protocolo/alta"/alta>Crear <span class="glyphicon glyphicon-plus"></span></a></td>
@@ -22,7 +23,6 @@
 		<td><a href="/individuopadre">individuo padre</a></td>
 		<td><a href="/individuopadre/alta">Crear <span class="glyphicon glyphicon-plus"></span></a></td>
 	</tr>
-	<!-- 
 	<tr>
 		<td><a href="/individuos">individuos</a></td>
 		<td><a href="/individuos/alta"/alta>Crear <span class="glyphicon glyphicon-plus"></span></a></td>
@@ -31,11 +31,11 @@
 		<td><a href="/detalleanalisis">detalle analisis</a></td>
 		<td><a href="/detalleanalisis/alta">Crear <span class="glyphicon glyphicon-plus"></span></a></td>
 	</tr>
-	 -->
 	<tr>
 		<td><a href="/eliminacionprotocolo">eliminacion protocolo</a></td>
 		<td><a href="/eliminacionprotocolo/alta">Crear <span class="glyphicon glyphicon-plus"></span></a></td>
 	</tr>
+	 -->
 	
 </table>
 </div>
@@ -65,7 +65,9 @@
 								<td>{{ obj.solicitud.veterinario }}</td>
 								<td>{{ obj.solicitud.establecimiento }}</td>
 								<td>{{ obj.solicitud.fecha }}</td>
-								<td>{{ obj.solicitud.activo }}</td>
+								<td>{% if obj.solicitud.activo == True%}
+									Activo{% else %} Eliminado{% endif %}
+								</td>
 <!-- 								<td><a href="{{ obj.get_absolute_url }}"><span class="glyphicon glyphicon-pencil"></span></td> 
 								<td><a href="../detalleanalisis/delete/{{ obj.id }}"><span class="glyphicon glyphicon-remove"></span></td>
 -->

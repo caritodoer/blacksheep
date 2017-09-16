@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{%  include 'includes/modalvisualizacion.html' %}
 {%  include 'includes/modalTipoDato.html' %}
 {%  include 'includes/modalValRef.html' %} 
 {%  include 'includes/modalCopy.html' %} <!-- Copia del modal base de ValRef-->
@@ -170,9 +171,9 @@
 			<div class="panel-footer">
 				<div class="row">
 					<div class="col-sm-12" align="right">
-						<button id="pruebaeach">TEST</button>
-						<input type="submit" value="Cargar">
-						<button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
+						<!-- <button id="pruebaeach">TEST</button> -->
+						<input type="submit" value="Guardar">
+						<button type="button" class="btn btn-default" id="btnvalidar">Validar</button>
 					</div>
 				</div>
 			</div> <!--fin panel footer-->

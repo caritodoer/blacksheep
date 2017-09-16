@@ -22,8 +22,8 @@
 						<tr>
 							<td>{{ obj.protocolo.numero }}</td>
 							<td>{{ obj.fecha }}</td>
-							<td>{{ obj.motivoBaja }}</td>
-							<td><a href="#" class="btn btn-default btn-sm" role="button">Ver</a></td> <!-- tiene que ir al informe en PDF  -->
+							<td>{{ obj.motivoBaja|truncatechars:200 }}</td>
+							<td><a href="{{ obj.id }}/pdf" target="_blank" class="btn btn-default btn-sm" role="button">Ver</a></td> <!-- tiene que ir al informe en PDF  -->
 						</tr>
 						{% endfor %}
 					</tbody>

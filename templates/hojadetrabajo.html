@@ -74,7 +74,7 @@
 											{% if p.tipo_de_dato == 'S' %}<input type="text" class="form-control" id="_" name="_" value="">{% endif %}
 											{% if p.tipo_de_dato == 'I' %}<input type="number" class="form-control" id="_" name="_" value="">{% endif %}
 											{% if p.tipo_de_dato == 'F' %}<input type="number" step="0.01" class="form-control" id="_" name="_" value="">{% endif %}
-											{% if p.tipo_de_dato == 'B' %}<input type="radio" class="form-control" id="_" name="_" value="">{% endif %}
+											{% if p.tipo_de_dato == 'B' %}<input type="radio" class="form-control" id="_" value="">{% endif %}
 										</th>
 										<th>{{ p.unidadmedida}}</th>
 										{% endfor %}

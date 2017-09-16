@@ -560,7 +560,7 @@ def hojadetrabajo(request, id=None):
 			rango= Parametros.objects.all().filter(diagnostico=diag, visualizacion1="T", grupo=k)[inicio:fin]
 			#print("g rango  ", rango)
 			list_r.append(rango)
-			if fin <= cant:
+			if fin < cant:
 				#print(" ---entra al if-------- ")
 				ban=True
 				inicio = inicio+5
