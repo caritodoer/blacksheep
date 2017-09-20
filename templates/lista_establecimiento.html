@@ -12,7 +12,6 @@
 				<table class="table table-striped table-hover table-condensed" align="center">
 					<thead class="thead-default">
 						<tr>
-							<th>ID</th>
 							<th>Nombre</th>
 							<th>Partido</th>
 							<th>Propietario</th>
@@ -27,8 +26,12 @@
 					</thead>
 					<tbody>
 						{% for obj in object_list %}
-						<tr>
-							<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
+						{% if obj.activo %}
+							<tr>
+								{%else%}
+								<tr class="danger">
+								{%endif%}
+							<td><a href="{{ obj.get_absolute_url }}">{{ obj.nombre }}</a></td>
 							<td>{{ obj.nombre }}</td>
 							<td>{{ obj.partido }}</td>
 							<td>{{ obj.propietario }}</td>
@@ -46,10 +49,11 @@
 							{% endfor %}
 							
 							</td>
-							<td>{{ obj.activo }}</td>
 							{% if obj.activo == True %}
+							<td>Activo</td>
 							<td><a class="btn btn-default btn-sm"href="delete/{{ obj.id }}">Eliminar</a></td>
 							{% else %}
+							<td>Inactivo</td>
 							<td><a class="btn btn-default btn-sm"href="activar/{{ obj.id }}">Activar</a></td>
 							{% endif%}
 						</tr>

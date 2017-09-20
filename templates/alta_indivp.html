@@ -26,8 +26,8 @@
 						</thead>
 						<tbody >
 							<tr id="hidden-row-ind" style="display: none">
-								<td class=numeracion>
-									<p>1</p>
+								<td class="numeracion">
+									<p class="contador">1</p>
 								</td>
 								<td><input type="text" class="form-control identificacion" id="identificacion" onkeyup="validacion('identificacion');" name="identificacion" value="{{ instance.identificacion }}"></td>
 								<td><select class="form-control razaSel raza" name="raza" onchange="validacion('raza');"></select></td>
@@ -80,6 +80,7 @@ $(document).ready(function() {
 			.removeAttr('style')
 			.show();
 			num = num +1;
+			count="<p class='contador'>"+(num+1)+"</p>"
 			var modIdent = "ModalMasOp" + num;
 			var modDataTarget = "#ModalMasOp" + num;
 			var modBase = $('.modalBaseMO').clone().attr('id', modIdent).removeClass('modalBaseMO');
@@ -87,7 +88,7 @@ $(document).ready(function() {
 			$(this).parent().parent().parent().parent().append(newInd);
 			$(this).parent().parent().parent().parent().append(modBase);
 			
-			var numeracion = $('#tabla tbody').find('.numeracion').append(count);
+			var numeracion = $('#tabla tbody').find('.contador').replaceWith(count);
 
 		return false;
 	});
