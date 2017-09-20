@@ -9,16 +9,19 @@
 				<span class="icon-bar"></span>
 			</button>
 
-			<a class="navbar-brand" href="/">Laboratorio</a>
+			<a class="navbar-brand" href="/">Laboratorio de Diagnóstico <small>Dr. Raul Chifflet</small></a>
 		</div>
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="/home_admin">ADMIN</a></li>
 
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listados <span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración <span class="caret"></span></a>
 					<ul class="dropdown-menu">
+						<li><a href="/home_admin">Inicio</a></li>
+
+						<li role="separator" class="divider"></li>
+
 						<li><a href="/veterinario">Veterinarios</a></li>
 						<li><a href="/establecimiento">Establecimientos</a></li>
 						<li><a href="/diagnostico">Diagnostico</a></li>
@@ -36,7 +39,7 @@
     				</ul>
     			</li>
 
-				<li class="dropdown">
+				<!-- <li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Altas<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="/veterinario/alta">Veterinarios</a></li>
@@ -54,13 +57,17 @@
 						<li><a href="/categoriae/alta">Categoria de Especie</a></li>
 						<li><a href="/especializacion/alta">Especializacion</a></li>
 					</ul>
-				</li>
+				</li> -->
 
-				<li><a href="/home_user">USER</a></li>
+				
 
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Nueva Solicitud<span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sistema de Gestión<span class="caret"></span></a>
 					<ul class="dropdown-menu">
+						<li><a href="/home_user">Inicio</a></li>
+						
+						<li role="separator" class="divider"></li>
+
 						<li><a href="/solicitudanalisis/alta">Solicitud de Analisis</a></li>
 						<li><a href="/protocolo/alta">Protocolo</a></li>
 						<li><a href="/individuopadre/alta">Individuos</a></li>
@@ -74,6 +81,22 @@
 				</li>
 
 			</ul>
+			<form class="navbar-form navbar-left">
+		        <div class="form-group">
+
+				<div class="input-group">
+				    <span class="input-group-btn">
+				       <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+				    </span>
+				    <input type="text" class="form-control" placeholder="Buscar Protocolo por N°">
+				  </div>
+
+		        </div>
+		      </form>
+		    <ul class="nav navbar-nav navbar-right">
+        		<li><p class="navbar-text">Bienvenido <i>Usuario</i></p></li>
+        		<li><a href="#">Logout</a></li>
+    		</ul>
 		</div>
 	</div>
 </nav>

@@ -11,9 +11,7 @@
 				<table class="table table-striped table-hover table-condensed table-responsive" align="center">
 					<thead class="thead-default">
 						<tr>
-							<th>ID</th>
-							<th>Nombre</th>
-							<th>Apellido </th>
+							<th>Nombre y Apellido </th>
 							<th>E-mail</th>
 							<th>CUIT</th>
 							<th>Cód. Área </th>
@@ -25,10 +23,13 @@
 					</thead>
 					<tbody>
 						{% for obj in object_list %}
-						<tr>
-							<td><a href="{{ obj.get_absolute_url }}">{{ obj.id }}</a></td>
-							<td>{{ obj.nombre }}</td>
-							<td>{{ obj.apellido }}</td>
+						{% if obj.activo %}
+							<tr>
+								{%else%}
+								<tr class="danger">
+								{%endif%}
+							<td><a href="{{ obj.get_absolute_url }}">{{ obj.apellido }}, {{ obj.nombre }}</a></td>
+							
 							<td>{{ obj.email }}</td>
 							<td>{{ obj.cuit }} </td>
 							<td>{{ obj.codigo_area }} </td>

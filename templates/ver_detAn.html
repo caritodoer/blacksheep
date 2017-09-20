@@ -92,11 +92,25 @@
 										{% for obj in object_list %}
 										<tr>
 											<td>{{ obj.diagnostico.descripcion }}</td>
+											<td>{% if obj.diagnostico.tercerizacion %}
+												Tercerizado
+												{%else%}
+												ESTADOO!!
+												{%endif%}
+											</td>
+											{% if obj.diagnostico.tercerizacion %}
 											<td></td>
-											<td><a href="../../hojadetrabajo/{{ obj.id }}" class="btn btn-default btn-sm" role="button">Imprimir</a></td>
-											<td><a href="#" class="btn btn-default btn-sm" role="button">Cargar</a></td>
+											<td></td>
+											{% else %}
+											<td><a href="../../hojadetrabajo/{{ obj.id }}/pdf" target="_blank" class="btn btn-default btn-sm" role="button">Imprimir</a></td>
+											<td><a href="../../hojadetrabajo/{{ obj.id }}" class="btn btn-default btn-sm" role="button">Cargar</a></td>
+											{% endif %}
 											<td><a href="#" class="btn btn-default btn-sm" role="button">Generar</a></td>
-											<td><a href="../../tercerizar/{{ obj.id }}" class="btn btn-default btn-sm" role="button">Tercerizar</a></td>
+											{% if obj.diagnostico.tercerizacion %}
+												<td></td>
+												{%else%}
+												<td><a href="../../tercerizar/{{ obj.id }}" class="btn btn-default btn-sm" role="button">Tercerizar</a></td>												{%endif%}
+											
 										</tr>
 										{% endfor%}
 										<!-- cerrar for -->

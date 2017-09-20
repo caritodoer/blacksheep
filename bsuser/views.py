@@ -572,7 +572,7 @@ def hojadetrabajo(request, id=None):
 	#print(grupos)
 
 	context = {
-		"title" : "Hoja de Trabajo",
+		"title" : "Registro de Resultados",
 		"instance" : instance,
 		"parametros_list" : all_param_del_diag,
 		"object_list_ind": all_indiv_de_solic,

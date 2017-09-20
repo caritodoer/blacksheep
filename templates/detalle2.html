@@ -27,8 +27,12 @@
 						</a>
 					</li>
 					<li>
+						{% if instance.activo == True %}
 						<a href="../delete/{{ instance.id }}">
-					Eliminar<span class="glyphicon glyphicon-remove"></span>
+					Eliminar <span class="glyphicon glyphicon-remove"></span></a>
+					{% else %}
+					<a href="../activar/{{ instance.id }}">Activar</a>
+					{% endif %}
 						</a>
 					</li>
 				</ul>
