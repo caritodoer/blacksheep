@@ -20,7 +20,7 @@ PAGE_HEIGHT=A4[1]
 PAGE_WIDTH=A4[0]
 styles = getSampleStyleSheet()
 
-pdfmetrics.registerFont(TTFont('Existence-Light', '/home/carito/Documentos/Proyectos Python/BlackSheep/blacksheep/static/fonts/Existence-Light.ttf'))
+pdfmetrics.registerFont(TTFont('Existence-Light', '../blacksheep/static/fonts/Existence-Light.ttf'))
 pdfmetrics.registerFont(TTFont('Ubuntu-B', '../blacksheep/static/fonts/ubuntu-font-family-0.83/Ubuntu-B.ttf'))
 pdfmetrics.registerFont(TTFont('Ubuntu-M', '../blacksheep/static/fonts/ubuntu-font-family-0.83/Ubuntu-M.ttf'))
 styles.add(ParagraphStyle(name='tit2', alignment=TA_CENTER, fontName = "Ubuntu-B",

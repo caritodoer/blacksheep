@@ -73,11 +73,11 @@
 									<div class="divalidacion">
 										<label class="control-label col-sm-4" for="radio">Tablas <small>(Para caravanas)</small></label>
 										<div class="col-sm-1">	
-											<input type="radio" class="form-control vistagrupo" id="radioTabla" onchange="validacion('vistagrupo')" name="radio0" value="{{ instance.radio }}">
+											<input type="radio" class="form-control vistagrupo" id="radioTabla" onclick="validacion('vistagrupo')" name="radio0" value="{{ instance.radio }}">
 										</div>
 										<label class="control-label col-sm-4" for="radio">Ítems <small>(Para datos unicos)</small></label>
 										<div class="col-sm-1">
-											<input type="radio" class="form-control vistagrupo" id="radioItem" onchange="validacion('vistagrupo')" name="radio0" value="{{ instance.radio }}">
+											<input type="radio" class="form-control vistagrupo" id="radioItem" onclick="validacion('vistagrupo')" name="radio0" value="{{ instance.radio }}">
 										</div>
 									</div>
 									</div>
@@ -172,7 +172,7 @@
 				<div class="row">
 					<div class="col-sm-12" align="right">
 						<button id="pruebaeach">TEST</button>
-						<input type="submit" class="btn btn-default" id="btnvalidar" value="Cargar">
+						<!-- <input type="submit" class="btn btn-default"  value="Cargar"> -->
 						<button type="button" class="btn btn-default" id="btnvalidar">Enviar</button>
 					</div>
 				</div>
@@ -321,7 +321,7 @@ $(document).ready(function(){
             }
         }); // finaliza el select 
     
-    $(document).on('submit', '#formAjax', function(e){	
+/*    $(document).on('submit', '#formAjax', function(e){	
 		e.preventDefault();
 		
 		$.ajax({
@@ -410,7 +410,7 @@ $(document).ready(function(){
 				}); // blockgroup
     		} // succes
     	}); // ajaxdiagnostico
-    }); // submit completo        
+    }); // submit completo*/        
 
 
 
@@ -434,17 +434,17 @@ $("span.help-block").hide();
 
 /*validacion*/
 function verificar(){
-    var v1=0,v2=0,v3=0;v4=0;v5=0;
+    var v1=0,v2=0,v3=0;v4=0;v5=0;v6=0;
 
     v1=validacion('descripciondiag');
     v2=validacion('tecnica');
     v3=validacion('muestra');
     v4=validacion('grupo');
     v5=validacion('descripciongrupo');
-    /*v6=validacion('vistagrupo');*/
+    v6=validacion('vistagrupo');
 
-    console.log(v1,v2,v3,v4,v5);
-    if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true){
+    console.log(v1,v2,v3,v4,v5,v6);
+    if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
         return true;
     }
     else{
@@ -455,7 +455,95 @@ function verificar(){
 $("#btnvalidar").click(function(){
     if(verificar() == true){
         /*$("#formvalidar").submit();*/
-        $(location).attr('href',"../../home_admin");
+
+		$.ajax({
+    		type: 'POST',
+    		url: '/diagnosticoAjax/',
+    		data:{
+    			descripcion: $('#descripciondiag').val(), 
+
+    			tecnica: $('#tecnica').val(),
+    			muestra: $('#muestra').val(),
+    			tercerizacion: $('#tercerizacion').is(":checked"),
+    			piepagina: $('#piepagina').val(),
+    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+    		},
+    		success: function(data){
+    			
+    			var diagPos = data;	
+				$(".blockGrupo").each(function(){
+					
+					var grupo = $(this).find("#grupo").val();
+					if($(this).find("#radioTabla").is(":checked")){
+						var tabletype = "T";	
+					}
+					if($(this).find("#radioItem").is(":checked")){
+						var tabletype = "I";	
+					}
+					// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
+					
+
+					var tBody = $(this).find('.paraList');
+					// recorrer los td individualmente sin repetirse						
+						
+						$(tBody).find('tr:visible').each(function(){
+						// segundo each, recorre linea por linea del grupo
+
+							var descripcionPara = $(this).find('#descripcion').val();
+							var tipoDato = $(this).find(":selected").val();
+							var unidadmedida = $(this).find('#unidadmedida').val();
+							var valRef = $(this).find("#botonIngresarValorRef").attr('data-target');
+						
+						$.ajax({
+				    		type: 'POST',
+				    		url: '/parametrosAjax/',
+				    		data:{
+				    			diagnostico: diagPos, 
+				    			descripcion: descripcionPara, 
+				    			tipo_de_dato: tipoDato, 
+				    			unidadmedida: unidadmedida,
+				    			visualizacion1: tabletype,  
+				    			grupo: grupo,
+				    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+				    		},
+				    		success: function(dataPara){
+				    			paraPos = dataPara;
+
+				    			var valRefModal = $(valRef);
+
+				    			$(valRefModal).find('.valRefList').each(function(){
+				    				"especie",
+									"parametros",
+									"valorRef",
+									"valorDef"
+				    				var especie = $(this).find(':selected').val();
+				    				var parametros = paraPos;
+				    				var valorRef = $(this).find('#valRef').val();
+				    				var valorDef = $(this).find('#valDef').val();
+
+				    				$.ajax({
+				    					type: 'POST',
+				    					url: '/valRefAjax/',
+				    					data:{
+				    						especie: especie,
+				    						parametros: parametros,
+				    						valorRef: valorRef,
+				    						valorDef: valorDef,
+				    						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+				    					},
+				    					succes: function(){
+				    						console.log('Guardado');
+				    					}//succes
+				    				}); // ajaxValRef							
+								});// recorrer cada modal
+				    		}// succes
+				    	}); // ajaxdparametros
+						}); // parametros 1x1
+				}); // blockgroup
+    		} // succes
+    	}); // ajaxdiagnostico
+
+        /*$(location).attr('href',"../../home_admin");*/
     }
 });// boton validar
 
@@ -519,9 +607,9 @@ function validacion(campo){
 		else{
 			return true;
 		}
-	}//identificacion
+	}//grupo
 
-	    if(campo==='descripciongrupo'){
+	if(campo==='descripciongrupo'){
 		var truefalse=true;
 		var error=-1;
 		$('.'+campo).each(function(i, elem){
@@ -547,52 +635,37 @@ function validacion(campo){
 		}
 	}//descripciongrupo
 
-	/*if (campo==='vistagrupo'){
+	if (campo==='vistagrupo'){
 		var truefalse=true;
 		var seleccionado=false;
+		var error=-2;
 		$('.'+campo).each(function(i, elem){
-		console.log('elem1  ',elem);	
-		radio = $(elem).find("#radioTabla").is(":checked");
-        console.log('radio1  ',radio);
-        if($(elem).find("#radioTabla").is(":checked")){
+		//console.log('elem1  ',elem);
+		var name =	$(elem).attr('name');
+		//console.log('name   ',name);
+		radiot = $("#formAjax input[name='"+name+"'][id='radioTabla']:radio").is(':checked');
+        //console.log('radiot  ',radiot);
+        radioi = $("#formAjax input[name='"+name+"'][id='radioItem']:radio").is(':checked');
+        //console.log('radioi  ',radioi);
+
+        if(radiot == false && radioi == false){
 			$(elem).parent().parent().attr("class","has-error has-feedback");
-			seleccionado=true;
-			console.log('radio2  ',radio);
+			//console.log('false  ',radiot,'  ');
+			error++;
 			}
 		else{
 			$(elem).parent().parent().attr("class","has-success has-feedback");
-			console.log('radio3  ',radio);				
+			//console.log('true  ',radiot,'   ');				
 			}
 		});
 
-		if(seleccionado == true){
+		if(error > 0){
 			return false;
 		}
 		else{
 			return true;
-		}*/
-        /*opciones = document.getElementsByName(campo);
-        var seleccionado = false;
-        for(var i=0; i<opciones.length; i++) {    
-          if(opciones[i].checked) {
-            seleccionado = true;
-            break;
-          }
-        }
-         
-        if(!seleccionado) {
-            $('#male').parent().parent().parent().attr("class", "form-group has-error has-feedback");
-            $('#male').parent().parent().next().append("<span id='sexo'  class='glyphicon glyphicon-remove form-control-feedback'></span>");
-
-
-            return false;
-        }
-        else{
-            $("#sexo").remove();
-            $('#male').parent().parent().parent().attr("class", "form-group has-success");
-            return true;
-        }*/
-    //}//vistagrupo
+		}
+    }//vistagrupo
 
 
 }//validacion 
