@@ -22,7 +22,7 @@
 					<dt>Tercerización</dt>
 					<dd>{{ instance.tercerizacion }}</dd>
 					<dt>Estado</dt>
-					<dd>{{ instance.activo }}<br></dd>
+					<dd>{% if instance.activo == True %}Activo{%else%}Inactivo{%endif%}</dd>
 					<dt>Pie de Pagina</dt>
 					<dd>{{ instance.piepagina }}</dd>
 				</dl>
@@ -41,8 +41,13 @@
 
 			</div>
 			<div class="panel-footer">
-				<a href="../delete/{{ instance.id }}">
-					Eliminar<span class="glyphicon glyphicon-remove"></span></a>	
+				{% if instance.activo == True %}
+						<a href="../delete/{{ instance.id }}">
+					Eliminar <span class="glyphicon glyphicon-remove"></span>
+					{% else %}
+					<a href="../activar/{{ instance.id }}">Activar</a>
+					{% endif %}
+						</a>	
 			</div>
 		</div>
 	</div>

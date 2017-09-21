@@ -194,7 +194,7 @@ class Veterinario(models.Model):
 	acreditacion_brucelosis = models.CharField("Numero de Acreditacion de Brucelosis", max_length=15, null=True, blank=True)
 	acreditacion_aie = models.CharField("Numero de Acreditacion de A.I.E.", max_length=15, null=True, blank=True)
 	especializaciones = models.ManyToManyField(Especializacion)
-	activo = models.BooleanField(default=True, blank=True)
+	activo = models.BooleanField(default=True)
 
 	def __str__(self):
 		return ('%s, %s')%(self.apellido, self.nombre)

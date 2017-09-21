@@ -14,30 +14,44 @@
 	<body>
 		<!-- CABECERA -->
 		<header>
-			<div class="container">
-				<ul class="list-inline">
-				  <li>
-				  		<h1>Laboratorio de Diagnóstico <small>Dr. Raul Chifflet</small></h1>
-				  </li>
-				</ul>
+			<div class="container" align="center">
+				<h1>Laboratorio de Diagnóstico <small>Dr. Raul Chifflet</small></h1>
+				
 			</div>
 		</header>
 		<!-- CONTENIDO -->
 		<div class="container">
-			<h1 align="center">Bienvenidos pruebas</h1>
-			<p align="center">Seleccione forma de ingreso al sistema</p>
+			<h1 align="center">Bienvenidos</h1>
 			<div class="row">
-				<div align="center" class="col-md-6">
-					<a class="btn btn-lg btn-primary" href="home_admin">Admin</a>
-				</div>
-				<div align="center" class="col-md-6">
-					<a class="btn btn-lg btn-primary" href="home_user">User</a>
+				<div class="col-sm-4 col-sm-offset-4">
+					<div class="form-horizontal">
+						<div class="form-group">
+							<label class="control-label col-sm-3" for="usuario">Usuario:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="usuario" name="usuario" value="">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-sm-3" for="contrasenia">Contraseña:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="contrasenia" name="contrasenia" value="">
+							</div>
+						</div>
+					</div>
+			<p align="center">Seleccione forma de ingreso al sistema</p>
+					<div align="center" class="col-md-6">
+						<a class="btn btn-block btn-primary" href="home_admin">Administración</a>
+					</div>
+					<div align="center" class="col-md-6">
+						<a class="btn btn-block btn-primary" href="home_user">Sistema de Gestión</a>
+					</div>
 				</div>
 			</div>
 		</div>
 		<!-- PIE -->
 		<footer>
-			<div class="container">
+			<div class="container pie">
 				<p align="center">Copyright (c) 2017</p>
 			</div>
 		</footer>

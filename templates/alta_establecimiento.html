@@ -136,10 +136,10 @@ $(document).ready(function() {
                     if(obj.activo == true){
                         if(obj.id == selectveterinario)
                         {
-                        $('#veterinario').append('<option selected value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                        $('#veterinario').append('<option selected value=' + obj.id + '>' + obj.apellido +', '+ obj.nombre + '</option>');
                         }
                         else{
-                        $('#veterinario').append('<option value=' + obj.id + '>' + obj.apellido +','+ obj.nombre + '</option>');
+                        $('#veterinario').append('<option value=' + obj.id + '>' + obj.apellido +', '+ obj.nombre + '</option>');
                         }
                     }    
                 });

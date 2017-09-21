@@ -3,6 +3,8 @@
 
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
+	<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
+    	
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">{{ title }}</h3>
@@ -49,7 +51,6 @@
 			                <h3 class="panel-title">Detalle</h3>
 			            </div>
 			            <div class="panel-body">
-			            	<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
 			                    <div class="form-group">
 			                        <div class="divalidacion">    
 			                            <label class="control-label col-sm-2" for="fecha">Fecha:</label>
@@ -64,7 +65,6 @@
 			                            <textarea row="3" class="form-control" id="motivoBaja" name="motivoBaja" value=""> </textarea>
 			                        </div>
 			                    </div>
-				            </form>
 			            	
 			            </div>
 			        </div>
@@ -75,12 +75,14 @@
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-sm-12" align="right">
+                    	<input type="hidden" value="{{instance.protocolo.numero}}" id="protocolo">
                     	<!-- tiene que generar pdf en ventana a parte y despues volver al home_user -->
-                    	<a href="#" class="btn btn-default" role="button">Generar informe de baja</a>
+                    	<input type="submit" value="Generar informe de Baja">
                     </div>
                 </div>
             </div> <!--fin panel footer-->
     	</div>
+	</form>
     </div>
 </div>
 

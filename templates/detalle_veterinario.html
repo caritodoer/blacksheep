@@ -51,7 +51,7 @@
 						<dd>{{ x.descripcion }} </dd><!-- nombre dentro del model base -->
 					{% endfor %}
 					<dt>Estado</dt>
-					<dd>{{ instance.activo }}</dd>
+					<dd>{% if instance.activo == True %}Activo{%else%}Inactivo{%endif%}</dd>
 				</dl>
 
 			</div>
@@ -63,9 +63,12 @@
 						</a>
 					</li>
 					<li>
+						{% if instance.activo == True %}
 						<a href="../delete/{{ instance.id }}">
-					Eliminar<span class="glyphicon glyphicon-remove"></span>
-						</a>
+					Eliminar <span class="glyphicon glyphicon-remove"></span></a>
+					{% else %}
+					<a href="../activar/{{ instance.id }}">Activar</a>
+					{% endif %}
 					</li>
 				</ul>
 			

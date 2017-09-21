@@ -5,6 +5,8 @@ https://stackoverflow.com/questions/1377446/render-html-to-pdf-in-django-site
 http://pythonpiura.org/posts/2016/05/13/reporte-pdf-en-django-con-reportlab/
 
 OBJETIVOS:
+- en los detalles ver que no diga el Estado "Activo"
+
 - HTML: Hoja_de_Trabajo, EliminarProtocolo & Tercerizacion: falta guardar y generar informes/Hoja en PDF
 
 ##- Trasladar datos de SolAn.html a Protocolo, y a  Individuo Padre (por views)
@@ -18,15 +20,15 @@ OBJETIVOS:
  	+ vista previa: Boton junto a "guardar" & modal(html)
 - en ver_detAn.html: columna "Estado"
 - PDF a generar: (o exel)
-	+ HDT Vacía
 	+ INFORMES
-	+ TERCERIZACION
-	+ ELIMINACION DE PROTOCOLO
 - User --> login --> Menu
 - Actualizar modificaciones en la carpeta de proyecto
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 hecho:
+	+ HDT Vacía
+	+ TERCERIZACION
+	+ ELIMINACION DE PROTOCOLO
 - ver que corte el grupo de parametros cada "x" parametros
 - delete setedar desde el views que cambie estado de activo a false
 -- en detalle de diagnostico, que muestre:
