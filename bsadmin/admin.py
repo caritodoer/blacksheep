@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bsadmin.models import Especializacion, Categoria, Explotacion, Motivos, Especie, Raza, CategoriaE, Muestra, Parametros, Diagnostico, ValoresReferencia, Veterinario, Establecimiento
+from bsadmin.models import Empresa, Especializacion, Categoria, Explotacion, Motivos, Especie, Raza, CategoriaE, Muestra, Parametros, Diagnostico, ValoresReferencia, Veterinario, Establecimiento
 
 # Register your models here.
 
@@ -16,3 +16,4 @@ admin.site.register(Diagnostico)
 admin.site.register(ValoresReferencia)
 admin.site.register(Veterinario)
 admin.site.register(Establecimiento)
+admin.site.register(Empresa)

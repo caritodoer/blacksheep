@@ -6,19 +6,34 @@
 
 <div class="row">
 <!-- TABLA ULTIMOS PROTOCOLOS REGISTRADOS -->
-<div class="col-sm-offset-2 col-sm-8">
+<div class="col-sm-offset-1 col-sm-10">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<ul class="list-inline">
-					<li>
-			<h3 class="panel-title">{{title}} </h3> 
-					</li>
-					<li>
-			<a href="/solicitudanalisis/alta"/alta>Nueva Solicitud de Analisis <span class="glyphicon glyphicon-plus"></span></a>
-					</li>
+				<li>
+					<h3 class="panel-title">{{title}} </h3> 
+				</li>
+				<li>
+					<a href="/solicitudanalisis/alta"/alta>Nueva Solicitud de Analisis <span class="glyphicon glyphicon-plus"></span></a>
+				</li>
+
 			</ul>
 		</div>
 		<div class="panel-body">
+			<div class="col-sm-offset-6 col-sm-6">
+				<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
+					<div class="form-group">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Buscar Protocolo por N°">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+
+					</div>
+				</form>
+			</div>
+					
 				<table class="table table-striped table-hover table-condensed" align="center">
 					<thead class="thead-default">
 						<tr>

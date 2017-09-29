@@ -2,6 +2,8 @@ from django import forms
 from .models import *
 
 
+
+
 class EspecializacionForm(forms.ModelForm):
 	class Meta:
 		model = Especializacion
@@ -140,3 +142,17 @@ class EstablecimientoForm(forms.ModelForm):
 			"explotacion",
 			"activo"
 		]
+
+class EmpresaForm(forms.ModelForm):
+	class Meta:
+		model = Empresa
+		fields = [
+			"nombre",
+			"subtitulo",
+			"direccion",
+			"ciudad",
+			"telefono",
+			"email",
+			"logo",
+		]
+

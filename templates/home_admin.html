@@ -27,6 +27,41 @@
 				</table>
 			</div>
 		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Datos de la empresa</h3>
+			</div>
+			{% if emp %}
+				{% for instance in emp %}
+			<div class="panel-body">
+				<dl class="dl-horizontal-homeadmin">
+					<dt>Nombre</dt>
+					<dd>{{ instance.nombre }}</dd>
+					<dt>Subtitulo</dt>
+					<dd>{{ instance.subtitulo }}</dd>
+					<dt>Dirección</dt>
+					<dd>{{ instance.direccion }}</dd>
+					<dt>Ciudad</dt>
+					<dd>{{ instance.ciudad }}</dd>
+					<dt>Teléfonos</dt>
+					<dd>{{ instance.telefono }}</dd>
+					<dt>Email</dt>
+					<dd>{{ instance.email }}</dd>
+					<dt>Logo</dt>
+					<dd>{{ instance.logo.url }}</dd>
+				</dl>
+			</div>
+			<div class="panel-footer">
+			<a href="../empresa/update/{{ instance.id }}">Modificar <span class="glyphicon glyphicon-pencil"></span></a>
+			</div>
+				{% endfor %}
+				{% else %}
+				<div class="panel-body"></div>
+				<div class="panel-footer">
+					<a href="../empresa/alta/">Cargar <span class="glyphicon glyphicon-pencil"></span></a>
+				</div>
+				{% endif %}
+		</div>
 	</div>
 
 	<div class="col-md-4">

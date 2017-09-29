@@ -3,9 +3,15 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonRespons
 from .models import *
 from .forms import *
 from django.core import serializers
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 def home_admin(request):
-	return render(request, "home_admin.html")
+	emp = Empresa.objects.all().order_by('id')
+	context = {
+		"emp": emp,
+	}	
+	return render(request, "home_admin.html", context)
 
 #Alta diagnostico
 
@@ -492,11 +498,11 @@ def u_motivos(request, id=None):
 	else:
 		print (form.errors)
 	context = {
-		"title": "Modificar especializacion",
+		"title": "Modificar motivo",
 		"instance": instance,
 		"form": form
 	}
-	return render(request, "alta_aux.html", conext)
+	return render(request, "alta_aux.html", context)
 
 def d_motivos(request, id=None):
 	instance = get_object_or_404(Motivos, id=id)
@@ -1056,3 +1062,44 @@ def activar_establecimiento(request, id=None):
 	instance.activo = True
 	instance.save()
 	return redirect("bsadmin:l_establecimiento")
+
+# empresa
+
+def a_empresa(request):
+	if request.method == 'POST':
+		form = EmpresaForm(request.POST, request.FILES)
+		if form.is_valid():
+			# form.save()
+			instance = form.save(commit=False)
+			instance.save()
+			return redirect('bsadmin:home_admin')
+		else:
+			print (form.errors)
+	else:
+		form = EmpresaForm()
+		print (form.errors)
+	context = {
+		"title" : "Cargar datos de Empresa",
+		"form" : form,
+	}
+	return render(request, 'u_empresa.html', context)
+
+def u_empresa(request, id=None):
+	instance = get_object_or_404(Empresa, id=id)
+	if request.method == 'POST':
+		form = EmpresaForm(request.POST, request.FILES, instance=instance)
+		if form.is_valid():
+			instance = form.save(commit=False)
+			instance.save()
+			return HttpResponseRedirect(instance.get_absolute_url())
+		else:
+			print (form.errors)
+	else:
+		form = EmpresaForm()
+		print (form.errors)
+	context = {
+		"title": "Modificar Empresa",
+		"instance": instance,
+		"form": form
+	}
+	return render(request, "u_empresa.html", context)

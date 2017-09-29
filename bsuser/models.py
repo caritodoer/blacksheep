@@ -66,6 +66,7 @@ class DetalleAnalisisPadre(models.Model):
 	solicitud = models.ForeignKey(SolicitudAnalisis)
 	protocolo = models.ForeignKey(Protocolo)
 	diagnostico = models.ForeignKey(Diagnostico)
+	#piepagina
 	
 	def __str__(self):
 		return ('%s, %s, %s')%(self.solicitud, self.protocolo, self.diagnostico)
@@ -87,7 +88,8 @@ class DetalleAnalisis(models.Model):
 		return reverse("bsuser:v_detalleanalisis", kwargs={"id":self.id})
 
 class EliminacionProtocolo(models.Model):
-	## en vez de Protocolo no debería ser DetalleAnalisisPadre?????????
+	## en vez de Protocolo no debería ser DetalleAnalisisPadre? 
+	## '--> no, porque se elimina todo el protocolo, no solo un diagnostico
 	protocolo = models.OneToOneField(Protocolo)
 
 	fecha = models.DateField(auto_now=False)
@@ -106,6 +108,7 @@ class Tercerizacion(models.Model):
 	fecha_devolucion = models.DateField("Fecha de Devolución", auto_now=False, null=True, blank=True)
 	institucion = models.CharField(max_length=20)
 	detalleanalisispadre = models.ForeignKey(DetalleAnalisisPadre)
+	detalle=models.TextField("Detalle")
 	
 	def __str__(self):
 		return ('%s %s %s')%(self.fecha_envio, self.fecha_devolucion, self.institucion)

@@ -10,7 +10,7 @@ from bsadmin import views
 # j: json
 
 urlpatterns = [
-    url(r'^home_admin/$', views.home_admin),
+    url(r'^home_admin/$', views.home_admin, name="home_admin"),
 
     #Diagnostico Ajax
     url(r'^diagnosticoAjax/$', views.diagnosticoAjax),
@@ -147,5 +147,8 @@ urlpatterns = [
     url(r'^j_establecimiento/$', views.j_establecimiento),
     url(r'^j_establecimientoid/(?P<id>\d+)/$', views.j_establecimientoid),
 
-
+    # empresa
+    url(r'^empresa/update/(?P<id>\d+)/$', views.u_empresa),
+    url(r'^empresa/alta/$', views.a_empresa),
+    
 ]
