@@ -24,7 +24,7 @@
       <tbody>
         <tr id="hidden-row-vr" style="display: none">
           <td>
-            <select class="especieSel"></select>
+            <select class="especieSel" onchange="validacion('especieSel');"></select>
           </td>
           <td>
             <input type="text" class="form-control" id="valRef" name="valRef" value="{{ instance.valorReferencia }}">
@@ -34,9 +34,11 @@
           </td>
           <td><button class="btn btn-default btn-eliminar-vr">Eliminar</button></td>
         </tr>
-        <tr class="valRefList">
+        <!-- <tr class="valRefList">
           <td>
-            <select class="especieSel"></select>
+            <div>
+              <select class="especieSel" ></select>
+            </div>
           </td>
           <td>
             <input type="text" class="form-control" id="valRef" name="valRef" value="{{ instance.valorReferencia }}">
@@ -45,7 +47,7 @@
             <input type="text" class="form-control" id="valDef" name="valDef" value="{{ instance.valorDef }}">
           </td>
           <td><button class="btn btn-default  btn-eliminar-vr">Eliminar</button></td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   </div>

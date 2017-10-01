@@ -244,7 +244,30 @@ $("span.help-block").hide();
       else{
         return true;
       }   
-    }//muestra      
+    }//muestra
+
+  if(campo==='diagnostico'){
+    $('.'+campo).each(function(i, elem){
+    var diag = $(elem).val();
+    //console.log('diag  ',diag,'  i',i);
+    if(diag == null || diag == 0 ){
+      $(elem).parent().attr("class","has-error has-feedback");
+      error++;
+      //console.log('indice2  ',diag);
+      }
+    else{
+      $(elem).parent().attr("class","has-success has-feedback");
+      //console.log('indice3  ',diag);
+      } 
+    });
+
+    if(error > 0){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }//select        
   }//validacion
 </script> 
 {% endblock %}

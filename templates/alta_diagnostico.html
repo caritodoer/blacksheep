@@ -98,7 +98,7 @@
 									</thead>
 									<tbody class="paraList">		
 										<tr id="hidden-row" style="display: none">
-											<td><input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ instance.descripcion }}"></td>
+											<td><input type="text" class="form-control" id="descripcion" onkeyup="validacion('descripciongrupo');" name="descripcion" value="{{ instance.descripcion }}"></td>
 											<td>
 												<select id="select" class="selectpicker tipoDatoSelect">
 													<option value="I">Número Entero</option>
@@ -111,7 +111,7 @@
 											<td><input type="text" class="form-control" id="unidadmedida0" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
 											<td><div class="btn btn-danger">Eliminar</div></td>
 										</tr>
-										<tr class="paraList">
+										<!-- <tr class="paraList">
 											<td><input type="text" class="form-control descripciongrupo" id="descripcion" onkeyup="validacion('descripciongrupo');" name="descripcion" value="{{ instance.descripcion }}"></td>
 											<td>
 												<select id="select" class="selectpicker tipoDatoSelect">
@@ -121,10 +121,10 @@
 													<option value="S">Texto</option>
 												</select>
 											</td>
-											<td><a id="botonIngresarValorRef" class="btn btn-default ModalPara" data-toggle="modal" data-target="#ModalValorRef0" class="btn btn-default">Ingresar</a><!-- <p style="display:none" id="pBtnIVR">Deshabilitado para ese tipo de dato</p> --></td>
+											<td><a id="botonIngresarValorRef" class="btn btn-default ModalPara" data-toggle="modal" data-target="#ModalValorRef0" class="btn btn-default">Ingresar</a> --><!-- <p style="display:none" id="pBtnIVR">Deshabilitado para ese tipo de dato</p> --><!-- </td>
 											<td><input type="text" class="form-control" id="unidadmedida" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
 											<td><div class="btn btn-danger">Eliminar</div></td>
-										</tr>
+										</tr> -->
 									</tbody>
 								</table>
 							</div> <!-- fin div panel-body -->
@@ -324,101 +324,12 @@ $(document).ready(function(){
             }
         }); // finaliza el select 
     
-/*    $(document).on('submit', '#formAjax', function(e){	
-		e.preventDefault();
-		
-		$.ajax({
-    		type: 'POST',
-    		url: '/diagnosticoAjax/',
-    		data:{
-    			descripcion: $('#descripciondiag').val(), 
-
-    			tecnica: $('#tecnica').val(),
-    			muestra: $('#muestra').val(),
-    			tercerizacion: $('#tercerizacion').is(":checked"),
-    			piepagina: $('#piepagina').val(),
-    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-    		},
-    		success: function(data){
-    			
-    			var diagPos = data;	
-				$(".blockGrupo").each(function(){
-					
-					var grupo = $(this).find("#grupo").val();
-					if($(this).find("#radioTabla").is(":checked")){
-						var tabletype = "T";	
-					}
-					if($(this).find("#radioItem").is(":checked")){
-						var tabletype = "I";	
-					}
-					// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
-					
-
-					var tBody = $(this).find('.paraList');
-					// recorrer los td individualmente sin repetirse						
-						
-						$(tBody).find('tr:visible').each(function(){
-						// segundo each, recorre linea por linea del grupo
-
-							var descripcionPara = $(this).find('#descripcion').val();
-							var tipoDato = $(this).find(":selected").val();
-							var unidadmedida = $(this).find('#unidadmedida').val();
-							var valRef = $(this).find("#botonIngresarValorRef").attr('data-target');
-						
-						$.ajax({
-				    		type: 'POST',
-				    		url: '/parametrosAjax/',
-				    		data:{
-				    			diagnostico: diagPos, 
-				    			descripcion: descripcionPara, 
-				    			tipo_de_dato: tipoDato, 
-				    			unidadmedida: unidadmedida,
-				    			visualizacion1: tabletype,  
-				    			grupo: grupo,
-				    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-				    		},
-				    		success: function(dataPara){
-				    			paraPos = dataPara;
-
-				    			var valRefModal = $(valRef);
-
-				    			$(valRefModal).find('.valRefList').each(function(){
-				    		
-				    				var especie = $(this).find(':selected').val();
-				    				var parametros = paraPos;
-				    				var valorRef = $(this).find('#valRef').val();
-				    				var valorDef = $(this).find('#valDef').val();
-
-				    				$.ajax({
-				    					type: 'POST',
-				    					url: '/valRefAjax/',
-				    					data:{
-				    						especie: especie,
-				    						parametros: parametros,
-				    						valorRef: valorRef,
-				    						valorDef: valorDef,
-				    						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-				    					},
-				    					succes: function(){
-				    						console.log('Guardado');
-				    					}//succes
-				    				}); // ajaxValRef							
-								});// recorrer cada modal
-				    		}// succes
-				    	}); // ajaxdparametros
-						}); // parametros 1x1
-				}); // blockgroup
-    		} // succes
-    	}); // ajaxdiagnostico
-    }); // submit completo*/        
-
-
-
     $.ajax({
     	url: "/j_especie/",
     	type: "GET",
     	dataType: "json",
     	success: function(especie){
+    		//$('.especieSel').append('<option selected value=""></option>');
     		$.each(especie, function(index, obj){
     			if(obj.activo == true){
     			$('.especieSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
@@ -426,6 +337,15 @@ $(document).ready(function(){
     		});
     	}
     }); // select de especie 
+
+    $(document).on('change','.especieSel',function(){
+    	console.log('paso x aca');
+    	var prueba = $(this).val();
+    	var prueba2 = $('#ModalValorRef1').siblings('.especieSel').find('option[value="'+prueba+'"]');
+    	var prueba3 = $('#ModalValorRef1').prevAll().find('option[value="'+prueba+'"]');
+    	console.log('prueba   ',prueba,'   prueba2    ',prueba2,'   prueba3    ',prueba3);
+    });
+
 
 /*validacion*/
 $("span.help-block").hide();
@@ -543,7 +463,7 @@ $("#btnvalidar").click(function(){
     		} // succes
     	}); // ajaxdiagnostico
 
-        /*$(location).attr('href',"../../home_admin");*/
+        $(location).attr('href',"../../home_admin");
     }
 });// boton validar
 
@@ -611,7 +531,7 @@ function validacion(campo){
 
 	if(campo==='descripciongrupo'){
 		var truefalse=true;
-		var error=-1;
+		var error=0;
 		$('.'+campo).each(function(i, elem){
 		//console.log('elem1  ',elem);	
 		inputtext = $(elem).val();
@@ -667,6 +587,38 @@ function validacion(campo){
 		}
     }//vistagrupo
 
+    if(campo==='especieSel'){
+      var truefalse=true;
+      var error=0;
+      var prueba = $('.'+campo).val();
+      var prueba2 = $('.'+campo);
+    	/*console.log('paso x aca', prueba,'   prueba2',prueba2);
+		$('select').siblings().find('option[value="'+$('.'+campo).val()+'"]').remove();		*/
+      //if(campo==='diagnostico'){error=-2}//solo para diagnostico
+      /*$('.valRefList').find('.especieSel').each(function(i, elem){
+      //$('.'+campo).each(function(i, elem){
+      var indice = $(elem).val();
+      console.log('elem   ',elem);
+      console.log('indice  ',indice,'  i',i);
+      
+      if(indice == null || indice == 0 ){
+        $(elem).parent().attr("class","has-error has-feedback");
+        error++;
+        console.log('indice2  ',indice);
+        }
+      else{
+        $(elem).parent().attr("class","has-success has-feedback");
+        console.log('indice3  ',indice);
+        } 
+      });
+      
+      if(error > 0){
+        return false;
+      }
+      else{
+        return true;
+      }*/   
+    }//especieSel
 
 }//validacion 
 </script> 
