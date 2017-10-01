@@ -220,3 +220,17 @@ class Establecimiento(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_establecimiento", kwargs={"id": self.id}) #keyword args
 
+class Empresa(models.Model):
+	nombre = models.CharField(max_length=50)
+	subtitulo = models.CharField(max_length=50)
+	direccion = models.CharField(max_length=50)
+	ciudad = models.CharField(max_length=50)
+	telefono = models.CharField(max_length=50)
+	email = models.CharField(max_length=50)
+	logo = models.ImageField(upload_to='img')
+
+	def __str__(self):
+		return ('%s %s')%(self.nombre, self.subtitulo)
+
+	def get_absolute_url(self):
+		return reverse("bsadmin:home_admin") #keyword args

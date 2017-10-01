@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonRespons
 from .models import *
 from .forms import *
 from django.core import serializers
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -11,13 +12,34 @@ def login(request):
 
 def home_user(request):
 	#DetAna_queryset = DetalleAnalisisPadre.objects.all().order_by('-protocolo')
-	DetAna_queryset = DetalleAnalisisPadre.objects.distinct('protocolo')
+	DetAna_queryset_list = DetalleAnalisisPadre.objects.distinct('protocolo')
+	
+	query = request.GET.get("q")
+	if query:
+		DetAna_queryset_list = DetAna_queryset_list.filter(protocolo__numero__icontains=query)
+
+	paginator = Paginator(DetAna_queryset_list, 15) # Show 25 DetAna_queryset per page
+	page_request_var = "page"
+	page = request.GET.get(page_request_var)
+	try:
+		DetAna_queryset = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		DetAna_queryset = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		DetAna_queryset = paginator.page(paginator.num_pages)
 
 	context = {
 		"object_list": DetAna_queryset,
-		"title": "Últimos Protocolos Registrados"
+		"title": "Últimos Protocolos Registrados",
+		"page_request_var": page_request_var,
 	}
 	return render(request, "home_user.html", context)
+
+
+
+
 
 # Solicitud Analisis
 

@@ -79,5 +79,6 @@ class TercerizacionForm(forms.ModelForm):
 			"fecha_envio",
 			"fecha_devolucion",
 			"institucion",
-			"detalleanalisispadre"
+			"detalleanalisispadre",
+			"detalle",
 		]

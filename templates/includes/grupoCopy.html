@@ -14,11 +14,11 @@
 					<div class="divalidacion">
 					<label class="control-label col-sm-4" for="radio">Tablas <small>(Para caravanas)</small></label>
 					<div class="col-sm-1">	
-						<input type="radio" class="form-control vistagrupo" id="radioTabla" onchange="validacion('vistagrupo')" name="radio" value="{{ instance.radio }}">
+						<input type="radio" class="form-control vistagrupo" id="radioTabla" onclick="validacion('vistagrupo')" name="radio" value="{{ instance.radio }}">
 					</div>
 					<label class="control-label col-sm-4" for="radio">Ítems <small>(Para datos unicos)</small></label>
 					<div class="col-sm-1">
-						<input type="radio" class="form-control vistagrupo" id="radioItem" onchange="validacion('vistagrupo')" name="radio" value="{{ instance.radio }}">
+						<input type="radio" class="form-control vistagrupo" id="radioItem" onclick="validacion('vistagrupo')" name="radio" value="{{ instance.radio }}">
 					</div>
 					</div>
 				</div>
@@ -65,7 +65,7 @@
 	</div> <!-- fin div panel footer -->
 </div> <!-- fin div panel -->
 
-{% block javascript %}
+<!-- {% block javascript %}
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -246,4 +246,4 @@ function validacion(campo){
 }//validacion 
 </script> 
 
-{% endblock %}
+{% endblock %} -->
