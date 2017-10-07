@@ -457,6 +457,10 @@ def a_eliminacionprotocolo(request, id=None):
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
+		print(instance.protocolo.activo)
+		instance.protocolo.activo = False
+		instance.protocolo.save()
+		print(instance.protocolo.activo)
 		return HttpResponseRedirect(instance.get_absolute_url())
 	else:
 		print (form.errors)
@@ -476,17 +480,21 @@ def v_eliminacionprotocolo(request, id=None):
 	return render(request, "ver_elimProt.html", context)
 
 def u_eliminacionprotocolo(request, id=None):
-	instance = get_object_or_404(EliminacionProtocolo,id=id)
-	form = EliminacionProtocoloForm(request.POST or None, instance=instance)
+	instance_ep = get_object_or_404(EliminacionProtocolo,id=id)
+	dap_list = DetalleAnalisisPadre.objects.filter(protocolo=instance_ep.protocolo).distinct()
+	for dap in dap_list:
+		instance = dap
+	form = EliminacionProtocoloForm(request.POST or None, instance=instance_ep)
 	if form.is_valid():
-		instance = form.save(commit=False)
-		instance.save()
-		return HttpResponseRedirect(instance.get_absolute_url())
+		instance_ep = form.save(commit=False)
+		instance_ep.save()
+		return HttpResponseRedirect(instance_ep.get_absolute_url())
 	else:
 		print (form.errors)
 	context = {
 		"title" : "Modificar Eliminacion Protocolo",
 		"instance" : instance,
+		"instance_ep" : instance_ep,
 		"form" : form,
 	}
 	return render(request, "alta_elimProt.html", context)
@@ -495,6 +503,17 @@ def d_eliminacionprotocolo(request, id=None):
 	instance = get_object_or_404(EliminacionProtocolo, id=id)
 	instance.delete()
 	return redirect("bsadmin:l_eliminacionprotocolo")
+
+def activar_protocolo(request, id=None):
+	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
+	instance.activo = True
+	instance.save()
+	instance.protocolo.activo = True
+	instance.protocolo.save()
+	ep_list = EliminacionProtocolo.objects.all().filter(protocolo=instance.protocolo)
+	for ep in ep_list:
+		ep.delete()
+	return HttpResponseRedirect(instance.get_absolute_url())
 
 # Tercerizar 
 
@@ -516,6 +535,26 @@ def l_tercerizar(request):
 	}
 	return render(request, "list_tercerizar.html", context)
 
+def tercerizar(request, id=None):
+	#traigo info de toda la solicitud de analisis
+	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
+	form = TercerizacionForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		print(instance)
+		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
+	context = {
+		"title" : "Nueva Tercerización",
+		"form" : form,
+		"instance" : instance,
+	}
+	return render(request, "tercerizar.html", context)
+
+
+"""
 def a_tercerizar(request):
 	form = TercerizacionForm(request.POST or None)
 	if form.is_valid():
@@ -529,6 +568,7 @@ def a_tercerizar(request):
 		"form" : form,
 	}
 	return render(request, "alta_tercerizar.html", context)
+"""	
 def v_tercerizar(request, id=None):
 	instance = get_object_or_404(Tercerizacion, id=id)
 	context = {
@@ -538,9 +578,10 @@ def v_tercerizar(request, id=None):
 	return render(request, "ver_tercerizar.html", context)
 
 
-def u_tercerizar(request, id=None):
-	instance = get_object_or_404(Tercerizacion,id=id)
-	form = TercerizacionForm(request.POST or None, instance=instance)
+def u_tercerizar(request, idt=None, iddap=None):
+	instance_t = get_object_or_404(Tercerizacion,id=idt)
+	instance_dap = get_object_or_404(DetalleAnalisisPadre, id=iddap)
+	form = TercerizacionForm(request.POST or None, instance=instance_t)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
@@ -549,10 +590,11 @@ def u_tercerizar(request, id=None):
 		print (form.errors)
 	context = {
 		"title" : "Modificar Tercerización",
-		"instance" : instance,
+		"instance_t" : instance_t,
+		"instance": instance_dap,
 		"form" : form,
 	}
-	return render(request, "alta_tercerizar.html", context)
+	return render(request, "tercerizar.html", context)
 
 def hojadetrabajo(request, id=None):
 	#traigo info de toda la solicitud de analisis
@@ -603,21 +645,4 @@ def hojadetrabajo(request, id=None):
 
 	}
 	return render(request, "hojadetrabajo.html", context)
-
-def tercerizar(request, id=None):
-	#traigo info de toda la solicitud de analisis
-	instance_dap = get_object_or_404(DetalleAnalisisPadre, id=id)
-	form = TercerizacionForm(request.POST or None)
-	if form.is_valid():
-		instance = form.save(commit=False)
-		instance.save()
-		return HttpResponseRedirect(instance.get_absolute_url())
-	else:
-		print (form.errors)
-	context = {
-		"title" : "Nueva Tercerización",
-		"form" : form,
-		"instance" : instance_dap,
-	}
-	return render(request, "tercerizar.html", context)
 

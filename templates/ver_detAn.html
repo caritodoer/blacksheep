@@ -51,10 +51,13 @@
 						<dl class="dl-horizontal">
 							<!-- <dt>ID de Protocolo</dt>
 							<dd>{{ instance.protocolo.id }}</dd> -->
-							<dt>Numero de Protocolo</dt>
+							<dt>Número de Protocolo</dt>
 							<dd>{{ instance.protocolo.numero }}</dd>
 							<dt>Muestra</dt>
 							<dd>{{ instance.diagnostico.muestra }}</dd>
+							<dt>Estado</dt>
+							<dd>{% if instance.protocolo.activo %}
+									Activo{% else %} Eliminado{% endif %}</dd>
 						</dl>
 					</div>
 
@@ -62,13 +65,18 @@
 
 				<div>
 					<!-- INDIVIDUOS -->
-					<a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#myModal">Ver Individuo/s  <span class="glyphicon glyphicon-list-alt"></span></a> 
-					<a href="../delete/{{ instance.id }}" class="btn btn-danger" role="button">Eliminar <span class="glyphicon glyphicon-remove"></span></a>
+					<a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#myModal">Ver Individuo/s  <span class="glyphicon glyphicon-list-alt"></span></a>
+					{% if instance.protocolo.activo %}
+						<a href="../delete/{{ instance.id }}" class="btn btn-danger" role="button">Eliminar <span class="glyphicon glyphicon-remove"></span></a>
+					{% else %}
+						
+					<a href="../activar/{{ instance.id }}" class="btn btn-success" role="button">Activar <span class="glyphicon glyphicon-ok"></span></a>
+					{% endif %}
 					<!-- deberia ir a eliminacionprotocolo/alta -->
 				</div>
 			</div>
 
-
+			{% if instance.protocolo.activo %}
 			<div class="col-sm-12">
 				<div class="panel panel-default">
 						<div class="panel-heading">
@@ -128,7 +136,7 @@
 						</div>
 					</div>
 			</div>
-
+			{% endif %}
     		</div>
     
 		</div>

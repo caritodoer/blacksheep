@@ -12,7 +12,7 @@ from bsuser import viewsPDF
 
 urlpatterns = [
 	url(r'^$', views.login),
-    url(r'^home_user/$', views.home_user),
+    url(r'^home_user/$', views.home_user, name="home_user"),
 
     # Solicitud Analisis
     url(r'^solicitudanalisis/$', views.l_solicitudanalisis, name="l_solicitudAnalisis"),
@@ -58,13 +58,15 @@ urlpatterns = [
     url(r'^j_detalleanalisis/$', views.j_detalleanalisis),
     url(r'^j_detalleanalisisid/(?P<id>\d+)/$', views.j_detalleanalisisid),
 
-    # Detalle Analisis
+    # Detalle Analisis Padre
     url(r'^DetalleAnalisisPadre/$', views.l_DetalleAnalisisPadre, name="l_DetalleAnalisisPadre"),
     url(r'^DetalleAnalisisPadre/alta/$', views.a_DetalleAnalisisPadre),
     url(r'^DetalleAnalisisPadre/(?P<id>\d+)/$', views.v_DetalleAnalisisPadre, name="v_detalleanalisispadre"),
     url(r'^DetalleAnalisisPadre/update/(?P<id>\d+)/$', views.u_DetalleAnalisisPadre),
     #detalleAnalisisPadre - Eliminar es eliminar protocolo
     url(r'^DetalleAnalisisPadre/delete/(?P<id>\d+)/$', views.a_eliminacionprotocolo),
+    url(r'^DetalleAnalisisPadre/activar/(?P<id>\d+)/$', views.activar_protocolo),
+
     url(r'^j_DetalleAnalisisPadre/$', views.j_DetalleAnalisisPadre),
     url(r'^j_DetalleAnalisisPadreid/(?P<id>\d+)/$', views.j_DetalleAnalisisPadreid),
 
@@ -79,9 +81,9 @@ urlpatterns = [
 
     # Tercerizar
     url(r'^tercerizar/$', views.l_tercerizar, name="l_tercerizar"),
-    url(r'^tercerizar/alta/$', views.a_tercerizar),
+    #url(r'^tercerizar/alta/$', views.a_tercerizar),
     url(r'^tercerizar_ver/(?P<id>\d+)/$', views.v_tercerizar, name="v_tercerizar"),
-    url(r'^tercerizar/update/(?P<id>\d+)/$', views.u_tercerizar),
+    url(r'^tercerizar/update/(?P<idt>[^/]+)/(?P<iddap>[^/]+)/$', views.u_tercerizar, name="u_tercerizar"),
     url(r'^j_tercerizar/$', views.j_tercerizar),
     url(r'^j_tercerizarid/(?P<id>\d+)/$', views.j_tercerizarid),
 
@@ -89,12 +91,12 @@ urlpatterns = [
     #Hoja de Trabajo
     url(r'^hojadetrabajo/(?P<id>\d+)/$', views.hojadetrabajo),
 
-    #Tercerizar
+    #Tercerizar (el id es de Detalle Analisis Padre, no de Tercerizacion)
     url(r'^tercerizar/(?P<id>\d+)/$', views.tercerizar),
 
     # PDF
     url(r'^hojadetrabajo/(?P<id>\d+)/pdf/$', viewsPDF.hojadetrabajo),
-    url(r'^tercerizar/(?P<id>\d+)/pdf/$', viewsPDF.tercerizar),
+    url(r'^tercerizar/(?P<id>\d+)/pdf/$', viewsPDF.tercerizar, name="tercerizar_pdf"),
     url(r'^eliminacionprotocolo/(?P<id>\d+)/pdf/$', viewsPDF.eliminacionprotocolo),
 
 ]

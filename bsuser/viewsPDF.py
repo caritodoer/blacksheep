@@ -164,14 +164,13 @@ def hojadetrabajo(request, id=None):
 				headings = ["#Id", ]
 				for p in v:
 					headings.append(p.descripcion)
-					headings.append("u.")
+					# headings.append("u.")
 				allregistros = []
 				for i in all_indiv_de_solic:
 					registros=[]
 					registros.append(i.individuoPadre.identificacion)
 					for p in v:
 						registros.append("")
-						registros.append(p.unidadmedida)
 					allregistros.append(registros)
 					#print(allregistros)
 				t = Table([headings] + allregistros)
@@ -182,6 +181,10 @@ def hojadetrabajo(request, id=None):
 						('BACKGROUND', (0,0), (-1, 0), colors.dodgerblue)
 					]
 				))
+				# print(len(headings))
+				for i in range (1,len(headings)):
+					t._argW[i]=1.4*inch
+				# t._argW[3]=5.5*inch
 				Story.append(t)
 				Story.append(Spacer(1, 12))
 		

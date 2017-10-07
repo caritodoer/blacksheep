@@ -25,9 +25,9 @@
 						{% for obj in object_list %}
 						{% if obj.activo %}
 							<tr>
-								{%else%}
-								<tr class="danger">
-								{%endif%}
+						{%else%}
+							<tr class="danger">
+						{%endif%}
 								<td><a href="{{ obj.get_absolute_url }}">{{ obj.descripcion }}</a></td>
 								<td>{{ obj.tecnica }}</td>
 								<td>{{ obj.muestra }}</td>

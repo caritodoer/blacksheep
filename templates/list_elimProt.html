@@ -12,9 +12,11 @@
 					<thead class="thead-default">
 						<tr>
 							<th>Protocolo N°</th>
-							<th>fecha </th>
+							<th>Fecha </th>
+							<th>Responsable</th>
 							<th>motivo baja</th>
 							<th>Informe</th>
+							<th>Modificar</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -22,8 +24,12 @@
 						<tr>
 							<td>{{ obj.protocolo.numero }}</td>
 							<td>{{ obj.fecha }}</td>
+							<td><i>USERNAME</i></td>
 							<td>{{ obj.motivoBaja|truncatechars:200 }}</td>
-							<td><a href="{{ obj.id }}/pdf" target="_blank" class="btn btn-default btn-sm" role="button">Ver</a></td> <!-- tiene que ir al informe en PDF  -->
+							<td><a href="{{ obj.id }}/pdf" target="_blank" class="btn btn-default btn-sm" role="button">Ver</a></td> 
+							<td><a href="update/{{ obj.id }}">
+					Modificar<span class="glyphicon glyphicon-pencil"></span>
+						</a></td>
 						</tr>
 						{% endfor %}
 					</tbody>

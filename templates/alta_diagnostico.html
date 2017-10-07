@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
+{%  include 'includes/modalVistaPrevia.html' %}
 {%  include 'includes/modalvisualizacion.html' %}
 {%  include 'includes/modalTipoDato.html' %}
 {%  include 'includes/modalValRef.html' %} 
@@ -171,7 +171,11 @@
 
 			<div class="panel-footer">
 				<div class="row">
-					<div class="col-sm-12" align="right">
+					<div class="col-sm-6" align="left">
+						<a id="vistaPrevia" class="btn btn-default" role="button" href="#" data-toggle="modal" data-target="#modalVistaPrevia">Vista Previa</a>
+
+					</div>
+					<div class="col-sm-6" align="right">
 
 						<!-- <button id="pruebaeach">TEST</button> -->
 						<!-- <input type="submit" value="Guardar"> -->
@@ -253,29 +257,6 @@ $(document).ready(function(){
         return false;
     });
 	
-	// $("#block-parametros").on("click", "#pruebaeach", function(){
-	// 	$(".blockGrupo").each(function(i, v){
-	// 		var grupo = $(this).find("#grupo").val();
-	// 		if($(this).find("#radioTabla").is(":checked")){
-	// 			var tabletype = "T";	
-	// 		}
-	// 		if($(this).find("#radioItem").is(":checked")){
-	// 			var tabletype = "I";	
-	// 		}
-	// 		// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
-			
-	// 		var tBody = $(this).find('.paraList');
-			
-	// 		$(tBody).find('tr:visible').each(function(){
-	// 			var descripcion = $(this).find('#descripcion').val();
-	// 			console.log(descripcion)
-	// 			var tipoDato = $(this).find(":selected").val();
-	// 			console.log(tipoDato)
-	// 			var unidadmedida = $(this).find('#unidadmedida').val();
-	// 			console.log(unidadmedida)
-	// 		});
-	// 	});
-	// });
 
     $("body").on('click', "#rmvBlockPara", function(){
     	$(this).parent().parent().remove();
@@ -324,96 +305,6 @@ $(document).ready(function(){
             }
         }); // finaliza el select 
     
-/*    $(document).on('submit', '#formAjax', function(e){	
-		e.preventDefault();
-		
-		$.ajax({
-    		type: 'POST',
-    		url: '/diagnosticoAjax/',
-    		data:{
-    			descripcion: $('#descripciondiag').val(), 
-
-    			tecnica: $('#tecnica').val(),
-    			muestra: $('#muestra').val(),
-    			tercerizacion: $('#tercerizacion').is(":checked"),
-    			piepagina: $('#piepagina').val(),
-    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-    		},
-    		success: function(data){
-    			
-    			var diagPos = data;	
-				$(".blockGrupo").each(function(){
-					
-					var grupo = $(this).find("#grupo").val();
-					if($(this).find("#radioTabla").is(":checked")){
-						var tabletype = "T";	
-					}
-					if($(this).find("#radioItem").is(":checked")){
-						var tabletype = "I";	
-					}
-					// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
-					
-
-					var tBody = $(this).find('.paraList');
-					// recorrer los td individualmente sin repetirse						
-						
-						$(tBody).find('tr:visible').each(function(){
-						// segundo each, recorre linea por linea del grupo
-
-							var descripcionPara = $(this).find('#descripcion').val();
-							var tipoDato = $(this).find(":selected").val();
-							var unidadmedida = $(this).find('#unidadmedida').val();
-							var valRef = $(this).find("#botonIngresarValorRef").attr('data-target');
-						
-						$.ajax({
-				    		type: 'POST',
-				    		url: '/parametrosAjax/',
-				    		data:{
-				    			diagnostico: diagPos, 
-				    			descripcion: descripcionPara, 
-				    			tipo_de_dato: tipoDato, 
-				    			unidadmedida: unidadmedida,
-				    			visualizacion1: tabletype,  
-				    			grupo: grupo,
-				    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-				    		},
-				    		success: function(dataPara){
-				    			paraPos = dataPara;
-
-				    			var valRefModal = $(valRef);
-
-				    			$(valRefModal).find('.valRefList').each(function(){
-				    		
-				    				var especie = $(this).find(':selected').val();
-				    				var parametros = paraPos;
-				    				var valorRef = $(this).find('#valRef').val();
-				    				var valorDef = $(this).find('#valDef').val();
-
-				    				$.ajax({
-				    					type: 'POST',
-				    					url: '/valRefAjax/',
-				    					data:{
-				    						especie: especie,
-				    						parametros: parametros,
-				    						valorRef: valorRef,
-				    						valorDef: valorDef,
-				    						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-				    					},
-				    					succes: function(){
-				    						console.log('Guardado');
-				    					}//succes
-				    				}); // ajaxValRef							
-								});// recorrer cada modal
-				    		}// succes
-				    	}); // ajaxdparametros
-						}); // parametros 1x1
-				}); // blockgroup
-    		} // succes
-    	}); // ajaxdiagnostico
-    }); // submit completo*/        
-
-
-
     $.ajax({
     	url: "/j_especie/",
     	type: "GET",
