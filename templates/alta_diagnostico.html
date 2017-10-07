@@ -130,8 +130,8 @@
 							</div> <!-- fin div panel-body -->
 
 							<div class="panel-footer">
-								<div id="rmvBlockPara" align="right">
-									<div  class="btn btn-sm" >
+								<div align="right">
+									<div  class="btn btn-sm" id="rmvBlockPara" >
 										Eliminar Grupo <span class="glyphicon glyphicon-remove"></span>
 									</div>
 								</div> 
@@ -278,7 +278,10 @@ $(document).ready(function(){
 	// });
 
     $("body").on('click', "#rmvBlockPara", function(){
+    	if(window.confirm("¿Esta seguro que desea eliminar?"))
+    	{
     	$(this).parent().parent().remove();
+    	}
 	});
 	
     $("body").on('click', "#addParametroVr", function(){
