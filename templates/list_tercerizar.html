@@ -12,11 +12,12 @@
 					<thead class="thead-default">
 						<tr>
 							<th>Protocolo N°</th>
-							<th>Diagnostico</th>
-							<th>fecha envio</th>
-							<th>fecha devolucion</th>
-							<th>institución</th>
+							<th>Diagnóstico</th>
+							<th>Fecha de Envío</th>
+							<th>Fecha de Devolución</th>
+							<th>Institución</th>
 							<th>Informe</th>
+							<th>Modificar</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -32,7 +33,13 @@
 								{% endif %}
 							</td>
 							<td>{{ obj.institucion }}</td>
-							<td><a href="{{ obj.id }}/pdf" target="_blank" class="btn btn-default btn-sm" role="button">Ver</a></td> <!-- tiene que ir al informe en PDF  -->
+							<td>
+							<a target="_blank" class="btn btn-default btn-sm" role="button" href="{% url 'bsuser:tercerizar_pdf' id=obj.detalleanalisispadre.id %}">Ver</a>
+							</td>
+							<td><a href="{% url 'bsuser:u_tercerizar' idt=obj.id iddap=obj.detalleanalisispadre.id %}">
+								<span class="glyphicon glyphicon-pencil"></span>
+								</a>
+							</td>
 						</tr>
 						{% endfor %}
 					</tbody>

@@ -13,11 +13,15 @@
 					<dt>ID</dt>
 					<dd>{{ instance.id }}</dd>
 					<dt>Protocolo</dt>
-					<dd>{{ instance.protocolo }}</dd>
-					<dt>Fecha</dt>
-					<dd>{{ instance.fecha }}</dd>
-					<dt>Motivo</dt>
-					<dd>{{ instance.motivoBaja }}</dd>
+					<dd>{{ instance.detalleanalisispadre.protocolo }}</dd>
+					<dt>Diagnóstico</dt>
+					<dd>{{ instance.detalleanalisispadre.diagnostico }}</dd>
+					<dt>Fecha de Envío</dt>
+					<dd>{{ instance.fecha_envio }}</dd>
+					<dt>Fecha de Devolución</dt>
+					<dd>{{ instance.fecha_devolucion }}</dd>
+					<dt>Detalle</dt>
+					<dd>{{ instance.detalle }}</dd>
 				</dl>
 
 			</div>
@@ -29,7 +33,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="../{{ instance.id }}/pdf" target="_blank">Ver Informe</a>
+						<a class="btn btn-default" role="button" href="{% url 'bsuser:tercerizar_pdf' id=instance.detalleanalisispadre.id %}">Ver Informe PDF</a>
 					</li>
 
 				</ul>
