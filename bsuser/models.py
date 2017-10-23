@@ -94,7 +94,7 @@ class EliminacionProtocolo(models.Model):
 	protocolo = models.ForeignKey(Protocolo)
 	fecha = models.DateField(auto_now=False)
 	motivoBaja = models.TextField("Motivo de Baja")
-	#usuario = 
+	usuario = models.CharField("Responsable", max_length=30) 
 
 	def __str__(self):
 		dia = str(self.fecha)

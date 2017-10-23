@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse
 from .models import *
 from .forms import *
+from django.db.models import Q
 from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -36,10 +37,6 @@ def home_user(request):
 		"page_request_var": page_request_var,
 	}
 	return render(request, "home_user.html", context)
-
-
-
-
 
 # Solicitud Analisis
 
@@ -445,8 +442,25 @@ def j_eliminacionprotocoloid(request,id=None):
 
 def l_eliminacionprotocolo(request):
 	queryset = EliminacionProtocolo.objects.all().order_by('id')
+	query = request.GET.get("q")
+	if query:
+		queryset = queryset.filter(protocolo__numero__icontains=query)
+
+	paginator = Paginator(queryset, 15) # Show 25 DetAna_queryset per page
+	page_request_var = "page"
+	page = request.GET.get(page_request_var)
+	try:
+		ElimProt_queryset = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		ElimProt_queryset = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		ElimProt_queryset = paginator.page(paginator.num_pages)
+
 	context = {
-		"object_list": queryset,
+		"page_request_var": page_request_var,
+		"object_list": ElimProt_queryset,
 		"title": "Listado de Eliminacion Protocolos"
 	}
 	return render(request, "list_elimProt.html", context)
@@ -529,8 +543,25 @@ def j_tercerizarid(request,id=None):
 
 def l_tercerizar(request):
 	queryset = Tercerizacion.objects.all().order_by('id')
+	query = request.GET.get("q")
+	if query:
+		queryset = queryset.filter(detalleanalisispadre__protocolo__numero__icontains=query)
+
+	paginator = Paginator(queryset, 15) # Show 25 Terc_queryset per page
+	page_request_var = "page"
+	page = request.GET.get(page_request_var)
+	try:
+		Terc_queryset = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		Terc_queryset = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		Terc_queryset = paginator.page(paginator.num_pages)
+
 	context = {
-		"object_list": queryset,
+		"page_request_var": page_request_var,	
+		"object_list": Terc_queryset,
 		"title": "Listado de Tercerización",
 	}
 	return render(request, "list_tercerizar.html", context)
@@ -609,6 +640,22 @@ def hojadetrabajo(request, id=None):
 	grupo_list_t = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="T")
 	grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
 	
+	#listado de valores de referencia filtrado por diag + param + especie
+	# vdr_all = ValoresReferencia.objects.all()
+	# vdr_list=[]
+	# for v in vdr_all:
+	# 	for p in all_param_del_diag:
+	# 		if v.parametros == p:
+	# 			if v.especie == instance.solicitud.especie:
+	# 				vdr_list.append(v)
+	# print("VDR todos")
+	# print(vdr_all)
+	# print("VDR filtrado")
+	# print(vdr_list)
+	for p in all_param_del_diag:
+		vdr_list = ValoresReferencia.objects.all().filter(parametros=p, especie=instance.solicitud.especie)
+	print(vdr)
+
 	grupos = {}
 	for g in grupo_list_t:
 		cant=0
@@ -642,6 +689,7 @@ def hojadetrabajo(request, id=None):
 		"object_list_ind": all_indiv_de_solic,
 		"grupoi" : grupo_list_i,
 		"grupos": grupos,
+		"vdr_list": vdr_list, #listado de valores de referencia filtrados por parametro y especie
 
 	}
 	return render(request, "hojadetrabajo.html", context)
