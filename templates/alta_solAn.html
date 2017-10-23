@@ -204,6 +204,8 @@ function verificar(){
 $("#btnvalidar").click(function(){
     if(verificar() == true){
         $("#formvalidar").submit();
+        // los datos estan OK 
+        
         $(location).attr('href',"../../protocolo/alta");
     }
 });// boton validar
