@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
+{%  include 'includes/modalVistaPrevia.html' %}
 {%  include 'includes/modalvisualizacion.html' %}
 {%  include 'includes/modalTipoDato.html' %}
 {%  include 'includes/modalValRef.html' %} 
@@ -130,8 +130,8 @@
 							</div> <!-- fin div panel-body -->
 
 							<div class="panel-footer">
-								<div id="rmvBlockPara" align="right">
-									<div  class="btn btn-sm" >
+								<div align="right">
+									<div  class="btn btn-sm" id="rmvBlockPara" >
 										Eliminar Grupo <span class="glyphicon glyphicon-remove"></span>
 									</div>
 								</div> 
@@ -171,7 +171,12 @@
 
 			<div class="panel-footer">
 				<div class="row">
-					<div class="col-sm-12" align="right">
+					<div class="col-sm-6" align="left">
+			    			<a href="{% url 'bsadmin:home_admin' %}"><span class="glyphicon glyphicon-chevron-left"></span>  Volver</a>
+						<a id="vistaPrevia" class="btn btn-default" role="button" href="#" data-toggle="modal" data-target="#modalVistaPrevia">Vista Previa</a>
+
+					</div>
+					<div class="col-sm-6" align="right">
 
 						<!-- <button id="pruebaeach">TEST</button> -->
 						<!-- <input type="submit" value="Guardar"> -->
@@ -254,32 +259,12 @@ $(document).ready(function(){
         return false;
     });
 	
-	// $("#block-parametros").on("click", "#pruebaeach", function(){
-	// 	$(".blockGrupo").each(function(i, v){
-	// 		var grupo = $(this).find("#grupo").val();
-	// 		if($(this).find("#radioTabla").is(":checked")){
-	// 			var tabletype = "T";	
-	// 		}
-	// 		if($(this).find("#radioItem").is(":checked")){
-	// 			var tabletype = "I";	
-	// 		}
-	// 		// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
-			
-	// 		var tBody = $(this).find('.paraList');
-			
-	// 		$(tBody).find('tr:visible').each(function(){
-	// 			var descripcion = $(this).find('#descripcion').val();
-	// 			console.log(descripcion)
-	// 			var tipoDato = $(this).find(":selected").val();
-	// 			console.log(tipoDato)
-	// 			var unidadmedida = $(this).find('#unidadmedida').val();
-	// 			console.log(unidadmedida)
-	// 		});
-	// 	});
-	// });
 
     $("body").on('click', "#rmvBlockPara", function(){
+    	if(window.confirm("¿Esta seguro que desea eliminar?"))
+    	{
     	$(this).parent().parent().remove();
+    	}
 	});
 	
     $("body").on('click', "#addParametroVr", function(){

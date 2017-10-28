@@ -12,35 +12,30 @@
 				<dl class="dl-horizontal">
 					<dt>ID</dt>
 					<dd>{{ instance.id }}</dd>
-					<dt>Descripción</dt>
-					<dd>{{ instance.descripcion }}</dd>
-					<dt>Especie</dt>
-					<dd>{{ instance.especie }}</dd>
+					<dt>Protocolo</dt>
+					<dd>{{ instance.detalleanalisispadre.protocolo }}</dd>
+					<dt>Diagnóstico</dt>
+					<dd>{{ instance.detalleanalisispadre.diagnostico }}</dd>
+					<dt>Fecha de Envío</dt>
+					<dd>{{ instance.fecha_envio }}</dd>
+					<dt>Fecha de Devolución</dt>
+					<dd>{{ instance.fecha_devolucion }}</dd>
+					<dt>Detalle</dt>
+					<dd>{{ instance.detalle }}</dd>
 				</dl>
 
 			</div>
 			<div class="panel-footer">
 				<ul class="list-inline">
 					<li>
-
-						<a href="{% url 'bsadmin:home_admin' %}"><span class="glyphicon glyphicon-chevron-left"></span>  
-					Volver
-						</a>
-					</li>
-					<li>
 						<a href="../update/{{ instance.id }}">
 					Modificar<span class="glyphicon glyphicon-pencil"></span>
 						</a>
 					</li>
 					<li>
-						{% if instance.activo == True %}
-						<a href="../delete/{{ instance.id }}">
-					Eliminar <span class="glyphicon glyphicon-remove"></span></a>
-					{% else %}
-					<a href="../activar/{{ instance.id }}">Activar</a>
-					{% endif %}
-						</a>
+						<a class="btn btn-default" role="button" href="{% url 'bsuser:tercerizar_pdf' id=instance.detalleanalisispadre.id %}">Ver Informe PDF</a>
 					</li>
+
 				</ul>
 			
 			</div>

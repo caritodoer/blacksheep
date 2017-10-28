@@ -48,12 +48,16 @@
 					</thead>
 					<tbody>
 						{% for obj in object_list %}
-							<tr>
+							{% if obj.protocolo.activo %}
+								<tr>
+							{%else%}
+								<tr class="danger">
+							{%endif%}
 								<td><a href="{{ obj.get_absolute_url }}">{{ obj.protocolo.numero }}</a></td>
 								<td>{{ obj.solicitud.veterinario }}</td>
 								<td>{{ obj.solicitud.establecimiento }}</td>
 								<td>{{ obj.solicitud.fecha }}</td>
-								<td>{% if obj.solicitud.activo == True%}
+								<td>{% if obj.protocolo.activo == True%}
 									Activo{% else %} Eliminado{% endif %}
 								</td>
 <!-- 								<td><a href="{{ obj.get_absolute_url }}"><span class="glyphicon glyphicon-pencil"></span></td> 

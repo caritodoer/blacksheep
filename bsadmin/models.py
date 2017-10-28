@@ -149,7 +149,7 @@ class Parametros(models.Model):
 		('I', 'Items'),
 		)
 	visualizacion1 = models.CharField("Tipo de Visualización", max_length=1, choices=visualizacion_choices)
-	activo = models.BooleanField(default=True)
+	#activo = models.BooleanField(default=True)
 
 	def __str__(self):
 		return ('%s, %s, %s')%(self.descripcion, self.grupo, self.visualizacion1,)
@@ -167,7 +167,7 @@ class ValoresReferencia(models.Model):
 	parametros = models.ForeignKey(Parametros)
 	valorRef = models.CharField(max_length=30, blank=True, null=True)
 	valorDef = models.CharField(max_length=30, blank=True, null=True)
-	activo = models.BooleanField(default=True)
+	#activo = models.BooleanField(default=True)
 
 	def __str__(self):
 		return ('%s %s')%(self.especie, self.parametros)

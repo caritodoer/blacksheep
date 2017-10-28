@@ -43,57 +43,58 @@
 			            </div>
 			        </div>
 				</div>
+				<!-- FORM -->
 				<div class="col-sm-12">
 			        <div class="panel panel-default">
 			            <div class="panel-heading">
 			                <h3 class="panel-title">Detalle</h3>
 			            </div>
-			            <div class="panel-body">
-			            	<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
-			                    <div class="form-group">
-			                        <div class="divalidacion">    
-			                            <label class="control-label col-sm-2" for="fecha_envio">Fecha de Envío:</label>
+			            <form class="form-horizontal" method="POST" action="">{% csrf_token %}
+			            	<div class="panel-body">
+			            		<div class="form-group">
+			                            <label class="control-label col-sm-2" for="detalleanalisispadre">DAP id</label>
 			                            <div class="col-sm-3">
-			                                <input type="date" class="form-control" id="fecha_envio" name="fecha_envio" value="{{instance.fecha_envio}}">
+			                                <input type="text" class="form-control" id="detalleanalisispadre" name="detalleanalisispadre" value="{{instance.id}}" placeholder="{{instance.id}}">
 			                            </div>
-			                        </div>
 			                    </div>
 			                    <div class="form-group">
-			                        <div class="divalidacion">    
+			                            <label class="control-label col-sm-2" for="fecha_envio">Fecha de Envío:</label>
+			                            <div class="col-sm-3">
+			                                <input type="date" class="form-control" id="fecha_envio" name="fecha_envio" value="{{instance_t.fecha_envio}}">
+			                            </div>
+			                    </div>
+			                    <div class="form-group">
 			                            <label class="control-label col-sm-2" for="fecha_devolucion">Fecha de Devolución:</label>
 			                            <div class="col-sm-3">
-			                                <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="{{instance.fecha_devolucion}}">
+			                                <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="{{instance_t.fecha_devolucion}}">
 			                            </div>
-			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-2" for="institucion">Institución a la que se envía:</label>
 			                        <div class="col-sm-9">
-			                        	<input type="text" class="form-control" id="institucion" name="institucion" value="{{instance.institucion}}">
+			                        	<input type="text" class="form-control" id="institucion" name="institucion" value="{{instance_t.institucion}}">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-2" for="detalle">Detalle de Tercerización:</label>
 			                        <div class="col-sm-9">
-			                            <textarea row="3" class="form-control" id="detalle" name="detalle" value="{{instance.detalle}}"> </textarea>
+			                            <textarea row="3" class="form-control" id="detalle" name="detalle" value="{{instance_t.detalle}}">{{instance_t.detalle}}</textarea>
 			                        </div>
 			                    </div>
-				            </form>
 			            	
-			            </div>
+			            	</div>
+
+							<div class="panel-footer">
+								<div class="row">
+						    		<div class="col-sm-12" align="right">
+										<button type="submit" class="btn btn-default">Generar informe de Tercerización</button>
+									</div>
+								</div>
+							</div>
+						</form>
 			        </div>
 				</div>
-
             </div> <!--fin panel body-->
-
-            <div class="panel-footer">
-                <div class="row">
-                    <div class="col-sm-12" align="right">
-                    	<!-- tiene que generar pdf en ventana a parte y despues volver al ver_detAn.html -->
-                    	<a href="#" class="btn btn-default" role="button">Generar informe de Tercerización</a>
-                    </div>
-                </div>
-            </div> <!--fin panel footer-->
     	</div>
     </div>
 </div>

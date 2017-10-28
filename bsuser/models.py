@@ -66,7 +66,7 @@ class DetalleAnalisisPadre(models.Model):
 	solicitud = models.ForeignKey(SolicitudAnalisis)
 	protocolo = models.ForeignKey(Protocolo)
 	diagnostico = models.ForeignKey(Diagnostico)
-	#piepagina
+	piepagina = models.TextField("Observaciones", null=True, blank=True)
 	
 	def __str__(self):
 		return ('%s, %s, %s')%(self.solicitud, self.protocolo, self.diagnostico)
@@ -79,7 +79,7 @@ class DetalleAnalisis(models.Model):
 	solicitud = models.ForeignKey(SolicitudAnalisis)
 	parametros = models.ForeignKey(Parametros, null=False, blank=False)
 	individuoPadre = models.ForeignKey(IndividuoPadre)
-	valor = models.CharField(max_length=30, null=False, blank=False)
+	valor = models.CharField(max_length=30, null=True)
 
 	def __str__(self):
 		return ('%s, %s, %s')%(self.individuoPadre, self.parametros, self.valor)
@@ -90,11 +90,11 @@ class DetalleAnalisis(models.Model):
 class EliminacionProtocolo(models.Model):
 	## en vez de Protocolo no debería ser DetalleAnalisisPadre? 
 	## '--> no, porque se elimina todo el protocolo, no solo un diagnostico
-	protocolo = models.OneToOneField(Protocolo)
-
+	#protocolo = models.OneToOneField(Protocolo)
+	protocolo = models.ForeignKey(Protocolo)
 	fecha = models.DateField(auto_now=False)
 	motivoBaja = models.TextField("Motivo de Baja")
-	#usuario = 
+	usuario = models.CharField("Responsable", max_length=30) 
 
 	def __str__(self):
 		dia = str(self.fecha)
@@ -114,5 +114,5 @@ class Tercerizacion(models.Model):
 		return ('%s %s %s')%(self.fecha_envio, self.fecha_devolucion, self.institucion)
 
 	def get_absolute_url(self):
-		return reverse("bsadmin:v_tercerizar", kwargs={"id": self.id}) #keyword args
+		return reverse("bsuser:v_tercerizar", kwargs={"id": self.id}) #keyword args
 		

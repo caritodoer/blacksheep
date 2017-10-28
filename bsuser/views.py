@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse
 from .models import *
 from .forms import *
+from django.db.models import Q
 from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -36,10 +37,6 @@ def home_user(request):
 		"page_request_var": page_request_var,
 	}
 	return render(request, "home_user.html", context)
-
-
-
-
 
 # Solicitud Analisis
 
@@ -445,8 +442,25 @@ def j_eliminacionprotocoloid(request,id=None):
 
 def l_eliminacionprotocolo(request):
 	queryset = EliminacionProtocolo.objects.all().order_by('id')
+	query = request.GET.get("q")
+	if query:
+		queryset = queryset.filter(protocolo__numero__icontains=query)
+
+	paginator = Paginator(queryset, 15) # Show 25 DetAna_queryset per page
+	page_request_var = "page"
+	page = request.GET.get(page_request_var)
+	try:
+		ElimProt_queryset = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		ElimProt_queryset = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		ElimProt_queryset = paginator.page(paginator.num_pages)
+
 	context = {
-		"object_list": queryset,
+		"page_request_var": page_request_var,
+		"object_list": ElimProt_queryset,
 		"title": "Listado de Eliminacion Protocolos"
 	}
 	return render(request, "list_elimProt.html", context)
@@ -457,6 +471,10 @@ def a_eliminacionprotocolo(request, id=None):
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
+		print(instance.protocolo.activo)
+		instance.protocolo.activo = False
+		instance.protocolo.save()
+		print(instance.protocolo.activo)
 		return HttpResponseRedirect(instance.get_absolute_url())
 	else:
 		print (form.errors)
@@ -476,17 +494,21 @@ def v_eliminacionprotocolo(request, id=None):
 	return render(request, "ver_elimProt.html", context)
 
 def u_eliminacionprotocolo(request, id=None):
-	instance = get_object_or_404(EliminacionProtocolo,id=id)
-	form = EliminacionProtocoloForm(request.POST or None, instance=instance)
+	instance_ep = get_object_or_404(EliminacionProtocolo,id=id)
+	dap_list = DetalleAnalisisPadre.objects.filter(protocolo=instance_ep.protocolo).distinct()
+	for dap in dap_list:
+		instance = dap
+	form = EliminacionProtocoloForm(request.POST or None, instance=instance_ep)
 	if form.is_valid():
-		instance = form.save(commit=False)
-		instance.save()
-		return HttpResponseRedirect(instance.get_absolute_url())
+		instance_ep = form.save(commit=False)
+		instance_ep.save()
+		return HttpResponseRedirect(instance_ep.get_absolute_url())
 	else:
 		print (form.errors)
 	context = {
 		"title" : "Modificar Eliminacion Protocolo",
 		"instance" : instance,
+		"instance_ep" : instance_ep,
 		"form" : form,
 	}
 	return render(request, "alta_elimProt.html", context)
@@ -495,6 +517,17 @@ def d_eliminacionprotocolo(request, id=None):
 	instance = get_object_or_404(EliminacionProtocolo, id=id)
 	instance.delete()
 	return redirect("bsadmin:l_eliminacionprotocolo")
+
+def activar_protocolo(request, id=None):
+	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
+	instance.activo = True
+	instance.save()
+	instance.protocolo.activo = True
+	instance.protocolo.save()
+	ep_list = EliminacionProtocolo.objects.all().filter(protocolo=instance.protocolo)
+	for ep in ep_list:
+		ep.delete()
+	return HttpResponseRedirect(instance.get_absolute_url())
 
 # Tercerizar 
 
@@ -510,12 +543,49 @@ def j_tercerizarid(request,id=None):
 
 def l_tercerizar(request):
 	queryset = Tercerizacion.objects.all().order_by('id')
+	query = request.GET.get("q")
+	if query:
+		queryset = queryset.filter(detalleanalisispadre__protocolo__numero__icontains=query)
+
+	paginator = Paginator(queryset, 15) # Show 25 Terc_queryset per page
+	page_request_var = "page"
+	page = request.GET.get(page_request_var)
+	try:
+		Terc_queryset = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		Terc_queryset = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		Terc_queryset = paginator.page(paginator.num_pages)
+
 	context = {
-		"object_list": queryset,
+		"page_request_var": page_request_var,	
+		"object_list": Terc_queryset,
 		"title": "Listado de Tercerización",
 	}
 	return render(request, "list_tercerizar.html", context)
 
+def tercerizar(request, id=None):
+	#traigo info de toda la solicitud de analisis
+	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
+	form = TercerizacionForm(request.POST or None)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.save()
+		print(instance)
+		return HttpResponseRedirect(instance.get_absolute_url())
+	else:
+		print (form.errors)
+	context = {
+		"title" : "Nueva Tercerización",
+		"form" : form,
+		"instance" : instance,
+	}
+	return render(request, "tercerizar.html", context)
+
+
+"""
 def a_tercerizar(request):
 	form = TercerizacionForm(request.POST or None)
 	if form.is_valid():
@@ -529,6 +599,7 @@ def a_tercerizar(request):
 		"form" : form,
 	}
 	return render(request, "alta_tercerizar.html", context)
+"""	
 def v_tercerizar(request, id=None):
 	instance = get_object_or_404(Tercerizacion, id=id)
 	context = {
@@ -538,9 +609,10 @@ def v_tercerizar(request, id=None):
 	return render(request, "ver_tercerizar.html", context)
 
 
-def u_tercerizar(request, id=None):
-	instance = get_object_or_404(Tercerizacion,id=id)
-	form = TercerizacionForm(request.POST or None, instance=instance)
+def u_tercerizar(request, idt=None, iddap=None):
+	instance_t = get_object_or_404(Tercerizacion,id=idt)
+	instance_dap = get_object_or_404(DetalleAnalisisPadre, id=iddap)
+	form = TercerizacionForm(request.POST or None, instance=instance_t)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
@@ -549,10 +621,11 @@ def u_tercerizar(request, id=None):
 		print (form.errors)
 	context = {
 		"title" : "Modificar Tercerización",
-		"instance" : instance,
+		"instance_t" : instance_t,
+		"instance": instance_dap,
 		"form" : form,
 	}
-	return render(request, "alta_tercerizar.html", context)
+	return render(request, "tercerizar.html", context)
 
 def hojadetrabajo(request, id=None):
 	#traigo info de toda la solicitud de analisis
@@ -567,6 +640,22 @@ def hojadetrabajo(request, id=None):
 	grupo_list_t = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="T")
 	grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
 	
+	#listado de valores de referencia filtrado por diag + param + especie
+	# vdr_all = ValoresReferencia.objects.all()
+	# vdr_list=[]
+	# for v in vdr_all:
+	# 	for p in all_param_del_diag:
+	# 		if v.parametros == p:
+	# 			if v.especie == instance.solicitud.especie:
+	# 				vdr_list.append(v)
+	# print("VDR todos")
+	# print(vdr_all)
+	# print("VDR filtrado")
+	# print(vdr_list)
+	for p in all_param_del_diag:
+		vdr_list = ValoresReferencia.objects.all().filter(parametros=p, especie=instance.solicitud.especie)
+	print(vdr)
+
 	grupos = {}
 	for g in grupo_list_t:
 		cant=0
@@ -600,24 +689,8 @@ def hojadetrabajo(request, id=None):
 		"object_list_ind": all_indiv_de_solic,
 		"grupoi" : grupo_list_i,
 		"grupos": grupos,
+		"vdr_list": vdr_list, #listado de valores de referencia filtrados por parametro y especie
 
 	}
 	return render(request, "hojadetrabajo.html", context)
-
-def tercerizar(request, id=None):
-	#traigo info de toda la solicitud de analisis
-	instance_dap = get_object_or_404(DetalleAnalisisPadre, id=id)
-	form = TercerizacionForm(request.POST or None)
-	if form.is_valid():
-		instance = form.save(commit=False)
-		instance.save()
-		return HttpResponseRedirect(instance.get_absolute_url())
-	else:
-		print (form.errors)
-	context = {
-		"title" : "Nueva Tercerización",
-		"form" : form,
-		"instance" : instance_dap,
-	}
-	return render(request, "tercerizar.html", context)
 

@@ -1,7 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3 class="panel-title">{{ title }}</h3>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{ title }}</h3>
+			</div>
+			<div class="panel-body">
 
+				<dl class="dl-horizontal">
+					<dt>ID</dt>
+					<dd>{{ instance.id }}</dd>
+					<dt>Protocolo</dt>
+					<dd>{{ instance.protocolo }}</dd>
+					<dt>Fecha</dt>
+					<dd>{{ instance.fecha }}</dd>
+					<dt>Motivo</dt>
+					<dd>{{ instance.motivoBaja }}</dd>
+				</dl>
+
+			</div>
+			<div class="panel-footer">
+				<ul class="list-inline">
+					<li>
+						<a href="../update/{{ instance.id }}">
+					Modificar<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+					</li>
+					<li>
+						<a href="../{{ instance.id }}/pdf" target="_blank">Ver Informe</a>
+					</li>
+
+				</ul>
+			
+			</div>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

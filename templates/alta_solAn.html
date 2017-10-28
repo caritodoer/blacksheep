@@ -63,7 +63,10 @@
 
                 <div class="panel-footer">
                     <div class="row">
-                        <div class="col-sm-12" align="right">
+                        <div class="col-sm-6" align="left">
+                            <a href="{% url 'bsuser:home_user' %}"><span class="glyphicon glyphicon-chevron-left"></span>  Volver</a>
+                        </div>
+                        <div class="col-sm-6" align="right">
                             <!-- <a href="../../protocolo/alta" > -->
                             <button type="button" class="btn btn-default" id="btnvalidar">Continuar</button>
                             <!-- </a> -->
@@ -201,6 +204,8 @@ function verificar(){
 $("#btnvalidar").click(function(){
     if(verificar() == true){
         $("#formvalidar").submit();
+        // los datos estan OK 
+        
         $(location).attr('href',"../../protocolo/alta");
     }
 });// boton validar

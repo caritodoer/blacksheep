@@ -3,7 +3,6 @@
 
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-	<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
     	
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -45,49 +44,82 @@
 			            </div>
 			        </div>
 				</div>
+				<!-- FORM -->
 				<div class="col-sm-12">
 			        <div class="panel panel-default">
 			            <div class="panel-heading">
 			                <h3 class="panel-title">Detalle</h3>
 			            </div>
-			            <div class="panel-body">
-			                    <div class="form-group">
-			                        <div class="divalidacion">    
-			                            <label class="control-label col-sm-2" for="fecha">Fecha:</label>
-			                            <div class="col-sm-3">
-			                                <input type="date" class="form-control" id="fecha" name="fecha" value="">
-			                            </div>
+						<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
+							<div class="panel-body">
+								<div class="form-group">
+									<label class="control-label col-sm-2" for="sel_protocolo">Protocolo:</label>
+									<div class="col-sm-3">
+										<select name="protocolo" class="form-control" id="sel_protocolo" onchange="validacion('sel_protocolo');"></select>
+									</div>
+								</div>
+ 								<div class="form-group">
+									<label class="control-label col-sm-2" for="fecha">Fecha:</label>
+			                        <div class="col-sm-3">
+			                            <input type="date" class="form-control" id="fecha" name="fecha" value="{{ instance_ep.fecha }}">
 			                        </div>
 			                    </div>
-			                    <div class="form-group">
+								<div class="form-group">
 			                        <label class="control-label col-sm-2" for="motivoBaja">Motivo:</label>
 			                        <div class="col-sm-9">
-			                            <textarea row="3" class="form-control" id="motivoBaja" name="motivoBaja" value=""> </textarea>
+			                            <textarea row="3" class="form-control" id="motivoBaja" name="motivoBaja" value="">{{instance_ep.motivoBaja}} </textarea>
 			                        </div>
 			                    </div>
+							</div>
+
+							<div class="panel-footer">
+								<div class="row">
+						    		<div class="col-sm-12" align="right">
+										<button type="submit" class="btn btn-default">Generar informe de Baja</button>
+									</div>
+								</div>
+							</div>
+						</form>
+
+
+			                    
+			                    
 			            	
-			            </div>
 			        </div>
 				</div>
 
             </div> <!--fin panel body-->
 
-            <div class="panel-footer">
-                <div class="row">
-                    <div class="col-sm-12" align="right">
-                    	<input type="hidden" value="{{instance.protocolo.numero}}" id="protocolo">
-                    	<!-- tiene que generar pdf en ventana a parte y despues volver al home_user -->
-                    	<input type="submit" value="Generar informe de Baja">
-                    </div>
-                </div>
-            </div> <!--fin panel footer-->
+           
     	</div>
-	</form>
     </div>
 </div>
 
 {% endblock %}
 {% block javascript %} 
-
+<script type="text/javascript">
+$(document).ready(function() {
+	var select = "{{ instance.protocolo.id }}"
+	$.ajax({
+        url:"/j_protocolo/",
+        type:"GET",
+        dataType: "json",
+        success: function(protocolo){
+        	console.log(select)
+        	$('#sel_protocolo').append('<option selected value="{{ instance.protocolo.id }}"></option>');
+        	$.each(protocolo,function(index, obj) 
+			{	
+					if(obj.id == select){
+					$('#sel_protocolo').append('<option selected value=' + obj.id + '>' + obj.numero + '</option>');
+					}
+					else{
+						$('#sel_protocolo').append('<option value=' + obj.id + '>' + obj.numero + '</option>');	
+					}
+				
+			});
+        }
+    });
+});
+</script>
 
 {% endblock %}

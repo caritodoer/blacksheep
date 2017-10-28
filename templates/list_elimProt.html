@@ -8,13 +8,29 @@
 				<h3 class="panel-title">{{title}} </h3>
 			</div>
 			<div class="panel-body">
+				<div class="col-sm-offset-6 col-sm-6">
+				<form class="form-horizontal" method="GET" action="">
+					<!-- {% csrf_token %} -->
+					<div class="form-group">
+						<div class="input-group">
+							<input type="text" name="q" class="form-control" placeholder="Buscar Protocolo Eliminado por N°" value="{{ request.GET.q}}">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+
+					</div>
+				</form>
+			</div>
 				<table class="table table-striped table-hover table-condensed" align="center">
 					<thead class="thead-default">
 						<tr>
 							<th>Protocolo N°</th>
-							<th>fecha </th>
+							<th>Fecha </th>
+							<th>Responsable</th>
 							<th>motivo baja</th>
 							<th>Informe</th>
+							<th>Modificar</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -22,12 +38,31 @@
 						<tr>
 							<td>{{ obj.protocolo.numero }}</td>
 							<td>{{ obj.fecha }}</td>
+							<td>{{ obj.usuario }}></td>
 							<td>{{ obj.motivoBaja|truncatechars:200 }}</td>
-							<td><a href="{{ obj.id }}/pdf" target="_blank" class="btn btn-default btn-sm" role="button">Ver</a></td> <!-- tiene que ir al informe en PDF  -->
+							<td><a href="{{ obj.id }}/pdf" target="_blank" class="btn btn-default btn-sm" role="button">Ver</a></td> 
+							<td><a href="update/{{ obj.id }}">
+					Modificar<span class="glyphicon glyphicon-pencil"></span>
+						</a></td>
 						</tr>
 						{% endfor %}
 					</tbody>
 				</table>
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q}}{% endif %}">Anterior</a>
+        {% endif %}
+
+        <span class="current">
+            Pág. {{ object_list.number }} de {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q}}{% endif %}">Siguiente</a>
+        {% endif %}
+    </span>
+</div>
 		  	</div>
 		</div>
 	</div>
