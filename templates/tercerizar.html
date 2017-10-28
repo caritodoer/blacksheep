@@ -54,7 +54,7 @@
 			                        <div class="divalidacion">    
 			                            <label class="control-label col-sm-2" for="fecha_envio">Fecha de Envío:</label>
 			                            <div class="col-sm-3">
-			                                <input type="date" class="form-control" id="fecha_envio" name="fecha_envio" value="">
+			                                <input type="date" class="form-control" id="fecha_envio" name="fecha_envio" value="{{instance.fecha_envio}}">
 			                            </div>
 			                        </div>
 			                    </div>
@@ -62,14 +62,20 @@
 			                        <div class="divalidacion">    
 			                            <label class="control-label col-sm-2" for="fecha_devolucion">Fecha de Devolución:</label>
 			                            <div class="col-sm-3">
-			                                <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="">
+			                                <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="{{instance.fecha_devolucion}}">
 			                            </div>
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
 			                        <label class="control-label col-sm-2" for="institucion">Institución a la que se envía:</label>
 			                        <div class="col-sm-9">
-			                        	<input type="text" class="form-control" id="institucion" name="institucion" value="">
+			                        	<input type="text" class="form-control" id="institucion" name="institucion" value="{{instance.institucion}}">
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-2" for="detalle">Detalle de Tercerización:</label>
+			                        <div class="col-sm-9">
+			                            <textarea row="3" class="form-control" id="detalle" name="detalle" value="{{instance.detalle}}"> </textarea>
 			                        </div>
 			                    </div>
 				            </form>

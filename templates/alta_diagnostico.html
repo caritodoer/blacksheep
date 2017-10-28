@@ -232,7 +232,8 @@ $(document).ready(function(){
 		// Elimina el model y la linea.
 	});
 	$("body").on('click', ".btn-eliminar-vr", function(){
-		$(this).parent().parent().remove(); // Delete Row de valores referencia	
+		$(this).parent().parent().parent().parent().find("#addParametroVr").attr('disabled', false);//habilita addparametro	
+		$(this).parent().parent().remove(); // Delete Row de valores referencia
 	});
 
 	var incRadio = 0;
@@ -338,13 +339,63 @@ $(document).ready(function(){
     	}
     }); // select de especie 
 
+    //valida select option - ValREf
+    $(document).on('click','.addParametro',function(){
+    	console.log('paso x aca');
+    	var count = 0;
+    	var array = [];
+    	var idmodalref = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent();
+    	conbd = getconbd("/j_especie/", "GET");//consulta json a tabla especificada
+    	$(this).parent().parent().parent().parent().find('.valRefList').each(function(i, elem) {
+    		var c = elem;
+    		array.push(c);
+    		count++;
+    		console.log('count   ',count,'elem  ',elem,'conbd  ',conbd.length);
+    		if(count >= conbd.length){idmodalref.find("#addParametroVr").attr('disabled', true);}
+    		else{idmodalref.find("#addParametroVr").attr('disabled', false);}
+    	});
+    	console.log('idmodalref   ',idmodalref,'array ',array);
+    	
+    	if(array.length > 1){
+    		var buscarval = $(array[0]).find('option').val();
+    		idmodalref.find(".valRefList").each(function(index, e) {
+	    		for (var i = 0; i < conbd.length; i++) {
+	    			for (var j = i+1; j < conbd.length; j++) {
+    					$(array[j]).find('.especieSel').find('option[value="'+$(array[i]).find('.especieSel').val()+'"]').remove();
+    					$(array[i]).find('.especieSel').find('option[value="'+$(array[j]).find('.especieSel').val()+'"]').remove();
+	    				console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));	    
+	    			}
+	    		}	
+    		});
+    	}    	
+    });    
+
     $(document).on('change','.especieSel',function(){
     	console.log('paso x aca');
-    	var prueba = $(this).val();
-    	var prueba2 = $('#ModalValorRef1').siblings('.especieSel').find('option[value="'+prueba+'"]');
-    	var prueba3 = $('#ModalValorRef1').prevAll().find('option[value="'+prueba+'"]');
-    	console.log('prueba   ',prueba,'   prueba2    ',prueba2,'   prueba3    ',prueba3);
+    	var count = 0;
+    	var array = [];
+    	var idmodalref = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent();
+    	conbd = getconbd("/j_especie/", "GET");//consulta json a tabla especificada
+    	$(this).parent().parent().parent().parent().find('.valRefList').each(function(i, elem) {
+    		var c = elem;
+    		array.push(c);
+    	});
+    	console.log('idmodalref   ',idmodalref,'array ',array);
+    	
+    	if(array.length > 1){
+    		var buscarval = $(array[0]).find('option').val();
+    		idmodalref.find(".valRefList").each(function(index, e) {
+	    		for (var i = 0; i < conbd.length; i++) {
+	    			for (var j = i+1; j < conbd.length; j++) {
+    					$(array[j]).find('.especieSel').find('option[value="'+$(array[i]).find('.especieSel').val()+'"]').remove();
+    					$(array[i]).find('.especieSel').find('option[value="'+$(array[j]).find('.especieSel').val()+'"]').remove();
+	    				console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));	    
+	    			}
+	    		}	
+    		});
+    	}
     });
+    //fin validacion select option - ValRef
 
 
 /*validacion*/
@@ -364,7 +415,10 @@ function verificar(){
     v6=validacion('vistagrupo');
 
     console.log(v1,v2,v3,v4,v5,v6);
-    if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
+  
+  for (var i = 0; i < prueba.length.length; i++) {
+    	prueba.length[i]
+    }  if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
         return true;
     }
     else{
@@ -467,6 +521,20 @@ $("#btnvalidar").click(function(){
     }
 });// boton validar
 
+//funcion retorna array de consulta bd 
+function getconbd(url, method)
+{
+    return JSON.parse($.ajax({
+        type: method,
+        url: url,
+        dataType: 'json',
+        async:false,
+        success: function(data)
+        {
+            return data;
+        }
+    }).responseText);
+}//consulta bd
 
 function validacion(campo){
     if(campo==='descripciondiag' || campo==='tecnica'){
@@ -590,13 +658,22 @@ function validacion(campo){
     if(campo==='especieSel'){
       var truefalse=true;
       var error=0;
-      var prueba = $('.'+campo).val();
-      var prueba2 = $('.'+campo);
-    	/*console.log('paso x aca', prueba,'   prueba2',prueba2);
-		$('select').siblings().find('option[value="'+$('.'+campo).val()+'"]').remove();		*/
+      /*var prueba = $('.'+campo).val();
+      //var prueba2 = $(this).val();
+      console.log('paso x aca', prueba);*/
+		//$(this).siblings().find('option[value="'+prueba+'"]').remove();		
+      	
+      	/*$(document).on('change','.especieSel',function(){
+    		console.log('paso x aca');
+    		var prueba = $(this).val();
+    		$(this).siblings().find('option[value="'+prueba+'"]').remove();
+    		var prueba2 = $(this).siblings();
+    		console.log('prueba   ',prueba,'   prueba2    ',prueba2);
+    	});*/
+
       //if(campo==='diagnostico'){error=-2}//solo para diagnostico
-      /*$('.valRefList').find('.especieSel').each(function(i, elem){
-      //$('.'+campo).each(function(i, elem){
+      //$('.valRefList').find('.especieSel').each(function(i, elem){
+      /*$('.'+campo).next().each(function(i, elem){
       var indice = $(elem).val();
       console.log('elem   ',elem);
       console.log('indice  ',indice,'  i',i);

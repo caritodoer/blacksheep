@@ -18,13 +18,13 @@
           <td><label for="especie">Especie</label></td>
           <td><label for="valorRef">Valor Referencia</label></td>
           <td><label for="valorDef">Valor Predeterminado</label></td>
-          <td><input type="button" id="addParametroVr" value="Agregar Parametro"/></td>
+          <td><input class="addParametro" onclick="validacion('addParametro');" type="button" id="addParametroVr" value="Agregar Parametro"/></td>
         </tr>
       </thead>
       <tbody>
         <tr id="hidden-row-vr" style="display: none">
           <td>
-            <select class="especieSel" onchange="validacion('especieSel');"></select>
+            <select class="especieSel"></select>
           </td>
           <td>
             <input type="text" class="form-control" id="valRef" name="valRef" value="{{ instance.valorReferencia }}">

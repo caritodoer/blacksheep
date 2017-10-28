@@ -22,10 +22,13 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <div class="form-group">
+                <div class="divalidacion">
                 <label class="control-label col-sm-3" for="protocolo">N° de Protocolo:</label>
                   <div class="col-sm-3">
-                      <input type="number" class="form-control" id="protocolo" name="protocolo" value="{{ instance.protocolo }}">
+                      <input type="text" class="form-control protocolo" id="protocolo" name="protocolo" onkeyup="validacion('protocolo');" value="{{ instance.protocolo }}">
                   </div>
+                  <span class="help-block"></span>
+                </div>
               </div>
             </div><!-- fin panel heading2 -->
             
@@ -184,12 +187,13 @@ $("span.help-block").hide();
 
   /*validacion*/
   function verificar(){
-    var v1=0,v2=0;
+    var v1=0,v2=0,v3=0;
 
     v1=validacion('muestra');
     v2=validacion('diagnostico');
-    console.log(v1,v2);
-    if(v1 == true && v2 == true){
+    v3=validacion('protocolo');
+    console.log(v1,v2,v3);
+    if(v1 == true && v2 == true && v3 == true){
       return true;
     }
     else{
@@ -220,6 +224,84 @@ $("span.help-block").hide();
   }//consulta bd
 
   function validacion(campo){
+    if(campo==='protocolo'){
+        var truefalse=true;
+        var error=-1;
+        $('.'+campo).each(function(i, elem){
+        var inputtext = $(elem).val();
+        //console.log('indice  ',indice);
+        
+        //inputtext = document.getElementsByTagsName(campo).value;
+        console.log('inputtext',inputtext);
+        //var truefalse = true;
+        var conbd = {};//variable consulta base datos
+        var surl='{{title}}';//variable para url capta titulo
+        /*surl=surl.substr(6).toLowerCase().replace(/\s/g,"");//quita palabara "nueva" y tranf minuscula, elimina espacios*/
+        var vurl=surl.split(' ');//vector del titulo
+        var nuevmodif=vurl[0];//guarda dato nuevo o modificar
+        vurl.shift();//elimina elemento inicial
+        if(vurl.length == 2){vurl=(vurl[0]+vurl[1]).toLowerCase();}
+        else{vurl=(vurl[0]).toLowerCase();}
+        console.log('var vurl ',vurl);
+        conbd = getconbd("/j_"+vurl+"/", "GET");//consulta json a tabla especificada
+        console.log('conbd',conbd);
+        for(var i=0;i < conbd.length;i++){    
+            if(conbd[i].numero == inputtext.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
+                console.log(conbd[i].numero,'-',inputtext);
+                truefalse=false;
+                console.log('truefalse adentro',truefalse);      
+            }
+        }
+        
+        console.log('truefalse afuera',truefalse);
+
+            
+            console.log(inputtext);
+        if(truefalse == false){
+            $("#icon"+campo).remove();
+            $(elem).parent().parent().attr("class","has-error has-feedback");
+            $(elem).parent().parent().children("span").text("Existe "+campo+" en base de datos").show();
+            $(elem).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+            //return false;
+            error++;
+        }
+        else{
+            if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
+                $('#icon'+campo).remove();
+                $(elem).parent().parent().attr("class","has-error has-feedback");
+                $(elem).parent().parent().children("span").text("Debe ingresar una "+campo+"").show();
+                $(elem).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                //return false;
+                error++;
+            }
+            else{
+                  if( isNaN(inputtext)){
+                    $('#icon'+campo).remove();
+                    $(elem).parent().parent().attr("class","has-error has-feedback");
+                    $(elem).parent().parent().children("span").text("No se acepta letras").show();
+                    $(elem).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                  //return false;
+                  error++;
+                  }
+                  else{ 
+                    $("#icon"+campo).remove();
+                    $(elem).parent().parent().attr("class","has-success has-feedback");
+                    $(elem).parent().parent().children("span").text("").hide();
+                    $(elem).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+                    //return true;
+                    }                
+            }
+        }     
+        });//for each protocolo
+        
+        if(error > 0){
+          return false;
+        }
+        else{
+          return true;
+        }        
+    }//protocolo
+
     if(campo==='muestra' || campo==='diagnostico'){
       var truefalse=true;
       var error=-1;
@@ -246,28 +328,28 @@ $("span.help-block").hide();
       }   
     }//muestra
 
-  if(campo==='diagnostico'){
-    $('.'+campo).each(function(i, elem){
-    var diag = $(elem).val();
-    //console.log('diag  ',diag,'  i',i);
-    if(diag == null || diag == 0 ){
-      $(elem).parent().attr("class","has-error has-feedback");
-      error++;
-      //console.log('indice2  ',diag);
-      }
-    else{
-      $(elem).parent().attr("class","has-success has-feedback");
-      //console.log('indice3  ',diag);
-      } 
-    });
+    if(campo==='diagnostico'){
+      $('.'+campo).each(function(i, elem){
+      var diag = $(elem).val();
+      //console.log('diag  ',diag,'  i',i);
+      if(diag == null || diag == 0 ){
+        $(elem).parent().attr("class","has-error has-feedback");
+        error++;
+        //console.log('indice2  ',diag);
+        }
+      else{
+        $(elem).parent().attr("class","has-success has-feedback");
+        //console.log('indice3  ',diag);
+        } 
+      });
 
-    if(error > 0){
-      return false;
-    }
-    else{
-      return true;
-    }
-  }//select        
+      if(error > 0){
+        return false;
+      }
+      else{
+        return true;
+      }
+    }//select        
   }//validacion
 </script> 
 {% endblock %}

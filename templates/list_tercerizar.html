@@ -25,7 +25,12 @@
 							<td>{{ obj.detalleanalisispadre.protocolo.numero }}</td>
 							<td>{{ obj.detalleanalisispadre.diagnostico.descripcion }}</td>
 							<td>{{ obj.fecha_envio }}</td>
-							<td>{{ obj.fecha_devolucion }}</td>
+							<td>{% if obj.fecha_devolucion %}
+								{{ obj.fecha_devolucion }}
+								{% else %}
+									<a href="#" class="btn btn-default btn-sm" role="button">Cargar Devolución</a>
+								{% endif %}
+							</td>
 							<td>{{ obj.institucion }}</td>
 							<td><a href="{{ obj.id }}/pdf" target="_blank" class="btn btn-default btn-sm" role="button">Ver</a></td> <!-- tiene que ir al informe en PDF  -->
 						</tr>

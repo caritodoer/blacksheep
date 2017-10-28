@@ -42,3 +42,57 @@ body{
 	height: 20px;
 	color: white;
 }
+
+@media (min-width: 768px) {
+  .dl-horizontal-homeadmin dt {
+    float: left;
+    width: 80px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .dl-horizontal-homeadmin dd {
+    margin-left: 90px;
+  }
+}
+
+/* FILE UPLOADS */
+
+p.file-upload {
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+    color: #666;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+ul.file-upload {
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+    color: #666;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.aligned p.file-upload {
+    margin-left: 170px;
+}
+
+.file-upload a {
+    font-weight: normal;
+}
+
+.file-upload .deletelink {
+    margin-left: 5px;
+}
+
+span.clearable-file-input label {
+    color: #333;
+    font-size: 11px;
+    display: inline;
+    float: none;
+}
