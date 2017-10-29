@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse
 from .models import *
 from .forms import *
+from django.db.models import Q
 from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -36,10 +37,6 @@ def home_user(request):
 		"page_request_var": page_request_var,
 	}
 	return render(request, "home_user.html", context)
-
-
-
-
 
 # Solicitud Analisis
 
@@ -445,8 +442,25 @@ def j_eliminacionprotocoloid(request,id=None):
 
 def l_eliminacionprotocolo(request):
 	queryset = EliminacionProtocolo.objects.all().order_by('id')
+	query = request.GET.get("q")
+	if query:
+		queryset = queryset.filter(protocolo__numero__icontains=query)
+
+	paginator = Paginator(queryset, 15) # Show 25 DetAna_queryset per page
+	page_request_var = "page"
+	page = request.GET.get(page_request_var)
+	try:
+		ElimProt_queryset = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		ElimProt_queryset = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		ElimProt_queryset = paginator.page(paginator.num_pages)
+
 	context = {
-		"object_list": queryset,
+		"page_request_var": page_request_var,
+		"object_list": ElimProt_queryset,
 		"title": "Listado de Eliminacion Protocolos"
 	}
 	return render(request, "list_elimProt.html", context)
@@ -529,8 +543,25 @@ def j_tercerizarid(request,id=None):
 
 def l_tercerizar(request):
 	queryset = Tercerizacion.objects.all().order_by('id')
+	query = request.GET.get("q")
+	if query:
+		queryset = queryset.filter(detalleanalisispadre__protocolo__numero__icontains=query)
+
+	paginator = Paginator(queryset, 15) # Show 25 Terc_queryset per page
+	page_request_var = "page"
+	page = request.GET.get(page_request_var)
+	try:
+		Terc_queryset = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		Terc_queryset = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		Terc_queryset = paginator.page(paginator.num_pages)
+
 	context = {
-		"object_list": queryset,
+		"page_request_var": page_request_var,	
+		"object_list": Terc_queryset,
 		"title": "Listado de Tercerización",
 	}
 	return render(request, "list_tercerizar.html", context)
@@ -605,10 +636,57 @@ def hojadetrabajo(request, id=None):
 	# traigo los individuos asociados a la solicitud
 	solic = instance.solicitud
 	all_indiv_de_solic = DetalleAnalisis.objects.distinct('individuoPadre').filter(solicitud=solic)
+	
+	# listado de DA filtrado segun los parametros x individuos usados en la hoja
+	adrian = DetalleAnalisis.objects.all().filter(solicitud=solic)
+	all_param = Parametros.objects.distinct('diagnostico').filter(diagnostico=diag)
+	da_x_ind_x_p = []
+	for p in all_param:
+		for a in adrian:
+			da_x_ind_x_p.append(a)
+	print("da_x_ind_x_p")
+	print(da_x_ind_x_p)
 
 	grupo_list_t = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="T")
 	grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
 	
+	# listado de valores de referencia filtrado por diag + param + especie
+	vdr_all = ValoresReferencia.objects.all()
+	vdr_list=[]
+	for v in vdr_all:
+		for p in all_param_del_diag:
+			if v.parametros == p:
+				if v.especie == instance.solicitud.especie:
+					vdr_list.append(v)
+	print("vdr_list")
+	print(vdr_list)
+	
+	da_all = DetalleAnalisis.objects.all().filter(solicitud=solic)
+	da_list = {}
+	for p in all_param_del_diag:
+		for i in all_indiv_de_solic:
+			for da in da_all:
+				ban1=0
+				if da.parametros == p:
+					if da.individuoPadre == i.individuoPadre:
+						if da.valor != '':
+							print("entro 1")
+							valor=da.valor
+							#print(linea)
+							ban1=1
+						else:
+							for vdr in vdr_list:
+								if vdr.parametros == p:
+									print("entro 2")
+									valor=vdr.valorDef
+									ban1=1
+							if ban1==0:
+								print("entro 3")
+								valor=""
+								ban1=1
+					da_list[da]=valor
+	print(da_list)			
+
 	grupos = {}
 	for g in grupo_list_t:
 		cant=0
@@ -634,14 +712,19 @@ def hojadetrabajo(request, id=None):
 				ban=False
 		grupos[k] = list_r
 	#print(grupos)
-
+	ban1=0
+	ban2=0
 	context = {
+		"ban1": ban1,
+		"ban2": ban2,
 		"title" : "Registro de Resultados",
+		"da_list": da_list,
 		"instance" : instance,
 		"parametros_list" : all_param_del_diag,
 		"object_list_ind": all_indiv_de_solic,
 		"grupoi" : grupo_list_i,
 		"grupos": grupos,
+		"vdr_list": vdr_list, #listado de valores de referencia filtrados por parametro y especie
 
 	}
 	return render(request, "hojadetrabajo.html", context)

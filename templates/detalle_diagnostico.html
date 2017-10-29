@@ -41,6 +41,11 @@
 
 			</div>
 			<div class="panel-footer">
+				
+						<a href="{% url 'bsadmin:home_admin' %}"><span class="glyphicon glyphicon-chevron-left"></span>  
+					Volver
+						</a>
+					
 				{% if instance.activo == True %}
 						<a href="../delete/{{ instance.id }}">
 					Eliminar <span class="glyphicon glyphicon-remove"></span>
