@@ -636,25 +636,56 @@ def hojadetrabajo(request, id=None):
 	# traigo los individuos asociados a la solicitud
 	solic = instance.solicitud
 	all_indiv_de_solic = DetalleAnalisis.objects.distinct('individuoPadre').filter(solicitud=solic)
+	
+	# listado de DA filtrado segun los parametros x individuos usados en la hoja
+	adrian = DetalleAnalisis.objects.all().filter(solicitud=solic)
+	all_param = Parametros.objects.distinct('diagnostico').filter(diagnostico=diag)
+	da_x_ind_x_p = []
+	for p in all_param:
+		for a in adrian:
+			da_x_ind_x_p.append(a)
+	print("da_x_ind_x_p")
+	print(da_x_ind_x_p)
 
 	grupo_list_t = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="T")
 	grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
 	
-	#listado de valores de referencia filtrado por diag + param + especie
-	# vdr_all = ValoresReferencia.objects.all()
-	# vdr_list=[]
-	# for v in vdr_all:
-	# 	for p in all_param_del_diag:
-	# 		if v.parametros == p:
-	# 			if v.especie == instance.solicitud.especie:
-	# 				vdr_list.append(v)
-	# print("VDR todos")
-	# print(vdr_all)
-	# print("VDR filtrado")
-	# print(vdr_list)
+	# listado de valores de referencia filtrado por diag + param + especie
+	vdr_all = ValoresReferencia.objects.all()
+	vdr_list=[]
+	for v in vdr_all:
+		for p in all_param_del_diag:
+			if v.parametros == p:
+				if v.especie == instance.solicitud.especie:
+					vdr_list.append(v)
+	print("vdr_list")
+	print(vdr_list)
+	
+	da_all = DetalleAnalisis.objects.all().filter(solicitud=solic)
+	da_list = {}
 	for p in all_param_del_diag:
-		vdr_list = ValoresReferencia.objects.all().filter(parametros=p, especie=instance.solicitud.especie)
-	print(vdr)
+		for i in all_indiv_de_solic:
+			for da in da_all:
+				ban1=0
+				if da.parametros == p:
+					if da.individuoPadre == i.individuoPadre:
+						if da.valor != '':
+							print("entro 1")
+							valor=da.valor
+							#print(linea)
+							ban1=1
+						else:
+							for vdr in vdr_list:
+								if vdr.parametros == p:
+									print("entro 2")
+									valor=vdr.valorDef
+									ban1=1
+							if ban1==0:
+								print("entro 3")
+								valor=""
+								ban1=1
+					da_list[da]=valor
+	print(da_list)			
 
 	grupos = {}
 	for g in grupo_list_t:
@@ -681,9 +712,13 @@ def hojadetrabajo(request, id=None):
 				ban=False
 		grupos[k] = list_r
 	#print(grupos)
-
+	ban1=0
+	ban2=0
 	context = {
+		"ban1": ban1,
+		"ban2": ban2,
 		"title" : "Registro de Resultados",
+		"da_list": da_list,
 		"instance" : instance,
 		"parametros_list" : all_param_del_diag,
 		"object_list_ind": all_indiv_de_solic,
