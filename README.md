@@ -4,6 +4,16 @@
 
 29-10-17 - Tareas Pendientes:
 
+fsltan valores de referencia en los infromes en la parte de las tablas. donde lo pongo??
+
+EN VALIDACIONES & MODELS :
+en Diagnostico.piepagina = textinput max_length=100 caracteres
+en SolicitudAnalisis.obs = textinput max_length=85 caracteres
+en Parametros.descripcion = textinput max_length=15 caracteres
+en DAP.valor = textinput max_length=10 caracteres
+en Parametros.unidad de medida = textinput max_length=5 caracteres
+en valores de referencia = textinput max_length=15 caracteres
+
 - En "Registrar Protocolos":
 	* Cuando no hay protocolos que emita mensaje de error y no permita irse de la pagina.
 	* Falta que no repita las muestras ni los diagnosticos

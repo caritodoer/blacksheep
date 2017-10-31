@@ -639,17 +639,6 @@ def hojadetrabajo(request, id=None):
 	grupo_list_t = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="T")
 	grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
 	
-	
-	# listado de DA filtrado segun los parametros x individuos usados en la hoja
-	# adrian = DetalleAnalisis.objects.all().filter(solicitud=solic)
-	# all_param = Parametros.objects.distinct('diagnostico').filter(diagnostico=diag)
-	# da_x_ind_x_p = []
-	# for p in all_param:
-	# 	for a in adrian:
-	# 		da_x_ind_x_p.append(a)
-	# print("da_x_ind_x_p")
-	# print(da_x_ind_x_p)
-
 	# listado de valores de referencia filtrado por diag + param + especie
 	vdr_all = ValoresReferencia.objects.all()
 	vdr_list=[]
@@ -712,11 +701,8 @@ def hojadetrabajo(request, id=None):
 				ban=False
 		grupos[k] = list_r
 	#print(grupos)
-	ban1=0
-	ban2=0
 	context = {
-		"ban1": ban1,
-		"ban2": ban2,
+		#"da_all": da_all,
 		"title" : "Registro de Resultados",
 		"da_list": da_list,
 		"instance" : instance,
