@@ -636,20 +636,20 @@ def hojadetrabajo(request, id=None):
 	# traigo los individuos asociados a la solicitud
 	solic = instance.solicitud
 	all_indiv_de_solic = DetalleAnalisis.objects.distinct('individuoPadre').filter(solicitud=solic)
-	
-	# listado de DA filtrado segun los parametros x individuos usados en la hoja
-	adrian = DetalleAnalisis.objects.all().filter(solicitud=solic)
-	all_param = Parametros.objects.distinct('diagnostico').filter(diagnostico=diag)
-	da_x_ind_x_p = []
-	for p in all_param:
-		for a in adrian:
-			da_x_ind_x_p.append(a)
-	print("da_x_ind_x_p")
-	print(da_x_ind_x_p)
-
 	grupo_list_t = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="T")
 	grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
 	
+	
+	# listado de DA filtrado segun los parametros x individuos usados en la hoja
+	# adrian = DetalleAnalisis.objects.all().filter(solicitud=solic)
+	# all_param = Parametros.objects.distinct('diagnostico').filter(diagnostico=diag)
+	# da_x_ind_x_p = []
+	# for p in all_param:
+	# 	for a in adrian:
+	# 		da_x_ind_x_p.append(a)
+	# print("da_x_ind_x_p")
+	# print(da_x_ind_x_p)
+
 	# listado de valores de referencia filtrado por diag + param + especie
 	vdr_all = ValoresReferencia.objects.all()
 	vdr_list=[]
@@ -658,8 +658,8 @@ def hojadetrabajo(request, id=None):
 			if v.parametros == p:
 				if v.especie == instance.solicitud.especie:
 					vdr_list.append(v)
-	print("vdr_list")
-	print(vdr_list)
+	#print("vdr_list")
+	#print(vdr_list)
 	
 	da_all = DetalleAnalisis.objects.all().filter(solicitud=solic)
 	da_list = {}
