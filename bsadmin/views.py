@@ -744,14 +744,14 @@ def j_parametrosid(request,id=None):
 	queryset = Parametros.objects.filter(id=id).values()    
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
-# VER SI SE USA l_parametros
-def l_parametros(request):
-	queryset = Parametros.objects.all().order_by('id')
-	context = {
-		"object_list": queryset,
-		"title": "Listado de Parametros"
-	}
-	return render(request, "lista_parametros.html", context)
+# # VER SI SE USA l_parametros
+# def l_parametros(request):
+# 	queryset = Parametros.objects.all().order_by('id')
+# 	context = {
+# 		"object_list": queryset,
+# 		"title": "Listado de Parametros"
+# 	}
+# 	return render(request, "lista_parametros.html", context)
 def a_parametros(request):
 	form = ParametrosForm(request.POST or None)
 	if form.is_valid():
@@ -793,11 +793,11 @@ def d_parametros(request, id=None):
 	instance.activo = False
 	instance.save()
 	return redirect("bsadmin:l_parametros")
-def activar_parametros(request, id=None):
-	instance = get_object_or_404(Parametros, id=id)
-	instance.activo = True
-	instance.save()
-	return redirect("bsadmin:l_parametros")
+# def activar_parametros(request, id=None):
+# 	instance = get_object_or_404(Parametros, id=id)
+# 	instance.activo = True
+# 	instance.save()
+# 	return redirect("bsadmin:l_parametros")
 
 #diagnostico
 def j_diagnostico(request):

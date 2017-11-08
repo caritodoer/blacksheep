@@ -98,12 +98,12 @@ urlpatterns = [
     url(r'^j_especializacionid/(?P<id>\d+)/$', views.j_especializacionid),
 
     # parametros
-    url(r'^parametros/$', views.l_parametros, name="l_parametros"),
+    #url(r'^parametros/$', views.l_parametros, name="l_parametros"),
     url(r'^parametros/alta/$', views.a_parametros),
     url(r'^parametros/(?P<id>\d+)/$', views.v_parametros, name="v_parametros"),
     url(r'^parametros/update/(?P<id>\d+)/$', views.u_parametros),
     url(r'^parametros/delete/(?P<id>\d+)/$', views.d_parametros),
-    url(r'^parametros/activar/(?P<id>\d+)/$', views.activar_parametros),
+    #url(r'^parametros/activar/(?P<id>\d+)/$', views.activar_parametros),
     url(r'^j_parametros/$', views.j_parametros),
     url(r'^j_parametrosid/(?P<id>\d+)/$', views.j_parametrosid),
 
