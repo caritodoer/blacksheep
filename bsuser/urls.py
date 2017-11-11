@@ -96,6 +96,7 @@ urlpatterns = [
 
     # PDF
     url(r'^hojadetrabajo/(?P<id>\d+)/pdf/$', viewsPDF.hojadetrabajo),
+    url(r'^informe/(?P<id>\d+)/pdf/$', viewsPDF.informe),
     url(r'^tercerizar/(?P<id>\d+)/pdf/$', viewsPDF.tercerizar, name="tercerizar_pdf"),
     url(r'^eliminacionprotocolo/(?P<id>\d+)/pdf/$', viewsPDF.eliminacionprotocolo),
 

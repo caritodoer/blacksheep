@@ -27,9 +27,10 @@
 						<tbody >
 							<tr id="hidden-row-ind" style="display: none">
 								<td class="numeracion">
-									<p class="contador">1</p>
+									<p class="contador"></p>
 								</td>
-								<td><input type="text" class="form-control identificacion" id="identificacion" onkeyup="validacion('identificacion');" name="identificacion" value="{{ instance.identificacion }}"></td>
+								<td><input type="text" class="form-control identificacion" id="identificacion" onkeyup="validacion('identificacion');" name="identificacion" value="{{ instance.identificacion }}">
+								<span class="help-block"></span></td>
 								<td><select class="form-control razaSel raza" name="raza" onchange="validacion('raza');"></select></td>
 								<td><a id="botonIngresarMasOpciones" class="btn btn-default ModalMasOp" data-toggle="modal" data-target="#ModalMasOp" class="btn btn-default">Mas Opciones</a></td>
 								<td><button class="btn btn-danger btn-eliminar-indi">Eliminar</button></td>
@@ -78,13 +79,34 @@ $(document).ready(function() {
 			$(this).parent().parent().parent().parent().append(newInd);
 			$(this).parent().parent().parent().parent().append(modBase);
 			
-			var numeracion = $('#tabla tbody').find('.contador').replaceWith(count);
+			//////////////////////validacion/////////////////////
+			var array = [];
+			$('thead').find('.numeracion').each(function(index,e) {
+				var c = e;
+				array.push(c);				
+			});
+			console.log('array',array);
+			for (var i = 0; i < array.length; i++) {
+				$(array[i]).find('.contador').text(i+1);
+			}
+			//////////////////////validacion/////////////////////
 
 		return false;
 	});
 
 	$("body").on('click', ".btn-eliminar-indi", function(){
 	    $(this).parent().parent().remove(); // elimina linea de diagnostico 
+		//////////////////////validacion/////////////////////
+		var arraye = [];
+		$('thead').find('.numeracion').each(function(index,elem) {
+			var cc = elem;
+			arraye.push(cc);				
+		});
+		console.log('array eliminar',arraye);
+		for (var i = 0; i < arraye.length; i++) {
+			$(arraye[i]).find('.contador').text(i+1);
+		}	    
+		//////////////////////validacion/////////////////////
 	  });
 
     var selectraza = "{{instance.raza.id}}"
@@ -179,22 +201,51 @@ $(document).ready(function() {
 
 	function validacion(campo){
 		if(campo==='identificacion'){
-			var truefalse=true;
-			var error=-1;
-			$('.'+campo).each(function(i, elem){
-			console.log('elem1  ',elem);	
-			inputtext = $(elem).val();
-	        console.log('inputtext  ',inputtext);
-			if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
-				$(elem).parent().attr("class","has-error has-feedback");
-				error++;
-				console.log('inputtext2  ',inputtext);
+		var truefalse=true;
+		var error=0;
+		var array = [];
+		$('thead').find('.'+campo).each(function(i, e){
+			var c = e;
+			array.push(c);
+		});
+		console.log('array',array);
+
+		var igual =false;
+
+			for (var i = 0; i < array.length; i++) {
+				for (var j = 0; j < array.length; j++) {
+					if($(array[j]).val() == null || $(array[j]).val().length == 0 || /^\s+$/.test($(array[j]).val())){
+						$(array[j]).parent().attr("class","has-error has-feedback");
+						error++;
+					}
+					else{
+						if(i!=j){	
+							if($(array[i]).val()==$(array[j]).val()){
+								error++;
+								console.log(i,'arrayi',$(array[i]).val(),j,'arrayj',$(array[j]).val());
+								$(array[i]).parent().attr("class","has-error has-feedback");
+								$(array[i]).parent().children("span").text("Dato duplicado ").show();
+								$(array[j]).parent().attr("class","has-error has-feedback");
+								$(array[j]).parent().children("span").text("Dato duplicado ").show();
+								console.log('son iguales');
+								break;
+							}
+							else{
+								igual=false;
+								console.log(i,'arrayi',$(array[i]).val(),j,'arrayj',$(array[j]).val());
+								$(array[j]).parent().attr("class","has-success has-feedback");
+								$(array[j]).parent().children("span").text("").hide();
+								console.log('no son iguales');
+							}
+						
+						}
+						else{
+							$(array[i]).parent().attr("class","has-success has-feedback");
+							$(array[i]).parent().children("span").text("").hide();
+						}
+					}
 				}
-			else{
-				$(elem).parent().attr("class","has-success has-feedback");
-				console.log('inputtext3  ',inputtext);				
-				}	
-			});
+			}
 			
 			if(error > 0){
 				return false;
@@ -203,24 +254,6 @@ $(document).ready(function() {
 				return true;
 			}
 		}//identificacion
-		/*if(campo==='identificacion'){
-	        inputtext = document.getElementById(campo).value;
-	        console.log(inputtext);
-	        if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
-	            $('#icon'+campo).remove();
-	            $('#'+campo).parent().parent().attr("class","has-error has-feedback");
-	            $('#'+campo).parent().children("span").text("Debe ingresar una "+campo+"").show();
-	            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
-	            return false;
-	        }
-	        else{
-	            $("#icon"+campo).remove();
-	            $('#'+campo).parent().parent().attr("class","has-success has-feedback");
-	            $('#'+campo).parent().children("span").text("").hide();
-	            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
-	            return true;                
-	        }
-	    }//identificacion*/
 
 		if(campo==='raza'){
 			var truefalse=true;
@@ -245,19 +278,7 @@ $(document).ready(function() {
 			else{
 				return true;
 			}		
-		}//raza
-		/*if(campo==='raza'){
-			indice = document.getElementById(campo).selectedIndex;
-			console.log(indice);
-			if(indice == null || indice == 0){
-				$('.razaSel').parent().parent().attr("class","form-group has-error");
-				return false;
-			}
-			else{
-				$('.razaSel').parent().parent().attr("class","form-group has-success");
-				return true;
-			}
-		}//especie*/			
+		}//raza			
 	}//validacion
 
 

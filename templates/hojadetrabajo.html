@@ -112,12 +112,17 @@
 		            </div>		            
 		            <div class="panel-body">
 		            	{% for objp in parametros_list %}
-		            	{% if objg.grupo == objp.grupo %}
-		            	<dl class="dl-horizontal">
-		            		<dt>{{ objp.descripcion }}</dt>
-		            		<dd><input type="text" class="form-control" id="_" name="_" value="" placeholder=" {{ objp.unidadmedida}}"></dd>
-		            	</dl>
-						{% endif %}
+			            	{% if objg.grupo == objp.grupo %}
+			            	<dl class="dl-horizontal">
+			            		{% for da in da_list %}
+			            			{% if objp == da.parametros %}
+					            		
+					            		<dt>{{ objp.descripcion }}</dt>
+					            		<dd><input type="text" class="form-control" id="_" name="_" value="{{da.valor}}" placeholder=" {{ objp.unidadmedida}}"></dd>
+					            	{% endif %}
+					            {% endfor %}
+			            	</dl>
+							{% endif %}
 		            	{% endfor %}
 					</div>
 		        </div>
