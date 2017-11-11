@@ -21,8 +21,7 @@
                         <div class="divalidacion">
                             <label class="control-label col-sm-2" for="veterinario">Veterinario:</label>
                             <div class="col-sm-4">
-                                <select class="form-control" name="veterinario" id="
-                                " onchange="validacion('veterinario');"></select>
+                                <select class="form-control" name="veterinario" id="veterinario" onchange="validacion('veterinario');"></select>
                             </div>
                         </div>
                     </div>
@@ -56,7 +55,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="obs">Observaciones:</label>
                         <div class="col-sm-9">
-                            <textarea row="3" class="form-control" id="obs" name="obs" value="{{ instance.obs }}"> </textarea>
+                            <textarea row="3" maxlength="85" class="form-control" id="obs" name="obs" value="{{ instance.obs }}"> </textarea>
                         </div>
                     </div>
 

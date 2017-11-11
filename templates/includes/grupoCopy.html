@@ -39,7 +39,7 @@
 			</thead>
 			<tbody class="paraList">		
 				<tr id="hidden-row" style="display: none">
-					<td><input type="text" class="form-control descripciongrupo" id="descripcion" onkeyup="validacion('descripciongrupo');" name="descripcion" value="{{ instance.descripcion }}"></td>
+					<td><input type="text" maxlength="15" class="form-control descripciongrupo" id="descripcion" onkeyup="validacion('descripciongrupo');" name="descripcion" value="{{ instance.descripcion }}"></td>
 					<td>
 						<select id="select" class="selectpicker tipoDatoSelect">
 							<option value="I">Número Entero</option>
