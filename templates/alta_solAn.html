@@ -21,7 +21,8 @@
                         <div class="divalidacion">
                             <label class="control-label col-sm-2" for="veterinario">Veterinario:</label>
                             <div class="col-sm-4">
-                                <select class="form-control" name="veterinario" id="veterinario" onchange="validacion('veterinario');"></select>
+                                <select class="form-control" name="veterinario" id="
+                                " onchange="validacion('veterinario');"></select>
                             </div>
                         </div>
                     </div>
@@ -184,6 +185,20 @@ $(document).ready(function() {
 $("span.help-block").hide();
 });//ready  
 
+function guardar_solAn(){
+
+        let SolAn = {
+            establecimiento: $('#establecimiento').val(), 
+            veterinario: $('#veterinario').val(),
+            motivo: $('#motivo').val(),
+            especie: $('#especie').val(),
+            fecha: $('#fecha').val(),
+            obs: $('#obs').val(),
+        };
+        
+        localStorage.setItem( "SolAn", JSON.stringify( SolAn ) );
+
+}
 
 /*validacion*/
 function verificar(){
@@ -207,10 +222,13 @@ $("#btnvalidar").click(function(){
     if(verificar() == true){
         $("#formvalidar").submit();
         // los datos estan OK 
-        
+
+        guardar_solAn();
+
         $(location).attr('href',"../../protocolo/alta");
     }
 });// boton validar
+
 
 //funcion retorna array de consulta bd 
 function getconbd(url, method)

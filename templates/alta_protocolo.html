@@ -19,7 +19,7 @@
   <!-- panel de numero de protocolo -->
         <div id="block-protocolo">
 
-          <div class="panel panel-default">
+          <div class="panel panel-default lprotocol">
             <div class="panel-heading">
               <div class="form-group">
                 <div class="divalidacion">
@@ -53,7 +53,7 @@
                                 <label class="control-label col-sm-2" for="diagnostico">Diagnóstico:</label>
                                 <div class="col-sm-4">
                                   <div class="divalidacion">
-                                    <select class="form-control diagnosticoSel diagnostico" name="diagnostico" onchange="validacion('diagnostico');"></select>
+                                    <select class="form-control diagnosticoSel diagnostico ldiag" name="diagnostico" onchange="validacion('diagnostico');"></select>
                                   </div>
                                 </div>
                                 <button class="btn btn-danger btn-sm btn-eliminar-linea">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
@@ -65,8 +65,8 @@
               </div>
 
               <div class="panel-footer">
-                <div  align="right">
-                  <div  class="btn btn-sm" id="rmvBlockProt" >
+                <div id="rmvBlockProt" align="right">
+                  <div  class="btn btn-sm" >
                     Eliminar Protocolo <span class="glyphicon glyphicon-remove"></span>
                   </div>
                 </div> 
@@ -120,10 +120,11 @@ $(document).ready(function() {
   });
 
   $("#addBlockProtocolo").click(function(){
-    var newProt = $('#panelProtocolo').clone()
+    $('#panelProtocolo').clone()
                         .removeAttr('id')
                         .removeAttr('style')
                         .show()
+                        .addClass('lprotocol')
                         .appendTo('#block-protocolo')
     return false;
   });
@@ -178,10 +179,13 @@ $(document).ready(function() {
   $("body").on('click', "#rmvBlockProt", function(){
       if(window.confirm("¿Esta seguro que desea eliminar?"))
       {
-      $(this).parent().parent().parent().remove();
+      $(this).parent().parent().remove();
       }
   });
     
+
+
+
 /*validacion*/
 $("span.help-block").hide();
 
@@ -207,6 +211,7 @@ $("span.help-block").hide();
   $("#btnvalidar").click(function(){
     if(verificar() == true){
       $("#formvalidar").submit();
+      guardar_proto();
       $(location).attr('href',"../../../individuopadre/alta");
     }
   });// boton validar
@@ -225,6 +230,25 @@ $("span.help-block").hide();
           }
       }).responseText);
   }//consulta bd
+
+  function guardar_proto(){
+    let protoSave = [];
+    let diagSave = [];
+    $(".lprotocol").each(function(){
+        var prot = $(this).find("#protocolo").val();
+
+        $(this).find('.diagnostico').each(function(){
+          var diag = $(this).val();
+
+          protoSave.push(prot);
+          diagSave.push(diag);
+          
+        });
+    });
+    localStorage.setItem( "prot", JSON.stringify( protoSave ) );
+    localStorage.setItem( "diag", JSON.stringify( diagSave ) );
+  }
+
 
   function validacion(campo){
     if(campo==='protocolo'){
