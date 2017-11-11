@@ -793,11 +793,11 @@ def d_parametros(request, id=None):
 	instance.activo = False
 	instance.save()
 	return redirect("bsadmin:l_parametros")
-def activar_parametros(request, id=None):
-	instance = get_object_or_404(Parametros, id=id)
-	instance.activo = True
-	instance.save()
-	return redirect("bsadmin:l_parametros")
+# def activar_parametros(request, id=None):
+# 	instance = get_object_or_404(Parametros, id=id)
+# 	instance.activo = True
+# 	instance.save()
+# 	return redirect("bsadmin:l_parametros")
 
 #diagnostico
 def j_diagnostico(request):

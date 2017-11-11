@@ -178,7 +178,7 @@ $(document).ready(function() {
   $("body").on('click', "#rmvBlockProt", function(){
       if(window.confirm("¿Esta seguro que desea eliminar?"))
       {
-      $(this).parent().parent().remove();
+      $(this).parent().parent().parent().remove();
       }
   });
     
@@ -261,36 +261,28 @@ $("span.help-block").hide();
             
             console.log(inputtext);
         if(truefalse == false){
-            $("#icon"+campo).remove();
             $(elem).parent().parent().attr("class","has-error has-feedback");
             $(elem).parent().parent().children("span").text("Existe "+campo+" en base de datos").show();
-            $(elem).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
             //return false;
             error++;
         }
         else{
             if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
-                $('#icon'+campo).remove();
                 $(elem).parent().parent().attr("class","has-error has-feedback");
                 $(elem).parent().parent().children("span").text("Debe ingresar una "+campo+"").show();
-                $(elem).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
                 //return false;
                 error++;
             }
             else{
                   if( isNaN(inputtext)){
-                    $('#icon'+campo).remove();
                     $(elem).parent().parent().attr("class","has-error has-feedback");
                     $(elem).parent().parent().children("span").text("No se acepta letras").show();
-                    $(elem).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
                   //return false;
                   error++;
                   }
                   else{ 
-                    $("#icon"+campo).remove();
                     $(elem).parent().parent().attr("class","has-success has-feedback");
                     $(elem).parent().parent().children("span").text("").hide();
-                    $(elem).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
                     //return true;
                     }                
             }

@@ -246,7 +246,7 @@ function getconbd(url, method)
 }//consulta bd
 
 function validacion(campo){
-    if(campo==='nombre'){
+    if(campo==='nombre' || campo==='RENSPA' || campo==='CUIT'){
         inputtext = document.getElementById(campo).value;
         var truefalse = true;
         var conbd = {};//variable consulta base datos
@@ -261,24 +261,69 @@ function validacion(campo){
         conbd = getconbd("/j_"+vurl+"/", "GET");//consulta json a tabla especificada
         console.log('conbd',conbd);
         if(nuevmodif != 'Modificar'){
-            for(var i=0;i < conbd.length;i++){
-                console.log('conbd[i]',conbd[i].nombre);
-                if(conbd[i].nombre.toUpperCase() == inputtext.toUpperCase().trim()){
-                    console.log(conbd[i].nombre,'-',inputtext);
-                    truefalse=false;
-                    console.log('truefalse adentro',truefalse);
-                    break;      
+            if(campo=='nombre'){
+                for(var i=0;i < conbd.length;i++){
+                    console.log('conbd[i]',conbd[i].nombre);
+                    if(conbd[i].nombre.toUpperCase() == inputtext.toUpperCase().trim()){
+                        console.log(conbd[i].nombre,'-',inputtext);
+                        truefalse=false;
+                        console.log('truefalse adentro',truefalse);
+                        break;      
+                    }
+                }
+            }
+            if(campo=='RENSPA'){
+                for(var i=0;i < conbd.length;i++){
+                    console.log('conbd[i]',conbd[i].RENSPA);
+                    if(conbd[i].RENSPA.toUpperCase() == inputtext.toUpperCase().trim()){
+                        console.log(conbd[i].RENSPA,'-',inputtext);
+                        truefalse=false;
+                        console.log('truefalse adentro',truefalse);
+                        break;      
+                    }
+                }
+            }
+            if(campo=='CUIT'){
+                for(var i=0;i < conbd.length;i++){
+                    console.log('conbd[i]',conbd[i].CUIT);
+                    if(conbd[i].CUIT.toUpperCase() == inputtext.toUpperCase().trim()){
+                        console.log(conbd[i].CUIT,'-',inputtext);
+                        truefalse=false;
+                        console.log('truefalse adentro',truefalse);
+                        break;      
+                    }
                 }
             }
         }
         else{
-            for(var i=0;i < conbd.length;i++){    
-                if(conbd[i].nombre.toUpperCase() == inputtext.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
-                    console.log(conbd[i].nombre,'-',inputtext);
-                    truefalse=false;
-                    console.log('truefalse adentro',truefalse);      
+            if(campo=='nombre'){
+                for(var i=0;i < conbd.length;i++){    
+                    if(conbd[i].nombre.toUpperCase() == inputtext.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
+                        console.log(conbd[i].nombre,'-',inputtext);
+                        truefalse=false;
+                        console.log('truefalse adentro',truefalse);      
+                    }
                 }
             }
+            if(campo=='RENSPA'){
+                for(var i=0;i < conbd.length;i++){    
+                    if(conbd[i].RENSPA.toUpperCase() == inputtext.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
+                        console.log(conbd[i].RENSPA,'-',inputtext);
+                        truefalse=false;
+                        console.log('truefalse adentro',truefalse);      
+                    }
+                }
+            }
+            if(campo=='CUIT'){
+                for(var i=0;i < conbd.length;i++){    
+                    if(conbd[i].CUIT.toUpperCase() == inputtext.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
+                        console.log(conbd[i].CUIT,'-',inputtext);
+                        truefalse=false;
+                        console.log('truefalse adentro',truefalse);      
+                    }
+                }
+            }
+
         }//selector de modificacion
         console.log('truefalse afuera',truefalse);
 
@@ -300,16 +345,44 @@ function validacion(campo){
             return false;
         }
         else{
-            $("#icon"+campo).remove();
-            $('#'+campo).parent().parent().attr("class","has-success has-feedback");
-            $('#'+campo).parent().children("span").text("").hide();
-            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
-            return true;                
+            if(campo!='CUIT'){
+                $("#icon"+campo).remove();
+                $('#'+campo).parent().parent().attr("class","has-success has-feedback");
+                $('#'+campo).parent().children("span").text("").hide();
+                $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+                return true;
+            }
+            else{
+                if( isNaN(inputtext)){
+                    $('#icon'+campo).remove();
+                    $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+                    $('#'+campo).parent().children("span").text("No se acepta letras").show();
+                    $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                    return false;
+                }
+                else
+                {
+                    if (!(/^\d{11}$/.test(inputtext))){
+                        $('#icon'+campo).remove();
+                        $('#'+campo).parent().parent().attr("class","has-error has-feedback");
+                        $('#'+campo).parent().children("span").text("Debe ingresar solo 11 digitos").show();
+                        $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+                        return false;
+                    }
+                    else{
+                        $("#icon"+campo).remove();
+                        $('#'+campo).parent().parent().attr("class","has-success has-feedback");
+                        $('#'+campo).parent().children("span").text("").hide();
+                        $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+                        return true;
+                    } 
+                }
+            }                
         }
     }    
     }//nombre
 
-    if(campo==='partido' || campo==='propietario' || campo==='RENSPA'){
+    if(campo==='partido' || campo==='propietario'){
         inputtext = document.getElementById(campo).value;
         console.log(inputtext);
         if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
@@ -328,7 +401,7 @@ function validacion(campo){
         }
     }//partido,propietario,renspa
 
-    if(campo==='CUIT'){
+    /*if(campo==='CUIT'){
         CUIT = document.getElementById(campo).value;
         console.log(CUIT);
         if(CUIT == null || CUIT.length == 0 || /^\s+$/.test(CUIT)){
@@ -365,7 +438,7 @@ function validacion(campo){
                 } 
             }                
         }
-    }//CUIT    
+    }*///CUIT    
 
     if(campo==='veterinario'){
         indice = document.getElementById(campo).selectedIndex;

@@ -10,7 +10,7 @@
 		<td>Tipo de dato </td>
 		<td>Unidad Medida </td>
 		<td>Grupo </td>
-		<th>Estado</th>
+		<!-- <th>Estado</th> -->
 		<th></th>
 	</tr>
 	{% for obj in object_list %}
@@ -20,13 +20,13 @@
 		<td>{{ obj.tipo_de_dato }}</td>
 		<td>{{ obj.unidadmedida }}</td>
 		<td>{{ obj.grupo }}</td>
-		{% if obj.activo == True %}
+		<!-- {% if obj.activo == True %}
 		<td>Activo</td>
 		<td><a class="btn btn-default btn-sm"href="delete/{{ obj.id }}">Eliminar</a></td>
 		{% else %}
 		<td>Inactivo</td>
 		<td><a class="btn btn-default btn-sm"href="activar/{{ obj.id }}">Activar</a></td>
-		{% endif%}
+		{% endif%} -->
 	
 	</tr>
 	{% endfor %}
