@@ -98,7 +98,7 @@ urlpatterns = [
     url(r'^j_especializacionid/(?P<id>\d+)/$', views.j_especializacionid),
 
     # parametros
-    url(r'^parametros/$', views.l_parametros, name="l_parametros"),
+    #url(r'^parametros/$', views.l_parametros, name="l_parametros"),
     url(r'^parametros/alta/$', views.a_parametros),
     url(r'^parametros/(?P<id>\d+)/$', views.v_parametros, name="v_parametros"),
     url(r'^parametros/update/(?P<id>\d+)/$', views.u_parametros),

@@ -744,14 +744,14 @@ def j_parametrosid(request,id=None):
 	queryset = Parametros.objects.filter(id=id).values()    
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
-# VER SI SE USA l_parametros
-def l_parametros(request):
-	queryset = Parametros.objects.all().order_by('id')
-	context = {
-		"object_list": queryset,
-		"title": "Listado de Parametros"
-	}
-	return render(request, "lista_parametros.html", context)
+# # VER SI SE USA l_parametros
+# def l_parametros(request):
+# 	queryset = Parametros.objects.all().order_by('id')
+# 	context = {
+# 		"object_list": queryset,
+# 		"title": "Listado de Parametros"
+# 	}
+# 	return render(request, "lista_parametros.html", context)
 def a_parametros(request):
 	form = ParametrosForm(request.POST or None)
 	if form.is_valid():
