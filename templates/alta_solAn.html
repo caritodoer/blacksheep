@@ -46,7 +46,7 @@
                         <div class="divalidacion">    
                             <label class="control-label col-sm-2" for="fecha">Fecha:</label>
                             <div class="col-sm-4">
-                                <input type="date" class="form-control fecha" id="fecha" name="fecha" onkeyup="validacion('fecha');" value="{{ instance.fecha }}">
+                                <input type="text" class="form-control fecha" id="fecha" name="fecha" onkeyup="validacion('fecha');" value="{{ instance.fecha }}">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -87,6 +87,8 @@
 <script type="text/javascript">
 // para los select
 $(document).ready(function() {
+  $( "#fecha" ).datepicker();
+
 	var selectestablecimiento = "{{ instance.establecimiento.id }}"
 	var selectveterinario = "{{instance.veterinario.id }}"
 	var selectmotivo = "{{instance.motivo.id }}"

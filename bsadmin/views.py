@@ -752,26 +752,26 @@ def j_parametrosid(request,id=None):
 # 		"title": "Listado de Parametros"
 # 	}
 # 	return render(request, "lista_parametros.html", context)
-def a_parametros(request):
-	form = ParametrosForm(request.POST or None)
-	if form.is_valid():
-		instance = form.save(commit=False)
-		instance.save()
-		return HttpResponseRedirect(instance.get_absolute_url())
-	else:
-		print (form.errors)
-	context = {
-		"title": "Nuevo Parametro",
-		"form": form,
-	}
-	return render(request, "alta_parametros.html", context)
-def v_parametros(request, id=None):
-	instance = get_object_or_404(Parametros, id=id)
-	context = {
-		"instance": instance,
-		"title": "Detalle de Parametros"
-	}	
-	return render(request, "detalle_parametros.html", context)
+# def a_parametros(request):
+# 	form = ParametrosForm(request.POST or None)
+# 	if form.is_valid():
+# 		instance = form.save(commit=False)
+# 		instance.save()
+# 		return HttpResponseRedirect(instance.get_absolute_url())
+# 	else:
+# 		print (form.errors)
+# 	context = {
+# 		"title": "Nuevo Parametro",
+# 		"form": form,
+# 	}
+# 	return render(request, "alta_parametros.html", context)
+# def v_parametros(request, id=None):
+# 	instance = get_object_or_404(Parametros, id=id)
+# 	context = {
+# 		"instance": instance,
+# 		"title": "Detalle de Parametros"
+# 	}	
+# 	return render(request, "detalle_parametros.html", context)
 def u_parametros(request, id=None):
 	instance = get_object_or_404(Parametros, id=id)
 	form = ParametrosForm(request.POST or None, instance=instance)
@@ -898,34 +898,34 @@ def j_valoresreferenciaid(request,id=None):
 	queryset = ValoresReferencia.objects.filter(id=id).values()    
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
-# VER SI SE USA l_valoresreferencia
-def l_valoresreferencia(request):
-	queryset = ValoresReferencia.objects.all().order_by('id')
-	context = {
-		"object_list": queryset,
-		"title": "Listado de ValoresReferencia"
-	}
-	return render(request, "lista_valoresreferencia.html", context)
-def a_valoresreferencia(request):
-	form = ValoresReferenciaForm(request.POST or None)
-	if form.is_valid():
-		instance = form.save(commit=False)
-		instance.save()
-		return HttpResponseRedirect(instance.get_absolute_url())
-	else:
-		print (form.errors)
-	context = {
-		"title": "Nueva ValoresReferencia",
-		"form": form,
-	}
-	return render(request, "alta_valoresreferencia.html", context)
-def v_valoresreferencia(request, id=None):
-	instance = get_object_or_404(ValoresReferencia, id=id)
-	context = {
-		"instance": instance,
-		"title": "Detalle de ValoresReferencia"
-	}	
-	return render(request, "detalle_valoresreferencia.html", context)
+# # VER SI SE USA l_valoresreferencia
+# def l_valoresreferencia(request):
+# 	queryset = ValoresReferencia.objects.all().order_by('id')
+# 	context = {
+# 		"object_list": queryset,
+# 		"title": "Listado de ValoresReferencia"
+# 	}
+# 	return render(request, "lista_valoresreferencia.html", context)
+# def a_valoresreferencia(request):
+# 	form = ValoresReferenciaForm(request.POST or None)
+# 	if form.is_valid():
+# 		instance = form.save(commit=False)
+# 		instance.save()
+# 		return HttpResponseRedirect(instance.get_absolute_url())
+# 	else:
+# 		print (form.errors)
+# 	context = {
+# 		"title": "Nueva ValoresReferencia",
+# 		"form": form,
+# 	}
+# 	return render(request, "alta_valoresreferencia.html", context)
+# def v_valoresreferencia(request, id=None):
+# 	instance = get_object_or_404(ValoresReferencia, id=id)
+# 	context = {
+# 		"instance": instance,
+# 		"title": "Detalle de ValoresReferencia"
+# 	}	
+# 	return render(request, "detalle_valoresreferencia.html", context)
 def u_valoresreferencia(request, id=None):
 	instance = get_object_or_404(ValoresReferencia, id=id)
 	form = ValoresReferenciaForm(request.POST or None, instance=instance)

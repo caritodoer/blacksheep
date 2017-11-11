@@ -50,13 +50,13 @@ def j_solicitudanalisisid(request,id=None):
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
-def l_solicitudanalisis(request):
-	queryset = SolicitudAnalisis.objects.all().order_by('id')
-	context = {
-		"object_list": queryset,
-		"title": "Listado de Solicitudes de Analisis"
-	}
-	return render(request, "list_solAn.html", context)
+# def l_solicitudanalisis(request):
+# 	queryset = SolicitudAnalisis.objects.all().order_by('id')
+# 	context = {
+# 		"object_list": queryset,
+# 		"title": "Listado de Solicitudes de Analisis"
+# 	}
+# 	return render(request, "list_solAn.html", context)
 
 def a_solicitudanalisis(request):
 	form = SolicitudAnalisisForm(request.POST or None)
@@ -72,13 +72,13 @@ def a_solicitudanalisis(request):
 	}
 	return render(request, "alta_solAn.html", context)
 
-def v_solicitudanalisis(request, id=None):
-	instance = get_object_or_404(SolicitudAnalisis, id=id)
-	context = {
-		"instance" : instance,
-		"title": "Detalle de Solicitud de Analisis",
-	}
-	return render(request, "ver_solAn.html", context)
+# def v_solicitudanalisis(request, id=None):
+# 	instance = get_object_or_404(SolicitudAnalisis, id=id)
+# 	context = {
+# 		"instance" : instance,
+# 		"title": "Detalle de Solicitud de Analisis",
+# 	}
+# 	return render(request, "ver_solAn.html", context)
 
 def u_solicitudanalisis(request, id=None):
 	instance = get_object_or_404(SolicitudAnalisis,id=id)
@@ -113,13 +113,13 @@ def j_protocoloid(request,id=None):
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
-def l_protocolo(request):
-	queryset = Protocolo.objects.all().order_by('id')
-	context = {
-		"object_list": queryset,
-		"title": "Listado de Protocolos"
-	}
-	return render(request, "list_protocolo.html", context)
+# def l_protocolo(request):
+# 	queryset = Protocolo.objects.all().order_by('id')
+# 	context = {
+# 		"object_list": queryset,
+# 		"title": "Listado de Protocolos"
+# 	}
+# 	return render(request, "list_protocolo.html", context)
 
 def a_protocolo(request):
 	form = ProtocoloForm(request.POST or None)
@@ -168,13 +168,13 @@ def j_individuopadreid(request,id=None):
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
-def l_individuopadre(request):
-	queryset = IndividuoPadre.objects.all().order_by('id')
-	context = {
-		"object_list": queryset,
-		"title": "Listado de Individuos Padre"
-	}
-	return render(request, "list_indivp.html", context)
+# def l_individuopadre(request):
+# 	queryset = IndividuoPadre.objects.all().order_by('id')
+# 	context = {
+# 		"object_list": queryset,
+# 		"title": "Listado de Individuos Padre"
+# 	}
+# 	return render(request, "list_indivp.html", context)
 
 def a_individuopadre(request):
 	form = IndividuoPadreForm(request.POST or None)
@@ -190,13 +190,13 @@ def a_individuopadre(request):
 	}
 	return render(request, "alta_indivp.html", context)
 
-def v_individuopadre(request, id=None):
-	instance = get_object_or_404(IndividuoPadre, id=id)
-	context = {
-		"instance" : instance,
-		"title": "Detalle de Individuo Padre",
-	}
-	return render(request, "ver_indivp.html", context)
+# def v_individuopadre(request, id=None):
+# 	instance = get_object_or_404(IndividuoPadre, id=id)
+# 	context = {
+# 		"instance" : instance,
+# 		"title": "Detalle de Individuo Padre",
+# 	}
+# 	return render(request, "ver_indivp.html", context)
 
 def u_individuopadre(request, id=None):
 	instance = get_object_or_404(IndividuoPadre,id=id)
@@ -231,35 +231,35 @@ def j_individuosid(request,id=None):
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
-def l_individuos(request):
-	queryset = Individuos.objects.all().order_by('id')
-	context = {
-		"object_list": queryset,
-		"title": "Listado de Individuos"
-	}
-	return render(request, "list_indiv.html", context)
+# def l_individuos(request):
+# 	queryset = Individuos.objects.all().order_by('id')
+# 	context = {
+# 		"object_list": queryset,
+# 		"title": "Listado de Individuos"
+# 	}
+# 	return render(request, "list_indiv.html", context)
 
-def a_individuos(request):
-	form = IndividuosForm(request.POST or None)
-	if form.is_valid():
-		instance = form.save(commit=False)
-		instance.save()
-		return HttpResponseRedirect(instance.get_absolute_url())
-	else:
-		print (form.errors)
-	context = {
-		"title" : "Nuevo Individuo",
-		"form" : form,
-	}
-	return render(request, "alta_indiv.html", context)
+# def a_individuos(request):
+# 	form = IndividuosForm(request.POST or None)
+# 	if form.is_valid():
+# 		instance = form.save(commit=False)
+# 		instance.save()
+# 		return HttpResponseRedirect(instance.get_absolute_url())
+# 	else:
+# 		print (form.errors)
+# 	context = {
+# 		"title" : "Nuevo Individuo",
+# 		"form" : form,
+# 	}
+# 	return render(request, "alta_indiv.html", context)
 
-def v_individuos(request, id=None):
-	instance = get_object_or_404(Individuos, id=id)
-	context = {
-		"instance" : instance,
-		"title": "Detalle de Individuo",
-	}
-	return render(request, "ver_indiv.html", context)
+# def v_individuos(request, id=None):
+# 	instance = get_object_or_404(Individuos, id=id)
+# 	context = {
+# 		"instance" : instance,
+# 		"title": "Detalle de Individuo",
+# 	}
+# 	return render(request, "ver_indiv.html", context)
 
 def u_individuos(request, id=None):
 	instance = get_object_or_404(Individuos,id=id)
@@ -294,27 +294,27 @@ def j_detalleanalisisid(request,id=None):
 	queryset = list(queryset)  
 	return JsonResponse(queryset, safe=False)
 
-def l_detalleanalisis(request):
-	queryset = DetalleAnalisis.objects.all().order_by('id')
-	context = {
-		"object_list": queryset,
-		"title": "Listado de Detalle Analisis"
-	}
-	return render(request, "list_detAn.html", context)
+# def l_detalleanalisis(request):
+# 	queryset = DetalleAnalisis.objects.all().order_by('id')
+# 	context = {
+# 		"object_list": queryset,
+# 		"title": "Listado de Detalle Analisis"
+# 	}
+# 	return render(request, "list_detAn.html", context)
 
-def a_detalleanalisis(request):
-	form = DetalleAnalisisForm(request.POST or None)
-	if form.is_valid():
-		instance = form.save(commit=False)
-		instance.save()
-		return HttpResponseRedirect(instance.get_absolute_url())
-	else:
-		print (form.errors)
-	context = {
-		"title" : "Nuevo Detalle Analisis",
-		"form" : form,
-	}
-	return render(request, "alta_detAn.html", context)
+# def a_detalleanalisis(request):
+# 	form = DetalleAnalisisForm(request.POST or None)
+# 	if form.is_valid():
+# 		instance = form.save(commit=False)
+# 		instance.save()
+# 		return HttpResponseRedirect(instance.get_absolute_url())
+# 	else:
+# 		print (form.errors)
+# 	context = {
+# 		"title" : "Nuevo Detalle Analisis",
+# 		"form" : form,
+# 	}
+# 	return render(request, "alta_detAn.html", context)
 
 def v_detalleanalisis(request, id=None):
 	instance = get_object_or_404(DetalleAnalisis, id=id)
