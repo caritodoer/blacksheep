@@ -99,8 +99,8 @@ urlpatterns = [
 
     # parametros
     #url(r'^parametros/$', views.l_parametros, name="l_parametros"),
-    url(r'^parametros/alta/$', views.a_parametros),
-    url(r'^parametros/(?P<id>\d+)/$', views.v_parametros, name="v_parametros"),
+    #url(r'^parametros/alta/$', views.a_parametros),
+    #url(r'^parametros/(?P<id>\d+)/$', views.v_parametros, name="v_parametros"),
     url(r'^parametros/update/(?P<id>\d+)/$', views.u_parametros),
     url(r'^parametros/delete/(?P<id>\d+)/$', views.d_parametros),
     #url(r'^parametros/activar/(?P<id>\d+)/$', views.activar_parametros),
@@ -118,9 +118,9 @@ urlpatterns = [
     url(r'^j_diagnosticoid/(?P<id>\d+)/$', views.j_diagnosticoid),
 
     # valoresreferencia
-    url(r'^valoresreferencia/$', views.l_valoresreferencia, name="l_valoresreferencia"),
-    url(r'^valoresreferencia/alta/$', views.a_valoresreferencia),
-    url(r'^valoresreferencia/(?P<id>\d+)/$', views.v_valoresreferencia, name="v_valoresreferencia"),
+    #url(r'^valoresreferencia/$', views.l_valoresreferencia, name="l_valoresreferencia"),
+    #url(r'^valoresreferencia/alta/$', views.a_valoresreferencia),
+    #url(r'^valoresreferencia/(?P<id>\d+)/$', views.v_valoresreferencia, name="v_valoresreferencia"),
     url(r'^valoresreferencia/update/(?P<id>\d+)/$', views.u_valoresreferencia),
     url(r'^valoresreferencia/delete/(?P<id>\d+)/$', views.d_valoresreferencia),
     url(r'^valoresreferencia/activar/(?P<id>\d+)/$', views.activar_valoresreferencia),

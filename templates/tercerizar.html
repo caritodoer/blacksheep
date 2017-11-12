@@ -60,13 +60,13 @@
 			                    <div class="form-group">
 			                            <label class="control-label col-sm-2" for="fecha_envio">Fecha de Envío:</label>
 			                            <div class="col-sm-3">
-			                                <input type="date" class="form-control" id="fecha_envio" name="fecha_envio" value="{{instance_t.fecha_envio}}">
+			                                <input type="text" class="form-control" id="fecha_envio" name="fecha_envio" value="{{instance_t.fecha_envio}}">
 			                            </div>
 			                    </div>
 			                    <div class="form-group">
 			                            <label class="control-label col-sm-2" for="fecha_devolucion">Fecha de Devolución:</label>
 			                            <div class="col-sm-3">
-			                                <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="{{instance_t.fecha_devolucion}}">
+			                                <input type="test" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="{{instance_t.fecha_devolucion}}">
 			                            </div>
 			                    </div>
 			                    <div class="form-group">
@@ -101,6 +101,10 @@
 
 {% endblock %}
 {% block javascript %} 
-
-
+<script type="text/javascript">
+$(document).ready(function() {
+    $( "#fecha_envio" ).datepicker();
+    $( "#fecha_devolucion" ).datepicker();
+});
+</script>
 {% endblock %}

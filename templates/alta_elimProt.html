@@ -61,7 +61,7 @@
  								<div class="form-group">
 									<label class="control-label col-sm-2" for="fecha">Fecha:</label>
 			                        <div class="col-sm-3">
-			                            <input type="date" class="form-control" id="fecha" name="fecha" value="{{ instance_ep.fecha }}">
+			                            <input type="text" class="form-control" id="fecha" name="fecha" value="{{ instance_ep.fecha }}">
 			                        </div>
 			                    </div>
 								<div class="form-group">
@@ -99,6 +99,8 @@
 {% block javascript %} 
 <script type="text/javascript">
 $(document).ready(function() {
+	  $( "#fecha" ).datepicker();
+
 	var select = "{{ instance.protocolo.id }}"
 	$.ajax({
         url:"/j_protocolo/",

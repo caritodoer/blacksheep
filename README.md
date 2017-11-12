@@ -11,8 +11,8 @@ OK - en Diagnostico.piepagina = textinput max_length=100 caracteres
 OK - en SolicitudAnalisis.obs = textinput max_length=85 caracteres
 OK - en Parametros.descripcion = textinput max_length=15 caracteres
 en DAP.valor = textinput max_length=10 caracteres
-en Parametros.unidad de medida = textinput max_length=5 caracteres
-en valores de referencia = textinput max_length=15 caracteres
+OK - en Parametros.unidad de medida = textinput max_length=5 caracteres
+OK - en valores de referencia = textinput max_length=15 caracteres
 
 - En "Registrar Protocolos":
 	ok* Cuando no hay protocolos que emita mensaje de error y no permita irse de la pagina.
