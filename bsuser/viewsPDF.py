@@ -385,8 +385,9 @@ def hojadetrabajo(request, id=None):
 					]
 				))
 				# print(len(headings))
+				t._argW[0]=1*inch
 				for i in range (1,len(headings)):
-					t._argW[i]=1.4*inch
+					t._argW[i]=1.3*inch
 				# t._argW[3]=5.5*inch
 				Story.append(t)
 				Story.append(Spacer(1, 12))

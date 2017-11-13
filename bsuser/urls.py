@@ -11,7 +11,7 @@ from bsuser import viewsPDF
 # j: json
 
 urlpatterns = [
-	url(r'^$', views.login),
+	
     url(r'^home_user/$', views.home_user, name="home_user"),
 
     # Solicitud Analisis

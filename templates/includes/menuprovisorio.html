@@ -8,63 +8,75 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-
-			<a class="navbar-brand" href="/">Laboratorio de Diagnóstico <small>Dr. Raul Chifflet</small></a>
+			 {% if user.is_staff %}
+			<a class="navbar-brand" href="/home_admin">Laboratorio de Diagnóstico <small>Dr. Raul Chifflet</small></a>
+			 {% endif %}
+			  {% if not user.is_staff %}
+			<a class="navbar-brand" href="/home_user">Laboratorio de Diagnóstico <small>Dr. Raul Chifflet</small></a>
+			 {% endif %}
 		</div>
 
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
+		{% if user.is_staff %}
+				<ul class="nav navbar-nav">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listados <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							
+							<li><a href="/veterinario">Veterinarios</a></li>
+							<li><a href="/establecimiento">Establecimientos</a></li>
+							<li><a href="/diagnostico">Diagnostico</a></li>
+							<li><a href="/usuarios">Usuarios</a></li>
 
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="/home_admin">Inicio</a></li>
+							<li role="separator" class="divider"></li>
 
-						<li role="separator" class="divider"></li>
+							<li><a href="/categoria">Categorias</a></li>
+							<li><a href="/explotacion">Explotaciones</a></li>
+							<li><a href="/especie">Especies</a></li>
+							<li><a href="/muestra">Muestras</a></li>
+							<li><a href="/motivos">Motivos</a></li>
+							<li><a href="/raza">Razas</a></li>
+							<li><a href="/categoriae">Categorias de Especie</a></li>
+							<li><a href="/especializacion">Especializaciones</a></li>
+	    				</ul>
+	    			</li>
+	    			<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Altas <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							
+							<li><a href="/veterinario/alta">Veterinarios</a></li>
+							<li><a href="/establecimiento/alta">Establecimientos</a></li>
+							<li><a href="/diagnostico/alta">Diagnostico</a></li>
+							<li><a href="/register">Usuarios</a></li>
 
-						<li><a href="/veterinario">Veterinarios</a></li>
-						<li><a href="/establecimiento">Establecimientos</a></li>
-						<li><a href="/diagnostico">Diagnostico</a></li>
+							<li role="separator" class="divider"></li>
 
-						<li role="separator" class="divider"></li>
+							<li><a href="/categoria/alta">Categorias</a></li>
+							<li><a href="/explotacion/alta">Explotaciones</a></li>
+							<li><a href="/especie/alta">Especies</a></li>
+							<li><a href="/muestra/alta">Muestras</a></li>
+							<li><a href="/motivos/alta">Motivos</a></li>
+							<li><a href="/raza/alta">Razas</a></li>
+							<li><a href="/categoriae/alta">Categorias de Especie</a></li>
+							<li><a href="/especializacion/alta">Especializaciones</a></li>
+	    				</ul>
+	    			</li>
+	    		</ul>
+		{% endif %}
+		
+		{% if not user.is_staff %}
+		<ul class="nav navbar-nav">
+			<li><a href="/solicitudanalisis/alta"/alta> <span class="glyphicon glyphicon-plus"></span>  Nueva Solicitud de Analisis</a></li>
 
-						<li><a href="/categoria">Categorias</a></li>
-						<li><a href="/explotacion">Explotaciones</a></li>
-						<li><a href="/especie">Especie</a></li>
-						<li><a href="/muestra">Muestras</a></li>
-						<li><a href="/motivos">Motivos</a></li>
-						<li><a href="/raza">Raza</a></li>
-						<li><a href="/categoriae">Categoria de Especie</a></li>
-						<li><a href="/especializacion">Especializacion</a></li>
-    				</ul>
-    			</li>
-
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sistema de Gestión<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="/home_user">Inicio</a></li>
-						
-						<li role="separator" class="divider"></li>
-
-						<li><a href="/solicitudanalisis/alta">Solicitud de Analisis</a></li>
-						<li><a href="/protocolo/alta">Protocolo</a></li>
-						<li><a href="/individuopadre/alta">Individuos</a></li>
-
-						<li role="separator" class="divider"></li>
-
-						<li><a href="/eliminacionprotocolo">Protocolo Eliminados</a></li>
-						<li><a href="/tercerizar">Protocolos Tercerizados</a></li>
-
-					</ul>
-				</li>
-
-			</ul>
+			<li><a href="/eliminacionprotocolo">Ver Protocolo Eliminados</a></li>
+			<li><a href="/tercerizar">VerProtocolos Tercerizados</a></li>
+		</ul>
+		{% endif %}
 			
 		    <ul class="nav navbar-nav navbar-right">
-        		<li><p class="navbar-text">Bienvenido <i>Usuario</i></p></li>
-        		<li><a href="#">Logout</a></li>
+        		<li><p class="navbar-text">Bienvenido <i>{{ user.username }}</i></p></li>
+        		<li><a href="{% url 'logout' %}">Logout</a></li>
     		</ul>
-		</div>
+		
 	</div>
 </nav>
 
