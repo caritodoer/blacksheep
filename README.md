@@ -7,7 +7,9 @@
 faltan valores de referencia en los infromes en la parte de las tablas. donde lo pongo?? con titulo de Valores de Referencia y despues items con cada parametro.
 
 EN VALIDACIONES & MODELS :
+
 en DAP.valor = textinput max_length=10 caracteres
+
 
 - En "Registrar Protocolos":
 	X* Falta que no repita las muestras ni los diagnosticos
