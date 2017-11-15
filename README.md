@@ -10,7 +10,6 @@ EN VALIDACIONES & MODELS :
 
 en DAP.valor = textinput max_length=10 caracteres
 
-
 - En "Registrar Protocolos":
 	X* Falta que no repita las muestras ni los diagnosticos
 	X* los diagnosticos que propone deberian ser segun la muestra

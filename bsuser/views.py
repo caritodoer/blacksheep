@@ -337,15 +337,18 @@ def j_detalleanalisisid(request,id=None):
 # 	}
 # 	return render(request, "alta_detAn.html", context)
 
-def v_detalleanalisis(request, id=None):
-	if not request.user.is_authenticated() or request.user.is_staff:
-		raise Http404
-	instance = get_object_or_404(DetalleAnalisis, id=id)
-	context = {
-		"instance" : instance,
-		"title": "Detalle de Analisis",
-	}
-	return render(request, "ver_detAn.html", context)
+# def v_detalleanalisis(request, id=None):
+# 	if not request.user.is_authenticated() or request.user.is_staff:
+# 		raise Http404
+# 	instance = get_object_or_404(DetalleAnalisis, id=id)
+
+
+
+# 	context = {
+# 		"instance" : instance,
+# 		"title": "Detalle de Analisis",
+# 	}
+# 	return render(request, "ver_detAn.html", context)
 
 def u_detalleanalisis(request, id=None):
 	if not request.user.is_authenticated() or request.user.is_staff:
@@ -425,13 +428,46 @@ def v_DetalleAnalisisPadre(request, id=None):
 		det_ind = Individuos.objects.all().order_by('id').filter(padre=ind.individuoPadre)
 		dict_ind[k]=det_ind
 	#print(dict_ind)
-		
-	
+
+	# hacer: por cada DAP {dap: estado}
+	da_all = DetalleAnalisis.objects.all().filter(solicitud=solic)
+	total=0
+	completo=0
+	vacio=0
+	estado=""
+	ter = Tercerizacion.objects.all().filter(detalleanalisispadre=instance)
+	print(queryset)
+	object_dict = {}
+	for dap in queryset:
+		k=dap
+		if instance.diagnostico.tercerizacion or ter:
+			print("Tercerizado")
+			estado="Tercerizado"
+		else:
+			for da in da_all:
+				if da.valor == "":
+					completo=completo+1
+				else:
+					vacio=vacio+1
+				total=total+1
+			if total==completo:
+				print("completo")
+				estado="Completo"
+			elif total == vacio:
+				print("vacio")
+				estado="Vacio"
+			else:
+				print("incompleto")
+				estado="Incompleto"
+		object_dict[k]=estado
+	print(object_dict)
+
 	context = {
+		"estado":estado,
 		"dict_ind": dict_ind, #queryset_Ind,
-		"object_list": queryset,
+		"object_dict": object_dict,
 		"instance" : instance,
-			"title": "Detalle de Analisis",
+		"title": "Detalle de Analisis",
 	}
 	return render(request, "ver_detAn.html", context)
 
@@ -697,8 +733,10 @@ def hojadetrabajo(request, id=None):
 	grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
 
 	# trae un unico individuo para la parte del listar los ítmes una sola vez en el HTML	
-	cant_indi = len(all_indiv_de_solic)
-	indi = all_indiv_de_solic[cant_indi-1]
+	indi=0
+	if all_indiv_de_solic:
+		cant_indi = len(all_indiv_de_solic)
+		indi = all_indiv_de_solic[cant_indi-1]
 
 	# listado de valores de referencia filtrado por diag + param + especie
 	vdr_all = ValoresReferencia.objects.all()

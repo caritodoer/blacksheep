@@ -52,7 +52,7 @@ urlpatterns = [
     # Detalle Analisis
     #url(r'^detalleanalisis/$', views.l_detalleanalisis, name="l_detalleanalisis"),
     #url(r'^detalleanalisis/alta/$', views.a_detalleanalisis),
-    url(r'^detalleanalisis/(?P<id>\d+)/$', views.v_detalleanalisis, name="v_detalleanalisis"),
+    #url(r'^detalleanalisis/(?P<id>\d+)/$', views.v_detalleanalisis, name="v_detalleanalisis"),
     url(r'^detalleanalisis/update/(?P<id>\d+)/$', views.u_detalleanalisis),
     url(r'^detalleanalisis/delete/(?P<id>\d+)/$', views.d_detalleanalisis),
     url(r'^j_detalleanalisis/$', views.j_detalleanalisis),

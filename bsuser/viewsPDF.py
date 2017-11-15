@@ -23,10 +23,28 @@ styles = getSampleStyleSheet()
 
 pdfmetrics.registerFont(TTFont('Existence-Light', '../blacksheep/static/fonts/Existence-Light.ttf'))
 pdfmetrics.registerFont(TTFont('Ubuntu-B', '../blacksheep/static/fonts/ubuntu-font-family-0.83/Ubuntu-B.ttf'))
+pdfmetrics.registerFont(TTFont('Ubuntu-L', '../blacksheep/static/fonts/ubuntu-font-family-0.83/Ubuntu-L.ttf'))
 pdfmetrics.registerFont(TTFont('Ubuntu-M', '../blacksheep/static/fonts/ubuntu-font-family-0.83/Ubuntu-M.ttf'))
-styles.add(ParagraphStyle(name='tit2', alignment=TA_CENTER, fontName = "Ubuntu-B",
-			fontSize = 14))
+pdfmetrics.registerFont(TTFont('Ubuntu-C', '../blacksheep/static/fonts/ubuntu-font-family-0.83/Ubuntu-C.ttf'))
+pdfmetrics.registerFont(TTFont('Ubuntu-R', '../blacksheep/static/fonts/ubuntu-font-family-0.83/Ubuntu-R.ttf'))
+
+styles.add(ParagraphStyle(name='tit2', alignment=TA_CENTER, fontName = "Ubuntu-M", fontSize = 14))
+styles.add(ParagraphStyle(name='tit1', alignment=TA_CENTER, fontName = "Existence-Light", fontSize = 16))
+styles.add(ParagraphStyle(name='tit3', alignment=TA_LEFT, fontName = "Ubuntu-L", fontSize = 12))
+styles.add(ParagraphStyle(name='tablas', alignment=TA_LEFT, fontName = "Ubuntu-C", fontSize = 11))
+styles.add(ParagraphStyle(name='textos', alignment=TA_LEFT, fontName = "Ubuntu-R", fontSize = 10))
+
+tit1 = styles["tit1"]
 tit2 = styles["tit2"]
+tit3 = styles["tit3"]
+tablas = styles["tablas"]
+textos = styles["textos"]
+
+LIST_STYLE = TableStyle(
+	[('GRID', (0,0), (10, -1), 1, colors.dodgerblue),
+	('BACKGROUND', (0,0), (-1, 0), colors.dodgerblue),
+	('FONT', (0,0), (-1, -1), 'Ubuntu-C', 10)]
+)
 
 
 def encabezado(canvas):
@@ -62,26 +80,26 @@ def encabezado(canvas):
 		canvas.restoreState()
 def solicitud(canvas, instance_dap, title):
 	canvas.saveState()
-	canvas.setFont('Ubuntu-B', 15)
+	canvas.setFont('Ubuntu-M', 16)
 	canvas.drawCentredString(PAGE_WIDTH/2.0, PAGE_HEIGHT-100, title)
 
+	canvas.setFont("Ubuntu-R", 9)
 	establ= instance_dap.solicitud.establecimiento
 	prop=instance_dap.solicitud.establecimiento.propietario
 	renspa= instance_dap.solicitud.establecimiento.RENSPA
 	vet= instance_dap.solicitud.veterinario
 	obs=instance_dap.solicitud.obs
 	solicitud_parts  = ["Establecimiento: %s" %(establ), "Propietario: %s" %(prop), "R.E.N.S.P.A.: %s" %(renspa), "Veterinario: %s" %(vet), "Observaciones: %s" %(obs)]
-	canvas.setFont("Helvetica", 9)
 	y=PAGE_HEIGHT-130
 	for part in solicitud_parts:
 		canvas.drawString (0.75*inch, y, part)
 		y=y-10
 
-	fecha="22/10/2010"
+	fecha=instance_dap.solicitud.fecha
 	motivo= instance_dap.solicitud.motivo
 	protocolo=instance_dap.protocolo
 	solicitud_parts  = ["Fecha Recepción: %s" %(fecha), "Motivo: %s" %(motivo), "N° de Protocolo: %s" %(protocolo)]
-	canvas.setFont("Helvetica", 9)
+	# canvas.setFont("Helvetica", 9)
 	y=PAGE_HEIGHT-130
 	for part in solicitud_parts:
 		canvas.drawString (PAGE_WIDTH/2.0, y, part)
@@ -107,7 +125,7 @@ def primeraPagina(canvas, doc, instance_dap, title):
 		solicitud(canvas, instance_dap, title)
 		canvas.saveState()
 		# numeracion de pagina
-		canvas.setFont('Times-Roman', 9)
+		canvas.setFont('Ubuntu-R', 8)
 		canvas.drawString(inch, 1.00 * inch, "%s" %(piepagina))
 		canvas.drawString(inch, 0.75 * inch, "Primera pagina / %s %s" %(nombre, subtitulo))
 		canvas.restoreState()
@@ -128,7 +146,7 @@ def myLaterPages(canvas, doc):
 		canvas.saveState()
 		encabezado(canvas)
 		# numeracion de pagina
-		canvas.setFont('Times-Roman', 9)
+		canvas.setFont('Ubuntu-R', 8)
 		canvas.drawString(inch, 0.75 * inch, "Página %d / %s %s" %(doc.page, nombre, subtitulo))
 		canvas.restoreState()
 
@@ -143,7 +161,11 @@ def informe(request, id=None):
 	all_indiv_de_solic = DetalleAnalisis.objects.distinct('individuoPadre').filter(solicitud=solic)
 	grupo_list_t = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="T")
 	grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
-	
+	grupo_gral = Parametros.objects.distinct('grupo').filter(diagnostico=diag)
+	# trae un unico individuo para la parte del listar los ítmes una sola vez en el HTML	
+	cant_indi = len(all_indiv_de_solic)
+	indi = all_indiv_de_solic[cant_indi-1]
+
 	# listado de valores de referencia filtrado por diag + param + especie
 	vdr_all = ValoresReferencia.objects.all()
 	vdr_list=[]
@@ -152,7 +174,8 @@ def informe(request, id=None):
 			if v.parametros == p:
 				if v.especie == instance.solicitud.especie:
 					vdr_list.append(v)
-	
+	print("vdr_list")
+	print(vdr_list)
 	da_all = DetalleAnalisis.objects.all().filter(solicitud=solic)
 	da_list = {}
 	for p in all_param_del_diag:
@@ -177,8 +200,8 @@ def informe(request, id=None):
 								valor=""
 								ban1=1
 					da_list[da]=valor
-	print("da_list")
-	print(da_list)
+	# print("da_list")
+	# print(da_list)
 
 
 	grupos = {}
@@ -226,12 +249,12 @@ def informe(request, id=None):
 		Story.append(Spacer(1, 12))
 		
 		#Definimos un estilo
-		style = styles["Normal"]
+		style = styles["textos"]
 		Story.append(Spacer(1, 12))
 
 		for key, value in grupos.items():
 			for v in value:
-				header = Paragraph(key, tit2)
+				header = Paragraph(key, tit3)
 				Story.append(header)
 				Story.append(Spacer(1, 20))
 				headings = ["#ID", ]
@@ -250,48 +273,74 @@ def informe(request, id=None):
 					allregistros.append(registros)
 					#print(allregistros)
 				t = Table([headings] + allregistros)
-				t.setStyle(TableStyle(
-					[
-						('GRID', (0,0), (10, -1), 1, colors.dodgerblue),
-						# ('LINEBELOW', (0,0), (-1, 0), 2, colors.darkblue),
-						('BACKGROUND', (0,0), (-1, 0), colors.dodgerblue)
-					]
-				))
+				t.setStyle(LIST_STYLE)
 				# print(len(headings))
+				t._argW[0]=1*inch
 				for i in range (1,len(headings)):
-					t._argW[i]=1.4*inch
+					t._argW[i]=1.3*inch
 				# t._argW[3]=5.5*inch
 				Story.append(t)
 				Story.append(Spacer(1, 12))
 		
 		for g in grupo_list_i:
-			header=Paragraph(g.grupo, tit2)
+			header=Paragraph(g.grupo, tit3)
 			Story.append(header)
 			Story.append(Spacer(1, 12))
 
 			for p in all_param_del_diag:
 				if g.grupo == p.grupo:
 					for da in da_all:
-						if p == da.parametros:
-							par_val=p.descripcion+": "+da.valor
-							ban2=0
-							for vdr in vdr_list:
-								if  vdr.parametros == p:
-									vdr_valor = " - Valor de Referencia: "+vdr.valorRef
-									ban2=1
-							if ban2 == 0:
-								item_p = Paragraph(par_val, style)
-								Story.append(item_p)
-							else:	
-								item_p = Paragraph(par_val+vdr_valor, style)
-								Story.append(item_p)
+						if p == da.parametros and da == indi:
+							par_val=" - "+p.descripcion+": "+da.valor
 
-		Story.append(Spacer(1, 12))
+							item_p = Paragraph(par_val, textos)
+							Story.append(item_p)
+
+							# ban2=0
+
+							# for vdr in vdr_list:
+							# 	if  vdr.parametros == p:
+							# 		vdr_valor = " - Valor de Referencia: "+vdr.valorRef
+							# 		ban2=1
+							# if ban2 == 0:
+							# 	item_p = Paragraph(par_val, textos)
+							# 	Story.append(item_p)
+							# else:	
+							# 	item_p = Paragraph(par_val+vdr_valor, textos)
+							# 	Story.append(item_p)
+								
+
+		
+		Story.append(Spacer(1, 20))
 		if piepagina_dap:
-			pie_dap = Paragraph("Observaciones: "+piepagina_dap, style)
+			pie_dap = Paragraph("Observaciones: ", tit3)
+			Story.append(pie_dap)
+			Story.append(Spacer(1, 12))
+			pie_dap = Paragraph(piepagina_dap, textos)
 			Story.append(pie_dap)
 			Story.append(Spacer(1, 12))
 		
+		# poner en pagina aparte
+		Story.append(PageBreak())
+		title = "Valores de Referencia"
+		p = Paragraph(title, tit2)
+		Story.append(p)
+		Story.append(Spacer(1, 20))
+
+		for g in grupo_gral:
+			print(g.grupo)
+			#grupo_nombre = g.grupo
+			grupo_nombre = Paragraph(g.grupo, tit3)
+			Story.append(grupo_nombre)
+			Story.append(Spacer(1, 10))
+			for valor in vdr_all:
+				if valor.parametros.grupo == g.grupo:
+					#print(valor.parametros.descripcion+": "+valor.valorRef)
+					param_vRef = " - "+valor.parametros.descripcion+": "+valor.valorRef
+					item = Paragraph(param_vRef, textos)
+					Story.append(item)
+			Story.append(Spacer(1, 10))
+
 		return Story
 
 	
@@ -356,12 +405,12 @@ def hojadetrabajo(request, id=None):
 		Story.append(Spacer(1, 12))
 		
 		#Definimos un estilo
-		style = styles["Normal"]
+		style = styles["textos"]
 		Story.append(Spacer(1, 12))
 
 		for key, value in grupos.items():
 			for v in value:
-				header = Paragraph(key, tit2)
+				header = Paragraph(key, tit3)
 				Story.append(header)
 				Story.append(Spacer(1, 20))
 				headings = ["#Id", ]
@@ -377,13 +426,7 @@ def hojadetrabajo(request, id=None):
 					allregistros.append(registros)
 					#print(allregistros)
 				t = Table([headings] + allregistros)
-				t.setStyle(TableStyle(
-					[
-						('GRID', (0,0), (10, -1), 1, colors.dodgerblue),
-						('LINEBELOW', (0,0), (-1, 0), 2, colors.darkblue),
-						('BACKGROUND', (0,0), (-1, 0), colors.dodgerblue)
-					]
-				))
+				t.setStyle(LIST_STYLE)
 				# print(len(headings))
 				t._argW[0]=1*inch
 				for i in range (1,len(headings)):
@@ -393,7 +436,7 @@ def hojadetrabajo(request, id=None):
 				Story.append(Spacer(1, 12))
 		
 		for g in grupo_list_i:
-			header=Paragraph(g.grupo, tit2)
+			header=Paragraph(g.grupo, tit3)
 			Story.append(header)
 			Story.append(Spacer(1, 12))
 
@@ -402,6 +445,15 @@ def hojadetrabajo(request, id=None):
 					item_p = Paragraph(p.descripcion+": ____________________", style) 
 					Story.append(item_p)
 
+		Story.append(Spacer(1, 12))
+
+		Story.append(Spacer(1, 20))
+	
+		pie_dap = Paragraph("Observaciones: ", tit3)
+		Story.append(pie_dap)
+		Story.append(Spacer(1, 12))
+		pie_dap = Paragraph("____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________", textos)
+		Story.append(pie_dap)
 		Story.append(Spacer(1, 12))
 		return Story
 
@@ -427,7 +479,7 @@ def tercerizar(request, id=None):
 
 	def cuerpo(canvas):
 		Story = [Spacer(1, 150)]
-		style = styles["Normal"]
+		style = styles["textos"]
 		print(ter)
 		for t in ter:
 			f_e=str(t.fecha_envio)
@@ -440,9 +492,12 @@ def tercerizar(request, id=None):
 				f_d=str(t.fecha_devolucion)
 				fecha_devolucion = Paragraph("Fecha de Devolución: "+f_d, style)
 				Story.append(fecha_devolucion)
-			Story.append(Spacer(1, 12))
+				Story.append(Spacer(1, 12))
 			institucion = Paragraph("Institución a la que se envia: "+t.institucion, style) 
 			Story.append(institucion)
+			Story.append(Spacer(1, 12))
+			detalle = Paragraph("Detalle:", tit3) 
+			Story.append(detalle)
 			Story.append(Spacer(1, 12))
 			detalle = Paragraph(t.detalle, style) 
 			Story.append(detalle)
@@ -478,7 +533,7 @@ def eliminacionprotocolo(request, id=None):
 
 	def cuerpo(canvas):
 		Story = [Spacer(1, 150)]
-		style = styles["Normal"]
+		style = styles["textos"]
 		f=str(instance.fecha)
 		fecha = Paragraph("Fecha de Baja: "+f, style) 
 		Story.append(fecha)
@@ -486,7 +541,10 @@ def eliminacionprotocolo(request, id=None):
 		usuario = Paragraph("Responsable: "+instance.usuario, style) 
 		Story.append(usuario)
 		Story.append(Spacer(1, 12))
-		motivoBaja = Paragraph("Motivo de Baja: "+instance.motivoBaja, style) 
+		motivoBaja = Paragraph("Motivo de Baja: ", tit3) 
+		Story.append(motivoBaja)
+		Story.append(Spacer(1, 12))
+		motivoBaja = Paragraph(instance.motivoBaja, style) 
 		Story.append(motivoBaja)
 		Story.append(Spacer(1, 12))
 
