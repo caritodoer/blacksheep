@@ -418,9 +418,9 @@ def v_DetalleAnalisisPadre(request, id=None):
 		raise Http404
 	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
 	prot = instance.protocolo
+	solic = instance.solicitud
 	queryset = DetalleAnalisisPadre.objects.all().order_by('id').filter(protocolo=prot)
 	# INSTANCIA_INDIVIDUOS
-	solic = instance.solicitud
 	queryset_Ind = DetalleAnalisis.objects.distinct('individuoPadre').filter(solicitud=solic)
 	dict_ind={}
 	for ind in queryset_Ind:
@@ -440,9 +440,13 @@ def v_DetalleAnalisisPadre(request, id=None):
 	object_dict = {}
 	for dap in queryset:
 		k=dap
-		if instance.diagnostico.tercerizacion or ter:
-			print("Tercerizado")
-			estado="Tercerizado"
+		if dap.diagnostico.tercerizacion or ter:
+			if instance.diagnostico.tercerizacion:
+				print("Tercerizado1")
+				estado="Tercerizado1"
+			if ter:
+				print("Tercerizado2")
+				estado="Tercerizado2"
 		else:
 			for da in da_all:
 				if da.valor == "":
@@ -450,15 +454,21 @@ def v_DetalleAnalisisPadre(request, id=None):
 				else:
 					vacio=vacio+1
 				total=total+1
-			if total==completo:
-				print("completo")
-				estado="Completo"
-			elif total == vacio:
-				print("vacio")
-				estado="Vacio"
-			else:
-				print("incompleto")
-				estado="Incompleto"
+			print("completo: "+str(completo)+", vacio: "+str(vacio)+", total: "+str(total))
+			if vacio<completo:
+				if total==completo:
+					print("completo")
+					estado="Completo"
+				else:
+					print("en proceso")
+					estado="En Proceso"
+			elif completo<=vacio:
+				if total == vacio:
+					print("vacio")
+					estado="Vacío"
+				else:
+					print("en proceso")
+					estado="En Proceso"
 		object_dict[k]=estado
 	print(object_dict)
 
@@ -716,7 +726,7 @@ def u_tercerizar(request, idt=None, iddap=None):
 		"instance": instance_dap,
 		"form" : form,
 	}
-	return render(request, "tercerizar.html", context)
+	return render(request, "u_tercerizar.html", context)
 
 def hojadetrabajo(request, id=None):
 	if not request.user.is_authenticated() or request.user.is_staff:

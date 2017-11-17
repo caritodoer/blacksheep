@@ -4,7 +4,6 @@
 
 29-10-17 - Tareas Pendientes:
 
-faltan valores de referencia en los infromes en la parte de las tablas. donde lo pongo?? con titulo de Valores de Referencia y despues items con cada parametro.
 
 EN VALIDACIONES & MODELS :
 
@@ -18,7 +17,6 @@ en DAP.valor = textinput max_length=10 caracteres
 	* ver asociaciones de extension e inclusion de CDU
 	* hay que hacer CDU de los listados???
 
-- Hoja de Trabajo (PDF): agregar las observaciones que se cargaron en Solicitud de Analisis
 -DetalleAnalisis :  el boton "tercerizar" tiene que estar activo solo cuando el estado del diagnostico sea "Completo"
 
 - Tercerizar : 
@@ -38,6 +36,8 @@ en DAP.valor = textinput max_length=10 caracteres
 
 
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+- Hoja de Trabajo (PDF): agregar las observaciones que se cargaron en Solicitud de Analisis
+faltan valores de referencia en los infromes en la parte de las tablas. donde lo pongo?? con titulo de Valores de Referencia y despues items con cada parametro.
 - User --> Menu: menu correspondiente, botod de logout, nombre del ususario logueado
 - BDD :  que los registros no se guarden en mayusculas: ver en models self description upper
 - En "Cargar Individuos":

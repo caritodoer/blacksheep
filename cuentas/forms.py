@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Layout, Fieldset, Div, Field, ButtonHolder
+from crispy_forms.bootstrap import StrictButton, FieldWithButtons, PrependedText, PrependedAppendedText, FormActions
+
 
 User = get_user_model()
 
@@ -14,7 +17,7 @@ class UserLoginForm(forms.Form):
 		if username and password:
 			user = authenticate(username=username, password=password)
 			if not user:
-				raise forms.ValidationError("El nombre de Usuario no es correcto.")
+				raise forms.ValidationError("El nombre de Usuario o Contraseña no es correcto.")
 
 			if not user.check_password(password):
 				raise forms.ValidationError("La contraseña no es correcta.")
@@ -46,4 +49,14 @@ class UserRegisterForm(forms.ModelForm):
 
 		return email
 
-	
+	def __init__(self, *args, **kwargs):
+		super(UserRegisterForm, self).__init__(*args, **kwargs)
+
+		self.helper = FormHelper(self)
+		self.helper.form_id = 'id-UserRegisterForm'
+		self.helper.form_class = 'form-horizontal'
+		self.helper.form_method = 'POST'
+		self.helper.form_action = ''
+
+		self.helper.label_class = 'col-lg-3 col-sm-3'
+		self.helper.field_class = 'col-lg-8 col-sm-8'

@@ -13,7 +13,7 @@
 			<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
 				<div class="panel-body">
 					
-					{{ form|crispy }}
+				{% crispy form form.helper %}
 				</div>
 
 				<div class="panel-footer">

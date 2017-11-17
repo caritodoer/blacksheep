@@ -69,7 +69,7 @@ class EliminacionProtocoloForm(forms.ModelForm):
 			"protocolo",
 			"fecha",
 			"motivoBaja",
-			#"usuario",
+			"usuario",
 		]
 
 class TercerizacionForm(forms.ModelForm):

@@ -52,33 +52,30 @@
 			            <form class="form-horizontal" method="POST" action="">{% csrf_token %}
 			            	<div class="panel-body">
 			            		<div class="form-group">
-			                            <label class="control-label col-sm-2" for="detalleanalisispadre">DAP id</label>
-			                            <div class="col-sm-3">
-			                                <input type="text" class="form-control" id="detalleanalisispadre" name="detalleanalisispadre" value="{{instance.id}}" placeholder="{{instance.id}}">
+			                           <!--  <label class="control-label col-sm-2" for="detalleanalisispadre">DAP id</label>
+			                            <div class="col-sm-3"> -->
+			                                <input type="hidden" class="form-control" id="detalleanalisispadre" name="detalleanalisispadre" value="{{instance.id}}" placeholder="{{instance.id}}">
 			                            </div>
 			                    </div>
 			                    <div class="form-group">
-			                            <label class="control-label col-sm-2" for="fecha_envio">Fecha de Envío:</label>
+			                            <label class="control-label col-sm-3" for="fecha_envio">Fecha de Envío:</label>
 			                            <div class="col-sm-3">
-			                                <input type="text" class="form-control" id="fecha_envio" name="fecha_envio" value="{{instance_t.fecha_envio}}">
+			                                <input pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"type="text" class="form-control" id="fecha_envio" name="fecha_envio" value="{{instance_t.fecha_envio|date:'c'}}">
 			                            </div>
 			                    </div>
+			                    <!-- fecha de devolucion -->
+			                   		<input pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" type="hidden" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="{{instance_t.fecha_devolucion|date:'c'}}">
+			                    
 			                    <div class="form-group">
-			                            <label class="control-label col-sm-2" for="fecha_devolucion">Fecha de Devolución:</label>
-			                            <div class="col-sm-3">
-			                                <input type="test" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="{{instance_t.fecha_devolucion}}">
-			                            </div>
-			                    </div>
-			                    <div class="form-group">
-			                        <label class="control-label col-sm-2" for="institucion">Institución a la que se envía:</label>
-			                        <div class="col-sm-9">
+			                        <label class="control-label col-sm-3" for="institucion">Institución a la que se envía:</label>
+			                        <div class="col-sm-8">
 			                        	<input type="text" class="form-control" id="institucion" name="institucion" value="{{instance_t.institucion}}">
 			                        </div>
 			                    </div>
 			                    <div class="form-group">
-			                        <label class="control-label col-sm-2" for="detalle">Detalle de Tercerización:</label>
-			                        <div class="col-sm-9">
-			                            <textarea row="3" class="form-control" id="detalle" name="detalle" value="{{instance_t.detalle}}">{{instance_t.detalle}}</textarea>
+			                        <label class="control-label col-sm-3" for="detalle">Detalle de Tercerización:</label>
+			                        <div class="col-sm-8">
+			                            <textarea row="5" class="form-control" id="detalle" name="detalle" value="{{instance_t.detalle}}">{{instance_t.detalle}}</textarea>
 			                        </div>
 			                    </div>
 			            	
@@ -103,8 +100,28 @@
 {% block javascript %} 
 <script type="text/javascript">
 $(document).ready(function() {
-    $( "#fecha_envio" ).datepicker();
-    $( "#fecha_devolucion" ).datepicker();
+    $( "#fecha_envio" ).datepicker({
+    	dateFormat: 'yy-mm-dd',
+    });
+    // $( "#fecha_envio" ).datepicker({
+    // 	dateFormat: 'yy-mm-dd',
+    // }).datepicker("setDate", new Date());
+
+    // $( "#fecha_envio" ).datepicker({
+    // 	dateFormat: 'dd-mm-yy',
+    // }).datepicker("setDate", $('#fecha_envio').val());
+
+
+    $( "#fecha_devolucion" ).datepicker({
+    	dateFormat: 'yy-mm-dd',
+    });
+    //  $( "#fecha_devolucion" ).datepicker({
+    // 	dateFormat: 'yy-mm-dd',
+    // }).datepicker("setDate", new Date());
+
+    // $( "#fecha_devolucion" ).datepicker({
+    // 	dateFormat: 'dd-mm-yy',
+    // }).datepicker("setDate", $('#fecha_devolucion').val());
 });
 </script>
 {% endblock %}
