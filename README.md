@@ -4,31 +4,19 @@
 
 29-10-17 - Tareas Pendientes:
 
-
 EN VALIDACIONES & MODELS :
-
-en DAP.valor = textinput max_length=10 caracteres
+- en DAP.valor = textinput max_length=10 caracteres
 
 - En "Registrar Protocolos":
 	X* Falta que no repita las muestras ni los diagnosticos
 	X* los diagnosticos que propone deberian ser segun la muestra
 
-- En CARPETA:
-	* ver asociaciones de extension e inclusion de CDU
-	* hay que hacer CDU de los listados???
-
--DetalleAnalisis :  el boton "tercerizar" tiene que estar activo solo cuando el estado del diagnostico sea "Completo"
-
 - Tercerizar : 
-	* en modificar: Validar fechas (que fecha de devolucion sea posterior a de envio)
-	* En alta, sacar fecha de devolucion, que solo este cuando se desee modificar.
+YOOO	* en modificar: Validar fechas (que fecha de devolucion sea posterior a de envio)
 
-- Eliminar Protocolo:
-	* no tiene que mostrar el imput con el n° de protocolo (debe mandarse en el formulario como hidden)
 
 - guardar datos Trasladados de SolAn.html a Protocolo, y a  Individuo Padre (por views)
 
-- en los detalles ver que no diga el Estado "Activo"
 
 - en vez del Http404 crear una pag que diga que para entrar se necesita loguear con otro usuario lab/admin. poner dos botones: 
 	* desloguearse y loguearse comonotro usuario
@@ -36,6 +24,14 @@ en DAP.valor = textinput max_length=10 caracteres
 
 
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+- en los detalles ver que no diga el Estado "Activo"
+- Eliminar Protocolo:
+	* no tiene que mostrar el imput con el n° de protocolo (debe mandarse en el formulario como hidden)
+	* En alta, sacar fecha de devolucion, que solo este cuando se desee modificar.
+-DetalleAnalisis :  el boton "tercerizar" tiene que estar activo solo cuando el estado del diagnostico sea "Completo"
+- En CARPETA:
+	* ver asociaciones de extension e inclusion de CDU
+	* hay que hacer CDU de los listados???
 - Hoja de Trabajo (PDF): agregar las observaciones que se cargaron en Solicitud de Analisis
 faltan valores de referencia en los infromes en la parte de las tablas. donde lo pongo?? con titulo de Valores de Referencia y despues items con cada parametro.
 - User --> Menu: menu correspondiente, botod de logout, nombre del ususario logueado

@@ -79,7 +79,7 @@ class DetalleAnalisis(models.Model):
 	solicitud = models.ForeignKey(SolicitudAnalisis)
 	parametros = models.ForeignKey(Parametros, null=False, blank=False)
 	individuoPadre = models.ForeignKey(IndividuoPadre)
-	valor = models.CharField(max_length=30, null=True, blank=True)
+	valor = models.CharField(max_length=10, null=True, blank=True)
 
 	def __str__(self):
 		return ('%s, %s, %s')%(self.individuoPadre, self.parametros, self.valor)

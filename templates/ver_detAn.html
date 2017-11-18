@@ -67,7 +67,7 @@
 					<!-- INDIVIDUOS -->
 					<a class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#myModal">Ver Individuo/s  <span class="glyphicon glyphicon-list-alt"></span></a>
 					{% if instance.protocolo.activo %}
-						<a href="../delete/{{ instance.id }}" class="btn btn-danger" role="button">Eliminar <span class="glyphicon glyphicon-remove"></span></a>
+						<button id="elimP" class="btn btn-danger" type="button">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
 					{% endif %}
 					
 				</div>
@@ -207,9 +207,18 @@
 {% block javascript %} 
 <script type="text/javascript">
 
+$('#elimP').click(function(){
 
+	if(window.confirm('La siguiente operacion no se puede deshacer. Esta seguro que desea continuar?'))
+	{
+		$(location).attr('href',"../delete/"+{{ instance.id }});
+	}
+});
 
 
 
 </script> 
 {% endblock %}
+
+
+../delete/{{instance.id}}
