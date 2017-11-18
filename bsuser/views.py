@@ -435,12 +435,15 @@ def v_DetalleAnalisisPadre(request, id=None):
 	completo=0
 	vacio=0
 	estado=""
-	ter = Tercerizacion.objects.all().filter(detalleanalisispadre=instance)
 	print(queryset)
 	object_dict = {}
+	dap_count=0
+	dap_completo=0
 	for dap in queryset:
 		k=dap
+		ter = Tercerizacion.objects.all().filter(detalleanalisispadre=dap)
 		if dap.diagnostico.tercerizacion or ter:
+			dap_completo=dap_completo+1
 			if instance.diagnostico.tercerizacion:
 				print("Tercerizado1")
 				estado="Tercerizado1"
@@ -450,15 +453,16 @@ def v_DetalleAnalisisPadre(request, id=None):
 		else:
 			for da in da_all:
 				if da.valor == "":
-					completo=completo+1
-				else:
 					vacio=vacio+1
+				else:
+					completo=completo+1
 				total=total+1
 			print("completo: "+str(completo)+", vacio: "+str(vacio)+", total: "+str(total))
 			if vacio<completo:
 				if total==completo:
 					print("completo")
 					estado="Completo"
+					dap_completo=dap_completo+1
 				else:
 					print("en proceso")
 					estado="En Proceso"
@@ -469,11 +473,16 @@ def v_DetalleAnalisisPadre(request, id=None):
 				else:
 					print("en proceso")
 					estado="En Proceso"
+		dap_count=dap_count+1
 		object_dict[k]=estado
 	print(object_dict)
+	inf_gral='NO'
+	if dap_completo == dap_count:
+		inf_gral='SI'
 
 	context = {
 		"estado":estado,
+		"inf_gral": inf_gral,
 		"dict_ind": dict_ind, #queryset_Ind,
 		"object_dict": object_dict,
 		"instance" : instance,
@@ -763,6 +772,7 @@ def hojadetrabajo(request, id=None):
 	# {Key: DA, Value: valor}
 	da_all = DetalleAnalisis.objects.all().filter(solicitud=solic)
 	da_list = {}
+	valor=""
 	for p in all_param_del_diag:
 		for i in all_indiv_de_solic:
 			for da in da_all:

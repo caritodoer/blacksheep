@@ -117,7 +117,7 @@
 												<td></td>
 											{% endif %}
 											{% if estado == 'Completo'%}
-												<td></td>
+												<td><a href="../../hojadetrabajo/{{ dap.id }}/pdf" target="_blank" class="btn btn-default btn-sm" role="button">Imprimir</a></td>
 												<td><a href="../../hojadetrabajo/{{ dap.id }}" class="btn btn-default btn-sm" role="button">Cargar</a></td>
 												<td><a href="../../informe/{{ dap.id }}/pdf" target="_blank"class="btn btn-default btn-sm" role="button">Generar</a></td>
 												<td><a href="../../tercerizar/{{ dap.id }}" class="btn btn-default btn-sm" role="button">Tercerizar</a></td>
@@ -144,7 +144,11 @@
 											<td></td>
 											<td></td>
 											<td></td>
-											<td><button class="btn btn-default btn-sm">FALTA!!!!!!!!!!! Informe General</button></td>
+											{% if inf_gral == 'SI' %}
+											<td><a target="_blank" class="btn btn-default btn-sm" role="button" href="{% url 'bsuser:general_pdf' id=instance.id %}">Informe General</a></td>
+											{% else %}
+											<td></td>
+											{% endif %}
 											<td></td>
 										</tr>
 									</tbody>

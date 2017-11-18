@@ -129,7 +129,7 @@ def primeraPagina(canvas, doc, instance_dap, title):
 		canvas.drawString(inch, 1.00 * inch, "%s" %(piepagina))
 		canvas.drawString(inch, 0.75 * inch, "Primera pagina / %s %s" %(nombre, subtitulo))
 		canvas.restoreState()
-def myLaterPages(canvas, doc):
+def myLaterPages(canvas, doc, instance_dap, title):
 	#
 	# Datos de la empresa
 	#
@@ -145,12 +145,15 @@ def myLaterPages(canvas, doc):
 			logo = ImageReader(e.logo.path)
 		canvas.saveState()
 		encabezado(canvas)
+		solicitud(canvas, instance_dap, title)
+		
 		# numeracion de pagina
 		canvas.setFont('Ubuntu-R', 8)
 		canvas.drawString(inch, 0.75 * inch, "Página %d / %s %s" %(doc.page, nombre, subtitulo))
 		canvas.restoreState()
 
 def informe(request, id=None):
+	print("entra al informe")
 	#pedidos a BDD
 	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
 	piepagina_dap=instance.piepagina
@@ -178,6 +181,7 @@ def informe(request, id=None):
 	print(vdr_list)
 	da_all = DetalleAnalisis.objects.all().filter(solicitud=solic)
 	da_list = {}
+	valor=""
 	for p in all_param_del_diag:
 		for i in all_indiv_de_solic:
 			for da in da_all:
@@ -236,7 +240,9 @@ def informe(request, id=None):
 	# constante p/ 1ra pagina
 	def myFirstPage(canvas, doc):
 		primeraPagina(canvas, doc, instance, title)
-	
+
+	def pagSiguientes(canvas, doc):
+		myLaterPages(canvas, doc, instance, title)
 
 	# cuerpo
 	def cuerpo(canvas):
@@ -287,14 +293,11 @@ def informe(request, id=None):
 			Story.append(header)
 			Story.append(Spacer(1, 12))
 
-			for p in all_param_del_diag:
-				if g.grupo == p.grupo:
-					for da in da_all:
-						if p == da.parametros and da == indi:
-							par_val=" - "+p.descripcion+": "+da.valor
-
-							item_p = Paragraph(par_val, textos)
-							Story.append(item_p)
+			for da in da_all:
+				if g.grupo == da.parametros.grupo and da.individuoPadre == indi.individuoPadre:
+					par_val=" - "+da.parametros.descripcion+": "+da.valor
+					item_p = Paragraph(par_val, textos)
+					Story.append(item_p)
 
 							# ban2=0
 
@@ -322,6 +325,7 @@ def informe(request, id=None):
 		
 		# poner en pagina aparte
 		Story.append(PageBreak())
+		Story.append(Spacer(1, 100))
 		title = "Valores de Referencia"
 		p = Paragraph(title, tit2)
 		Story.append(p)
@@ -349,11 +353,263 @@ def informe(request, id=None):
 	#Creamos un documento basándonos en una plantilla
 	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
 	#Construimos el documento a partir de los argumentos definidos
-	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=myLaterPages)
+	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=pagSiguientes)
 	response.write(buff.getvalue())
 	buff.close()
 	return response
+def general(request, id=None):
+	print("entra al informe")
+	#info basica pars generar pdf
+	response = HttpResponse(content_type='application/pdf')
+	pdf_name = "informe_general.pdf"
+	response['Content-Disposition'] = 'filename=%s; pagesize=A4' %pdf_name
+	buff = BytesIO()
+	title = "Informe General"
 
+	#pedidos a BDD
+	dap_inicial = get_object_or_404(DetalleAnalisisPadre, id=id)
+	diag_x_prot = DetalleAnalisisPadre.objects.all().filter(protocolo=dap_inicial.protocolo)
+	# constante p/ 1ra pagina
+	def myFirstPage(canvas, doc):
+		primeraPagina(canvas, doc, dap_inicial, title)
+
+	def pagSiguientes(canvas, doc):
+		myLaterPages(canvas, doc, dap_inicial, title)
+	
+
+	# cuerpo
+	def cuerpo(canvas):
+		Story = [Spacer(1, 1)]
+		for instance in diag_x_prot:
+			Story.append(Spacer(1, 100))
+			ter = Tercerizacion.objects.all().filter(detalleanalisispadre=instance)
+			if instance.diagnostico.tercerizacion or ter:
+				if dap_inicial.diagnostico.tercerizacion:
+					print("Tercerizado1")
+					title = instance.diagnostico.descripcion
+				
+					p = Paragraph(title, tit2)
+					Story.append(p)
+					Story.append(Spacer(1, 12))
+					detalle = "Este Diagnostico es tercerizado"
+				
+					p = Paragraph(detalle, tit3)
+					Story.append(p)
+					Story.append(Spacer(1, 12))
+
+				if ter:
+					print("Tercerizado2")
+					title = instance.diagnostico.descripcion
+				
+					p = Paragraph(title, tit2)
+					Story.append(p)
+					Story.append(Spacer(1, 12))
+					detalle = "Este Diagnostico fue tercerizado."
+					p = Paragraph(detalle, tit3)
+					Story.append(p)
+					Story.append(Spacer(1, 12))
+				
+					style = styles["textos"]
+					for t in ter:
+						f_e=str(t.fecha_envio)
+						print(f_e)
+						print(type(f_e))
+						fecha_envio = Paragraph("Fecha de Envío: "+f_e, style) 
+						Story.append(fecha_envio)
+						Story.append(Spacer(1, 12))
+						if t.fecha_devolucion:
+							f_d=str(t.fecha_devolucion)
+							fecha_devolucion = Paragraph("Fecha de Devolución: "+f_d, style)
+							Story.append(fecha_devolucion)
+							Story.append(Spacer(1, 12))
+						institucion = Paragraph("Institución: "+t.institucion, style) 
+						Story.append(institucion)
+						Story.append(Spacer(1, 12))
+						detalle = Paragraph("Detalle:", tit3) 
+						Story.append(detalle)
+						Story.append(Spacer(1, 12))
+						detalle = Paragraph(t.detalle, style) 
+						Story.append(detalle)
+						Story.append(Spacer(1, 12))
+			else:
+				#Iniciamos el story para los registros
+				title = instance.diagnostico.descripcion
+				
+				p = Paragraph(title, tit2)
+				Story.append(p)
+				Story.append(Spacer(1, 12))
+				
+				#Definimos un estilo
+				style = styles["textos"]
+				Story.append(Spacer(1, 12))
+
+				piepagina_dap=instance.piepagina
+				diag = instance.diagnostico
+				all_param_del_diag = Parametros.objects.all().filter(diagnostico=diag)
+				solic = instance.solicitud
+				all_indiv_de_solic = DetalleAnalisis.objects.distinct('individuoPadre').filter(solicitud=solic)
+				grupo_list_t = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="T")
+				grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
+				grupo_gral = Parametros.objects.distinct('grupo').filter(diagnostico=diag)
+				# trae un unico individuo para la parte del listar los ítmes una sola vez en el HTML	
+				cant_indi = len(all_indiv_de_solic)
+				indi = all_indiv_de_solic[cant_indi-1]
+
+				# listado de valores de referencia filtrado por diag + param + especie
+				vdr_all = ValoresReferencia.objects.all()
+				vdr_list=[]
+				for v in vdr_all:
+					for p in all_param_del_diag:
+						if v.parametros == p:
+							if v.especie == instance.solicitud.especie:
+								vdr_list.append(v)
+				#print("vdr_list")
+				#print(vdr_list)
+				da_all = DetalleAnalisis.objects.all().filter(solicitud=solic)
+				da_list = {}
+				valor=""
+				for p in all_param_del_diag:
+					for i in all_indiv_de_solic:
+						for da in da_all:
+							ban1=0
+							if da.parametros == p:
+								if da.individuoPadre == i.individuoPadre:
+									if da.valor != '':
+										print("entro 1")
+										valor=da.valor
+										#print(linea)
+										ban1=1
+									else:
+										for vdr in vdr_list:
+											if vdr.parametros == p:
+												print("entro 2")
+												valor=vdr.valorDef
+												ban1=1
+										if ban1==0:
+											print("entro 3")
+											valor=""
+											ban1=1
+								da_list[da]=valor
+				# print("da_list")
+				# print(da_list)
+
+
+				grupos = {}
+				for g in grupo_list_t:
+					cant=0
+					for p in all_param_del_diag:
+						if g.grupo == p.grupo:
+							cant=cant+1
+					inicio=0
+					fin=5
+					k=g.grupo
+					list_r=[]
+					ban=True
+					while ban:
+						rango= Parametros.objects.all().filter(diagnostico=diag, visualizacion1="T", grupo=k)[inicio:fin]
+						#print("g rango  ", rango)
+						list_r.append(rango)
+						if fin < cant:
+							ban=True
+							inicio = inicio+5
+							fin = fin+5
+						else:
+							ban=False
+					grupos[k] = list_r
+			
+	
+	
+
+				for key, value in grupos.items():
+					for v in value:
+						header = Paragraph(key, tit3)
+						Story.append(header)
+						Story.append(Spacer(1, 20))
+						headings = ["#ID", ]
+						for p in v:
+							headings.append(p.descripcion)
+							# headings.append("u.")
+						allregistros = []
+						for i in all_indiv_de_solic:
+							registros=[]
+							registros.append(i.individuoPadre.identificacion)
+							for p in v:
+								for da, valor in da_list.items():
+									if i.individuoPadre.identificacion == da.individuoPadre.identificacion and p == da.parametros:
+										reg = valor + " " + p.unidadmedida
+										registros.append(reg)
+							allregistros.append(registros)
+							#print(allregistros)
+						t = Table([headings] + allregistros)
+						t.setStyle(LIST_STYLE)
+						# print(len(headings))
+						t._argW[0]=1*inch
+						for i in range (1,len(headings)):
+							t._argW[i]=1.3*inch
+						# t._argW[3]=5.5*inch
+						Story.append(t)
+						Story.append(Spacer(1, 12))
+				
+				for g in grupo_list_i:
+					header=Paragraph(g.grupo, tit3)
+					Story.append(header)
+					Story.append(Spacer(1, 12))
+
+					for da in da_all:
+						if g.grupo == da.parametros.grupo and da.individuoPadre == indi.individuoPadre:
+							par_val=" - "+da.parametros.descripcion+": "+da.valor
+							item_p = Paragraph(par_val, textos)
+							Story.append(item_p)
+
+		
+				Story.append(Spacer(1, 20))
+				if piepagina_dap:
+					pie_dap = Paragraph("Observaciones: ", tit3)
+					Story.append(pie_dap)
+					Story.append(Spacer(1, 12))
+					pie_dap = Paragraph(piepagina_dap, textos)
+					Story.append(pie_dap)
+					Story.append(Spacer(1, 12))
+				
+				# poner en pagina aparte
+				Story.append(PageBreak())
+				Story.append(Spacer(1, 100))
+				title = "Valores de Referencia"
+				p = Paragraph(title, tit2)
+				Story.append(p)
+				Story.append(Spacer(1, 20))
+
+				for g in grupo_gral:
+					print(g.grupo)
+					#grupo_nombre = g.grupo
+					grupo_nombre = Paragraph(g.grupo, tit3)
+					Story.append(grupo_nombre)
+					Story.append(Spacer(1, 10))
+					for valor in vdr_all:
+						if valor.parametros.grupo == g.grupo:
+							#print(valor.parametros.descripcion+": "+valor.valorRef)
+							param_vRef = " - "+valor.parametros.descripcion+": "+valor.valorRef
+							item = Paragraph(param_vRef, textos)
+							Story.append(item)
+					Story.append(Spacer(1, 10))
+
+			Story.append(PageBreak())
+
+		return Story
+
+	
+	# cierre Story	
+	Story = cuerpo(canvas)
+	#Creamos un documento basándonos en una plantilla
+	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
+	#Construimos el documento a partir de los argumentos definidos
+	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=pagSiguientes)
+	response.write(buff.getvalue())
+	buff.close()
+	return response
+	
+
+	
 def hojadetrabajo(request, id=None):
 	# Hacemos los pedidos a BDD que necesitamos
 	instance = get_object_or_404(DetalleAnalisisPadre, id=id)
@@ -394,7 +650,10 @@ def hojadetrabajo(request, id=None):
 	
 	def myFirstPage(canvas, doc):
 		primeraPagina(canvas, doc, instance, title)
-	
+
+	def pagSiguientes(canvas, doc):
+		myLaterPages(canvas, doc, instance, title)
+
 	def cuerpo(canvas):
 		#Iniciamos el story para los registros
 		Story = [Spacer(1, 100)]
@@ -461,7 +720,7 @@ def hojadetrabajo(request, id=None):
 	#Creamos un documento basándonos en una plantilla
 	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
 	#Construimos el documento a partir de los argumentos definidos
-	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=myLaterPages)
+	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=pagSiguientes)
 	response.write(buff.getvalue())
 	buff.close()
 	return response
@@ -476,6 +735,9 @@ def tercerizar(request, id=None):
 
 	def myFirstPage(canvas, doc):
 		primeraPagina(canvas, doc, instance_dap, title)
+
+	def pagSiguientes(canvas, doc):
+		myLaterPages(canvas, doc, instance_dap, title)
 
 	def cuerpo(canvas):
 		Story = [Spacer(1, 150)]
@@ -493,7 +755,7 @@ def tercerizar(request, id=None):
 				fecha_devolucion = Paragraph("Fecha de Devolución: "+f_d, style)
 				Story.append(fecha_devolucion)
 				Story.append(Spacer(1, 12))
-			institucion = Paragraph("Institución a la que se envia: "+t.institucion, style) 
+			institucion = Paragraph("Institución: "+t.institucion, style) 
 			Story.append(institucion)
 			Story.append(Spacer(1, 12))
 			detalle = Paragraph("Detalle:", tit3) 
@@ -509,7 +771,7 @@ def tercerizar(request, id=None):
 	#Creamos un documento basándonos en una plantilla
 	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
 	#Construimos el documento a partir de los argumentos definidos
-	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=myLaterPages)
+	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=pagSiguientes)
 	response.write(buff.getvalue())
 	buff.close()
 	return response
@@ -530,6 +792,9 @@ def eliminacionprotocolo(request, id=None):
 
 	def myFirstPage(canvas, doc):
 		primeraPagina(canvas, doc, instance_dap, title)
+
+	def pagSiguientes(canvas, doc):
+		myLaterPages(canvas, doc, instance_dap, title)
 
 	def cuerpo(canvas):
 		Story = [Spacer(1, 150)]
@@ -554,7 +819,7 @@ def eliminacionprotocolo(request, id=None):
 	#Creamos un documento basándonos en una plantilla
 	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
 	#Construimos el documento a partir de los argumentos definidos
-	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=myLaterPages)
+	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=pagSiguientes)
 	response.write(buff.getvalue())
 	buff.close()
 	return response
