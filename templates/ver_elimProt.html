@@ -14,8 +14,10 @@
 					<dd>{{ instance.id }}</dd>
 					<dt>Protocolo</dt>
 					<dd>{{ instance.protocolo }}</dd>
+					<dt>Responsable</dt>
+					<dd>{{ instance.usuario }}</dd>
 					<dt>Fecha</dt>
-					<dd>{{ instance.fecha }}</dd>
+					<dd>{{ instance.fecha|date:'c' }}</dd>
 					<dt>Motivo</dt>
 					<dd>{{ instance.motivoBaja }}</dd>
 				</dl>
@@ -23,13 +25,19 @@
 			</div>
 			<div class="panel-footer">
 				<ul class="list-inline">
-					<li>
+					<!-- <li>
 						<a href="../update/{{ instance.id }}">
 					Modificar<span class="glyphicon glyphicon-pencil"></span>
 						</a>
+					</li> -->
+					<!-- <li>
+						<a href="../{{ instance.id }}/pdf" target="_blank">Ver Informe</a>
+					</li> -->
+					<li>
+						<a class="btn btn-default" role="button" href="{% url 'bsuser:l_eliminacionprotocolo' %}">Ver Listado de Protocolos Eliminados</a>
 					</li>
 					<li>
-						<a href="../{{ instance.id }}/pdf" target="_blank">Ver Informe</a>
+						<a class="btn btn-default" target="_blank" role="button" href="{% url 'bsuser:eliminar_pdf' id=instance.id %}">Ver Informe PDF</a>
 					</li>
 
 				</ul>

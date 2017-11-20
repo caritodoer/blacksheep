@@ -11,7 +11,7 @@ from bsuser import viewsPDF
 # j: json
 
 urlpatterns = [
-	url(r'^$', views.login),
+	
     url(r'^home_user/$', views.home_user, name="home_user"),
 
     # Solicitud Analisis
@@ -52,7 +52,7 @@ urlpatterns = [
     # Detalle Analisis
     #url(r'^detalleanalisis/$', views.l_detalleanalisis, name="l_detalleanalisis"),
     #url(r'^detalleanalisis/alta/$', views.a_detalleanalisis),
-    url(r'^detalleanalisis/(?P<id>\d+)/$', views.v_detalleanalisis, name="v_detalleanalisis"),
+    #url(r'^detalleanalisis/(?P<id>\d+)/$', views.v_detalleanalisis, name="v_detalleanalisis"),
     url(r'^detalleanalisis/update/(?P<id>\d+)/$', views.u_detalleanalisis),
     url(r'^detalleanalisis/delete/(?P<id>\d+)/$', views.d_detalleanalisis),
     url(r'^j_detalleanalisis/$', views.j_detalleanalisis),
@@ -80,6 +80,8 @@ urlpatterns = [
     url(r'^j_eliminacionprotocoloid/(?P<id>\d+)/$', views.j_eliminacionprotocoloid),
 
     # Tercerizar
+    #Tercerizar (el id es de Detalle Analisis Padre, no de Tercerizacion)
+    url(r'^tercerizar/(?P<id>\d+)/$', views.tercerizar),
     url(r'^tercerizar/$', views.l_tercerizar, name="l_tercerizar"),
     #url(r'^tercerizar/alta/$', views.a_tercerizar),
     url(r'^tercerizar_ver/(?P<id>\d+)/$', views.v_tercerizar, name="v_tercerizar"),
@@ -91,14 +93,13 @@ urlpatterns = [
     #Hoja de Trabajo
     url(r'^hojadetrabajo/(?P<id>\d+)/$', views.hojadetrabajo),
 
-    #Tercerizar (el id es de Detalle Analisis Padre, no de Tercerizacion)
-    url(r'^tercerizar/(?P<id>\d+)/$', views.tercerizar),
 
     # PDF
     url(r'^hojadetrabajo/(?P<id>\d+)/pdf/$', viewsPDF.hojadetrabajo),
     url(r'^informe/(?P<id>\d+)/pdf/$', viewsPDF.informe),
+    url(r'^general/(?P<id>\d+)/pdf/$', viewsPDF.general, name="general_pdf"),
     url(r'^tercerizar/(?P<id>\d+)/pdf/$', viewsPDF.tercerizar, name="tercerizar_pdf"),
-    url(r'^eliminacionprotocolo/(?P<id>\d+)/pdf/$', viewsPDF.eliminacionprotocolo),
+    url(r'^eliminacionprotocolo/(?P<id>\d+)/pdf/$', viewsPDF.eliminacionprotocolo, name="eliminar_pdf"),
 
 ]
 

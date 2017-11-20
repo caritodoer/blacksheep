@@ -30,20 +30,21 @@
 							<th>Responsable</th>
 							<th>motivo baja</th>
 							<th>Informe</th>
-							<th>Modificar</th>
+							<!-- <th>Modificar</th> -->
 						</tr>
 					</thead>
 					<tbody>
 						{% for obj in object_list %}
 						<tr>
-							<td>{{ obj.protocolo.numero }}</td>
-							<td>{{ obj.fecha }}</td>
-							<td>{{ obj.usuario }}></td>
+							<td><a href="{{ obj.id }}">{{ obj.protocolo.numero }}</a></td>
+
+							<td>{{ obj.fecha|date:'c' }}</td>
+							<td>{{ obj.usuario }}</td>
 							<td>{{ obj.motivoBaja|truncatechars:200 }}</td>
 							<td><a href="{{ obj.id }}/pdf" target="_blank" class="btn btn-default btn-sm" role="button">Ver</a></td> 
-							<td><a href="update/{{ obj.id }}">
+							<!-- <td><a href="update/{{ obj.id }}">
 					Modificar<span class="glyphicon glyphicon-pencil"></span>
-						</a></td>
+						</a></td> -->
 						</tr>
 						{% endfor %}
 					</tbody>

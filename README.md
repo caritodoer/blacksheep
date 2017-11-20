@@ -40,18 +40,47 @@ ok-DetalleAnalisis :  el boton "tercerizar" tiene que estar activo solo cuando e
 X - Tercerizar : 
 	* Validar fechas (que fecha de devolucion sea posterior a de envio)
 	* En alta, sacar fecha de devolucion, que solo este cuando se desee modificar.
+YOOO	* en modificar: Validar fechas (que fecha de devolucion sea posterior a de envio)
 
 X - Eliminar Protocolo:
 	* no tiene que mostrar el imput con el n° de protocolo (debe mandarse en el formulario como hidden)
 
-- Trasladar datos de SolAn.html a Protocolo, y a  Individuo Padre (por views)
+- guardar datos Trasladados de SolAn.html a Protocolo, y a  Individuo Padre (por views)
 
 X - en los detalles ver que no diga el Estado "Activo"
 
 ok- User --> login --> Menu
 
+- en vez del Http404 crear una pag que diga que para entrar se necesita loguear con otro usuario lab/admin. poner dos botones: 
+	* desloguearse y loguearse comonotro usuario
+	* volver
+
 
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+- en los detalles ver que no diga el Estado "Activo"
+- Eliminar Protocolo:
+	* no tiene que mostrar el imput con el n° de protocolo (debe mandarse en el formulario como hidden)
+	* En alta, sacar fecha de devolucion, que solo este cuando se desee modificar.
+-DetalleAnalisis :  el boton "tercerizar" tiene que estar activo solo cuando el estado del diagnostico sea "Completo"
+- En CARPETA:
+	* ver asociaciones de extension e inclusion de CDU
+	* hay que hacer CDU de los listados???
+- Hoja de Trabajo (PDF): agregar las observaciones que se cargaron en Solicitud de Analisis
+faltan valores de referencia en los infromes en la parte de las tablas. donde lo pongo?? con titulo de Valores de Referencia y despues items con cada parametro.
+- User --> Menu: menu correspondiente, botod de logout, nombre del ususario logueado
+- BDD :  que los registros no se guarden en mayusculas: ver en models self description upper
+- En "Cargar Individuos":
+	* la Raza tiene que filtrarse por la Especie seleccionada en Solicitud de Analisis
+en Diagnostico.piepagina = textinput max_length=100 caracteres
+en SolicitudAnalisis.obs = textinput max_length=85 caracteres
+en Parametros.descripcion = textinput max_length=15 caracteres
+en Parametros.unidad de medida = textinput max_length=5 caracteres
+en valores de referencia = textinput max_length=15 caracteres
+	ok* En verificacion tiene que avisazr que si el numero de protocolo ya fue usado previamente (si ya hay uno guardado en BDD)
+	ok* Cuando no hay protocolos que emita mensaje de error y no permita irse de la pagina.
+	OK* Verificar que no se repitan las identificaciones de los individuos en la misma carga (no importa si ya esta en BDD)
+	OK* Actualizar numeracion de los individuos automaticamente
+OK- Alta Establecimiento: que no se cargue CUIT y RENSPA si ya fue cargado (si esta en BDD)
 
 27-08-2017
 

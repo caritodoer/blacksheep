@@ -12,9 +12,9 @@ class Especializacion(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_especializacion", kwargs={"id":self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion=self.descripcion.upper()
-		super(Especializacion, self).save(force_insert, force_update)
+	# def save(self, force_insert=False, force_update=False):
+	# 	self.descripcion=self.descripcion.upper()
+	# 	super(Especializacion, self).save(force_insert, force_update)
 
 class Categoria(models.Model):
 	descripcion = models.CharField("Categoria", max_length=30, unique=True)
@@ -26,9 +26,9 @@ class Categoria(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_categoria", kwargs={"id":self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion=self.descripcion.upper()
-		super(Categoria, self).save(force_insert, force_update)
+	# def save(self, force_insert=False, force_update=False):
+	# 	self.descripcion=self.descripcion.upper()
+	# 	super(Categoria, self).save(force_insert, force_update)
 
 class Explotacion(models.Model):
 	descripcion = models.CharField("Explotacion", max_length=30, unique=True)
@@ -38,9 +38,9 @@ class Explotacion(models.Model):
 		return reverse("bsadmin:v_explotacion",kwargs={"id":self.id})
 	def __str__(self):
 		return ('%s')%(self.descripcion)
-	def save(self,force_insert=False,force_update=False):
-		self.descripcion=self.descripcion.upper()
-		super(Explotacion,self).save(force_insert,force_update)
+	# def save(self,force_insert=False,force_update=False):
+	# 	self.descripcion=self.descripcion.upper()
+	# 	super(Explotacion,self).save(force_insert,force_update)
 
 class Motivos(models.Model):
 	descripcion = models.CharField("Motivos", max_length=30, unique=True)
@@ -52,9 +52,9 @@ class Motivos(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_motivos", kwargs={"id": self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion = self.descripcion.upper()
-		super(Motivos, self).save(force_insert, force_update)
+	# def save(self, force_insert=False, force_update=False):
+	# 	self.descripcion = self.descripcion.upper()
+	# 	super(Motivos, self).save(force_insert, force_update)
 
 
 class Especie(models.Model):
@@ -67,9 +67,9 @@ class Especie(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_especie", kwargs={"id":self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion = self.descripcion.upper()
-		super(Especie, self).save(force_insert, force_update)
+	# def save(self, force_insert=False, force_update=False):
+	# 	self.descripcion = self.descripcion.upper()
+	# 	super(Especie, self).save(force_insert, force_update)
 
 class Raza(models.Model):
 	descripcion = models.CharField(max_length=30, unique=True)
@@ -82,9 +82,9 @@ class Raza(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_raza", kwargs={"id": self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion = self.descripcion.upper()
-		super(Raza, self).save(force_insert, force_update)
+	# def save(self, force_insert=False, force_update=False):
+	# 	self.descripcion = self.descripcion.upper()
+	# 	super(Raza, self).save(force_insert, force_update)
 
 class CategoriaE(models.Model):
 	descripcion = models.CharField(max_length=30, unique=True)
@@ -97,9 +97,9 @@ class CategoriaE(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_categoriae", kwargs={"id": self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion = self.descripcion.upper()
-		super(CategoriaE, self).save(force_insert, force_update)
+	# def save(self, force_insert=False, force_update=False):
+	# 	self.descripcion = self.descripcion.upper()
+	# 	super(CategoriaE, self).save(force_insert, force_update)
 
 
 class Muestra(models.Model):
@@ -112,9 +112,9 @@ class Muestra(models.Model):
 	def get_absolute_url(self):
 		return reverse("bsadmin:v_muestra", kwargs={"id": self.id})
 
-	def save(self, force_insert=False, force_update=False):
-		self.descripcion = self.descripcion.upper()
-		super(Muestra, self).save(force_insert, force_update)
+	# def save(self, force_insert=False, force_update=False):
+	# 	self.descripcion = self.descripcion.upper()
+	# 	super(Muestra, self).save(force_insert, force_update)
 
 class Diagnostico(models.Model):
 	descripcion = models.CharField("Diagnostico", max_length=30)

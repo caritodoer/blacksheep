@@ -53,7 +53,9 @@
 				<div class="col-sm-12">
 			        <div class="panel panel-default">
 			        	<div class="panel-heading">
-			                <h3 class="panel-title">Titulo del grupo: {{ key }}</h3>
+			                <h3 class="panel-title">
+			                	<!-- Titulo del grupo: -->
+			                	 {{ key }}</h3>
 			            </div>
 			            <div class="panel-body" style="overflow-x:scroll">
 							<table class="table table-striped table-hover table-condensed table-responsive" align="center">
@@ -74,16 +76,33 @@
 										<td class="col-sm-2">
 										{% for da, valor in da_list.items %}
 											{% if i.individuoPadre.identificacion == da.individuoPadre.identificacion and p == da.parametros %}
-												{% if p.tipo_de_dato == 'S' %}<input type="text" maxlength="10" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
-												{% if p.tipo_de_dato == 'I' %}<input type="number" maxlength="10" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
-												{% if p.tipo_de_dato == 'F' %}<input type="number" maxlength="10" step="0.01" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
+
+											<div class="posicionTabla">
+												{% if p.tipo_de_dato == 'S' %}
+												<input type="hidden" name="dapos" value="da.id" />
+												<input type="text" maxlength="10" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
+												{% if p.tipo_de_dato == 'I' %}
+												<input type="hidden" name="dapos" value="da.id" />
+												<input type="number" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
+												{% if p.tipo_de_dato == 'F' %}
+												<input type="hidden" name="dapos" value="da.id" />
+												<input type="number" step="0.01" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
 												{% if p.tipo_de_dato == 'B' %}
+												{% if valor == 'Positivo' %}
 													<select id="select" class="form-control selectpicker" >
 										              <option value="Negativo">Negativo</option>
 										              <option selected="selected" value="Positivo">Positivo</option>
 										            </select>
+										        <input type="hidden" name="dapos" value="da.id" />
+										        {% else %}
+										            <select id="select" class="form-control selectpicker" >
+										              <option selected="selected"value="Negativo">Negativo</option>
+										              <option  value="Positivo">Positivo</option>
+										            </select>
+										        <input type="hidden" name="dapos" value="da.id" />
+										            {% endif%}
 											    {% endif %}	
-
+											</div>
 											{% endif %}
 											
 												
@@ -108,20 +127,22 @@
 			<div class="col-sm-12">
 		        <div class="panel panel-default">
 		        	<div class="panel-heading">
-		                <h3 class="panel-title">{{ objg.grupo }}</h3>
+		                <h3 class="panel-title">{{ objg.grupo }} </h3>
 		            </div>		            
 		            <div class="panel-body">
-		            	{% for objp in parametros_list %}
-			            	{% if objg.grupo == objp.grupo %}
+		            	{% for da in da_list %}
+		            		{% if objg.grupo == da.parametros.grupo and da.individuoPadre == indi.individuoPadre %}	
 			            	<dl class="dl-horizontal">
-			            		{% for da in da_list %}
-			            			{% if objp == da.parametros %}
-					            		
-					            		<dt>{{ objp.descripcion }}</dt>
-					            		<dd><input type="text" class="form-control" id="_" name="_" value="{{da.valor}}" placeholder=" {{ objp.unidadmedida}}"></dd>
-					            	{% endif %}
-					            {% endfor %}
+			            		<dt>{{ da.parametros.descripcion }}</dt>
+			            		<div class="posicionItem">
+						        <dd><input type="text" class="form-control" id="_" name="_" value="{{da.valor}}" placeholder=" {{ objp.unidadmedida}}"></dd>
+				            		{% for i in object_list_ind %}
+					            	<input type="hidden" name="dapos" value="{{da.id}}" />
+				            		{% endfor %}
+				            		
+			            		</div>
 			            	</dl>
+			            		
 							{% endif %}
 		            	{% endfor %}
 					</div>
