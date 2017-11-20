@@ -74,9 +74,9 @@
 										<td class="col-sm-2">
 										{% for da, valor in da_list.items %}
 											{% if i.individuoPadre.identificacion == da.individuoPadre.identificacion and p == da.parametros %}
-												{% if p.tipo_de_dato == 'S' %}<input type="text" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
-												{% if p.tipo_de_dato == 'I' %}<input type="number" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
-												{% if p.tipo_de_dato == 'F' %}<input type="number" step="0.01" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
+												{% if p.tipo_de_dato == 'S' %}<input type="text" maxlength="10" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
+												{% if p.tipo_de_dato == 'I' %}<input type="number" maxlength="10" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
+												{% if p.tipo_de_dato == 'F' %}<input type="number" maxlength="10" step="0.01" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
 												{% if p.tipo_de_dato == 'B' %}
 													<select id="select" class="form-control selectpicker" >
 										              <option value="Negativo">Negativo</option>

@@ -17,7 +17,7 @@
         <div class="panel-body">
 
   <!-- panel de numero de protocolo -->
-        <div id="block-protocolo">
+        <div id="block-protocolo" class="block-protocolo">
 
           <div class="panel panel-default lprotocol">
             <div class="panel-heading">
@@ -34,30 +34,30 @@
             
             <div class="panel-body">
               <div class="form-group">
-                              <label class="control-label col-sm-2" for="muestra">Muestra:</label>
-                    <div class="col-sm-4">
-                    <div class="divalidacion">
-                      <select class="form-control muestraSel muestra" name="muestra" onchange="validacion('muestra');"></select>
-                    </div>
-                    </div>
-                    <div class="col-sm-6" align="right">
-                      <button id="addBlockDiagnostico"  class="btn btn-default btn-sm">Agregar Diagnóstico  <span class="glyphicon glyphicon-plus"></span></button>
-                    </div>
-                </div>
+                <label class="control-label col-sm-2" for="muestra">Muestra:</label>
+                  <div class="col-sm-4">
+                  <div class="divalidacion divmuestra">
+                    <select class="form-control muestraSel muestra" name="muestra" onchange="validacion('muestra');"></select>
+                  </div>
+                  </div>
+                  <div class="col-sm-6" align="right">
+                    <button id="addBlockDiagnostico"  class="btn btn-default btn-sm addBlockDiagnostico">Agregar Diagnóstico  <span class="glyphicon glyphicon-plus"></span></button>
+                  </div>
+              </div>
                 
           <!-- panel de Diagnostico -->
                    
                             <div id="block-diagnostico">
 
-                              <div class="form-group">
+                              <!-- <div class="form-group">
                                 <label class="control-label col-sm-2" for="diagnostico">Diagnóstico:</label>
                                 <div class="col-sm-4">
-                                  <div class="divalidacion">
+                                  <div class="divalidacion divdiagnostico">
                                     <select class="form-control diagnosticoSel diagnostico ldiag" name="diagnostico" onchange="validacion('diagnostico');"></select>
                                   </div>
                                 </div>
                                 <button class="btn btn-danger btn-sm btn-eliminar-linea">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
-                              </div>
+                              </div> -->
 
                             </div>
 
@@ -65,7 +65,7 @@
               </div>
 
               <div class="panel-footer">
-                <div id="rmvBlockProt" align="right">
+                <div id="rmvBlockProt" class="rmvBlockProt" align="right">
                   <div  class="btn btn-sm" >
                     Eliminar Protocolo <span class="glyphicon glyphicon-remove"></span>
                   </div>
@@ -78,7 +78,7 @@
 
           <div class="form-group">
               <div class="col-sm-12" align="right">
-               <button id="addBlockProtocolo"  class="btn btn-default btn-sm">Agregar Protocolo  <span class="glyphicon glyphicon-plus"></span></button>
+               <button id="addBlockProtocolo"  class="btn btn-default btn-sm addBlockProtocolo">Agregar Protocolo  <span class="glyphicon glyphicon-plus"></span></button>
             </div>
           </div>
               
@@ -107,7 +107,7 @@
 // el javascript de los select muestra y diagnostico estan en BS_select.js
 $(document).ready(function() {
   var num = 0;
-  $("body").on('click',"#addBlockDiagnostico", function(){
+  $("body").on('click',".addBlockDiagnostico", function(){
     var newLine = $('#linea_diagnostico').clone()
                     .removeAttr('id')
                     .removeAttr('style')
@@ -119,7 +119,7 @@ $(document).ready(function() {
     return false;
   });
 
-  $("#addBlockProtocolo").click(function(){
+  $(".addBlockProtocolo").click(function(){
     $('#panelProtocolo').clone()
                         .removeAttr('id')
                         .removeAttr('style')
@@ -129,63 +129,268 @@ $(document).ready(function() {
     return false;
   });
 
+var arraymuestra = [];
     var selectmuestra = "{{instance.muestra.id}}"
         $.ajax({
             url:"/j_muestra/",
             type:"GET",
             dataType: "json",
             success: function(muestra){
-                $('.muestra').append('<option selected value=""></option>');
                 $.each(muestra,function(index, obj) 
                 {   
                   if(obj.activo == true){
-                    if(obj.id == selectmuestra)
-                    {
                     $('.muestraSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
-                    else{
-                    $('.muestraSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
+                  arraymuestra[index]=obj;
                   }  
                 });
             }
         }); // fin selectmuestra
+  console.log(arraymuestra);
+
+var arraydiag = [];
     var selectdiagnostico = "{{instance.diagnostico.id}}"
         $.ajax({
             url:"/j_diagnostico/",
             type:"GET",
             dataType: "json",
             success: function(diagnostico){
-                $('.diagnosticoSel').append('<option selected value=""></option>');
                 $.each(diagnostico,function(index, obj) 
                 {  
-                  if(obj.activo == true){
-                    if(obj.id == selectdiagnostico)
-                    {
+                  if(obj.activo == true){  
                     $('.diagnosticoSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
-                    else{
-                    $('.diagnosticoSel').append('<option value=' + obj.id + '>' + obj.descripcion + '</option>');
-                    }
+                    arraydiag[index]=obj;
                   }  
                 });
             }
         }); // fin selectdiagnostico
+        console.log(arraydiag);
 
   $("body").on('click', ".btn-eliminar-linea", function(){
+    $(this).parent().parent().parent().find(".addBlockDiagnostico").attr('disabled', false);//habilita
+
+    var countopt = 0;
+    var count = 0;
+    var array = [];
+    var contprot = $(this).parent().parent().parent();
+    var idmuestra = $(this).parent().parent().parent().parent().find('.muestraSel').val();
+    conbd = getconbd("/j_diagnostico/", "GET");//consulta json a tabla especificada
+    $(this).parent().parent().parent().parent().find('.divdiagnostico').each(function(i, elem) {
+      var c = elem;
+      array.push(c);
+    });
+    console.log('contprot   ',contprot,'array ',array);
+    
+    var adiag=[];
+    adiag=arraydiag;
+    console.log('elimino',adiag);      
+
+      contprot.find(".divdiagnostico").each(function(index, e) {
+        for (var i = 0; i < conbd.length; i++) {
+            $(array[i]).find('.diagnosticoSel').find('option').remove();
+            console.log('arrayi  ',$(array[i]));      
+        }
+        for (var i = 0; i < conbd.length; i++) {
+          for (var j = 0; j < conbd.length; j++) {
+            $(array[i]).find('.diagnosticoSel').append('<option value=' + adiag[j].id + '>' + adiag[j].descripcion + '</option>');
+          } 
+        } 
+
+      });
+
+      $(this).parent().parent().parent().parent().find('.divdiagnostico').each(function(i, elem) {
+        $(elem).find('.diagnosticoSel').find('option').each(function(j, opt) {
+          if($(opt).val()==conbd[j].id && conbd[j].muestra_id!=idmuestra ){
+            $(opt).remove();
+            console.log('opt',$(opt).val());
+          }
+          else{if(i==0){countopt++;}}
+        });
+      });  
+
+      contprot.find(".divdiagnostico").each(function(index, e) {
+        for (var i = 1; i < countopt; i++) {
+          for (var j = i+1; j < countopt; j++) {
+            $(array[j]).find('.diagnosticoSel').find('option[value="'+$(array[i]).find('.diagnosticoSel').val()+'"]').remove();
+            $(array[i]).find('.diagnosticoSel').find('option[value="'+$(array[j]).find('.diagnosticoSel').val()+'"]').remove();
+            console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+          }
+        } 
+      });
+  ///////////////////////////////////////////////////////////////////
+
     $(this).parent().parent().remove(); // elimina linea de diagnostico 
   });      
 
-  $("body").on('click', "#rmvBlockProt", function(){
+  $("body").on('click', ".rmvBlockProt", function(){
+
       if(window.confirm("¿Esta seguro que desea eliminar?"))
       {
+      $(this).parent().parent().parent().parent().parent().find(".addBlockProtocolo").attr('disabled', false);//habilita addparametro 
+      
+        var count = 0;
+        var array = [];
+        var contprot = $(this).parent().parent().parent();
+        conbd = getconbd("/j_muestra/", "GET");//consulta json a tabla especificada
+        $('.block-protocolo').find('.divmuestra').each(function(i, elem) {
+          var c = elem;
+          array.push(c);
+        });
+        console.log('contprot   ',contprot,'array ',array);
+        
+        var amuestra=[];
+        amuestra=arraymuestra;
+        console.log('elimino',amuestra);      
+    
+          contprot.find(".divmuestra").each(function(index, e) {
+            for (var i = 0; i < conbd.length; i++) {
+                $(array[i]).find('.muestraSel').find('option').remove();
+                console.log('arrayi  ',$(array[i]));      
+            }
+            for (var i = 0; i < conbd.length; i++) {
+              for (var j = 0; j < conbd.length; j++) {
+                $(array[i]).find('.muestraSel').append('<option value=' + amuestra[j].id + '>' + amuestra[j].descripcion + '</option>');
+              } 
+            } 
+
+          });
+          contprot.find(".divmuestra").each(function(index, e) {
+            for (var i = 1; i < conbd.length; i++) {
+              for (var j = i+1; j < conbd.length; j++) {
+                $(array[j]).find('.muestraSel').find('option[value="'+$(array[i]).find('.muestraSel').val()+'"]').remove();
+                $(array[i]).find('.muestraSel').find('option[value="'+$(array[j]).find('.muestraSel').val()+'"]').remove();
+                console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+              }
+            } 
+          });
+  ///////////////////////////////////////////////////////////////////    
       $(this).parent().parent().remove();
       }
   });
+
+    //valida select option - Diagnostico Protocolo
+    $('body').on('click','.addBlockDiagnostico',function(){
+      console.log('paso x aca');
+      var countopt = 0;
+      var count = 0;
+      var array = [];
+      var contprot = $(this).parent().parent().parent();
+      var idmuestra = $(this).parent().parent().parent().parent().find('.muestraSel').val();
+      conbd = getconbd("/j_diagnostico/", "GET");//consulta json a tabla especificada
+      $(this).parent().parent().parent().parent().find('.divdiagnostico').each(function(i, elem) {
+          $(elem).find('.diagnosticoSel').find('option').each(function(j, opt) {
+            if($(opt).val()==conbd[j].id && conbd[j].muestra_id!=idmuestra ){
+              $(opt).remove();
+              console.log('opt',$(opt).val());
+            }
+            else{if(i==0){countopt++;}}
+          });
+          var c = elem;
+          array.push(c);
+          count++;
+          console.log('count   ',count,'elem  ',elem,'conbd  ',conbd.length,conbd[i],'idmuestra',idmuestra,'countopt',countopt);
+          if(count >= countopt){contprot.find(".addBlockDiagnostico").attr('disabled', true);}
+          else{contprot.find(".addBlockDiagnostico").attr('disabled', false);}
+      });
+      console.log('contprot   ',contprot,'array ',array);
+
+      if(array.length > 1){
+        contprot.find(".divdiagnostico").each(function(index, e) {
+          for (var i = 0; i < countopt; i++) {
+            for (var j = i+1; j < countopt; j++) {
+              $(array[j]).find('.diagnosticoSel').find('option[value="'+$(array[i]).find('.diagnosticoSel').val()+'"]').remove();
+              $(array[i]).find('.diagnosticoSel').find('option[value="'+$(array[j]).find('.diagnosticoSel').val()+'"]').remove();
+              console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+            }
+          } 
+        });
+      }     
+    });
+
+    $('body').on('change','.diagnosticoSel',function(){
+      console.log('paso x aca');
+      var count = 0;
+      var array = [];
+      var contprot = $(this).parent().parent().parent();
+      conbd = getconbd("/j_diagnostico/", "GET");//consulta json a tabla especificada
+      $('.block-protocolo').find('.divdiagnostico').each(function(i, elem) {
+        var c = elem;
+        array.push(c);
+      });
+      console.log('contprot   ',contprot,'array ',array);
+          
+      if(array.length > 1){
+        contprot.find(".divdiagnostico").each(function(index, e) {
+          for (var i = 0; i < conbd.length; i++) {
+            for (var j = i+1; j < conbd.length; j++) {
+              $(array[j]).find('.diagnosticoSel').find('option[value="'+$(array[i]).find('.diagnosticoSel').val()+'"]').remove();
+              $(array[i]).find('.diagnosticoSel').find('option[value="'+$(array[j]).find('.diagnosticoSel').val()+'"]').remove();
+              console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+            }
+          } 
+        });
+      }
+    });
+    //fin validacion select option - diagnostico Protocolo
+
+    //valida select option - Muestra Protocolo
+    $('.addBlockProtocolo').click(function(){
+      console.log('paso x aca');
+      var count = 0;
+      var array = [];
+      var contprot = $(this).parent().parent().parent();
+      conbd = getconbd("/j_muestra/", "GET");//consulta json a tabla especificada
+      $('.block-protocolo').find('.divmuestra').each(function(i, elem) {
+        var c = elem;
+        array.push(c);
+        count++;
+        console.log('count   ',count,'elem  ',elem,'conbd  ',conbd.length);
+        if(count >= conbd.length){contprot.find(".addBlockProtocolo").attr('disabled', true);}
+        else{contprot.find(".addBlockProtocolo").attr('disabled', false);}
+      });
+      console.log('contprot   ',contprot,'array ',array);
+
+      if(array.length > 1){
+        contprot.find(".divmuestra").each(function(index, e) {
+          for (var i = 0; i < conbd.length; i++) {
+            for (var j = i+1; j < conbd.length; j++) {
+              $(array[j]).find('.muestraSel').find('option[value="'+$(array[i]).find('.muestraSel').val()+'"]').remove();
+              $(array[i]).find('.muestraSel').find('option[value="'+$(array[j]).find('.muestraSel').val()+'"]').remove();
+              console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+            }
+          } 
+        });
+      }     
+    });    
+
+    $('body').on('change','.muestraSel',function(){
+      console.log('paso x aca');
+        var count = 0;
+        var array = [];
+        var contprot = $(this).parent().parent().parent();
+        conbd = getconbd("/j_muestra/", "GET");//consulta json a tabla especificada
+        $('.block-protocolo').find('.divmuestra').each(function(i, elem) {
+          var c = elem;
+          array.push(c);
+        });
+        console.log('contprot   ',contprot,'array ',array);
+        
+          contprot.parent().find('.diagBase').remove();
+
+        if(array.length > 1){
+          contprot.find(".divmuestra").each(function(index, e) {
+            for (var i = 0; i < conbd.length; i++) {
+              for (var j = i+1; j < conbd.length; j++) {
+                $(array[j]).find('.muestraSel').find('option[value="'+$(array[i]).find('.muestraSel').val()+'"]').remove();
+                $(array[i]).find('.muestraSel').find('option[value="'+$(array[j]).find('.muestraSel').val()+'"]').remove();
+                console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+              }
+            } 
+          });
+        }
+    });
+    //fin validacion select option - Muestra Protocolo
+
     
-
-
-
 /*validacion*/
 $("span.help-block").hide();
 
@@ -215,6 +420,22 @@ $("span.help-block").hide();
       $(location).attr('href',"../../../individuopadre/alta");
     }
   });// boton validar
+
+//funcion retorna array de consulta bd 
+  function getconbd1(url, method, muestra)
+  {
+      return JSON.parse($.ajax({
+          data: 'muestra=' + muestra,
+          type: method,
+          url: url,
+          dataType: 'json',
+          async:false,
+          success: function(data)
+          {
+              return data;
+          }
+      }).responseText);
+  }//consulta bd
 
   //funcion retorna array de consulta bd 
   function getconbd(url, method)
@@ -327,15 +548,17 @@ $("span.help-block").hide();
       if(campo==='diagnostico'){error=-2}//solo para diagnostico
       $('.'+campo).each(function(i, elem){
       var indice = $(elem).val();
-      console.log('indice  ',indice);
+      //console.log('indice  ',indice);
       if(indice == null || indice == 0 ){
-        $(elem).parent().attr("class","has-error has-feedback");
+        if(campo == 'muestra'){$(elem).parent().attr("class","has-error has-feedback divmuestra");}
+        if(campo == 'diagnostico'){$(elem).parent().attr("class","has-error has-feedback divdiagnostico");}
         error++;
-        console.log('indice2  ',indice);
+        //console.log('indice2  ',indice);
         }
       else{
-        $(elem).parent().attr("class","has-success has-feedback");
-        console.log('indice3  ',indice);
+        if(campo == 'muestra'){$(elem).parent().attr("class","has-success has-feedback divmuestra");}
+        if(campo == 'diagnostico'){$(elem).parent().attr("class","has-success has-feedback divdiagnostico");}
+        //console.log('indice3  ',indice);
         } 
       });
       
@@ -347,7 +570,7 @@ $("span.help-block").hide();
       }   
     }//muestra
 
-    if(campo==='diagnostico'){
+    /*if(campo==='diagnostico'){
       $('.'+campo).each(function(i, elem){
       var diag = $(elem).val();
       //console.log('diag  ',diag,'  i',i);
@@ -368,7 +591,7 @@ $("span.help-block").hide();
       else{
         return true;
       }
-    }//select        
+    }//select*/        
   }//validacion
 </script> 
 {% endblock %}
