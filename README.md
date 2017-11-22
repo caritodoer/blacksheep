@@ -1,7 +1,8 @@
+
 # blacksheep
 
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-
+HORIZONTALIZARME!
 29-10-17 - Tareas Pendientes:
 
 ok - fsltan valores de referencia en los infromes en la parte de las tablas. donde lo pongo??
@@ -16,8 +17,8 @@ OK - en valores de referencia = textinput max_length=15 caracteres
 
 - En "Registrar Protocolos":
 	ok* Cuando no hay protocolos que emita mensaje de error y no permita irse de la pagina.
-	OK* Falta que no repita las muestras ni los diagnosticos
-	OK* los diagnosticos que propone deberian ser segun la muestra
+	X*  Falta que no repita las muestras ni los diagnosticos
+	X* los diagnosticos que propone deberian ser segun la muestra
 	ok* En verificacion tiene que avisazr que si el numero de protocolo ya fue usado previamente (si ya hay uno guardado en BDD)
 
 - En "Cargar Individuos":
