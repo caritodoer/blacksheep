@@ -131,16 +131,18 @@ def daindividuo(request):
 	# 		categoriae = categoriae,
 	# 		sexo = sexo,
 	# 		)
-
-	param =  Parametros.objects.all().filter(diagnostico=posDiagnostico)
+	vSolAn = DetalleAnalisisPadre.objects.all().filter(solicitud=posSolAnalisis)
 	valor = ""
-	for z in param:
-		DetalleAnalisis.objects.create(
+	for z in vSolAn:
+		param =  Parametros.objects.all().filter(diagnostico=z.diagnostico)
+		for x in param:
+			DetalleAnalisis.objects.create(
 			solicitud = solAnalisis,
-			parametros = z,
+			parametros = x,
 			individuoPadre = dataindip,
 			valor = valor,
 			)
+		
 
 
 	return HttpResponse()

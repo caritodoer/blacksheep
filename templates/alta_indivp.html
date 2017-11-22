@@ -261,7 +261,22 @@ $(document).ready(function() {
 																    500: function(){
 																    },
 																    200: function () {
-																    	$(".lIndividuo").each(function(){
+																    	// hasta aca guarda todos los detalle analisispadre
+																    	
+																    }// 200 ajaxdap
+																  }  // statusCode DetalleAnalisisPadre
+															}); // AjaxDetalleAnalisisPadre 
+
+												    }
+												}
+										    }// 200 ajaxprot
+										  }  // statusCode prot
+									}); // Ajaxprot 	
+			    		}
+					}
+					// aca va el individuo dsps de cargar todos los datos basicos 
+
+					$(".lIndividuo").each(function(){
 																    		edad = 0;
 																			var identificacion = $(this).find('#identificacion').val();
 																			var raza = $(this).find('.razaSel').val();
@@ -299,18 +314,6 @@ $(document).ready(function() {
 																					}); // AjaxDetalleAnalisisPadre 
 															
 														});// end each .lIndividuo
-																    	
-																    }// 200 ajaxSolAn
-																  }  // statusCode DetalleAnalisisPadre
-															}); // AjaxDetalleAnalisisPadre 
-
-												    }
-												}
-										    }// 200 ajaxSolAn
-										  }  // statusCode Sol an
-									}); // AjaxSolAn 	
-			    		}
-					}
 			    }// 200 ajaxSolAn
 			  }  // statusCode Sol an
 		}); // AjaxSolAn 
