@@ -15,12 +15,12 @@
               <div class="form-group">
                               <label class="control-label col-sm-2" for="muestra">Muestra:</label>
                     <div class="col-sm-4">
-                      <div class="divalidacion">
+                      <div class="divalidacion divmuestra">
                         <select class="form-control muestraSel muestra" name="muestra" onchange="validacion('muestra');"></select>
                       </div>
                     </div>
                     <div class="col-sm-6" align="right">
-                      <button id="addBlockDiagnostico"  class="btn btn-default btn-sm">Agregar Diagnóstico  <span class="glyphicon glyphicon-plus"></span></button>
+                      <button id="addBlockDiagnostico"  class="btn btn-default btn-sm addBlockDiagnostico">Agregar Diagnóstico  <span class="glyphicon glyphicon-plus"></span></button>
                     </div>
                 </div>
                 
@@ -28,15 +28,15 @@
                    
                             <div id="block-diagnostico">
 
-                              <div class="form-group">
+                              <!-- <div class="form-group">
                                 <label class="control-label col-sm-2" for="diagnostico">Diagnóstico:</label>
                                 <div class="col-sm-4">
-                                  <div class="divalidacion">
-                                    <select class="form-control diagnosticoSel diagnostico" name="diagnostico" onchange="validacion('diagnostico');"></select>
+                                  <div class="divalidacion divdiagnostico">
+                                    <select class="form-control diagnosticoSel divdiagnostico" name="diagnostico" onchange="validacion('diagnostico');"></select>
                                   </div>
                                 </div>
-                                <button class="btn btn-danger btn-sm btn-eliminar-linea">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
-                              </div>
+                                <button class="btn btn-danger btn-sm btn-eliminar-linea ">Eliminar <span class="glyphicon glyphicon-remove"></span></button>
+                              </div> -->
 
                             </div>
 
@@ -44,7 +44,7 @@
               </div>
 
               <div class="panel-footer">
-                <div id="rmvBlockProt" align="right">
+                <div id="rmvBlockProt" class="rmvBlockProt" align="right">
                   <div  class="btn btn-sm" >
                     Eliminar Protocolo <span class="glyphicon glyphicon-remove"></span>
                   </div>

@@ -29,7 +29,7 @@
 								<td class="numeracion">
 									<p class="contador"></p>
 								</td>
-								<td><input type="text" class="form-control identificacion" id="identificacion" onkeyup="validacion('identificacion');" name="identificacion" value="{{ instance.identificacion }}">
+								<td><input type="text" maxlength="8" class="form-control identificacion" id="identificacion" onkeyup="validacion('identificacion');" name="identificacion" value="{{ instance.identificacion }}">
 								<span class="help-block"></span></td>
 								<td><select class="form-control razaSel raza" name="raza" onchange="validacion('raza');"></select></td>
 								<td><a id="botonIngresarMasOpciones" class="btn btn-default ModalMasOp" data-toggle="modal" data-target="#ModalMasOp" class="btn btn-default">Mas Opciones</a></td>

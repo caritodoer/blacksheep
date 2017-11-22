@@ -31,31 +31,54 @@
 							<th>Fecha de Envío</th>
 							<th>Fecha de Devolución</th>
 							<th>Institución</th>
-							<th>Informe</th>
-							<th>Modificar</th>
+							<th>Estado</th>
+							<!-- <th>Modificar</th> -->
 						</tr>
 					</thead>
 					<tbody>
 						{% for obj in object_list %}
+						{% if obj.detalleanalisispadre.protocolo.activo %}
 						<tr>
 							<td>{{ obj.detalleanalisispadre.protocolo.numero }}</td>
 							<td>{{ obj.detalleanalisispadre.diagnostico.descripcion }}</td>
-							<td>{{ obj.fecha_envio }}</td>
+							<td>{{ obj.fecha_envio|date:'c' }}</td>
 							<td>{% if obj.fecha_devolucion %}
-								{{ obj.fecha_devolucion }}
+								{{ obj.fecha_devolucion|date:'c' }}
 								{% else %}
-									<a href="#" class="btn btn-default btn-sm" role="button">Cargar Devolución</a>
+									<a href="{% url 'bsuser:u_tercerizar' idt=obj.id iddap=obj.detalleanalisispadre.id %}" class="btn btn-default btn-sm" role="button">Cargar Devolución</a>
 								{% endif %}
 							</td>
 							<td>{{ obj.institucion }}</td>
 							<td>
 							<a target="_blank" class="btn btn-default btn-sm" role="button" href="{% url 'bsuser:tercerizar_pdf' id=obj.detalleanalisispadre.id %}">Ver</a>
 							</td>
-							<td><a href="{% url 'bsuser:u_tercerizar' idt=obj.id iddap=obj.detalleanalisispadre.id %}">
+							<!-- <td><a href="{% url 'bsuser:u_tercerizar' idt=obj.id iddap=obj.detalleanalisispadre.id %}">
 								<span class="glyphicon glyphicon-pencil"></span>
 								</a>
-							</td>
+							</td> -->
 						</tr>
+						{% else %}
+						<tr class="danger">
+							
+							<td><a href="{% url 'bsuser:v_tercerizar' id=obj.id %}">{{ obj.detalleanalisispadre.protocolo.numero }}</a></td>
+							<td>{{ obj.detalleanalisispadre.diagnostico.descripcion }}</td>
+							<td>{{ obj.fecha_envio|date:'c' }}</td>
+							<td>{% if obj.fecha_devolucion %}
+								{{ obj.fecha_devolucion|date:'c' }}
+								{% else %}
+									<a href="{% url 'bsuser:u_tercerizar' idt=obj.id iddap=obj.detalleanalisispadre.id %}" class="btn btn-default btn-sm" role="button">Cargar Devolución</a>
+								{% endif %}
+							</td>
+							<td>{{ obj.institucion }}</td>
+							<td>
+							Protocolo Eliminado
+							</td>
+							<!-- <td><a href="{% url 'bsuser:u_tercerizar' idt=obj.id iddap=obj.detalleanalisispadre.id %}">
+								<span class="glyphicon glyphicon-pencil"></span>
+								</a>
+							</td> -->
+						</tr>
+						{% endif %}
 						{% endfor %}
 					</tbody>
 				</table>

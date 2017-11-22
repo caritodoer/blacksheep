@@ -3,7 +3,6 @@
 
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
-    	
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">{{ title }}</h3>
@@ -50,49 +49,38 @@
 			            <div class="panel-heading">
 			                <h3 class="panel-title">Detalle</h3>
 			            </div>
-						<form class="form-horizontal" id="formvalidar" method="POST" action="">{% csrf_token %}
-							<div class="panel-body">
-								<input type="hidden" class="form-control" id="usuario" name="usuario" value="{{ user }}" placeholder="{{ user }}">
-								<!-- <div class="form-group">
-									
-									<label class="control-label col-sm-2" for="sel_protocolo">Protocolo:</label>
-									<div class="col-sm-3"> -->
-										<select style="visibility:hidden" name="protocolo" class="form-control" id="sel_protocolo" onchange="validacion('sel_protocolo');"></select>
-								<!-- 	</div>
-								</div> -->
- 								<div class="form-group">
-									<label class="control-label col-sm-2" for="fecha">Fecha:</label>
-			                        <div class="col-sm-3">
-			                            <input pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" type="text" class="form-control" id="fecha" name="fecha" value="{{ instance_ep.fecha|date:'c' }}">
-			                        </div>
+			            <form class="form-horizontal" method="POST" action="">{% csrf_token %}
+			            	<div class="panel-body">
+			            		<input type="hidden" class="form-control" id="detalleanalisispadre" name="detalleanalisispadre" value="{{instance.id}}" placeholder="{{instance.id}}">
+			                    
+			                    <input pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"type="hidden" class="form-control" id="fecha_envio" name="fecha_envio" value="{{instance_t.fecha_envio|date:'c'}}">
+
+			                    <!-- fecha de devolucion -->
+			                    <div class="form-group">
+			                    	<label class="control-label col-sm-3" for="fecha_envio">Fecha de Devolución:</label>
+			                    	<div class="col-sm-3">
+			                   		<input pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" type="text" class="form-control" id="fecha_devolucion" name="fecha_devolucion" value="{{instance_t.fecha_devolucion|date:'c'}}">
+			                    	</div>
 			                    </div>
-								<div class="form-group">
-			                        <label class="control-label col-sm-2" for="motivoBaja">Motivo:</label>
-			                        <div class="col-sm-9">
-			                            <textarea row="3" class="form-control" id="motivoBaja" name="motivoBaja" value="">{{instance_ep.motivoBaja}} </textarea>
-			                        </div>
-			                    </div>
-							</div>
+			                    
+			                    <input type="hidden" class="form-control" id="institucion" name="institucion" value="{{instance_t.institucion}}">
+			                    
+			                    <textarea style="visibility:hidden" row="5" class="form-control" id="detalle" name="detalle" value="{{instance_t.detalle}}">{{instance_t.detalle}}</textarea>
+			                     
+			            	
+			            	</div>
 
 							<div class="panel-footer">
 								<div class="row">
 						    		<div class="col-sm-12" align="right">
-										<button type="submit" class="btn btn-default">Generar informe de Baja</button>
+										<button type="submit" class="btn btn-default">Cargar</button>
 									</div>
 								</div>
 							</div>
 						</form>
-
-
-			                    
-			                    
-			            	
 			        </div>
 				</div>
-
             </div> <!--fin panel body-->
-
-           
     	</div>
     </div>
 </div>
@@ -101,29 +89,28 @@
 {% block javascript %} 
 <script type="text/javascript">
 $(document).ready(function() {
-	  $( "#fecha" ).datepicker();
-
-	var select = "{{ instance.protocolo.id }}"
-	$.ajax({
-        url:"/j_protocolo/",
-        type:"GET",
-        dataType: "json",
-        success: function(protocolo){
-        	console.log(select)
-        	$('#sel_protocolo').append('<option selected value="{{ instance.protocolo.id }}"></option>');
-        	$.each(protocolo,function(index, obj) 
-			{	
-					if(obj.id == select){
-					$('#sel_protocolo').append('<option selected value=' + obj.id + '>' + obj.numero + '</option>');
-					}
-					else{
-						$('#sel_protocolo').append('<option value=' + obj.id + '>' + obj.numero + '</option>');	
-					}
-				
-			});
-        }
+    $( "#fecha_envio" ).datepicker({
+    	dateFormat: 'yy-mm-dd',
     });
+    // $( "#fecha_envio" ).datepicker({
+    // 	dateFormat: 'yy-mm-dd',
+    // }).datepicker("setDate", new Date());
+
+    // $( "#fecha_envio" ).datepicker({
+    // 	dateFormat: 'dd-mm-yy',
+    // }).datepicker("setDate", $('#fecha_envio').val());
+
+
+    $( "#fecha_devolucion" ).datepicker({
+    	dateFormat: 'yy-mm-dd',
+    });
+    //  $( "#fecha_devolucion" ).datepicker({
+    // 	dateFormat: 'yy-mm-dd',
+    // }).datepicker("setDate", new Date());
+
+    // $( "#fecha_devolucion" ).datepicker({
+    // 	dateFormat: 'dd-mm-yy',
+    // }).datepicker("setDate", $('#fecha_devolucion').val());
 });
 </script>
-
 {% endblock %}

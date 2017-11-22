@@ -1,5 +1,5 @@
 /*CSS DE NUESTRO PROYECTO*/
-input[type="text"]{
+input[type="date"]{
 	text-transform: uppercase;
 }
 @font-face {

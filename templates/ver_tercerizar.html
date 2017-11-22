@@ -17,23 +17,44 @@
 					<dt>Diagnóstico</dt>
 					<dd>{{ instance.detalleanalisispadre.diagnostico }}</dd>
 					<dt>Fecha de Envío</dt>
-					<dd>{{ instance.fecha_envio }}</dd>
-					<dt>Fecha de Devolución</dt>
-					<dd>{{ instance.fecha_devolucion }}</dd>
+					<dd>{{ instance.fecha_envio|date:"c" }}</dd>
+					{% if instance.fecha_devolucion %}
+								
+						<dt>Fecha de Devolución</dt>
+						<dd>{{ instance.fecha_devolucion|date:"c" }}</dd>
+								{% else %}
+						<dt>Fecha de Devolución</dt>
+						<dd>
+									<a href="{% url 'bsuser:u_tercerizar' idt=instance.id iddap=instance.detalleanalisispadre.id %}" class="btn btn-default btn-sm" role="button">Cargar Devolución</a>
+						</dd>
+								{% endif %}
+					
 					<dt>Detalle</dt>
 					<dd>{{ instance.detalle }}</dd>
+					<dt>Estado</dt>
+					{% if instance.detalleanalisispadre.protocolo.activo %}
+					<dd>Activo</dd>
+					{% else %}
+					<dd>Protocolo Eliminado</dd>
+					{% endif %}
 				</dl>
 
 			</div>
 			<div class="panel-footer">
 				<ul class="list-inline">
-					<li>
-						<a href="../update/{{ instance.id }}">
+					<!-- <li>	<a href="{% url 'bsuser:u_tercerizar' idt=instance.id iddap=instance.detalleanalisispadre.id %}">
 					Modificar<span class="glyphicon glyphicon-pencil"></span>
 						</a>
-					</li>
+					</li> -->
 					<li>
-						<a class="btn btn-default" role="button" href="{% url 'bsuser:tercerizar_pdf' id=instance.detalleanalisispadre.id %}">Ver Informe PDF</a>
+						<a class="btn btn-default" role="button" href="{% url 'bsuser:l_tercerizar' %}">Ver Listado de Tercerizaciones</a>
+					</li>
+					{% if instance.detalleanalisispadre.protocolo.activo %}
+					<a class="btn btn-default" role="button" href="{% url 'bsuser:tercerizar_pdf' id=instance.detalleanalisispadre.id %}">Ver Informe PDF</a>
+					
+					{% endif %}
+					<li>
+						
 					</li>
 
 				</ul>
