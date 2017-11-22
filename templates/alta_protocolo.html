@@ -241,12 +241,28 @@ $("span.help-block").hide();
           var diag = $(this).val();
 
           protoSave.push(prot);
-          diagSave.push(diag);
+          diagSave.push(diag)
+          
           
         });
     });
     localStorage.setItem( "prot", JSON.stringify( protoSave ) );
     localStorage.setItem( "diag", JSON.stringify( diagSave ) );
+    
+  }
+
+  control_LS();
+
+  function control_LS(){
+    if( localStorage.getItem( "SolAn" ) ){
+      localStorage.removeItem("prot");
+      localStorage.removeItem("diag");
+    }
+    else{
+      localStorage.removeItem("prot");
+      localStorage.removeItem("diag");
+      $(location).attr('href',"../../../solicitudanalisis/alta/");      
+    }
   }
 
 

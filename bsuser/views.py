@@ -38,6 +38,114 @@ def home_user(request):
 	}
 	return render(request, "home_user.html", context)
 
+# Ajax SolAn
+def solAn(request):
+	
+	
+	if request.method == 'POST':
+		posVeterinario = request.POST['veterinario']
+		veterinario = get_object_or_404(Veterinario,id=posVeterinario)
+		posEstablecimiento = request.POST['establecimiento']
+		establecimiento = get_object_or_404(Establecimiento,id=posEstablecimiento)
+		posMotivo = request.POST['motivo']
+		motivo = get_object_or_404(Motivos,id=posMotivo)
+		posEspecie = request.POST['especie']
+		especie = get_object_or_404(Especie,id=posEspecie)
+		fecha = request.POST['fecha']
+		obs = request.POST['obs']
+		SolicitudAnalisis.objects.create(
+			veterinario = veterinario,
+			establecimiento = establecimiento,
+			motivo = motivo,
+			especie = especie,
+			fecha = fecha,
+			obs = obs,
+    	)
+
+		data = SolicitudAnalisis.objects.latest('id')
+		data = data.id
+
+		
+		return HttpResponse(data)
+
+def protAjax(request):
+	if request.method == 'POST':
+		protocolo = request.POST['protocolo']
+
+	Protocolo.objects.create(
+		numero = protocolo,
+		)	
+	dataprot = Protocolo.objects.latest('id')
+	dataprot = dataprot.id
+	return HttpResponse(dataprot)
+
+def DetalleAnalisisPadreAjax(request):
+	if request.method == 'POST':
+		posSolAnalisis = request.POST['solAnalisis']
+		solAnalisis = get_object_or_404(SolicitudAnalisis, id= posSolAnalisis)
+		posDiagnostico = request.POST['diagnostico']
+		diag = get_object_or_404(Diagnostico, id= posDiagnostico)
+		posProtocolo = request.POST['protocolo']
+		prot = get_object_or_404(Protocolo, id= posProtocolo)
+		
+	DetalleAnalisisPadre.objects.create(
+		solicitud = solAnalisis,
+		protocolo = prot,
+		diagnostico = diag,
+		)	
+	dataDAP = DetalleAnalisisPadre.objects.latest('id')
+	
+	print(dataDAP)
+	
+	return HttpResponse(dataDAP)
+
+def daindividuo(request):
+	if request.method == 'POST':
+		posSolAnalisis = request.POST['solAnalisis']
+		solAnalisis = get_object_or_404(SolicitudAnalisis, id= posSolAnalisis)
+		posDiagnostico = request.POST['diagnostico']
+		identificacion = request.POST['identificacion']
+		posRaza = request.POST['raza']
+		raza = get_object_or_404(Raza, id= posRaza)
+		
+		#nombre = request.POST['nombre']
+		#edad = request.POST['edad']
+		#libreta = request.POST['libreta']
+		#posCategoriae = request.POST['categoriaeSel']
+		#categoriae = get_object_or_404(CategoriaE, id= posCategoriae)
+		
+		#sexo = request.POST['sexo']
+
+	IndividuoPadre.objects.create(
+		identificacion = identificacion,
+		raza = raza,
+		)	
+
+	dataindip = IndividuoPadre.objects.latest('id')
+	
+	# if nombre != '' or libreta != '' or categoriae != '':
+	# 	Individuos.objects.create(
+	# 		padre = dataindip,
+	# 		nombre = nombre,
+	# 		edad = edad,
+	# 		libretasanitaria = libreta,
+	# 		categoriae = categoriae,
+	# 		sexo = sexo,
+	# 		)
+
+	param =  Parametros.objects.all().filter(diagnostico=posDiagnostico)
+	valor = ""
+	for z in param:
+		DetalleAnalisis.objects.create(
+			solicitud = solAnalisis,
+			parametros = z,
+			individuoPadre = dataindip,
+			valor = valor,
+			)
+
+
+	return HttpResponse()
+
 # Solicitud Analisis
 
 def j_solicitudanalisis(request):

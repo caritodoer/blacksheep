@@ -14,6 +14,13 @@ urlpatterns = [
 	url(r'^$', views.login),
     url(r'^home_user/$', views.home_user, name="home_user"),
 
+    # Ajax Solicitud de analisis 
+
+    url(r'^solAn/$', views.solAn),
+    url(r'^protAjax/$', views.protAjax),
+    url(r'^DetalleAnalisisPadreAjax/$', views.DetalleAnalisisPadreAjax),
+    url(r'^daindividuo/$', views.daindividuo),
+            
     # Solicitud Analisis
     url(r'^solicitudanalisis/$', views.l_solicitudanalisis, name="l_solicitudAnalisis"),
     url(r'^solicitudanalisis/alta/$', views.a_solicitudanalisis),

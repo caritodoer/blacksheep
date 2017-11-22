@@ -151,7 +151,7 @@
 	                <div class="form-group">
 				    	<label class="control-label col-sm-3" for="piepagina">Texto para incluir en pie de pagina:</label>
 			    		<div class="col-sm-9">
-					    	<textarea row="3" class="form-control" id="piepagina" name="piepagina" value="{{ instance.piepagina }}"> </textarea>
+					    	<textarea row="3" class="form-control" id="piepagina1" name="piepagina" value="{{ instance.piepagina }}"> </textarea>
 			    		</div>
 				    </div>
 	            
@@ -401,9 +401,7 @@ function verificar(){
 
     console.log(v1,v2,v3,v4,v5,v6);
   
-  for (var i = 0; i < prueba.length.length; i++) {
-    	prueba.length[i]
-    }  if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
+  	if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
         return true;
     }
     else{
@@ -414,6 +412,7 @@ function verificar(){
 $("#btnvalidar").click(function(){
     if(verificar() == true){
         /*$("#formvalidar").submit();*/
+        console.log('here');
 
 		$.ajax({
     		type: 'POST',
@@ -424,7 +423,7 @@ $("#btnvalidar").click(function(){
     			tecnica: $('#tecnica').val(),
     			muestra: $('#muestra').val(),
     			tercerizacion: $('#tercerizacion').is(":checked"),
-    			piepagina: $('#piepagina').val(),
+    			piepagina: $('#piepagina1').val(),
     			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
     		},
     		success: function(data){
@@ -451,7 +450,7 @@ $("#btnvalidar").click(function(){
 							var descripcionPara = $(this).find('#descripcion').val();
 							var tipoDato = $(this).find(":selected").val();
 							var unidadmedida = $(this).find('#unidadmedida').val();
-							var valRef = $(this).find("#botonIngresarValorRef").attr('data-target');
+							var valRef = $(this).find("#botonIngresarMasOpciones").attr('data-target');
 						
 						$.ajax({
 				    		type: 'POST',
@@ -499,11 +498,11 @@ $("#btnvalidar").click(function(){
 				    	}); // ajaxdparametros
 						}); // parametros 1x1
 				}); // blockgroup
+        		$(location).attr('href',"../../home_admin");
     		} // succes
     	}); // ajaxdiagnostico
-
-        $(location).attr('href',"../../home_admin");
     }
+
 });// boton validar
 
 //funcion retorna array de consulta bd 
@@ -584,7 +583,7 @@ function validacion(campo){
 
 	if(campo==='descripciongrupo'){
 		var truefalse=true;
-		var error=0;
+		var error=-2;
 		$('.'+campo).each(function(i, elem){
 		//console.log('elem1  ',elem);	
 		inputtext = $(elem).val();

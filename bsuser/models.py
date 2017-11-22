@@ -23,7 +23,7 @@ class SolicitudAnalisis(models.Model):
 
 class Protocolo(models.Model):
 	numero = models.IntegerField("Numero de Protocolo", unique=True)
-	activo = models.BooleanField("Estado Confirmado", default=False)
+	activo = models.BooleanField("Estado Confirmado", default=True)
 	
 	def __str__(self):
 		return('%d')%(self.numero)
