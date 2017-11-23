@@ -20,7 +20,8 @@ urlpatterns = [
     url(r'^protAjax/$', views.protAjax),
     url(r'^DetalleAnalisisPadreAjax/$', views.DetalleAnalisisPadreAjax),
     url(r'^daindividuo/$', views.daindividuo),
-            
+    url(r'^listados/$', views.listados),
+
     # Solicitud Analisis
     #url(r'^solicitudanalisis/$', views.l_solicitudanalisis, name="l_solicitudAnalisis"),
     url(r'^solicitudanalisis/alta/$', views.a_solicitudanalisis),

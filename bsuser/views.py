@@ -5,7 +5,7 @@ from .forms import *
 from django.db.models import Q
 from django.core import serializers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+import json
 # Create your views here.
 
 def home_user(request):
@@ -59,7 +59,7 @@ def solAn(request):
 			especie = especie,
 			fecha = fecha,
 			obs = obs,
-    	)
+			)
 
 		data = SolicitudAnalisis.objects.latest('id')
 		data = data.id
@@ -98,6 +98,65 @@ def DetalleAnalisisPadreAjax(request):
 	
 	return HttpResponse(dataDAP)
 
+def listados(request):
+	if request.method == 'POST':
+		diag = request.POST['diag']
+		prot = request.POST['prot']
+		posVeterinario = request.POST['veterinario']
+		veterinario = get_object_or_404(Veterinario,id=posVeterinario)
+		posEstablecimiento = request.POST['establecimiento']
+		establecimiento = get_object_or_404(Establecimiento,id=posEstablecimiento)
+		posMotivo = request.POST['motivo']
+		motivo = get_object_or_404(Motivos,id=posMotivo)
+		posEspecie = request.POST['especie']
+		especie = get_object_or_404(Especie,id=posEspecie)
+		fecha = request.POST['fecha']
+		obs = request.POST['obs']
+		
+		SolicitudAnalisis.objects.create(
+			veterinario = veterinario,
+			establecimiento = establecimiento,
+			motivo = motivo,
+			especie = especie,
+			fecha = fecha,
+			obs = obs,
+			)
+
+
+		solAnalisis = SolicitudAnalisis.objects.latest('id')
+
+		diag = json.loads(diag)
+		prot = json.loads(prot)
+		
+		control = ""
+		for x in prot:
+			if control != x:
+				control = x
+				Protocolo.objects.create(
+				numero = control,
+				)
+				dataprot = Protocolo.objects.latest('id')
+				for z in range(len(prot)):
+					if control == prot[z]:
+						print('Protocolo: ' + prot[z] + ' Diagnostico: ' + diag[z])
+						datadiag = get_object_or_404(Diagnostico, id= diag[z])				
+						DetalleAnalisisPadre.objects.create(
+							solicitud = solAnalisis,
+							protocolo = dataprot,
+							diagnostico = datadiag,
+							)
+						dataDAP = DetalleAnalisisPadre.objects.latest('id')
+						print(dataDAP)
+
+
+					
+
+	
+	return HttpResponse()
+
+
+
+
 def daindividuo(request):
 	if request.method == 'POST':
 		identificacion = request.POST['identificacion']
@@ -118,7 +177,7 @@ def daindividuo(request):
 
 	dataindip = IndividuoPadre.objects.latest('id')
 	
-	# if nombre != '' or libreta != '' or categoriae != '':
+	# if nombre != '' or libreta != '' or categoriae != '' sexo != '':
 	# 	Individuos.objects.create(
 	# 		padre = dataindip,
 	# 		nombre = nombre,
