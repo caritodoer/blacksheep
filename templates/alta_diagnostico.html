@@ -97,7 +97,7 @@
 										</tr>
 									</thead>
 									<tbody class="paraList">		
-										<tr id="hidden-row" style="display: none">
+										<!-- <tr id="hidden-row" style="display: none">
 											<td><input type="text" maxlength="14" class="form-control descripciongrupo" id="descripcion" onkeyup="validacion('descripciongrupo');" name="descripcion" value="{{ instance.descripcion }}"></td>
 											<td>
 												<select id="select" class="selectpicker tipoDatoSelect">
@@ -110,7 +110,7 @@
 											<td><a id="botonIngresarValorRef" class="btn btn-default ModalPara" data-toggle="modal" data-target="#ModalValorRef" class="btn btn-default">Ingresar</a></td>
 											<td><input type="text" maxlength="15" class="form-control" id="unidadmedida0" name="unidadmedida" value="{{ instance.unidadmedida }}"></td>
 											<td><div class="btn btn-danger">Eliminar</div></td>
-										</tr>
+										</tr> -->
 										<!-- <tr class="paraList">
 											<td><input type="text" class="form-control descripciongrupo" id="descripcion" onkeyup="validacion('descripciongrupo');" name="descripcion" value="{{ instance.descripcion }}"></td>
 											<td>
@@ -623,21 +623,21 @@ function validacion(campo){
 
 	if(campo==='descripciongrupo'){
 		var truefalse=true;
-		var error=-2;
-		$('.'+campo).each(function(i, elem){
-		//console.log('elem1  ',elem);	
+		var error=0;
+		$('#block-parametros').find('tr[class="paraList"]').find('.'+campo).each(function(i, elem){
+		console.log('elem1  ',elem);	
 		inputtext = $(elem).val();
 		if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
 			$(elem).parent().attr("class","has-error has-feedback");
 			error++;
-			//console.log('inputtext2  ',inputtext);
+			console.log('inputtext2  ',inputtext);
 			}
 		else{
 			$(elem).parent().attr("class","has-success has-feedback");
-			//console.log('inputtext3  ',inputtext);				
+			console.log('inputtext3  ',inputtext);				
 			}	
 		});
-		
+		console.log('error',error);
 		if(error > 0){
 			return false;
 		}
