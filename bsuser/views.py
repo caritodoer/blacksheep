@@ -100,9 +100,6 @@ def DetalleAnalisisPadreAjax(request):
 
 def daindividuo(request):
 	if request.method == 'POST':
-		posSolAnalisis = request.POST['solAnalisis']
-		solAnalisis = get_object_or_404(SolicitudAnalisis, id= posSolAnalisis)
-		posDiagnostico = request.POST['diagnostico']
 		identificacion = request.POST['identificacion']
 		posRaza = request.POST['raza']
 		raza = get_object_or_404(Raza, id= posRaza)
@@ -112,7 +109,6 @@ def daindividuo(request):
 		#libreta = request.POST['libreta']
 		#posCategoriae = request.POST['categoriaeSel']
 		#categoriae = get_object_or_404(CategoriaE, id= posCategoriae)
-		
 		#sexo = request.POST['sexo']
 
 	IndividuoPadre.objects.create(
@@ -131,21 +127,32 @@ def daindividuo(request):
 	# 		categoriae = categoriae,
 	# 		sexo = sexo,
 	# 		)
-	vSolAn = DetalleAnalisisPadre.objects.all().filter(solicitud=posSolAnalisis)
+	
+	lastSolan = SolicitudAnalisis.objects.latest('id')
+	print(lastSolan.id)
+	vSolAn = DetalleAnalisisPadre.objects.all().filter(solicitud=lastSolan.id)
+	print(vSolAn)
+
 	valor = ""
+	
 	for z in vSolAn:
+		solicitud = z.solicitud
+		print(solicitud)
 		param =  Parametros.objects.all().filter(diagnostico=z.diagnostico)
 		for x in param:
+			paramet = x
+			print(paramet)
 			DetalleAnalisis.objects.create(
-			solicitud = solAnalisis,
-			parametros = x,
+			solicitud = solicitud,
+			parametros = paramet,
 			individuoPadre = dataindip,
 			valor = valor,
 			)
-		
 
+	show = DetalleAnalisis.objects.latest('id')
+	print (show)
 
-	return HttpResponse()
+	return HttpResponse(show)
 
 # Solicitud Analisis
 
