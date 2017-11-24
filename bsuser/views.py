@@ -67,6 +67,7 @@ def solAn(request):
 		
 		return HttpResponse(data)
 
+
 def protAjax(request):
 	if request.method == 'POST':
 		protocolo = request.POST['protocolo']
@@ -138,7 +139,6 @@ def listados(request):
 				dataprot = Protocolo.objects.latest('id')
 				for z in range(len(prot)):
 					if control == prot[z]:
-						print('Protocolo: ' + prot[z] + ' Diagnostico: ' + diag[z])
 						datadiag = get_object_or_404(Diagnostico, id= diag[z])				
 						DetalleAnalisisPadre.objects.create(
 							solicitud = solAnalisis,
@@ -155,6 +155,21 @@ def listados(request):
 	return HttpResponse()
 
 
+def updateDA(request):
+	if request.method == 'POST':
+		posicionDA = request.POST['posicionDA']
+		valorDA = request.POST['valorDA']
+	posicionDA = json.loads(posicionDA)
+	valorDA = json.loads(valorDA)
+
+	for z in range(len(posicionDA)):
+		instance = get_object_or_404(DetalleAnalisis, id=posicionDA[z])
+		instance.valor = valorDA[z]
+		instance.save()
+		print(instance)
+
+
+	return HttpResponse()
 
 
 def daindividuo(request):
