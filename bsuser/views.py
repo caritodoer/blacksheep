@@ -171,6 +171,22 @@ def updateDA(request):
 
 	return HttpResponse()
 
+def updateDA2(request):
+	if request.method == 'POST':
+		posicionDA2 = request.POST['posicionDA2']
+		valorDA2 = request.POST['valorDA2']
+
+	posicionDA2 = json.loads(posicionDA2)
+
+	for z in range(len(posicionDA2)):
+		instance = get_object_or_404(DetalleAnalisis, id=posicionDA2[z])
+		instance.valor = valorDA2
+		instance.save()
+		print(instance)
+
+
+	return HttpResponse()
+
 
 def daindividuo(request):
 	if request.method == 'POST':

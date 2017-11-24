@@ -100,16 +100,16 @@ function validacion(campo){
 		vurl.shift();//elimina elemento inicial
 		if(vurl.length == 2){vurl=(vurl[0]+vurl[1]).toLowerCase();}
 		else{vurl=(vurl[0]).toLowerCase();}
-		console.log('var vurl ',vurl);
+		//console.log('var vurl ',vurl);
 		conbd = getconbd("/j_"+vurl+"/", "GET");//consulta json a tabla especificada
-        console.log('conbd',conbd);
+        //console.log('conbd',conbd);
         if(nuevmodif != 'Modificar'){
             for(var i=0;i < conbd.length;i++){
-                console.log('conbd[i]',conbd[i].descripcion);
+                //console.log('conbd[i]',conbd[i].descripcion);
                 if(conbd[i].descripcion.toUpperCase() == descri.toUpperCase().trim()){
-                    console.log(conbd[i].descripcion,'-',descri);
+                    //console.log(conbd[i].descripcion,'-',descri);
                     truefalse=false;
-                    console.log('truefalse adentro',truefalse);
+                    //console.log('truefalse adentro',truefalse);
                     break;      
                 }
             }
@@ -117,13 +117,13 @@ function validacion(campo){
         else{
 	        for(var i=0;i < conbd.length;i++){    
 	            if(conbd[i].descripcion.toUpperCase() == descri.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
-	                console.log(conbd[i].descripcion,'-',descri);
+	                //console.log(conbd[i].descripcion,'-',descri);
 	                truefalse=false;
-	                console.log('truefalse adentro',truefalse);      
+	                //console.log('truefalse adentro',truefalse);      
 	            }
 	        }
         }//selector de modificacion
-        console.log('truefalse afuera',truefalse);
+        //console.log('truefalse afuera',truefalse);
 
 		descripcion = document.getElementById(campo).value;
 		if(truefalse == false){

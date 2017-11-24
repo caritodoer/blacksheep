@@ -242,7 +242,7 @@ $(document).ready(function() {
 
             $("#especializaciones > input").each(function(){
                 for (var i = espelist.length - 1; i >= 0; i--) {
-                    console.log($(this).attr("value"))
+                    //console.log($(this).attr("value"))
                     if($(this).attr("value") == espelist[i])
                     {
                          this.setAttribute("checked", "checked")
@@ -279,7 +279,7 @@ function verificar(){
 /*    v17=validacion('acreditacion_brucelosis');*/
 /*    v18=validacion('acreditacion_aie');*/
 
-    console.log(v1,v2,v3,v4,v5,v9,v10,v12,v13,v14,v15);
+    //console.log(v1,v2,v3,v4,v5,v9,v10,v12,v13,v14,v15);
     if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v9 == true && v10 == true && v12 == true && v13 == true && v14 == true && v15 == true){
         return true;
     }
@@ -321,16 +321,16 @@ function validacion(campo){
         vurl.shift();//elimina elemento inicial
         if(vurl.length == 2){vurl=(vurl[0]+vurl[1]).toLowerCase();}
         else{vurl=(vurl[0]).toLowerCase();}
-        console.log('var vurl ',vurl);
+        //console.log('var vurl ',vurl);
         conbd = getconbd("/j_"+vurl+"/", "GET");//consulta json a tabla especificada
-        console.log('conbd',conbd);
+        //console.log('conbd',conbd);
         if(nuevmodif != 'Modificar'){
             for(var i=0;i < conbd.length;i++){
-                console.log('conbd[i]',conbd[i].matricula);
+                //console.log('conbd[i]',conbd[i].matricula);
                 if(conbd[i].matricula.toUpperCase() == inputtext.toUpperCase().trim()){
-                    console.log(conbd[i].matricula,'-',inputtext);
+                    //console.log(conbd[i].matricula,'-',inputtext);
                     truefalse=false;
-                    console.log('truefalse adentro',truefalse);
+                    //console.log('truefalse adentro',truefalse);
                     break;      
                 }
             }
@@ -338,16 +338,16 @@ function validacion(campo){
         else{
             for(var i=0;i < conbd.length;i++){    
                 if(conbd[i].matricula.toUpperCase() == inputtext.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
-                    console.log(conbd[i].matricula,'-',inputtext);
+                    //console.log(conbd[i].matricula,'-',inputtext);
                     truefalse=false;
-                    console.log('truefalse adentro',truefalse);      
+                    //console.log('truefalse adentro',truefalse);      
                 }
             }
         }//selector de modificacion
-        console.log('truefalse afuera',truefalse);
+        //console.log('truefalse afuera',truefalse);
 
         
-        console.log(inputtext);
+        //console.log(inputtext);
     if(truefalse == false){
         $("#icon"+campo).remove();
         $('#'+campo).parent().parent().attr("class","has-error has-feedback");
@@ -375,7 +375,7 @@ function validacion(campo){
 
     if(campo==='nombre' || campo==='apellido' || campo==='domicilio_fiscal' || campo==='cp_domicilio_fiscal' || campo==='fecha_ingreso'){
         inputtext = document.getElementById(campo).value;
-        console.log(inputtext);
+        //console.log(inputtext);
         if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");
@@ -394,7 +394,7 @@ function validacion(campo){
 
     if(campo==='domicilio_particular' || campo==='cp_domicilio_particular' || campo==='acreditacion_brucelosis' || campo==='acreditacion_aie'){
         inputtext = document.getElementById(campo).value;
-        console.log(inputtext);
+        //console.log(inputtext);
         if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
             $('#icon'+campo).remove();
             /*$('#'+campo).parent().parent().attr("class","has-error has-feedback");*/
@@ -440,7 +440,7 @@ function validacion(campo){
 
     if(campo==='codigo_area' || campo==='telefono1' || campo==='telefono2'){
         inputtext = document.getElementById(campo).value;
-        console.log(inputtext);
+        //console.log(inputtext);
         if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");
@@ -471,7 +471,7 @@ function validacion(campo){
 
     if(campo==='dni'){
         dni = document.getElementById(campo).value;
-        console.log(dni);
+        //console.log(dni);
         /*inputtext = document.getElementById(campo).value;*/
         var truefalse = true;
         var conbd = {};//variable consulta base datos
@@ -482,16 +482,16 @@ function validacion(campo){
         vurl.shift();//elimina elemento inicial
         if(vurl.length == 2){vurl=(vurl[0]+vurl[1]).toLowerCase();}
         else{vurl=(vurl[0]).toLowerCase();}
-        console.log('var vurl ',vurl);
+        //console.log('var vurl ',vurl);
         conbd = getconbd("/j_"+vurl+"/", "GET");//consulta json a tabla especificada
-        console.log('conbd',conbd);
+        //console.log('conbd',conbd);
         if(nuevmodif != 'Modificar'){
             for(var i=0;i < conbd.length;i++){
-                console.log('conbd[i]',conbd[i].dni);
+                //console.log('conbd[i]',conbd[i].dni);
                 if(conbd[i].dni.toUpperCase() == dni.toUpperCase().trim()){
-                    console.log(conbd[i].dni,'-',dni);
+                    //console.log(conbd[i].dni,'-',dni);
                     truefalse=false;
-                    console.log('truefalse adentro',truefalse);
+                    //console.log('truefalse adentro',truefalse);
                     break;      
                 }
             }
@@ -499,14 +499,14 @@ function validacion(campo){
         else{
             for(var i=0;i < conbd.length;i++){    
                 if(conbd[i].dni.toUpperCase() == dni.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
-                    console.log(conbd[i].dni,'-',dni);
+                    //console.log(conbd[i].dni,'-',dni);
                     truefalse=false;
-                    console.log('truefalse adentro',truefalse);      
+                    //console.log('truefalse adentro',truefalse);      
                 }
             }
         }//selector de modificacion
-        console.log('truefalse afuera',truefalse);
-        console.log(dni);
+        //console.log('truefalse afuera',truefalse);
+        //console.log(dni);
     if(truefalse == false){
         $("#icon"+campo).remove();
         $('#'+campo).parent().parent().attr("class","has-error has-feedback");
@@ -552,7 +552,7 @@ function validacion(campo){
 
     if(campo==='cuit'){
         cuit = document.getElementById(campo).value;
-        console.log(cuit);
+        //console.log(cuit);
         if(cuit == null || cuit.length == 0 || /^\s+$/.test(cuit)){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");
@@ -591,7 +591,7 @@ function validacion(campo){
 
     if(campo==='especializacionesin'){
         especializacionesin = $("#especializaciones input:checked").length;
-        console.log(especializacionesin);
+        //console.log(especializacionesin);
         if(especializacionesin == 0 ){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");

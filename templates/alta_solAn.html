@@ -102,7 +102,7 @@ $(document).ready(function() {
                 $('#establecimiento').append('<option selected value=""></option>');
                 $.each(establecimiento,function(index, obj) 
                 {   
-                    console.log(establecimiento)
+                    //console.log(establecimiento)
                     if(obj.activo == true){    
                         if(obj.id == selectestablecimiento)
                         {
@@ -123,7 +123,7 @@ $(document).ready(function() {
                 $('#veterinario').append('<option selected value=""></option>');
                 $.each(veterinario,function(index, obj) 
                 {   
-                    console.log(veterinario)
+                    //console.log(veterinario)
                     if(obj.activo == true){    
                         if(obj.id == selectveterinario)
                         {
@@ -144,7 +144,7 @@ $(document).ready(function() {
                 $('#motivo').append('<option selected value=""></option>');
                 $.each(motivo,function(index, obj) 
                 {   
-                    console.log(motivo)
+                    //console.log(motivo)
                     if(obj.activo == true){    
                         if(obj.id == selectmotivo)
                         {
@@ -165,7 +165,7 @@ $(document).ready(function() {
                 $('#especie').append('<option selected value=""></option>');
                 $.each(especie,function(index, obj) 
                 {   
-                    console.log(especie)
+                    //console.log(especie)
                     if(obj.activo == true){    
                         if(obj.id == selectespecie)
                         {
@@ -208,7 +208,7 @@ function verificar(){
     v3=validacion('motivo');
     v4=validacion('especie');
 
-    console.log(v1,v2,v3,v4);
+    //console.log(v1,v2,v3,v4);
     if(v1 == true && v2 == true && v3 == true && v4){
         return true;
     }
@@ -247,7 +247,7 @@ function getconbd(url, method)
 function validacion(campo){
     if(campo==='establecimiento' || campo==='veterinario' || campo==='motivo' || campo==='especie'){
         indice = document.getElementById(campo).selectedIndex;
-        console.log(indice);
+        //console.log(indice);
         if(indice == null || indice == 0){
             $('#'+campo).parent().parent().attr("class","has-error");
             return false;
