@@ -452,7 +452,7 @@ function verificar(){
 $("#btnvalidar").click(function(){
     if(verificar() == true){
         /*$("#formvalidar").submit();*/
-        console.log('here');
+        console.log('Antes de guardar diagnostico');
 
 		$.ajax({
     		type: 'POST',
@@ -466,79 +466,99 @@ $("#btnvalidar").click(function(){
     			piepagina: $('#piepagina1').val(),
     			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
     		},
+    		statusCode: {
+							    404: function () {
+							    },
+							    500: function(){
+							    },
+							    200: function (data) {
+							    	var diagPos = data;	
+									$(".blockGrupo").each(function(){
+										
+										var grupo = $(this).find("#grupo").val();
+										if($(this).find("#radioTabla").is(":checked")){
+											var tabletype = "T";	
+										}
+										if($(this).find("#radioItem").is(":checked")){
+											var tabletype = "I";	
+										}
+										// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
+										
+
+										var tBody = $(this).find('.paraList');
+										// recorrer los td individualmente sin repetirse						
+											
+											$(tBody).find('tr:visible').each(function(){
+											// segundo each, recorre linea por linea del grupo
+
+												var descripcionPara = $(this).find('#descripcion').val();
+												var tipoDato = $(this).find(":selected").val();
+												var unidadmedida = $(this).find('#unidadmedida').val();
+												var valRef = $(this).find("#botonIngresarMasOpciones").attr('data-target');
+											
+											$.ajax({
+									    		type: 'POST',
+									    		url: '/parametrosAjax/',
+									    		data:{
+									    			diagnostico: diagPos, 
+									    			descripcion: descripcionPara, 
+									    			tipo_de_dato: tipoDato, 
+									    			unidadmedida: unidadmedida,
+									    			visualizacion1: tabletype,  
+									    			grupo: grupo,
+									    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+									    		},
+
+										      	statusCode: {
+														    404: function () {
+														    },
+														    500: function(){
+														    },
+														    200: function (dataPara) {
+															paraPos = dataPara;
+
+												    			var valRefModal = $(valRef);
+
+												    			$(valRefModal).find('.valRefList').each(function(){
+												    				var especie = $(this).find(':selected').val();
+												    				var parametros = paraPos;
+												    				var valorRef = $(this).find('#valRef').val();
+												    				var valorDef = $(this).find('#valDef').val();
+
+												    				$.ajax({
+												    					type: 'POST',
+												    					url: '/valRefAjax/',
+												    					data:{
+												    						especie: especie,
+												    						parametros: parametros,
+												    						valorRef: valorRef,
+												    						valorDef: valorDef,
+												    						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+												    					},
+
+																      	statusCode: {
+																				    404: function () {
+																				    },
+																				    500: function(){
+																				    },
+																				    200: function () {
+												    								console.log('Guardado');
+																				    }// 200 ajaxSolAn
+																				  }  // statusCode DetalleAnalisisPadre
+
+												    				}); // ajaxValRef							
+																});// recorrer cada modal   	 	
+														    }// 200 ajaxSolAn
+														  }  // statusCode DetalleAnalisisPadre
+									    	}); // ajaxdparametros
+											}); // parametros 1x1
+									}); // blockgroup
+									$(location).attr('href',"../../home_admin");
+							    }// 200 ajaxSolAn
+							  }  // statusCode DetalleAnalisisPadre
     		success: function(data){
     			
-    			var diagPos = data;	
-				$(".blockGrupo").each(function(){
-					
-					var grupo = $(this).find("#grupo").val();
-					if($(this).find("#radioTabla").is(":checked")){
-						var tabletype = "T";	
-					}
-					if($(this).find("#radioItem").is(":checked")){
-						var tabletype = "I";	
-					}
-					// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
-					
-
-					var tBody = $(this).find('.paraList');
-					// recorrer los td individualmente sin repetirse						
-						
-						$(tBody).find('tr:visible').each(function(){
-						// segundo each, recorre linea por linea del grupo
-
-							var descripcionPara = $(this).find('#descripcion').val();
-							var tipoDato = $(this).find(":selected").val();
-							var unidadmedida = $(this).find('#unidadmedida').val();
-							var valRef = $(this).find("#botonIngresarMasOpciones").attr('data-target');
-						
-						$.ajax({
-				    		type: 'POST',
-				    		url: '/parametrosAjax/',
-				    		data:{
-				    			diagnostico: diagPos, 
-				    			descripcion: descripcionPara, 
-				    			tipo_de_dato: tipoDato, 
-				    			unidadmedida: unidadmedida,
-				    			visualizacion1: tabletype,  
-				    			grupo: grupo,
-				    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-				    		},
-				    		success: function(dataPara){
-				    			paraPos = dataPara;
-
-				    			var valRefModal = $(valRef);
-
-				    			$(valRefModal).find('.valRefList').each(function(){
-				    				"especie",
-									"parametros",
-									"valorRef",
-									"valorDef"
-				    				var especie = $(this).find(':selected').val();
-				    				var parametros = paraPos;
-				    				var valorRef = $(this).find('#valRef').val();
-				    				var valorDef = $(this).find('#valDef').val();
-
-				    				$.ajax({
-				    					type: 'POST',
-				    					url: '/valRefAjax/',
-				    					data:{
-				    						especie: especie,
-				    						parametros: parametros,
-				    						valorRef: valorRef,
-				    						valorDef: valorDef,
-				    						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-				    					},
-				    					succes: function(){
-				    						console.log('Guardado');
-				    					}//succes
-				    				}); // ajaxValRef							
-								});// recorrer cada modal
-				    		}// succes
-				    	}); // ajaxdparametros
-						}); // parametros 1x1
-				}); // blockgroup
-        		$(location).attr('href',"../../home_admin");
+    			
     		} // succes
     	}); // ajaxdiagnostico
     }
@@ -625,19 +645,19 @@ function validacion(campo){
 		var truefalse=true;
 		var error=0;
 		$('#block-parametros').find('tr[class="paraList"]').find('.'+campo).each(function(i, elem){
-		console.log('elem1  ',elem);	
+		//console.log('elem1  ',elem);	
 		inputtext = $(elem).val();
 		if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
 			$(elem).parent().attr("class","has-error has-feedback");
 			error++;
-			console.log('inputtext2  ',inputtext);
+			//console.log('inputtext2  ',inputtext);
 			}
 		else{
 			$(elem).parent().attr("class","has-success has-feedback");
-			console.log('inputtext3  ',inputtext);				
+			//console.log('inputtext3  ',inputtext);				
 			}	
 		});
-		console.log('error',error);
+		//console.log('error',error);
 		if(error > 0){
 			return false;
 		}
