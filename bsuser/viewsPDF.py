@@ -351,7 +351,7 @@ def informe(request, id=None):
 	# cierre Story	
 	Story = cuerpo(canvas)
 	#Creamos un documento basándonos en una plantilla
-	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
+	doc = SimpleDocTemplate(buff, pagesize=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
 	#Construimos el documento a partir de los argumentos definidos
 	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=pagSiguientes)
 	response.write(buff.getvalue())
@@ -601,7 +601,7 @@ def general(request, id=None):
 	# cierre Story	
 	Story = cuerpo(canvas)
 	#Creamos un documento basándonos en una plantilla
-	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
+	doc = SimpleDocTemplate(buff, pagesize=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
 	#Construimos el documento a partir de los argumentos definidos
 	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=pagSiguientes)
 	response.write(buff.getvalue())
@@ -718,7 +718,7 @@ def hojadetrabajo(request, id=None):
 
 	Story = cuerpo(canvas)
 	#Creamos un documento basándonos en una plantilla
-	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
+	doc = SimpleDocTemplate(buff, pagesize=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
 	#Construimos el documento a partir de los argumentos definidos
 	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=pagSiguientes)
 	response.write(buff.getvalue())
@@ -769,7 +769,7 @@ def tercerizar(request, id=None):
 
 	Story = cuerpo(canvas)
 	#Creamos un documento basándonos en una plantilla
-	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
+	doc = SimpleDocTemplate(buff, pagesize=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
 	#Construimos el documento a partir de los argumentos definidos
 	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=pagSiguientes)
 	response.write(buff.getvalue())
@@ -817,7 +817,7 @@ def eliminacionprotocolo(request, id=None):
 
 	Story = cuerpo(canvas)
 	#Creamos un documento basándonos en una plantilla
-	doc = SimpleDocTemplate(buff, pagesizes=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
+	doc = SimpleDocTemplate(buff, pagesize=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=75)
 	#Construimos el documento a partir de los argumentos definidos
 	doc.build(Story, onFirstPage=myFirstPage, onLaterPages=pagSiguientes)
 	response.write(buff.getvalue())
