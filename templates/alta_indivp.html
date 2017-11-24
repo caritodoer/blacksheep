@@ -89,7 +89,7 @@ $(document).ready(function() {
 				var c = e;
 				array.push(c);				
 			});
-			//console.log('array',array);
+			console.log('array',array);
 			for (var i = 0; i < array.length; i++) {
 				$(array[i]).find('.contador').text(i+1);
 			}
@@ -106,7 +106,7 @@ $(document).ready(function() {
 			var cc = elem;
 			arraye.push(cc);				
 		});
-		//console.log('array eliminar',arraye);
+		console.log('array eliminar',arraye);
 		for (var i = 0; i < arraye.length; i++) {
 			$(arraye[i]).find('.contador').text(i+1);
 		}	    
@@ -167,7 +167,7 @@ $(document).ready(function() {
 
 		v1=validacion('identificacion');
 		v2=validacion('raza');
-		//console.log(v1,v2);
+		console.log(v1,v2);
 		if(v1 == true && v2 == true){
 			return true;
 		}
@@ -240,7 +240,7 @@ $(document).ready(function() {
 				// var masOp = $(this).find("#botonIngresarMasOpciones").attr('data-target');
 				// var nombre = $(masOp).find('#nombre').val();
 				// var edad = $(masOp).find('#edad').val();
-				// //console.log(edad);
+				// console.log(edad);
 				// var libreta = $(masOp).find('#libreta').val();
 				// var categoriaeSel = $(masOp).find('.categoriaeSel').val();
 				// var sexo = $(masOp).find('#sexo:checked').val();
@@ -267,7 +267,6 @@ $(document).ready(function() {
 							    }// 200 ajaxSolAn
 							  }  // statusCode DetalleAnalisisPadre
 						}); // AjaxDetalleAnalisisPadre 
-				alert('Individuo Guardado, creo.')
 		});// end each .lIndividuo
 		});
 	saveAll();
@@ -305,7 +304,7 @@ $(document).ready(function() {
 			var c = e;
 			array.push(c);
 		});
-		//console.log('array',array);
+		console.log('array',array);
 
 		var igual =false;
 
@@ -319,20 +318,20 @@ $(document).ready(function() {
 						if(i!=j){	
 							if($(array[i]).val()==$(array[j]).val()){
 								error++;
-								//console.log(i,'arrayi',$(array[i]).val(),j,'arrayj',$(array[j]).val());
+								console.log(i,'arrayi',$(array[i]).val(),j,'arrayj',$(array[j]).val());
 								$(array[i]).parent().attr("class","has-error has-feedback");
 								$(array[i]).parent().children("span").text("Dato duplicado ").show();
 								$(array[j]).parent().attr("class","has-error has-feedback");
 								$(array[j]).parent().children("span").text("Dato duplicado ").show();
-								//console.log('son iguales');
+								console.log('son iguales');
 								break;
 							}
 							else{
 								igual=false;
-								//console.log(i,'arrayi',$(array[i]).val(),j,'arrayj',$(array[j]).val());
+								console.log(i,'arrayi',$(array[i]).val(),j,'arrayj',$(array[j]).val());
 								$(array[j]).parent().attr("class","has-success has-feedback");
 								$(array[j]).parent().children("span").text("").hide();
-								//console.log('no son iguales');
+								console.log('no son iguales');
 							}
 						
 						}
@@ -357,15 +356,15 @@ $(document).ready(function() {
 			var error=-1;
 			$('.'+campo).each(function(i, elem){
 			var indice = $(elem).val();
-			//console.log('indice  ',indice);
+			console.log('indice  ',indice);
 			if(indice == null || indice == 0 ){
 				$(elem).parent().attr("class","has-error has-feedback");
 				error++;
-				//console.log('indice2  ',indice);
+				console.log('indice2  ',indice);
 				}
 			else{
 				$(elem).parent().attr("class","has-success has-feedback");
-				//console.log('indice3  ',indice);
+				console.log('indice3  ',indice);
 				}	
 			});
 			
