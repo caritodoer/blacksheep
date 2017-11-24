@@ -5,8 +5,33 @@
 HORIZONTALIZARME!
 29-10-17 - Tareas Pendientes:
 
-ok - fsltan valores de referencia en los infromes en la parte de las tablas. donde lo pongo??
 
+
+- En "Registrar Protocolos":
+	X*  Falta que no repita las muestras ni los diagnosticos
+	X* los diagnosticos que propone deberian ser segun la muestra
+
+X - Tercerizar : 
+YOOO	* en modificar: Validar fechas (que fecha de devolucion sea posterior a de envio)
+
+X - Eliminar Protocolo:
+	* no tiene que mostrar el imput con el n° de protocolo (debe mandarse en el formulario como hidden)
+
+- guardar datos Trasladados de SolAn.html a Protocolo, y a  Individuo Padre (por views)
+
+X - en los detalles ver que no diga el Estado "Activo"
+
+
+- en vez del Http404 crear una pag que diga que para entrar se necesita loguear con otro usuario lab/admin. poner dos botones: 
+	* desloguearse y loguearse comonotro usuario
+	* volver
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+ok - fsltan valores de referencia en los infromes en la parte de las tablas. donde lo pongo??
+	* Validar fechas (que fecha de devolucion sea posterior a de envio)
+	* En alta, sacar fecha de devolucion, que solo este cuando se desee modificar.
+ok- User --> login --> Menu
 EN VALIDACIONES & MODELS :
 OK - en Diagnostico.piepagina = textinput max_length=100 caracteres
 OK - en SolicitudAnalisis.obs = textinput max_length=85 caracteres
@@ -14,11 +39,7 @@ OK - en Parametros.descripcion = textinput max_length=14 caracteres
 ok - en DAP.valor = textinput max_length=10 caracteres
 OK - en Parametros.unidad de medida = textinput max_length=5 caracteres
 OK - en valores de referencia = textinput max_length=15 caracteres
-
-- En "Registrar Protocolos":
 	ok* Cuando no hay protocolos que emita mensaje de error y no permita irse de la pagina.
-	X*  Falta que no repita las muestras ni los diagnosticos
-	X* los diagnosticos que propone deberian ser segun la muestra
 	ok* En verificacion tiene que avisazr que si el numero de protocolo ya fue usado previamente (si ya hay uno guardado en BDD)
 
 - En "Cargar Individuos":
@@ -37,27 +58,6 @@ ok- Hoja de Trabajo (PDF): agregar las observaciones que se cargaron en Solicitu
 OK- Alta Establecimiento: que no se cargue CUIT y RENSPA si ya fue cargado (si esta en BDD)
 
 ok-DetalleAnalisis :  el boton "tercerizar" tiene que estar activo solo cuando el estado del diagnostico sea "Completo"
-
-X - Tercerizar : 
-	* Validar fechas (que fecha de devolucion sea posterior a de envio)
-	* En alta, sacar fecha de devolucion, que solo este cuando se desee modificar.
-YOOO	* en modificar: Validar fechas (que fecha de devolucion sea posterior a de envio)
-
-X - Eliminar Protocolo:
-	* no tiene que mostrar el imput con el n° de protocolo (debe mandarse en el formulario como hidden)
-
-- guardar datos Trasladados de SolAn.html a Protocolo, y a  Individuo Padre (por views)
-
-X - en los detalles ver que no diga el Estado "Activo"
-
-ok- User --> login --> Menu
-
-- en vez del Http404 crear una pag que diga que para entrar se necesita loguear con otro usuario lab/admin. poner dos botones: 
-	* desloguearse y loguearse comonotro usuario
-	* volver
-
-
-&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 - en los detalles ver que no diga el Estado "Activo"
 - Eliminar Protocolo:
 	* no tiene que mostrar el imput con el n° de protocolo (debe mandarse en el formulario como hidden)
