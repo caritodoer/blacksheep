@@ -50,6 +50,7 @@
 			</div>
 
 <!-- panel para grupos con visualizacion de tablas -->
+<form class="form-horizontal" method="POST" id='formupdateDA' action="">{% csrf_token %} 
 			{% for key, value in grupos.items %}
 				{% for v in value %}
 				<div class="col-sm-12">
@@ -81,27 +82,27 @@
 
 											<div class="posicionTabla">
 												{% if p.tipo_de_dato == 'S' %}
-												<input type="hidden" name="dapos" value="da.id" />
-												<input type="text" maxlength="10" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
+												<input type="hidden" id="posDA" name="dapos" value="{{da.id}}" />
+												<input type="text" maxlength="10" class="form-control" id="valorDA" name="_" value="{{ valor }}">{% endif %}
 												{% if p.tipo_de_dato == 'I' %}
-												<input type="hidden" name="dapos" value="da.id" />
-												<input type="number" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
+												<input type="hidden" id="posDA" name="dapos" value="{{da.id}}" />
+												<input type="number" class="form-control" id="valorDA" name="_" value="{{ valor }}">{% endif %}
 												{% if p.tipo_de_dato == 'F' %}
-												<input type="hidden" name="dapos" value="da.id" />
-												<input type="number" step="0.01" class="form-control" id="_" name="_" value="{{ valor }}">{% endif %}
+												<input type="hidden" id="posDA" name="dapos" value="{{da.id}}" />
+												<input type="number" step="0.01" class="form-control" id="valorDA" name="_" value="{{ valor }}">{% endif %}
 												{% if p.tipo_de_dato == 'B' %}
 												{% if valor == 'Positivo' %}
-													<select id="select" class="form-control selectpicker" >
+													<select id="valorDA" class="form-control selectpicker" >
 										              <option value="Negativo">Negativo</option>
 										              <option selected="selected" value="Positivo">Positivo</option>
 										            </select>
-										        <input type="hidden" name="dapos" value="da.id" />
+										        <input type="hidden" name="dapos" id="posDA" value="{{da.id}}" />
 										        {% else %}
-										            <select id="select" class="form-control selectpicker" >
+										            <select id="valorDA" class="form-control selectpicker" >
 										              <option selected="selected"value="Negativo">Negativo</option>
 										              <option  value="Positivo">Positivo</option>
 										            </select>
-										        <input type="hidden" name="dapos" value="da.id" />
+										        <input type="hidden" name="dapos" id="posDA" value="{{da.id}}" />
 										            {% endif%}
 											    {% endif %}	
 											</div>
@@ -133,9 +134,9 @@
 			            	<dl class="dl-horizontal">
 			            		<dt>{{ da.parametros.descripcion }}</dt>
 			            		<div class="posicionItem">
-						        <dd><input type="text" class="form-control" id="_" name="_" value="{{da.valor}}" placeholder=" {{ objp.unidadmedida}}"></dd>
+						        <dd><input type="text" class="form-control" id="valorDA" name="_" value="{{da.valor}}" placeholder=" {{ objp.unidadmedida}}"></dd>
 				            		{% for i in object_list_ind %}
-					            	<input type="hidden" name="dapos" value="{{da.id}}" />
+					            	<input type="hidden" name="dapos" class="posDA" value="{{da.id}}" />
 				            		{% endfor %}
 				            		
 			            		</div>
@@ -159,11 +160,11 @@
                     	</div>
                         <div class="col-sm-6" align="right">
                             
-    		
+    			<button id="testda"> TESTEO </button>
     		<a href="#" class="btn btn-default btn-sm" role="button">Cargar Resultados</a>
                             
                         </div>
-                    </div>
+                    </div></form>
                 </div> <!--fin panel footer-->
     
 		</div>
@@ -179,8 +180,39 @@
 <script type="text/javascript">
 
 
-
-
-
+$('#testda').click(function(e){
+		e.preventDefault();
+		let posicionDA = []; 
+		let valorDA = [];
+		$(".posicionTabla").each(function(){
+			var posDA = $(this).find('#posDA').val();
+			var valDA = $(this).find('#valorDA').val();
+			posicionDA.push(posDA);
+			valorDA.push(valDA);
+			console.log('Posicion: ' + posDA + ' Valor: ' + valDA) 
+		});
+		posicionDA = JSON.stringify( posicionDA )
+		valorDA = JSON.stringify( valorDA )
+		
+		$.ajax({
+				type: 'POST',
+				url: '/updateDA/',
+				data:{
+					posicionDA: posicionDA,
+					valorDA: valorDA,
+					csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+				},
+				statusCode: {
+					404: function () {
+					},
+					500: function(){
+						alert('ERROR')
+					},
+					200: function () {
+						
+					}
+				}
+			});
+});
 </script> 
 {% endblock %}
