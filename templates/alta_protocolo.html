@@ -363,6 +363,7 @@ var arraydiag = [];
     });    
 
     $('body').on('change','.muestraSel',function(){
+      $(this).parent().parent().parent().find(".addBlockDiagnostico").attr('disabled', false);//habilita
       console.log('paso x aca');
         var count = 0;
         var array = [];

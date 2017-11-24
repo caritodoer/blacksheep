@@ -45,7 +45,7 @@
 					<div class="row">
 						<div class="col-sm-12" align="right">
 							<!-- <a href="../../home_user" > -->
-							<button id='finaltest'> Guardar SolAn y Protocolo </button>
+							<button id="listados"> Guardar SolAn y Protocolo </button>
 
 							<button id='finaltest2'> Guardar Individuo </button>
 							<button type="button" class="btn btn-default" id="btnvalidar">Continuar</button>
@@ -198,17 +198,16 @@ $(document).ready(function() {
 	    }).responseText);
 	}//consulta bd
 
-	$('#finaltest').click(function(e){
-		 e.preventDefault();
 
+	$('#listados').click(function(e){
+		e.preventDefault();
+		prot = localStorage.getItem( "prot" );
+		diag = localStorage.getItem( "diag" );
 		solAn = JSON.parse( localStorage.getItem( "SolAn" ) );
-		prot = JSON.parse( localStorage.getItem( "prot" ) );
-		diag = JSON.parse( localStorage.getItem( "diag" ) );
-		pLen = prot.length;
-		control = "";
+		
 		$.ajax({
 			type: 'POST',
-			url: '/solAn/',
+			url: '/listados/',
 			data:{
 				veterinario : solAn.veterinario,
 				establecimiento : solAn.establecimiento,
@@ -216,74 +215,22 @@ $(document).ready(function() {
 				especie : solAn.especie,
 				fecha : solAn.fecha,
 				obs : solAn.obs,
+				prot: prot,
+				diag: diag,
 				csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 			},
 			statusCode: {
-			    404: function () {//error
-			    },
-			    200: function (data) {
-			    	solAnalisis = data;
-			    	for (i = 0; i < pLen; i++) {
-			    		if ( control != prot[i] )
-			    		{
-			    			control = prot[i];
-
-									$.ajax({
-										type: 'POST',
-										url: '/protAjax/',
-										data:{
-											protocolo: control,
-											csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-						      			},
-										statusCode: {
-										    404: function () {//error
-										    },
-										    500: function(){
-										    	alert('Uno de los protocolos ya fue cargado, inicie Solicitud nuevamente.');
-										    },
-										    200: function (dataprot) {
-										    	dataprot = dataprot;
-										    	
-												for (j = 0; j < pLen; j++) {
-												    if( control == prot[j])
-												    {
-												    	var controldiag = diag[j];
-												    	$.ajax({
-												      	type: 'POST',
-												      	url: '/DetalleAnalisisPadreAjax/',
-												      	data: {
-												      		solAnalisis: solAnalisis,
-												      		diagnostico: controldiag,
-												      		protocolo: dataprot,
-															csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-												      	},
-												      	statusCode: {
-																    404: function () {
-																    },
-																    500: function(){
-																    },
-																    200: function () {
-																    	// hasta aca guarda todos los detalle analisispadre
-																    	
-																    }// 200 ajaxdap
-																  }  // statusCode DetalleAnalisisPadre
-															}); // AjaxDetalleAnalisisPadre 
-
-												    }
-												}
-										    }// 200 ajaxprot
-										  }  // statusCode prot
-									}); // Ajaxprot 	
-			    		}
-					}
-					// aca va el individuo dsps de cargar todos los datos basicos 
-
-			
-			    }// 200 ajaxSolAn
-			  }  // statusCode Sol an
-		}); // AjaxSolAn 
-	});
-
+				404: function () {
+				},
+				500: function(){
+					alert('ERROR')
+				},
+				200: function () {
+					alert('LLEGO')
+				}
+			}
+		}); // finalizacion del ajax
+	}); //finalizacion de la funcion
 
 	$('#finaltest2').click(function(e){
 		 e.preventDefault();
@@ -317,11 +264,10 @@ $(document).ready(function() {
 							    500: function(){
 							    },
 							    200: function () {
-							    	alert('Guardo')
 							    }// 200 ajaxSolAn
 							  }  // statusCode DetalleAnalisisPadre
 						}); // AjaxDetalleAnalisisPadre 
-
+				alert('Individuo Guardado, creo.')
 		});// end each .lIndividuo
 		});
 	saveAll();
