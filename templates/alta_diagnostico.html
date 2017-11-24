@@ -449,12 +449,11 @@ function verificar(){
     }
 }//verificar
 
-$("#btnvalidar").click(function(e){
+$("#btnvalidar").click(function(){
     if(verificar() == true){
         /*$("#formvalidar").submit();*/
 
-      		e.preventDefault();
-		$.ajax({
+      	$.ajax({
     		type: 'POST',
     		url: '/diagnosticoAjax/',
     		data:{
@@ -514,8 +513,7 @@ $("#btnvalidar").click(function(e){
 														    500: function(){
 														    },
 														    200: function (dataPara) {
-							    							alert('here');
-															paraPos = dataPara;
+							    							paraPos = dataPara;
 
 												    			var valRefModal = $(valRef);
 
@@ -555,9 +553,9 @@ $("#btnvalidar").click(function(e){
 									}); // blockgroup
 							    }// 200 ajaxSolAn
 							  }  // statusCode DetalleAnalisisPadre
+							//		$(location).attr('href',"../../diagnostico");
     	}); // ajaxdiagnostico
     }
-									$(location).attr('href',"../../diagnostico");
 
 });// boton validar
 
