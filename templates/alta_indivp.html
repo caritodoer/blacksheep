@@ -277,7 +277,23 @@ $(document).ready(function() {
 		diag = JSON.parse( localStorage.getItem( "diag" ) );
     	
     } // saveAll
-	
+	controlGPS();
+
+  	function controlGPS(){
+      if( localStorage.getItem( "posicion" ) ){
+        if( localStorage.getItem( "posicion" ) == 2 )
+        {
+        	localStorage.setItem( "posicion", 0);
+        }
+        else
+        {
+          $(location).attr('href',"http://127.0.0.1:8000/home_user/");  
+        }
+      }
+      else{
+        $(location).attr('href',"http://127.0.0.1:8000/home_user/");      
+      }
+    }
 
 
 	function validacion(campo){

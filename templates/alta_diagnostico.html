@@ -194,7 +194,7 @@
 {% block javascript %}
 <script type="text/javascript">
 $(document).ready(function(){
-	
+
 	var num = 0;
 	$("body").on('click', "#agregar_parametros", function(){
 		var newRow = $('#hidden-row').clone()
@@ -449,11 +449,11 @@ function verificar(){
     }
 }//verificar
 
-$("#btnvalidar").click(function(){
+$("#btnvalidar").click(function(e){
     if(verificar() == true){
         /*$("#formvalidar").submit();*/
-        console.log('Antes de guardar diagnostico');
 
+      		e.preventDefault();
 		$.ajax({
     		type: 'POST',
     		url: '/diagnosticoAjax/',
@@ -474,7 +474,6 @@ $("#btnvalidar").click(function(){
 							    200: function (data) {
 							    	var diagPos = data;	
 									$(".blockGrupo").each(function(){
-										
 										var grupo = $(this).find("#grupo").val();
 										if($(this).find("#radioTabla").is(":checked")){
 											var tabletype = "T";	
@@ -483,7 +482,7 @@ $("#btnvalidar").click(function(){
 											var tabletype = "I";	
 										}
 										// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
-										
+										 
 
 										var tBody = $(this).find('.paraList');
 										// recorrer los td individualmente sin repetirse						
@@ -515,6 +514,7 @@ $("#btnvalidar").click(function(){
 														    500: function(){
 														    },
 														    200: function (dataPara) {
+							    							alert('here');
 															paraPos = dataPara;
 
 												    			var valRefModal = $(valRef);
@@ -553,15 +553,12 @@ $("#btnvalidar").click(function(){
 									    	}); // ajaxdparametros
 											}); // parametros 1x1
 									}); // blockgroup
-									$(location).attr('href',"../../home_admin");
 							    }// 200 ajaxSolAn
 							  }  // statusCode DetalleAnalisisPadre
-    		success: function(data){
-    			
-    			
-    		} // succes
     	}); // ajaxdiagnostico
+									$(location).attr('href',"../../home_admin");
     }
+									
 
 });// boton validar
 

@@ -123,5 +123,15 @@ $(document).ready(function() {
     // 	dateFormat: 'dd-mm-yy',
     // }).datepicker("setDate", $('#fecha_devolucion').val());
 });
+    controlGPS();
+
+  	function controlGPS(){
+      if( localStorage.getItem( "posicion" ) ){
+        	localStorage.setItem( "posicion", 0);
+      }
+      else{
+			localStorage.setItem( "posicion", 0);
+      }
+    }
 </script>
 {% endblock %}
