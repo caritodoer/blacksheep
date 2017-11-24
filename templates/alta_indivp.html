@@ -45,9 +45,8 @@
 					<div class="row">
 						<div class="col-sm-12" align="right">
 							<!-- <a href="../../home_user" > -->
-							<button id="listados"> Guardar SolAn y Protocolo </button>
+							<button id="listados"> Guardar todo </button>
 
-							<button id='finaltest2'> Guardar Individuo </button>
 							<button type="button" class="btn btn-default" id="btnvalidar">Continuar</button>
 							</a>
 						</div>
@@ -201,6 +200,28 @@ $(document).ready(function() {
 
 	$('#listados').click(function(e){
 		e.preventDefault();
+		
+		let identlist = [];
+		let razalist = [];
+		$(".lIndividuo").each(function(){
+				var identificacion = $(this).find('#identificacion').val();
+				var raza = $(this).find('.razaSel').val();
+				// var masOp = $(this).find("#botonIngresarMasOpciones").attr('data-target');
+				// var nombre = $(masOp).find('#nombre').val();
+				// var edad = $(masOp).find('#edad').val();
+				// console.log(edad);
+				// var libreta = $(masOp).find('#libreta').val();
+				// var categoriaeSel = $(masOp).find('.categoriaeSel').val();
+				// var sexo = $(masOp).find('#sexo:checked').val();
+				identlist.push(identificacion);
+				razalist.push(raza);
+
+		});// end each .lIndividuo
+	
+		identlist = JSON.stringify( identlist );
+		razalist = JSON.stringify( razalist );
+		
+
 		prot = localStorage.getItem( "prot" );
 		diag = localStorage.getItem( "diag" );
 		solAn = JSON.parse( localStorage.getItem( "SolAn" ) );
@@ -217,6 +238,8 @@ $(document).ready(function() {
 				obs : solAn.obs,
 				prot: prot,
 				diag: diag,
+				identlist: identlist,
+				razalist: razalist,
 				csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 			},
 			statusCode: {
@@ -232,43 +255,7 @@ $(document).ready(function() {
 		}); // finalizacion del ajax
 	}); //finalizacion de la funcion
 
-	$('#finaltest2').click(function(e){
-		 e.preventDefault();
-		 $(".lIndividuo").each(function(){
-				var identificacion = $(this).find('#identificacion').val();
-				var raza = $(this).find('.razaSel').val();
-				// var masOp = $(this).find("#botonIngresarMasOpciones").attr('data-target');
-				// var nombre = $(masOp).find('#nombre').val();
-				// var edad = $(masOp).find('#edad').val();
-				// console.log(edad);
-				// var libreta = $(masOp).find('#libreta').val();
-				// var categoriaeSel = $(masOp).find('.categoriaeSel').val();
-				// var sexo = $(masOp).find('#sexo:checked').val();
-
-				$.ajax({
-			      	type: 'POST',
-			      	url: '/daindividuo/',
-			      	data: {
-			      		identificacion: identificacion,
-			   			raza: raza,
-			   			//nombre: nombre,
-			   			//edad: edad,
-			   			//libreta: libreta,
-			   			//categoriaeSel: categoriaeSel,
-			   			//sexo: sexo,
-						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-			      	},
-			      	statusCode: {
-							    404: function () {
-							    },
-							    500: function(){
-							    },
-							    200: function () {
-							    }// 200 ajaxSolAn
-							  }  // statusCode DetalleAnalisisPadre
-						}); // AjaxDetalleAnalisisPadre 
-		});// end each .lIndividuo
-		});
+	
 	saveAll();
 	function saveAll(){
 		solAn = JSON.parse( localStorage.getItem( "SolAn" ) );
