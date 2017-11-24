@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^daindividuo/$', views.daindividuo),
     url(r'^listados/$', views.listados),
     url(r'^updateDA/$', views.updateDA),
+    url(r'^updateDA2/$', views.updateDA2),
 
     # Solicitud Analisis
     #url(r'^solicitudanalisis/$', views.l_solicitudanalisis, name="l_solicitudAnalisis"),

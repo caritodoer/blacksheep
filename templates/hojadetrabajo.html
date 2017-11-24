@@ -132,11 +132,11 @@
 			            	<dl class="dl-horizontal">
 			            		<dt>{{ da.parametros.descripcion }}</dt>
 			            		<div class="posicionItem">
-						        <dd><input type="text" class="form-control" id="valorDA" name="_" value="{{da.valor}}" placeholder=" {{ objp.unidadmedida}}"></dd>
+						        <dd><input type="text" class="form-control" id="valorDA" name="_" value="{{da.valor}}" placeholder=" {{ objp.unidadmedida}}">
 				            		{% for i in object_list_ind %}
 					            	<input type="hidden" name="dapos" class="posDA" value="{{da.id}}" />
 				            		{% endfor %}
-				            		
+				            		</dd>
 			            		</div>
 			            	</dl>
 			            		
@@ -211,6 +211,38 @@ $('#testda').click(function(e){
 					}
 				}
 			});
+
+
+		$(".posicionItem").each(function(){
+			var valorDA2 = $(this).find('#valorDA').val();
+			let posicionDA2 = [];
+			$(this).find('.posDA').each(function(){
+				var posDA = $(this).val();
+				posicionDA2.push(posDA);
+			})
+			posicionDA2 = JSON.stringify( posicionDA2 )
+
+			$.ajax({
+				type: 'POST',
+				url: '/updateDA2/',
+				data:{
+					posicionDA2: posicionDA2,
+					valorDA2: valorDA2,
+					csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+				},
+				statusCode: {
+					404: function () {
+					},
+					500: function(){
+						alert('ERROR')
+					},
+					200: function () {
+						
+					}
+				}
+			});
+			
+		});
 });
 </script> 
 {% endblock %}
