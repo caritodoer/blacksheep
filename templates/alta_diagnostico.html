@@ -471,6 +471,7 @@ $("#btnvalidar").click(function(){
 							    500: function(){
 							    },
 							    200: function (data) {
+
 							    	var diagPos = data;	
 									$(".blockGrupo").each(function(){
 										var grupo = $(this).find("#grupo").val();
@@ -513,16 +514,19 @@ $("#btnvalidar").click(function(){
 														    500: function(){
 														    },
 														    200: function (dataPara) {
-							    							paraPos = dataPara;
-
+							    								paraPos = dataPara;
+							    								console.log(paraPos);
 												    			var valRefModal = $(valRef);
-
+												    			console.log(valRefModal);
 												    			$(valRefModal).find('.valRefList').each(function(){
 												    				var especie = $(this).find(':selected').val();
 												    				var parametros = paraPos;
 												    				var valorRef = $(this).find('#valRef').val();
 												    				var valorDef = $(this).find('#valDef').val();
-
+												    				
+												    				console.log('Especie ' + especie);
+												    				console.log('valDef ' + valorDef);
+												    				console.log('valorRef ' + valorRef);
 												    				$.ajax({
 												    					type: 'POST',
 												    					url: '/valRefAjax/',

@@ -82,6 +82,7 @@ def parametrosAjax(request):
 		dataPara = Parametros.objects.latest('id')
 		dataPara = dataPara.id
 		return HttpResponse(dataPara)
+		
 def valRefAjax(request):
 	if request.method == 'POST':
 		posEspecie = request.POST['especie']
