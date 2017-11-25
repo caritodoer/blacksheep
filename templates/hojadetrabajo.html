@@ -148,9 +148,13 @@
 		        </div>
 			</div>
 			{% endfor %}
-
-			<div class="col-sm-12">
-            	<textarea row="3" class="form-control" id="piepagina" name="piepagina" value="">Observaciones realizadas durante el análisis de las muestras:</textarea>
+			<div class="col-sm-12  piedap">
+			{% if instance.piepagina %}
+            	<textarea row="3" class="form-control" id="piepagina" placeholder="Observaciones realizadas durante el analisis" name="piepagina">{{ instance.piepagina}}</textarea>
+			{% else %}
+			<textarea row="3" class="form-control" id="piepagina" placeholder="Observaciones realizadas durante el analisis" name="piepagina"></textarea>
+			{% endif %}
+            	<input type="hidden" name="posdap" class="posdap" value="{{instance.id}}" />
 			</div>
     		</div><!-- final panel-body -->
     		<div class="panel-footer">
