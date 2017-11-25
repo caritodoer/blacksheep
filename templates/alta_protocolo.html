@@ -88,7 +88,7 @@
           <div class="row">
             <div class="col-sm-12" align="right">
               <!-- <a href="../../../individuopadre/alta" > -->
-              <button type="button" class="btn btn-default" id="btnvalidar">Continuar</button>
+              <button type="button" class="btn btn-default btnvalidar" id="btnvalidar">Continuar</button>
               </a>
             </div>
           </div>
@@ -145,7 +145,7 @@ var arraymuestra = [];
                 });
             }
         }); // fin selectmuestra
-  console.log(arraymuestra);
+  //console.log(arraymuestra);
 
 var arraydiag = [];
     var selectdiagnostico = "{{instance.diagnostico.id}}"
@@ -163,7 +163,7 @@ var arraydiag = [];
                 });
             }
         }); // fin selectdiagnostico
-        console.log(arraydiag);
+        //console.log(arraydiag);
 
   $("body").on('click', ".btn-eliminar-linea", function(){
     $(this).parent().parent().parent().find(".addBlockDiagnostico").attr('disabled', false);//habilita
@@ -178,16 +178,16 @@ var arraydiag = [];
       var c = elem;
       array.push(c);
     });
-    console.log('contprot   ',contprot,'array ',array);
+    //console.log('contprot   ',contprot,'array ',array);
     
     var adiag=[];
     adiag=arraydiag;
-    console.log('elimino',adiag);      
+    //console.log('elimino',adiag);      
 
       contprot.find(".divdiagnostico").each(function(index, e) {
         for (var i = 0; i < conbd.length; i++) {
             $(array[i]).find('.diagnosticoSel').find('option').remove();
-            console.log('arrayi  ',$(array[i]));      
+            //console.log('arrayi  ',$(array[i]));      
         }
         for (var i = 0; i < conbd.length; i++) {
           for (var j = 0; j < conbd.length; j++) {
@@ -201,7 +201,7 @@ var arraydiag = [];
         $(elem).find('.diagnosticoSel').find('option').each(function(j, opt) {
           if($(opt).val()==conbd[j].id && conbd[j].muestra_id!=idmuestra ){
             $(opt).remove();
-            console.log('opt',$(opt).val());
+            //console.log('opt',$(opt).val());
           }
           else{if(i==0){countopt++;}}
         });
@@ -212,7 +212,7 @@ var arraydiag = [];
           for (var j = i+1; j < countopt; j++) {
             $(array[j]).find('.diagnosticoSel').find('option[value="'+$(array[i]).find('.diagnosticoSel').val()+'"]').remove();
             $(array[i]).find('.diagnosticoSel').find('option[value="'+$(array[j]).find('.diagnosticoSel').val()+'"]').remove();
-            console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+            //console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
           }
         } 
       });
@@ -235,16 +235,16 @@ var arraydiag = [];
           var c = elem;
           array.push(c);
         });
-        console.log('contprot   ',contprot,'array ',array);
+        //console.log('contprot   ',contprot,'array ',array);
         
         var amuestra=[];
         amuestra=arraymuestra;
-        console.log('elimino',amuestra);      
+        //console.log('elimino',amuestra);      
     
           contprot.find(".divmuestra").each(function(index, e) {
             for (var i = 0; i < conbd.length; i++) {
                 $(array[i]).find('.muestraSel').find('option').remove();
-                console.log('arrayi  ',$(array[i]));      
+                //console.log('arrayi  ',$(array[i]));      
             }
             for (var i = 0; i < conbd.length; i++) {
               for (var j = 0; j < conbd.length; j++) {
@@ -258,7 +258,7 @@ var arraydiag = [];
               for (var j = i+1; j < conbd.length; j++) {
                 $(array[j]).find('.muestraSel').find('option[value="'+$(array[i]).find('.muestraSel').val()+'"]').remove();
                 $(array[i]).find('.muestraSel').find('option[value="'+$(array[j]).find('.muestraSel').val()+'"]').remove();
-                console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+                //console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
               }
             } 
           });
@@ -269,7 +269,7 @@ var arraydiag = [];
 
     //valida select option - Diagnostico Protocolo
     $('body').on('click','.addBlockDiagnostico',function(){
-      console.log('paso x aca');
+      //console.log('paso x aca');
       var countopt = 0;
       var count = 0;
       var array = [];
@@ -280,18 +280,18 @@ var arraydiag = [];
           $(elem).find('.diagnosticoSel').find('option').each(function(j, opt) {
             if($(opt).val()==conbd[j].id && conbd[j].muestra_id!=idmuestra ){
               $(opt).remove();
-              console.log('opt',$(opt).val());
+              //console.log('opt',$(opt).val());
             }
             else{if(i==0){countopt++;}}
           });
           var c = elem;
           array.push(c);
           count++;
-          console.log('count   ',count,'elem  ',elem,'conbd  ',conbd.length,conbd[i],'idmuestra',idmuestra,'countopt',countopt);
+          //console.log('count   ',count,'elem  ',elem,'conbd  ',conbd.length,conbd[i],'idmuestra',idmuestra,'countopt',countopt);
           if(count >= countopt){contprot.find(".addBlockDiagnostico").attr('disabled', true);}
           else{contprot.find(".addBlockDiagnostico").attr('disabled', false);}
       });
-      console.log('contprot   ',contprot,'array ',array);
+      //console.log('contprot   ',contprot,'array ',array);
 
       if(array.length > 1){
         contprot.find(".divdiagnostico").each(function(index, e) {
@@ -299,7 +299,7 @@ var arraydiag = [];
             for (var j = i+1; j < countopt; j++) {
               $(array[j]).find('.diagnosticoSel').find('option[value="'+$(array[i]).find('.diagnosticoSel').val()+'"]').remove();
               $(array[i]).find('.diagnosticoSel').find('option[value="'+$(array[j]).find('.diagnosticoSel').val()+'"]').remove();
-              console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+              //console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
             }
           } 
         });
@@ -307,7 +307,7 @@ var arraydiag = [];
     });
 
     $('body').on('change','.diagnosticoSel',function(){
-      console.log('paso x aca');
+      //console.log('paso x aca');
       var count = 0;
       var array = [];
       var contprot = $(this).parent().parent().parent();
@@ -316,7 +316,7 @@ var arraydiag = [];
         var c = elem;
         array.push(c);
       });
-      console.log('contprot   ',contprot,'array ',array);
+      //console.log('contprot   ',contprot,'array ',array);
           
       if(array.length > 1){
         contprot.find(".divdiagnostico").each(function(index, e) {
@@ -324,7 +324,7 @@ var arraydiag = [];
             for (var j = i+1; j < conbd.length; j++) {
               $(array[j]).find('.diagnosticoSel').find('option[value="'+$(array[i]).find('.diagnosticoSel').val()+'"]').remove();
               $(array[i]).find('.diagnosticoSel').find('option[value="'+$(array[j]).find('.diagnosticoSel').val()+'"]').remove();
-              console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+              //console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
             }
           } 
         });
@@ -334,7 +334,7 @@ var arraydiag = [];
 
     //valida select option - Muestra Protocolo
     $('.addBlockProtocolo').click(function(){
-      console.log('paso x aca');
+      //console.log('paso x aca');
       var count = 0;
       var array = [];
       var contprot = $(this).parent().parent().parent();
@@ -343,11 +343,11 @@ var arraydiag = [];
         var c = elem;
         array.push(c);
         count++;
-        console.log('count   ',count,'elem  ',elem,'conbd  ',conbd.length);
+        //console.log('count   ',count,'elem  ',elem,'conbd  ',conbd.length);
         if(count >= conbd.length){contprot.find(".addBlockProtocolo").attr('disabled', true);}
         else{contprot.find(".addBlockProtocolo").attr('disabled', false);}
       });
-      console.log('contprot   ',contprot,'array ',array);
+      //console.log('contprot   ',contprot,'array ',array);
 
       if(array.length > 1){
         contprot.find(".divmuestra").each(function(index, e) {
@@ -355,7 +355,7 @@ var arraydiag = [];
             for (var j = i+1; j < conbd.length; j++) {
               $(array[j]).find('.muestraSel').find('option[value="'+$(array[i]).find('.muestraSel').val()+'"]').remove();
               $(array[i]).find('.muestraSel').find('option[value="'+$(array[j]).find('.muestraSel').val()+'"]').remove();
-              console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+              //console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
             }
           } 
         });
@@ -363,7 +363,8 @@ var arraydiag = [];
     });    
 
     $('body').on('change','.muestraSel',function(){
-      console.log('paso x aca');
+      $(this).parent().parent().parent().find(".addBlockDiagnostico").attr('disabled', false);//habilita
+      //console.log('paso x aca');
         var count = 0;
         var array = [];
         var contprot = $(this).parent().parent().parent();
@@ -372,7 +373,7 @@ var arraydiag = [];
           var c = elem;
           array.push(c);
         });
-        console.log('contprot   ',contprot,'array ',array);
+        //console.log('contprot   ',contprot,'array ',array);
         
           contprot.parent().find('.diagBase').remove();
 
@@ -382,7 +383,7 @@ var arraydiag = [];
               for (var j = i+1; j < conbd.length; j++) {
                 $(array[j]).find('.muestraSel').find('option[value="'+$(array[i]).find('.muestraSel').val()+'"]').remove();
                 $(array[i]).find('.muestraSel').find('option[value="'+$(array[j]).find('.muestraSel').val()+'"]').remove();
-                console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
+                //console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));     
               }
             } 
           });
@@ -390,7 +391,6 @@ var arraydiag = [];
     });
     //fin validacion select option - Muestra Protocolo
 
-    
 /*validacion*/
 $("span.help-block").hide();
 
@@ -404,7 +404,7 @@ $("span.help-block").hide();
     v1=validacion('muestra');
     v2=validacion('diagnostico');
     v3=validacion('protocolo');
-    console.log(v1,v2,v3);
+    //console.log(v1,v2,v3);
     if(v1 == true && v2 == true && v3 == true){
       return true;
     }
@@ -413,12 +413,47 @@ $("span.help-block").hide();
     }
   }//verificar
 
-  $("#btnvalidar").click(function(){
-    if(verificar() == true){
-      $("#formvalidar").submit();
-      guardar_proto();
-      $(location).attr('href',"../../../individuopadre/alta");
+  $(".btnvalidar").click(function(){
+    var band=0;
+    var array=[];
+    if(verificar() == true){  
+      if($(this).parent().parent().parent().parent().find('.lprotocol').length == 0){
+        alert('No cargo protocolos');
+        band=1;
+      }
+      else
+      {
+        $(this).parent().parent().parent().parent().find('.lprotocol').each(function(index, el) {
+          var c=el;
+          array.push(c);
+          console.log('lprotocol',$(el).find('.diagBase').length);
+          if($(el).find('.diagBase').length == 0){
+            alert('Debe agregar un diagnostico');
+            band=1;
+          }
+        });
+          if($('.block-protocolo').find('.protocolo').length >= 2){
+            for (var i = 0; i < array.length; i++) {
+              for (var j = i+1; j < array.length; j++) {
+                if($(array[i]).find('.protocolo').val()==$(array[j]).find('.protocolo').val()){
+                  alert('Ingreso protocolos repetidos.');
+                  band=1;
+                  break;
+                }
+              }
+            }
+          }         
+
+        //console.log('band',band);
+        if(band==0){
+          $("#formvalidar").submit();
+          guardar_proto();
+          $(location).attr('href',"../../../individuopadre/alta");
+        }
+      }
+        
     }
+
   });// boton validar
 
 //funcion retorna array de consulta bd 
@@ -462,29 +497,33 @@ $("span.help-block").hide();
           var diag = $(this).val();
 
           protoSave.push(prot);
-          diagSave.push(diag)
+          diagSave.push(diag);
           
           
         });
     });
     localStorage.setItem( "prot", JSON.stringify( protoSave ) );
     localStorage.setItem( "diag", JSON.stringify( diagSave ) );
-    
+    localStorage.setItem( "posicion", 2);
   }
 
-  control_LS();
+  controlGPS();
 
-  function control_LS(){
-    if( localStorage.getItem( "SolAn" ) ){
-      localStorage.removeItem("prot");
-      localStorage.removeItem("diag");
+  function controlGPS(){
+      if( localStorage.getItem( "posicion" ) ){
+        if( localStorage.getItem( "posicion" ) == 1 )
+        {
+
+        }
+        else
+        {
+          $(location).attr('href',"http://127.0.0.1:8000/home_user/");  
+        }
+      }
+      else{
+        $(location).attr('href',"http://127.0.0.1:8000/home_user/");      
+      }
     }
-    else{
-      localStorage.removeItem("prot");
-      localStorage.removeItem("diag");
-      $(location).attr('href',"../../../solicitudanalisis/alta/");      
-    }
-  }
 
 
   function validacion(campo){
@@ -493,10 +532,10 @@ $("span.help-block").hide();
         var error=-1;
         $('.'+campo).each(function(i, elem){
         var inputtext = $(elem).val();
-        //console.log('indice  ',indice);
+        ////console.log('indice  ',indice);
         
         //inputtext = document.getElementsByTagsName(campo).value;
-        console.log('inputtext',inputtext);
+        //console.log('inputtext',inputtext);
         //var truefalse = true;
         var conbd = {};//variable consulta base datos
         var surl='{{title}}';//variable para url capta titulo
@@ -506,21 +545,21 @@ $("span.help-block").hide();
         vurl.shift();//elimina elemento inicial
         if(vurl.length == 2){vurl=(vurl[0]+vurl[1]).toLowerCase();}
         else{vurl=(vurl[0]).toLowerCase();}
-        console.log('var vurl ',vurl);
+        //console.log('var vurl ',vurl);
         conbd = getconbd("/j_"+vurl+"/", "GET");//consulta json a tabla especificada
-        console.log('conbd',conbd);
+        //console.log('conbd',conbd);
         for(var i=0;i < conbd.length;i++){    
             if(conbd[i].numero == inputtext.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
-                console.log(conbd[i].numero,'-',inputtext);
+                //console.log(conbd[i].numero,'-',inputtext);
                 truefalse=false;
-                console.log('truefalse adentro',truefalse);      
+                //console.log('truefalse adentro',truefalse);      
             }
         }
         
-        console.log('truefalse afuera',truefalse);
+        //console.log('truefalse afuera',truefalse);
 
             
-            console.log(inputtext);
+            //console.log(inputtext);
         if(truefalse == false){
             $(elem).parent().parent().attr("class","has-error has-feedback");
             $(elem).parent().parent().children("span").text("Existe "+campo+" en base de datos").show();
@@ -564,17 +603,17 @@ $("span.help-block").hide();
       if(campo==='diagnostico'){error=-2}//solo para diagnostico
       $('.'+campo).each(function(i, elem){
       var indice = $(elem).val();
-      //console.log('indice  ',indice);
+      ////console.log('indice  ',indice);
       if(indice == null || indice == 0 ){
         if(campo == 'muestra'){$(elem).parent().attr("class","has-error has-feedback divmuestra");}
         if(campo == 'diagnostico'){$(elem).parent().attr("class","has-error has-feedback divdiagnostico");}
         error++;
-        //console.log('indice2  ',indice);
+        ////console.log('indice2  ',indice);
         }
       else{
         if(campo == 'muestra'){$(elem).parent().attr("class","has-success has-feedback divmuestra");}
         if(campo == 'diagnostico'){$(elem).parent().attr("class","has-success has-feedback divdiagnostico");}
-        //console.log('indice3  ',indice);
+        ////console.log('indice3  ',indice);
         } 
       });
       
@@ -589,15 +628,15 @@ $("span.help-block").hide();
     /*if(campo==='diagnostico'){
       $('.'+campo).each(function(i, elem){
       var diag = $(elem).val();
-      //console.log('diag  ',diag,'  i',i);
+      ////console.log('diag  ',diag,'  i',i);
       if(diag == null || diag == 0 ){
         $(elem).parent().attr("class","has-error has-feedback");
         error++;
-        //console.log('indice2  ',diag);
+        ////console.log('indice2  ',diag);
         }
       else{
         $(elem).parent().attr("class","has-success has-feedback");
-        //console.log('indice3  ',diag);
+        ////console.log('indice3  ',diag);
         } 
       });
 

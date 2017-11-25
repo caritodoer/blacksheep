@@ -135,7 +135,7 @@ $(document).ready(function() {
                 $('#veterinario').append('<option selected value=""></option>');
                 $.each(veterinario,function(index, obj) 
                 {   
-                    console.log(veterinario)
+                    //console.log(veterinario)
                     if(obj.activo == true){
                         if(obj.id == selectveterinario)
                         {
@@ -153,7 +153,7 @@ $(document).ready(function() {
             type:"GET",
             dataType: "json",
             success: function(categoria){
-                console.log("categoria: " + catelist)
+                //console.log("categoria: " + catelist)
                 $.each(categoria,function(index, obj) 
                 {   
                     if(obj.activo == true){
@@ -177,7 +177,7 @@ $(document).ready(function() {
             type:"GET",
             dataType: "json",
             success: function(explotacion){
-                console.log("explotacion:" + explolist)
+                //console.log("explotacion:" + explolist)
                 $.each(explotacion,function(index, obj) 
                 {    
                     if(obj.activo == true){  
@@ -215,7 +215,7 @@ function verificar(){
     v7=validacion('categoriasin');
     v8=validacion('explotacionin');
 
-    console.log(v1,v2,v3,v4,v5,v6,v7,v8);
+    //console.log(v1,v2,v3,v4,v5,v6,v7,v8);
     if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true && v7 == true && v8 == true){
         return true;
     }
@@ -257,39 +257,39 @@ function validacion(campo){
         vurl.shift();//elimina elemento inicial
         if(vurl.length == 2){vurl=(vurl[0]+vurl[1]).toLowerCase();}
         else{vurl=(vurl[0]).toLowerCase();}
-        console.log('var vurl ',vurl);
+        //console.log('var vurl ',vurl);
         conbd = getconbd("/j_"+vurl+"/", "GET");//consulta json a tabla especificada
-        console.log('conbd',conbd);
+        //console.log('conbd',conbd);
         if(nuevmodif != 'Modificar'){
             if(campo=='nombre'){
                 for(var i=0;i < conbd.length;i++){
-                    console.log('conbd[i]',conbd[i].nombre);
+                    //console.log('conbd[i]',conbd[i].nombre);
                     if(conbd[i].nombre.toUpperCase() == inputtext.toUpperCase().trim()){
-                        console.log(conbd[i].nombre,'-',inputtext);
+                        //console.log(conbd[i].nombre,'-',inputtext);
                         truefalse=false;
-                        console.log('truefalse adentro',truefalse);
+                        //console.log('truefalse adentro',truefalse);
                         break;      
                     }
                 }
             }
             if(campo=='RENSPA'){
                 for(var i=0;i < conbd.length;i++){
-                    console.log('conbd[i]',conbd[i].RENSPA);
+                    //console.log('conbd[i]',conbd[i].RENSPA);
                     if(conbd[i].RENSPA.toUpperCase() == inputtext.toUpperCase().trim()){
-                        console.log(conbd[i].RENSPA,'-',inputtext);
+                        //console.log(conbd[i].RENSPA,'-',inputtext);
                         truefalse=false;
-                        console.log('truefalse adentro',truefalse);
+                        //console.log('truefalse adentro',truefalse);
                         break;      
                     }
                 }
             }
             if(campo=='CUIT'){
                 for(var i=0;i < conbd.length;i++){
-                    console.log('conbd[i]',conbd[i].CUIT);
+                    //console.log('conbd[i]',conbd[i].CUIT);
                     if(conbd[i].CUIT.toUpperCase() == inputtext.toUpperCase().trim()){
-                        console.log(conbd[i].CUIT,'-',inputtext);
+                        //console.log(conbd[i].CUIT,'-',inputtext);
                         truefalse=false;
-                        console.log('truefalse adentro',truefalse);
+                        //console.log('truefalse adentro',truefalse);
                         break;      
                     }
                 }
@@ -299,36 +299,36 @@ function validacion(campo){
             if(campo=='nombre'){
                 for(var i=0;i < conbd.length;i++){    
                     if(conbd[i].nombre.toUpperCase() == inputtext.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
-                        console.log(conbd[i].nombre,'-',inputtext);
+                        //console.log(conbd[i].nombre,'-',inputtext);
                         truefalse=false;
-                        console.log('truefalse adentro',truefalse);      
+                        //console.log('truefalse adentro',truefalse);      
                     }
                 }
             }
             if(campo=='RENSPA'){
                 for(var i=0;i < conbd.length;i++){    
                     if(conbd[i].RENSPA.toUpperCase() == inputtext.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
-                        console.log(conbd[i].RENSPA,'-',inputtext);
+                        //console.log(conbd[i].RENSPA,'-',inputtext);
                         truefalse=false;
-                        console.log('truefalse adentro',truefalse);      
+                        //console.log('truefalse adentro',truefalse);      
                     }
                 }
             }
             if(campo=='CUIT'){
                 for(var i=0;i < conbd.length;i++){    
                     if(conbd[i].CUIT.toUpperCase() == inputtext.toUpperCase().trim() && conbd[i].id != "{{instance.id}}"){
-                        console.log(conbd[i].CUIT,'-',inputtext);
+                        //console.log(conbd[i].CUIT,'-',inputtext);
                         truefalse=false;
-                        console.log('truefalse adentro',truefalse);      
+                        //console.log('truefalse adentro',truefalse);      
                     }
                 }
             }
 
         }//selector de modificacion
-        console.log('truefalse afuera',truefalse);
+        //console.log('truefalse afuera',truefalse);
 
         
-        console.log(inputtext);
+        //console.log(inputtext);
     if(truefalse == false){
         $("#icon"+campo).remove();
         $('#'+campo).parent().parent().attr("class","has-error has-feedback");
@@ -384,7 +384,7 @@ function validacion(campo){
 
     if(campo==='partido' || campo==='propietario'){
         inputtext = document.getElementById(campo).value;
-        console.log(inputtext);
+        //console.log(inputtext);
         if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");
@@ -403,7 +403,7 @@ function validacion(campo){
 
     /*if(campo==='CUIT'){
         CUIT = document.getElementById(campo).value;
-        console.log(CUIT);
+        //console.log(CUIT);
         if(CUIT == null || CUIT.length == 0 || /^\s+$/.test(CUIT)){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");
@@ -442,7 +442,7 @@ function validacion(campo){
 
     if(campo==='veterinario'){
         indice = document.getElementById(campo).selectedIndex;
-        console.log(indice);
+        //console.log(indice);
         if(indice == null || indice == 0){
             $('#veterinario').parent().parent().attr("class","has-error");
             return false;
@@ -455,7 +455,7 @@ function validacion(campo){
 
     if(campo==='categoriasin'){
         categoriasin = $("#categorias input:checked").length;
-        console.log(categoriasin);
+        //console.log(categoriasin);
         if(categoriasin == 0 ){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");
@@ -474,7 +474,7 @@ function validacion(campo){
 
     if(campo==='explotacionin'){
         explotacionin = $("#explotacion input:checked").length;
-        console.log(explotacionin);
+        //console.log(explotacionin);
         if(explotacionin == 0 ){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");

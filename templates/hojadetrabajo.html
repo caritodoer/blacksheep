@@ -138,7 +138,7 @@
 				            		{% for i in object_list_ind %}
 					            	<input type="hidden" name="dapos" class="posDA" value="{{da.id}}" />
 				            		{% endfor %}
-				            		
+				            		</dd>
 			            		</div>
 			            	</dl>
 			            		
@@ -178,7 +178,16 @@
 
 {% block javascript %} 
 <script type="text/javascript">
+    controlGPS();
 
+  	function controlGPS(){
+      if( localStorage.getItem( "posicion" ) ){
+        	localStorage.setItem( "posicion", 0);
+      }
+      else{
+			localStorage.setItem( "posicion", 0);
+      }
+    }
 
 $('#testda').click(function(e){
 		e.preventDefault();
@@ -189,7 +198,7 @@ $('#testda').click(function(e){
 			var valDA = $(this).find('#valorDA').val();
 			posicionDA.push(posDA);
 			valorDA.push(valDA);
-			console.log('Posicion: ' + posDA + ' Valor: ' + valDA) 
+			//console.log('Posicion: ' + posDA + ' Valor: ' + valDA) 
 		});
 		posicionDA = JSON.stringify( posicionDA )
 		valorDA = JSON.stringify( valorDA )
@@ -213,6 +222,38 @@ $('#testda').click(function(e){
 					}
 				}
 			});
+
+
+		$(".posicionItem").each(function(){
+			var valorDA2 = $(this).find('#valorDA').val();
+			let posicionDA2 = [];
+			$(this).find('.posDA').each(function(){
+				var posDA = $(this).val();
+				posicionDA2.push(posDA);
+			})
+			posicionDA2 = JSON.stringify( posicionDA2 )
+
+			$.ajax({
+				type: 'POST',
+				url: '/updateDA2/',
+				data:{
+					posicionDA2: posicionDA2,
+					valorDA2: valorDA2,
+					csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+				},
+				statusCode: {
+					404: function () {
+					},
+					500: function(){
+						alert('ERROR')
+					},
+					200: function () {
+						
+					}
+				}
+			});
+			
+		});
 });
 </script> 
 {% endblock %}

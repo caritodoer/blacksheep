@@ -113,7 +113,9 @@ def listados(request):
 		especie = get_object_or_404(Especie,id=posEspecie)
 		fecha = request.POST['fecha']
 		obs = request.POST['obs']
-		
+		identlist = request.POST['identlist']
+		razalist = request.POST['razalist']
+
 		SolicitudAnalisis.objects.create(
 			veterinario = veterinario,
 			establecimiento = establecimiento,
@@ -128,7 +130,7 @@ def listados(request):
 
 		diag = json.loads(diag)
 		prot = json.loads(prot)
-		
+
 		control = ""
 		for x in prot:
 			if control != x:
@@ -146,12 +148,39 @@ def listados(request):
 							diagnostico = datadiag,
 							)
 						dataDAP = DetalleAnalisisPadre.objects.latest('id')
-						print(dataDAP)
+						
+
+		identlist = json.loads(identlist)
+		razalist = json.loads(razalist)
+		for c in range(len(razalist)):
+			raza = get_object_or_404(Raza, id= razalist[c])
+
+			identifi = identlist[c]
+			IndividuoPadre.objects.create(
+				identificacion = identifi,
+				raza = raza,
+				)
+			dataindip = IndividuoPadre.objects.latest('id')
+			lastSolan = SolicitudAnalisis.objects.latest('id')
+			vSolAn = DetalleAnalisisPadre.objects.all().filter(solicitud=lastSolan.id)
+			
+			valor = ""
+			
+			for z in vSolAn:
+				solicitud = z.solicitud
+				param =  Parametros.objects.all().filter(diagnostico=z.diagnostico)
+				for x in param:
+					paramet = x
+					DetalleAnalisis.objects.create(
+					solicitud = solicitud,
+					parametros = paramet,
+					individuoPadre = dataindip,
+					valor = valor,
+					)
 
 
-					
 
-	
+
 	return HttpResponse()
 
 
@@ -165,6 +194,22 @@ def updateDA(request):
 	for z in range(len(posicionDA)):
 		instance = get_object_or_404(DetalleAnalisis, id=posicionDA[z])
 		instance.valor = valorDA[z]
+		instance.save()
+		print(instance)
+
+
+	return HttpResponse()
+
+def updateDA2(request):
+	if request.method == 'POST':
+		posicionDA2 = request.POST['posicionDA2']
+		valorDA2 = request.POST['valorDA2']
+
+	posicionDA2 = json.loads(posicionDA2)
+
+	for z in range(len(posicionDA2)):
+		instance = get_object_or_404(DetalleAnalisis, id=posicionDA2[z])
+		instance.valor = valorDA2
 		instance.save()
 		print(instance)
 
