@@ -123,6 +123,16 @@ $(document).ready(function() {
 			});
         }
     });
+    controlGPS();
+
+  	function controlGPS(){
+      if( localStorage.getItem( "posicion" ) ){
+        	localStorage.setItem( "posicion", 0);
+      }
+      else{
+			localStorage.setItem( "posicion", 0);
+      }
+    }
 });
 </script>
 

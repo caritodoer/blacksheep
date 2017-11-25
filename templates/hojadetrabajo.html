@@ -178,7 +178,16 @@
 
 {% block javascript %} 
 <script type="text/javascript">
+    controlGPS();
 
+  	function controlGPS(){
+      if( localStorage.getItem( "posicion" ) ){
+        	localStorage.setItem( "posicion", 0);
+      }
+      else{
+			localStorage.setItem( "posicion", 0);
+      }
+    }
 
 $('#testda').click(function(e){
 		e.preventDefault();

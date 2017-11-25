@@ -500,22 +500,26 @@ $("span.help-block").hide();
     });
     localStorage.setItem( "prot", JSON.stringify( protoSave ) );
     localStorage.setItem( "diag", JSON.stringify( diagSave ) );
-    
+    localStorage.setItem( "posicion", 2);
   }
 
-  control_LS();
+  controlGPS();
 
-  function control_LS(){
-    if( localStorage.getItem( "SolAn" ) ){
-      localStorage.removeItem("prot");
-      localStorage.removeItem("diag");
+  function controlGPS(){
+      if( localStorage.getItem( "posicion" ) ){
+        if( localStorage.getItem( "posicion" ) == 1 )
+        {
+
+        }
+        else
+        {
+          $(location).attr('href',"http://127.0.0.1:8000/home_user/");  
+        }
+      }
+      else{
+        $(location).attr('href',"http://127.0.0.1:8000/home_user/");      
+      }
     }
-    else{
-      localStorage.removeItem("prot");
-      localStorage.removeItem("diag");
-      $(location).attr('href',"../../../solicitudanalisis/alta/");      
-    }
-  }
 
 
   function validacion(campo){

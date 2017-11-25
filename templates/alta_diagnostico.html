@@ -194,7 +194,7 @@
 {% block javascript %}
 <script type="text/javascript">
 $(document).ready(function(){
-	
+
 	var num = 0;
 	$("body").on('click', "#agregar_parametros", function(){
 		var newRow = $('#hidden-row').clone()
@@ -449,11 +449,15 @@ function verificar(){
     }
 }//verificar
 
-$("#btnvalidar").click(function(){
+$("#btnvalidar").click(function(e){
     if(verificar() == true){
         /*$("#formvalidar").submit();*/
+<<<<<<< HEAD
         //console.log('Antes de guardar diagnostico');
+=======
+>>>>>>> 808889a987665cf7a7cd64be71aa62bf1807a808
 
+      		e.preventDefault();
 		$.ajax({
     		type: 'POST',
     		url: '/diagnosticoAjax/',
@@ -474,7 +478,6 @@ $("#btnvalidar").click(function(){
 							    200: function (data) {
 							    	var diagPos = data;	
 									$(".blockGrupo").each(function(){
-										
 										var grupo = $(this).find("#grupo").val();
 										if($(this).find("#radioTabla").is(":checked")){
 											var tabletype = "T";	
@@ -483,7 +486,7 @@ $("#btnvalidar").click(function(){
 											var tabletype = "I";	
 										}
 										// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
-										
+										 
 
 										var tBody = $(this).find('.paraList');
 										// recorrer los td individualmente sin repetirse						
@@ -515,6 +518,7 @@ $("#btnvalidar").click(function(){
 														    500: function(){
 														    },
 														    200: function (dataPara) {
+							    							alert('here');
 															paraPos = dataPara;
 
 												    			var valRefModal = $(valRef);
