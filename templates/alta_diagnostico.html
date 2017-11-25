@@ -247,15 +247,15 @@ $(document).ready(function(){
     		var c = elem;
     		array.push(c);
     	});
-    	console.log('idmodalref   ',idmodalref,'array ',array);
+    	//console.log('idmodalref   ',idmodalref,'array ',array);
 		var aespecie=[];
     	aespecie=arrayespecie;
-		console.log('elimino',aespecie);    	
+		//console.log('elimino',aespecie);    	
     	
     		idmodalref.find(".valRefList").each(function(index, e) {
 	    		for (var i = 0; i < conbd.length; i++) {
     					$(array[i]).find('.especieSel').find('option').remove();
-	    				console.log('arrayi  ',$(array[i]));	    
+	    				//console.log('arrayi  ',$(array[i]));	    
 	    		}
 		    	for (var i = 0; i < conbd.length; i++) {
 		    		for (var j = 0; j < conbd.length; j++) {
@@ -269,7 +269,7 @@ $(document).ready(function(){
 	    			for (var j = i+1; j < conbd.length; j++) {
     					$(array[j]).find('.especieSel').find('option[value="'+$(array[i]).find('.especieSel').val()+'"]').remove();
     					$(array[i]).find('.especieSel').find('option[value="'+$(array[j]).find('.especieSel').val()+'"]').remove();
-	    				console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));	    
+	    				//console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));	    
 	    			}
 	    		}	
     		});
@@ -360,11 +360,11 @@ var arrayespecie = [];
     		});
     	}
     }); // select de especie 
-console.log(arrayespecie);    
+//console.log(arrayespecie);    
 
     //valida select option - ValREf
     $(document).on('click','.addParametro',function(){
-    	console.log('paso x aca');
+    	//console.log('paso x aca');
     	var count = 0;
     	var array = [];
     	var idmodalref = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent();
@@ -373,11 +373,11 @@ console.log(arrayespecie);
     		var c = elem;
     		array.push(c);
     		count++;
-    		console.log('count   ',count,'elem  ',elem,'conbd  ',conbd.length);
+    		//console.log('count   ',count,'elem  ',elem,'conbd  ',conbd.length);
     		if(count >= conbd.length){idmodalref.find("#addParametroVr").attr('disabled', true);}
     		else{idmodalref.find("#addParametroVr").attr('disabled', false);}
     	});
-    	console.log('idmodalref   ',idmodalref,'array ',array);
+    	//console.log('idmodalref   ',idmodalref,'array ',array);
   
 
     	if(array.length > 1){
@@ -387,7 +387,7 @@ console.log(arrayespecie);
 	    			for (var j = i+1; j < conbd.length; j++) {
     					$(array[j]).find('.especieSel').find('option[value="'+$(array[i]).find('.especieSel').val()+'"]').remove();
     					$(array[i]).find('.especieSel').find('option[value="'+$(array[j]).find('.especieSel').val()+'"]').remove();
-	    				console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));	    
+	    				//console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));	    
 	    			}
 	    		}	
     		});
@@ -395,7 +395,7 @@ console.log(arrayespecie);
     });    
 
     $(document).on('change','.especieSel',function(){
-    	console.log('paso x aca');
+    	//console.log('paso x aca');
     	var count = 0;
     	var array = [];
     	var idmodalref = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent();
@@ -404,7 +404,7 @@ console.log(arrayespecie);
     		var c = elem;
     		array.push(c);
     	});
-    	console.log('idmodalref   ',idmodalref,'array ',array);
+    	//console.log('idmodalref   ',idmodalref,'array ',array);
 		
 		    	
     	if(array.length > 1){
@@ -414,7 +414,7 @@ console.log(arrayespecie);
 	    			for (var j = i+1; j < conbd.length; j++) {
     					$(array[j]).find('.especieSel').find('option[value="'+$(array[i]).find('.especieSel').val()+'"]').remove();
     					$(array[i]).find('.especieSel').find('option[value="'+$(array[j]).find('.especieSel').val()+'"]').remove();
-	    				console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));	    
+	    				//console.log('arrayi  ',$(array[i]),'arrayj ',$(array[j]),'array',$(array));	    
 	    			}
 	    		}	
     		});
@@ -439,7 +439,7 @@ function verificar(){
     v5=validacion('descripciongrupo');
     v6=validacion('vistagrupo');
 
-    console.log(v1,v2,v3,v4,v5,v6);
+    //console.log(v1,v2,v3,v4,v5,v6);
   
   	if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
         return true;
@@ -452,7 +452,7 @@ function verificar(){
 $("#btnvalidar").click(function(){
     if(verificar() == true){
         /*$("#formvalidar").submit();*/
-        console.log('Antes de guardar diagnostico');
+        //console.log('Antes de guardar diagnostico');
 
 		$.ajax({
     		type: 'POST',
@@ -542,7 +542,7 @@ $("#btnvalidar").click(function(){
 																				    500: function(){
 																				    },
 																				    200: function () {
-												    								console.log('Guardado');
+												    								//console.log('Guardado');
 																				    }// 200 ajaxSolAn
 																				  }  // statusCode DetalleAnalisisPadre
 
@@ -579,7 +579,7 @@ function getconbd(url, method)
 function validacion(campo){
     if(campo==='descripciondiag' || campo==='tecnica'){
         inputtext = document.getElementById(campo).value;
-        //console.log(inputtext);
+        ////console.log(inputtext);
         if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");
@@ -598,7 +598,7 @@ function validacion(campo){
 
     if(campo==='muestra'){
         indice = document.getElementById(campo).selectedIndex;
-        //console.log(indice);
+        ////console.log(indice);
         if(indice == null || indice == 0){
             $('#muestra').parent().parent().attr("class","has-error");
             return false;
@@ -613,19 +613,19 @@ function validacion(campo){
 		var truefalse=true;
 		var error=-1;
 		$('.'+campo).each(function(i, elem){
-		//console.log('elem1  ',elem);	
+		////console.log('elem1  ',elem);	
 		inputtext = $(elem).val();
-        //console.log('inputtext  ',inputtext);
+        ////console.log('inputtext  ',inputtext);
 		if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
 			$(elem).parent().attr("class","has-error has-feedback");
 			$(elem).parent().children("span").text("Debe ingresar algun dato ").show();
 			error++;
-			//console.log('inputtext2  ',inputtext);
+			////console.log('inputtext2  ',inputtext);
 			}
 		else{
 			$(elem).parent().attr("class","has-success has-feedback");
 			$(elem).parent().children("span").text("").hide();
-			//console.log('inputtext3  ',inputtext);				
+			////console.log('inputtext3  ',inputtext);				
 			}	
 		});
 		
@@ -641,19 +641,19 @@ function validacion(campo){
 		var truefalse=true;
 		var error=0;
 		$('#block-parametros').find('tr[class="paraList"]').find('.'+campo).each(function(i, elem){
-		//console.log('elem1  ',elem);	
+		////console.log('elem1  ',elem);	
 		inputtext = $(elem).val();
 		if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
 			$(elem).parent().attr("class","has-error has-feedback");
 			error++;
-			//console.log('inputtext2  ',inputtext);
+			////console.log('inputtext2  ',inputtext);
 			}
 		else{
 			$(elem).parent().attr("class","has-success has-feedback");
-			//console.log('inputtext3  ',inputtext);				
+			////console.log('inputtext3  ',inputtext);				
 			}	
 		});
-		//console.log('error',error);
+		////console.log('error',error);
 		if(error > 0){
 			return false;
 		}
@@ -667,22 +667,22 @@ function validacion(campo){
 		var seleccionado=false;
 		var error=-2;
 		$('.'+campo).each(function(i, elem){
-		//console.log('elem1  ',elem);
+		////console.log('elem1  ',elem);
 		var name =	$(elem).attr('name');
-		//console.log('name   ',name);
+		////console.log('name   ',name);
 		radiot = $("#formAjax input[name='"+name+"'][id='radioTabla']:radio").is(':checked');
-        //console.log('radiot  ',radiot);
+        ////console.log('radiot  ',radiot);
         radioi = $("#formAjax input[name='"+name+"'][id='radioItem']:radio").is(':checked');
-        //console.log('radioi  ',radioi);
+        ////console.log('radioi  ',radioi);
 
         if(radiot == false && radioi == false){
 			$(elem).parent().parent().attr("class","has-error has-feedback");
-			//console.log('false  ',radiot,'  ');
+			////console.log('false  ',radiot,'  ');
 			error++;
 			}
 		else{
 			$(elem).parent().parent().attr("class","has-success has-feedback");
-			//console.log('true  ',radiot,'   ');				
+			////console.log('true  ',radiot,'   ');				
 			}
 		});
 
@@ -699,32 +699,32 @@ function validacion(campo){
       var error=0;
       /*var prueba = $('.'+campo).val();
       //var prueba2 = $(this).val();
-      console.log('paso x aca', prueba);*/
+      //console.log('paso x aca', prueba);*/
 		//$(this).siblings().find('option[value="'+prueba+'"]').remove();		
       	
       	/*$(document).on('change','.especieSel',function(){
-    		console.log('paso x aca');
+    		//console.log('paso x aca');
     		var prueba = $(this).val();
     		$(this).siblings().find('option[value="'+prueba+'"]').remove();
     		var prueba2 = $(this).siblings();
-    		console.log('prueba   ',prueba,'   prueba2    ',prueba2);
+    		//console.log('prueba   ',prueba,'   prueba2    ',prueba2);
     	});*/
 
       //if(campo==='diagnostico'){error=-2}//solo para diagnostico
       //$('.valRefList').find('.especieSel').each(function(i, elem){
       /*$('.'+campo).next().each(function(i, elem){
       var indice = $(elem).val();
-      console.log('elem   ',elem);
-      console.log('indice  ',indice,'  i',i);
+      //console.log('elem   ',elem);
+      //console.log('indice  ',indice,'  i',i);
       
       if(indice == null || indice == 0 ){
         $(elem).parent().attr("class","has-error has-feedback");
         error++;
-        console.log('indice2  ',indice);
+        //console.log('indice2  ',indice);
         }
       else{
         $(elem).parent().attr("class","has-success has-feedback");
-        console.log('indice3  ',indice);
+        //console.log('indice3  ',indice);
         } 
       });
       

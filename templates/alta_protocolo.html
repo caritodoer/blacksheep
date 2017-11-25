@@ -88,7 +88,7 @@
           <div class="row">
             <div class="col-sm-12" align="right">
               <!-- <a href="../../../individuopadre/alta" > -->
-              <button type="button" class="btn btn-default" id="btnvalidar">Continuar</button>
+              <button type="button" class="btn btn-default btnvalidar" id="btnvalidar">Continuar</button>
               </a>
             </div>
           </div>
@@ -391,7 +391,16 @@ var arraydiag = [];
     });
     //fin validacion select option - Muestra Protocolo
 
-    
+    /*$("body").on('click', ".btnvalidar", function(){
+      var check = 0;
+      $(this).parent().parent().parent().parent().find('.lprotocol').each(function(k, lp) {
+        check = $(lp).length;
+        if(check == 0){
+          alert('No cargo protocolos');
+        }
+        console.log('check',check);
+      });
+    });*/
 /*validacion*/
 $("span.help-block").hide();
 
@@ -414,12 +423,33 @@ $("span.help-block").hide();
     }
   }//verificar
 
-  $("#btnvalidar").click(function(){
-    if(verificar() == true){
-      $("#formvalidar").submit();
-      guardar_proto();
-      $(location).attr('href',"../../../individuopadre/alta");
+  $(".btnvalidar").click(function(){
+    var band=0;
+    if(verificar() == true){  
+      if($(this).parent().parent().parent().parent().find('.lprotocol').length == 0){
+        alert('No cargo protocolos');
+        band=1;
+      }
+      else
+      {
+        $(this).parent().parent().parent().parent().find('.lprotocol').each(function(index, el) {
+          console.log('lprotocol',$(el).find('.diagBase').length);
+          if($(el).find('.diagBase').length == 0){
+            alert('Debe agregar un diagnostico');
+            band=1;
+          }          
+        });
+
+        console.log('band',band);
+        if(band==0){
+          $("#formvalidar").submit();
+          guardar_proto();
+          $(location).attr('href',"../../../individuopadre/alta");
+        }
+      }
+        
     }
+
   });// boton validar
 
 //funcion retorna array de consulta bd 
