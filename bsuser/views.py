@@ -238,8 +238,8 @@ def updateDA(request):
 	instance.piepagina = piepagina
 	instance.save()
 
-	html = 'http://127.0.0.1:8000/DetalleAnalisisPadre/' + posdap + '/'
-	print(html)
+	html = '../../DetalleAnalisisPadre/' + posdap + '/'
+	
 	return HttpResponse(html)
 
 
