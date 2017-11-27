@@ -119,8 +119,8 @@ def allinone(request):
 						esplist = []
 						reflist = []
 						deflist = []
-	html = "http://127.0.0.1:8000/diagnostico/" + diagnostico.id + "/"
-	return HttpResponse(html)
+		html = "http://127.0.0.1:8000/diagnostico/" + diagnostico.id + "/"
+		return HttpResponse(html)
 
 
 
