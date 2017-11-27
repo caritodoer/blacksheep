@@ -21,7 +21,7 @@
             <div class="form-group">
               <label class="control-label col-sm-4" for="Edad">Edad:</label>
               <div class="col-sm-8">
-                <input type="number" class="form-control" id="edad" name="edad" value="0">
+                <input type="number" class="form-control" id="edad" name="edad">
               </div>
             </div>  
             
@@ -42,15 +42,11 @@
             <div class="form-group">
               <label class="control-label col-sm-4" for="sexo">Sexo:</label>
               <div class="col-sm-8">
-                <label class="radio-inline-inline">
-                  <input type="radio" name="sexo" id="sexo" value="M">M
-                </label>
-                <label class="radio-inline-inline">
-                  <input type="radio" name="sexo" id="sexo" value="H">H
-                </label>
-                <label class="radio-inline-inline">
-                  <input type="radio" name="sexo" id="sexo" checked value="X">NS/NC
-                </label>
+                <select name='sexo' id='sexo' >
+                  <option value='M'> Macho </option>
+                  <option value='H'> Hembra </option>
+                  <option value='X' selected> NS/NC</option>
+                </select>
               </div>
             </div>
           </div>
