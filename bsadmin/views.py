@@ -732,7 +732,7 @@ def u_motivos(request, id=None):
 	else:
 		print (form.errors)
 	context = {
-		"title": "Modificar motivo",
+		"title": "Modificar motivos",
 		"instance": instance,
 		"form": form
 	}
