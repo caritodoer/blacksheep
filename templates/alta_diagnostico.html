@@ -431,26 +431,14 @@ $("span.help-block").hide();
 function verificar(){
     var v1=0,v2=0,v3=0;v4=0;v5=0;v6=0;
 
-    //if($('.tercerizacion').is(':checked')==true)
-    //{
-	    v1=validacion('descripciondiag');
-	    v2=validacion('tecnica');
-	    v3=validacion('muestra');
-    	//console.log('true');
-    //}
-    //else
-    //{
-    	//v1=validacion('descripciondiag');
-	    //v2=validacion('tecnica');
-	    //v3=validacion('muestra');
-    	v4=validacion('grupo');
-	    v5=validacion('descripciongrupo');
-	    v6=validacion('vistagrupo');
-    	//console.log('false');
-    //}	
-    
-
-    console.log(v1,v2,v3,v4,v5,v6);
+    v1=validacion('descripciondiag');
+    v2=validacion('tecnica');
+    v3=validacion('muestra');
+	v4=validacion('grupo');
+    v5=validacion('descripciongrupo');
+    v6=validacion('vistagrupo');
+    		
+    //console.log(v1,v2,v3,v4,v5,v6);
   	if($('.tercerizacion').is(':checked')==true)
   	{
   		if(v1 == true && v2 == true && v3 == true){
