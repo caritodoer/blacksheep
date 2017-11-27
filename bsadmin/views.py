@@ -8,6 +8,7 @@ from django.core import serializers
 from django.core.files.storage import FileSystemStorage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, get_user_model, login, logout
+import json
 
 User = get_user_model()
 
@@ -31,6 +32,97 @@ def usuarios(request):
 	return render(request, "usuarios.html", context)
 
 #Alta diagnostico
+
+
+def allinone(request):
+	if request.method == 'POST':
+		descripcion = request.POST['descripcion'] 
+		tecnica = request.POST['tecnica']
+		posMuestra = request.POST['muestra']
+		muestra = get_object_or_404(Muestra,id=posMuestra)
+		piepagina = request.POST['piepagina']
+				
+		tercerizacion = request.POST['tercerizacion']
+		if tercerizacion == "true":
+			tercerizacion = True
+		else:
+			tercerizacion = False
+
+		dicval = request.POST['dicval']
+		listgroup = request.POST['listgroup']
+		listtable = request.POST['listtable']
+		listdesc = request.POST['listdesc']
+		listdato = request.POST['listdato']
+		listmed = request.POST['listmed']
+
+		Diagnostico.objects.create(
+			descripcion = descripcion,
+			tecnica = tecnica,
+			muestra = muestra,
+			tercerizacion = tercerizacion,
+			piepagina = piepagina,
+		)
+		diagnostico = Diagnostico.objects.latest('id')
+		
+		if tercerizacion == True:
+			Parametros.objects.create(
+			diagnostico = diagnostico,
+			descripcion = "Tercearizado",
+			tipo_de_dato = "S",
+			unidadmedida = "",
+			grupo = "Tercearizado",
+			visualizacion1 = "T",
+			)	
+		else:
+
+			dicval = json.loads(dicval)
+			listtable = json.loads(listtable)
+			listdesc = json.loads(listdesc)
+			listdato = json.loads(listdato)
+			listmed = json.loads(listmed)
+			listgroup = json.loads(listgroup)
+			
+			esplist = []
+			reflist = []
+			deflist = []
+
+			for z in range(len(listtable)):
+				Parametros.objects.create(
+				diagnostico = diagnostico,
+				descripcion = listdesc[z],
+				tipo_de_dato = listdato[z],
+				unidadmedida = listmed[z],
+				grupo = listgroup[z],
+				visualizacion1 = listtable[z],
+				)	
+
+				posParametros = Parametros.objects.latest('id')
+				pos = str(z)
+				for k in dicval:
+					if k == pos:
+						for v in (dicval[pos]['listesp']):
+							esplist.append(v)	
+						for v in (dicval[pos]['listref']):
+							reflist.append(v)
+						for v in (dicval[pos]['listdef']):
+							deflist.append(v)
+						
+						for b in range(len(esplist)):
+							zespecie = get_object_or_404(Especie,id=esplist[b])
+		
+							ValoresReferencia.objects.create(
+								especie = zespecie,
+								parametros = posParametros,
+								valorRef = reflist[b],
+								valorDef = deflist[b],
+							)		
+						esplist = []
+						reflist = []
+						deflist = []
+		return HttpResponse()
+
+
+
 def diagnosticoAjax(request):
 	if request.method == 'POST':
 		descripcion = request.POST['descripcion'] 
@@ -52,7 +144,7 @@ def diagnosticoAjax(request):
 			muestra = muestra,
 			tercerizacion = tercerizacion,
 			piepagina = piepagina,
-    	)
+		)
 
 		data = Diagnostico.objects.latest('id')
 		data = data.id
@@ -82,6 +174,7 @@ def parametrosAjax(request):
 		dataPara = Parametros.objects.latest('id')
 		dataPara = dataPara.id
 		return HttpResponse(dataPara)
+		
 def valRefAjax(request):
 	if request.method == 'POST':
 		posEspecie = request.POST['especie']
@@ -102,6 +195,8 @@ def valRefAjax(request):
 		)
 
 		return HttpResponse('')
+
+
 
 # Categoria
 def j_categoria(request):

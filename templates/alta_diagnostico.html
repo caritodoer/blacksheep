@@ -18,7 +18,6 @@
             </div>
 		<form id="formAjax">{% csrf_token %} 
             <div class="panel-body">
-
                 <div class="form-horizontal">
                     <div class="form-group">
 				    	<div class="divalidacion">	
@@ -49,7 +48,7 @@
 						<div class="col-sm-4">
 							<div class="checkbox form-check disabled">
 								<label class="form-check-label" for="tercerizacion">
-    								<input type="checkbox" class="form-check-input" id="tercerizacion" name="tercerizacion" value="{{ instance.tercerizacion }}" > 
+    								<input type="checkbox" class="form-check-input tercerizacion" id="tercerizacion" name="tercerizacion" value="{{ instance.tercerizacion }}" > 
 								</label>
 							</div>
 						</div>
@@ -361,8 +360,8 @@ var arrayespecie = [];
     	}
     }); // select de especie 
 //console.log(arrayespecie);    
-
-    //valida select option - ValREf
+	
+	//valida select option - ValREf
     $(document).on('click','.addParametro',function(){
     	//console.log('paso x aca');
     	var count = 0;
@@ -432,143 +431,149 @@ $("span.help-block").hide();
 function verificar(){
     var v1=0,v2=0,v3=0;v4=0;v5=0;v6=0;
 
-    v1=validacion('descripciondiag');
-    v2=validacion('tecnica');
-    v3=validacion('muestra');
-    v4=validacion('grupo');
-    v5=validacion('descripciongrupo');
-    v6=validacion('vistagrupo');
+    //if($('.tercerizacion').is(':checked')==true)
+    //{
+	    v1=validacion('descripciondiag');
+	    v2=validacion('tecnica');
+	    v3=validacion('muestra');
+    	//console.log('true');
+    //}
+    //else
+    //{
+    	//v1=validacion('descripciondiag');
+	    //v2=validacion('tecnica');
+	    //v3=validacion('muestra');
+    	v4=validacion('grupo');
+	    v5=validacion('descripciongrupo');
+	    v6=validacion('vistagrupo');
+    	//console.log('false');
+    //}	
+    
 
     console.log(v1,v2,v3,v4,v5,v6);
-  
-  	if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
-        return true;
-    }
-    else{
-        return false;
-    }
+  	if($('.tercerizacion').is(':checked')==true)
+  	{
+  		if(v1 == true && v2 == true && v3 == true){
+        	return true;
+	    }
+	    else{
+	        return false;
+	    }
+  	}	
+  	else
+  	{
+  		if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
+        	return true;
+	    }
+	    else{
+	        return false;
+	    }	
+  	}
+  	
 }//verificar
 
 $("#btnvalidar").click(function(e){
+    console.log('verificar',verificar());
+    e.preventDefault();
     if(verificar() == true)
     {
-        /*$("#formvalidar").submit();*/
+		var listacomp = []; // listado de diagnosticos
+		var listab = [];
+		var valores = [];
+		var listesp = [];
+		var listref = [];
+		var listdef = [];
+		var numk = 0; 
+		var dicval = {}; // diccionario de valref
+		var listtable = [];
+		var listgroup = [];
+		var listdesc = [];
+		var listdato = [];
+		var listmed = [];
+		var numk = 0;
+		var dicvr = {};
+		$(".blockGrupo").each(function(){
+			var grupo = $(this).find("#grupo").val();
+			if($(this).find("#radioTabla").is(":checked")){
+				var tabletype = "T";	
+			}
+			if($(this).find("#radioItem").is(":checked")){
+				var tabletype = "I";	
+			}
+			// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
+			 
+			var tBody = $(this).find('.paraList');
+			// recorrer los td individualmente sin repetirse						
+				
+				$(tBody).find('tr:visible').each(function(){
+				// segundo each, recorre linea por linea del grupo
+					var descripcionPara = $(this).find('#descripcion').val();
+					var tipoDato = $(this).find(":selected").val();
+					var unidadmedida = $(this).find('#unidadmedida').val();
+					var valRef = $(this).find("#botonIngresarValorRef").attr('data-target');
+					listgroup.push(grupo);
+					listtable.push(tabletype);
+					listdesc.push(descripcionPara);
+					listdato.push(tipoDato);
+					listmed.push(unidadmedida);
+					
+					$(valRef).find('.valRefList').each(function(){
+						
+						var especie = $(this).find(':selected').val();
+						var valorRef = $(this).find('#valRef').val();
+						var valorDef = $(this).find('#valDef').val();
+						listesp.push(especie);
+						listref.push(valorRef);
+						listdef.push(valorDef);
+						
+					}); // Recoorida de valref
+					
+					dicval[numk] = {listesp, listref, listdef};
+					
+					listesp = [];
+					listref = [];
+					listdef = [];
+					
+						numk = numk+1;
+				}); // recorrida de parametros
+		});		// recorrida de bloques	
+		
+		dicval = JSON.stringify( dicval );
+		listtable = JSON.stringify( listtable );
+		listdesc = JSON.stringify( listdesc );
+		listdato = JSON.stringify( listdato );
+		listmed = JSON.stringify( listmed );
+		listgroup = JSON.stringify( listgroup );
 
-     	e.preventDefault();
 		$.ajax({
-    		type: 'POST',
-    		url: '/diagnosticoAjax/',
-    		data:{
-    			descripcion: $('#descripciondiag').val(), 
-
-    			tecnica: $('#tecnica').val(),
-    			muestra: $('#muestra').val(),
-    			tercerizacion: $('#tercerizacion').is(":checked"),
-    			piepagina: $('#piepagina1').val(),
-    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-    		},
-    		statusCode: {
-			    404: function () {
-			    },
-			    500: function(){
-			    },
-			    200: function (data) {
-			    	var diagPos = data;	
-					$(".blockGrupo").each(function(){
-						var grupo = $(this).find("#grupo").val();
-						if($(this).find("#radioTabla").is(":checked")){
-							var tabletype = "T";	
-						}
-						if($(this).find("#radioItem").is(":checked")){
-							var tabletype = "I";	
-						}
-						// aca termina el primer each, donde guardamos el nombre del grupo, y el tipo de tabla
-						 
-
-						var tBody = $(this).find('.paraList');
-						// recorrer los td individualmente sin repetirse						
-							
-							$(tBody).find('tr:visible').each(function(){
-							// segundo each, recorre linea por linea del grupo
-
-								var descripcionPara = $(this).find('#descripcion').val();
-								var tipoDato = $(this).find(":selected").val();
-								var unidadmedida = $(this).find('#unidadmedida').val();
-								var valRef = $(this).find("#botonIngresarValorRef").attr('data-target');
-							
-							$.ajax({
-					    		type: 'POST',
-					    		url: '/parametrosAjax/',
-					    		data:{
-					    			diagnostico: diagPos, 
-					    			descripcion: descripcionPara, 
-					    			tipo_de_dato: tipoDato, 
-					    			unidadmedida: unidadmedida,
-					    			visualizacion1: tabletype,  
-					    			grupo: grupo,
-					    			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-					    		},
-
-						      	statusCode: 
-						      		{
-									    404: function () {
-									    },
-									    500: function(){
-									    },
-									    200: function (dataPara) {
-		    							//alert('here');
-		    							//$(location).attr('href',"../../diagnostico");
-										paraPos = dataPara;
-
-							    			var valRefModal = $(valRef);
-
-							    			$(valRefModal).find('.valRefList').each(function(){
-							    				var especie = $(this).find(':selected').val();
-							    				var parametros = paraPos;
-							    				var valorRef = $(this).find('#valRef').val();
-							    				var valorDef = $(this).find('#valDef').val();
-
-							    				$.ajax({
-							    					type: 'POST',
-							    					url: '/valRefAjax/',
-							    					data:{
-							    						especie: especie,
-							    						parametros: parametros,
-							    						valorRef: valorRef,
-							    						valorDef: valorDef,
-							    						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-							    					},
-
-											      	statusCode: 
-											      	{
-													    404: function () {
-													    },
-													    500: function(){
-													    },
-													    200: function () {
-					    								console.log('Guardado');
-					    								$(location).attr('href',"../../diagnostico");
-													    }// 200 ajaxSolAn
-													}  // statusCode DetalleAnalisisPadre
-
-							    				}); // ajaxValRef							
-											});// recorrer cada modal   	 	
-									    }// 200 ajaxSolAn
-									}  // statusCode DetalleAnalisisPadre
-					    	}); // ajaxdparametros
-							}); // parametros 1x1
-					}); // blockgroup
-			    }// 200 ajaxSolAn
-			  }  // statusCode DetalleAnalisisPadre
-    	}); // ajaxdiagnostico
-    }
-    else
-    {
-    	e.preventDefault();
-    	alert('no paso validacion');//se puede borrar este
-    }
-									//$(location).attr('href',"../../diagnostico");
-
+		type: 'POST',
+		url: '/allinone/',
+		data:{
+			descripcion: $('#descripciondiag').val(), 
+			tecnica: $('#tecnica').val(),
+			muestra: $('#muestra').val(),
+			tercerizacion: $('#tercerizacion').is(":checked"),
+			piepagina: $('#piepagina1').val(),
+			dicval: dicval,
+			listgroup: listgroup,
+			listtable: listtable,
+			listdesc: listdesc,
+			listdato: listdato,
+			listmed: listmed,
+			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+		},
+		statusCode: {
+		    404: function () {
+		    },
+		    500: function(){
+		    	alert('no llego')
+		    },
+		    200: function () {
+		    	alert('Llego')
+		    },
+		}
+		});
+    }	
 });// boton validar
 
 //funcion retorna array de consulta bd 
@@ -651,19 +656,19 @@ function validacion(campo){
 		var truefalse=true;
 		var error=-1;
 		$('#block-parametros').find('tr[class="paraList"]').find('.'+campo).each(function(i, elem){
-		console.log('elem1  ',elem);	
+		//console.log('elem1  ',elem);	
 		inputtext = $(elem).val();
 		if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
 			$(elem).parent().attr("class","has-error has-feedback");
 			error++;
-			console.log('inputtext2  ',inputtext);
+			//console.log('inputtext2  ',inputtext);
 			}
 		else{
 			$(elem).parent().attr("class","has-success has-feedback");
-			console.log('inputtext3  ',inputtext);				
+			//console.log('inputtext3  ',inputtext);				
 			}	
 		});
-		console.log('error',error);
+		//console.log('error',error);
 		if(error > 0){
 			return false;
 		}
