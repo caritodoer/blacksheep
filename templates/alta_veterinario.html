@@ -438,7 +438,7 @@ function validacion(campo){
         }
     }//email
 
-    if(campo==='codigo_area' || campo==='telefono1' || campo==='telefono2'){
+    if(campo==='codigo_area' || campo==='telefono1'){
         inputtext = document.getElementById(campo).value;
         //console.log(inputtext);
         if(inputtext == null || inputtext.length == 0 || /^\s+$/.test(inputtext)){
@@ -595,15 +595,15 @@ function validacion(campo){
         if(especializacionesin == 0 ){
             $('#icon'+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-error has-feedback");
-            $('#'+campo).parent().children("span").text("Seleccionar una o mas opciones_____").show();
-            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
+            $('#'+campo).parent().children("span").text("Seleccionar una o mas opciones").show();
+            //$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-remove form-control-feedback'></span>");
             return false;
         }
         else{
             $("#icon"+campo).remove();
             $('#'+campo).parent().parent().attr("class","has-success has-feedback");
             $('#'+campo).parent().children("span").text("").hide();
-            $('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
+            //$('#'+campo).parent().append("<span id='icon"+campo+"' class='glyphicon glyphicon-ok form-control-feedback'></span>");
             return true;                
         }
     }//categorias
