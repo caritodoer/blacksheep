@@ -86,10 +86,10 @@
 												<input type="text" maxlength="10" class="form-control" id="valorDA" name="_" value="{{ valor }}">{% endif %}
 												{% if p.tipo_de_dato == 'I' %}
 												<input type="hidden" id="posDA" name="dapos" value="{{da.id}}" />
-												<input type="number" class="form-control" id="valorDA" name="_" value="{{ valor }}">{% endif %}
+												<input type="number" maxlength="10" class="form-control" id="valorDA" name="_" value="{{ valor }}">{% endif %}
 												{% if p.tipo_de_dato == 'F' %}
 												<input type="hidden" id="posDA" name="dapos" value="{{da.id}}" />
-												<input type="number" step="0.01" class="form-control" id="valorDA" name="_" value="{{ valor }}">{% endif %}
+												<input type="number" maxlength="10" step="0.01" class="form-control" id="valorDA" name="_" value="{{ valor }}">{% endif %}
 												{% if p.tipo_de_dato == 'B' %}
 												{% if valor == 'Positivo' %}
 													<select id="valorDA" class="form-control selectpicker" >
@@ -134,7 +134,7 @@
 			            	<dl class="dl-horizontal">
 			            		<dt>{{ da.parametros.descripcion }}</dt>
 			            		<div class="posicionItem">
-						        <dd><input type="text" class="form-control" id="valorDA" name="_" value="{{da.valor}}" placeholder=" {{ objp.unidadmedida}}">
+						        <dd><input type="text" maxlength="10" class="form-control" id="valorDA" name="_" value="{{ da.valor }}">{{ da.parametros.unidadmedida}}</dd>
 				            		{% for i in object_list_ind %}
 					            	<input type="hidden" name="dapos" class="posDA" value="{{da.id}}" />
 				            		{% endfor %}
@@ -148,9 +148,13 @@
 		        </div>
 			</div>
 			{% endfor %}
-
-			<div class="col-sm-12">
-            	<textarea row="3" class="form-control" id="piepagina" name="piepagina" value="">Observaciones realizadas durante el análisis de las muestras:</textarea>
+			<div class="col-sm-12  piedap">
+			{% if instance.piepagina %}
+            	<textarea row="3" class="form-control" id="piepagina" placeholder="Observaciones realizadas durante el analisis" name="piepagina">{{ instance.piepagina}}</textarea>
+			{% else %}
+			<textarea row="3" class="form-control" id="piepagina" placeholder="Observaciones realizadas durante el analisis" name="piepagina"></textarea>
+			{% endif %}
+            	<input type="hidden" name="posdap" class="posdap" value="{{instance.id}}" />
 			</div>
     		</div><!-- final panel-body -->
     		<div class="panel-footer">
