@@ -680,11 +680,12 @@ def v_DetalleAnalisisPadre(request, id=None):
 				estado="Tercerizado2"
 		else:
 			for da in da_all:
-				if da.valor == "":
-					vacio=vacio+1
-				else:
-					completo=completo+1
-				total=total+1
+				if da.parametros.diagnostico == dap.diagnostico:
+					if da.valor == "":
+						vacio=vacio+1
+					else:
+						completo=completo+1
+					total=total+1
 			print("completo: "+str(completo)+", vacio: "+str(vacio)+", total: "+str(total))
 			if vacio<completo:
 				if total==completo:
