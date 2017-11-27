@@ -1015,7 +1015,7 @@ def hojadetrabajo(request, id=None):
 				ban1=0
 				if da.parametros == p:
 					if da.individuoPadre == i.individuoPadre:
-						if da.valor != '':
+						if da.valor != "":
 							#print("entro 1")
 							valor=da.valor
 							#print(linea)
@@ -1031,7 +1031,7 @@ def hojadetrabajo(request, id=None):
 								valor=""
 								ban1=1
 					da_list[da]=valor
-	#print(da_list)
+	print(da_list)
 
 	# diccionario de grupos_tabla separados por rangos de a 5 parametros
 	grupos = {}
