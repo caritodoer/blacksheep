@@ -160,8 +160,12 @@
 								    {% endif %}
 
 
-				            		{% for i in object_list_ind %}
-					            	<input type="hidden" name="dapos" class="posDA" value="{{da.id}}" />
+				            		
+
+				            		{% for a in indiv %}
+				            		{% if a.parametros == da.parametros %}
+					            	<input type="hidden" name="dapos" class="posDA" value="{{ a.id }}" />
+					            	{% endif %}
 				            		{% endfor %}
 				            		</dd>
 			            		</div>
