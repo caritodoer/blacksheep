@@ -48,7 +48,7 @@
 						<div class="col-sm-4">
 							<div class="checkbox form-check disabled">
 								<label class="form-check-label" for="tercerizacion">
-    								<input type="checkbox" class="form-check-input" id="tercerizacion" name="tercerizacion" value="{{ instance.tercerizacion }}" > 
+    								<input type="checkbox" class="form-check-input tercerizacion" id="tercerizacion" name="tercerizacion" value="{{ instance.tercerizacion }}" > 
 								</label>
 							</div>
 						</div>
@@ -434,22 +434,35 @@ function verificar(){
     v1=validacion('descripciondiag');
     v2=validacion('tecnica');
     v3=validacion('muestra');
-    v4=validacion('grupo');
+	v4=validacion('grupo');
     v5=validacion('descripciongrupo');
     v6=validacion('vistagrupo');
-
+    		
     //console.log(v1,v2,v3,v4,v5,v6);
-  
-  	if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
-        return true;
-    }
-    else{
-        return false;
-    }
+  	if($('.tercerizacion').is(':checked')==true)
+  	{
+  		if(v1 == true && v2 == true && v3 == true){
+        	return true;
+	    }
+	    else{
+	        return false;
+	    }
+  	}	
+  	else
+  	{
+  		if(v1 == true && v2 == true && v3 == true && v4 == true && v5 == true && v6 == true){
+        	return true;
+	    }
+	    else{
+	        return false;
+	    }	
+  	}
+  	
 }//verificar
 
 $("#btnvalidar").click(function(e){
-      e.preventDefault();
+    console.log('verificar',verificar());
+    e.preventDefault();
     if(verificar() == true)
     {
 		var listacomp = []; // listado de diagnosticos
@@ -520,7 +533,6 @@ $("#btnvalidar").click(function(e){
 		listmed = JSON.stringify( listmed );
 		listgroup = JSON.stringify( listgroup );
 
-
 		$.ajax({
 		type: 'POST',
 		url: '/allinone/',
@@ -542,12 +554,11 @@ $("#btnvalidar").click(function(e){
 		    404: function () {
 		    },
 		    500: function(){
-		    	alert('Ocurrio un error iniciar nuevamente el diagnostico.')
+		    	alert('no llego')
 		    },
-		    200: function (html) {
-						alert('Guardado');
-						$(location).attr('href',html);
-			},
+		    200: function () {
+		    	alert('Llego')
+		    },
 		}
 		});
     }	
