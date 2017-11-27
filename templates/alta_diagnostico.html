@@ -554,11 +554,12 @@ $("#btnvalidar").click(function(e){
 		    404: function () {
 		    },
 		    500: function(){
-		    	alert('no llego')
+		    	alert('Ocurrio un error, iniciar nuevamente el diagnostico.')
 		    },
-		    200: function () {
-		    	alert('Llego')
-		    },
+		    200: function (html) {
+				alert('Guardado');
+				$(location).attr('href',html);
+			},
 		}
 		});
     }	
