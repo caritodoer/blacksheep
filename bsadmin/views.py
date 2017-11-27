@@ -63,7 +63,7 @@ def allinone(request):
 			piepagina = piepagina,
 		)
 		diagnostico = Diagnostico.objects.latest('id')
-		
+		posdiag = diagnostico.id
 		if tercerizacion == True:
 			Parametros.objects.create(
 			diagnostico = diagnostico,
@@ -119,7 +119,8 @@ def allinone(request):
 						esplist = []
 						reflist = []
 						deflist = []
-		return HttpResponse()
+	html = "http://127.0.0.1:8000/diagnostico/" + diagnostico.id + "/"
+	return HttpResponse(html)
 
 
 
