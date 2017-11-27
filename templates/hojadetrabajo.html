@@ -134,7 +134,32 @@
 			            	<dl class="dl-horizontal">
 			            		<dt>{{ da.parametros.descripcion }}</dt>
 			            		<div class="allind">
+			            			{% if da.parametros.tipo_de_dato == 'S' %}
 						        <dd><input type="text" maxlength="10" class="form-control" id="valorDA" name="_" value="{{ da.valor }}">{{ da.parametros.unidadmedida}}</dd>
+						        {% endif%}
+						        {% if da.parametros.tipo_de_dato == 'F' %}
+						        <dd><input type="number" maxlength="10" step="0.01" class="form-control" id="valorDA" name="_" value="{{ da.valor }}">{{ da.parametros.unidadmedida}}</dd>
+						        {% endif%}
+						        {% if da.parametros.tipo_de_dato == 'I' %}
+						        <dd><input type="number" maxlength="10" class="form-control" id="valorDA" name="_" value="{{ da.valor }}">{{ da.parametros.unidadmedida}}</dd>
+						        {% endif%}
+						        {% if da.parametros.tipo_de_dato == 'B' %}
+									{% if da.valor == 'Positivo' %}
+										<select id="valorDA" class="form-control selectpicker" >
+							              <option value="Negativo">Negativo</option>
+							              <option selected="selected" value="Positivo">Positivo</option>
+							            </select>
+							        
+							        {% else %}
+							            <select id="valorDA" class="form-control selectpicker" >
+							              <option selected="selected"value="Negativo">Negativo</option>
+							              <option  value="Positivo">Positivo</option>
+							            </select>
+							       
+							            {% endif%}
+								    {% endif %}
+
+
 				            		{% for i in object_list_ind %}
 					            	<input type="hidden" name="dapos" class="posDA" value="{{da.id}}" />
 				            		{% endfor %}
