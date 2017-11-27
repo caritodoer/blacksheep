@@ -135,8 +135,10 @@
 			            		<dt>{{ da.parametros.descripcion }}</dt>
 			            		<div class="allind">
 						        <dd><input type="text" maxlength="10" class="form-control" id="valorDA" name="_" value="{{ da.valor }}">{{ da.parametros.unidadmedida}}</dd>
-				            		{% for i in object_list_ind %}
-					            	<input type="hidden" name="dapos" class="posDA" value="{{da.id}}" />
+				            		{% for a in indiv %}
+				            		{% if a.parametros == da.parametros %}
+					            	<input type="hidden" name="dapos" class="posDA" value="{{ a.id }}" />
+					            	{% endif %}
 				            		{% endfor %}
 				            		</dd>
 			            		</div>
