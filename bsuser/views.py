@@ -13,7 +13,7 @@ def home_user(request):
 		raise Http404
 	#DetAna_queryset = DetalleAnalisisPadre.objects.all().order_by('-protocolo')
 	DetAna_queryset_list = DetalleAnalisisPadre.objects.distinct('protocolo')
-	
+	DetAna_queryset_list = DetAna_queryset_list.order_by('-protocolo')
 	query = request.GET.get("q")
 	if query:
 		DetAna_queryset_list = DetAna_queryset_list.filter(protocolo__numero__icontains=query)
