@@ -115,7 +115,11 @@ def listados(request):
 		obs = request.POST['obs']
 		identlist = request.POST['identlist']
 		razalist = request.POST['razalist']
-
+		nomblist = request.POST['nomblist']
+		edadlist = request.POST['edadlist']
+		librelist = request.POST['librelist']
+		catelist = request.POST['catelist']
+		sexolist = request.POST['sexolist']
 		SolicitudAnalisis.objects.create(
 			veterinario = veterinario,
 			establecimiento = establecimiento,
@@ -152,6 +156,12 @@ def listados(request):
 
 		identlist = json.loads(identlist)
 		razalist = json.loads(razalist)
+		nomblist = json.loads(nomblist)
+		librelist = json.loads(librelist)
+		catelist = json.loads(catelist)
+		edadlist = json.loads(edadlist)
+		sexolist = json.loads(sexolist)
+
 		for c in range(len(razalist)):
 			raza = get_object_or_404(Raza, id= razalist[c])
 
@@ -163,7 +173,31 @@ def listados(request):
 			dataindip = IndividuoPadre.objects.latest('id')
 			lastSolan = SolicitudAnalisis.objects.latest('id')
 			vSolAn = DetalleAnalisisPadre.objects.all().filter(solicitud=lastSolan.id)
-			
+			if nomblist[c] != '' or librelist[c] != '' or catelist[c] != '' or edadlist[c]:
+				if(catelist[c] != ""):
+					print('Con')
+					categoE = get_object_or_404(CategoriaE, id=catelist[c])
+					Individuos.objects.create(
+						padre = dataindip,
+						nombre = nomblist[c],
+						edad = edadlist[c],
+						libretasanitaria = librelist[c],
+						categoriae = categoE,
+						sexo = sexolist[c],
+						)
+				else:
+					print('Sin')
+					Individuos.objects.create(
+						padre = dataindip,
+						nombre = nomblist[c],
+						edad = edadlist[c],
+						libretasanitaria = librelist[c],
+						sexo = sexolist[c],
+						)
+
+			else:
+				print('Sin Mas detalles')
+
 			valor = ""
 			
 			for z in vSolAn:
@@ -204,8 +238,8 @@ def updateDA(request):
 	instance.piepagina = piepagina
 	instance.save()
 
-	html = 'http://127.0.0.1:8000/DetalleAnalisisPadre/' + posdap + '/'
-	print(html)
+	html = '../../DetalleAnalisisPadre/' + posdap + '/'
+	
 	return HttpResponse(html)
 
 
@@ -229,15 +263,7 @@ def daindividuo(request):
 
 	dataindip = IndividuoPadre.objects.latest('id')
 	
-	# if nombre != '' or libreta != '' or categoriae != '' sexo != '':
-	# 	Individuos.objects.create(
-	# 		padre = dataindip,
-	# 		nombre = nombre,
-	# 		edad = edad,
-	# 		libretasanitaria = libreta,
-	# 		categoriae = categoriae,
-	# 		sexo = sexo,
-	# 		)
+	
 	
 	lastSolan = SolicitudAnalisis.objects.latest('id')
 	print(lastSolan.id)

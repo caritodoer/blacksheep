@@ -189,23 +189,39 @@ $(document).ready(function() {
 			
 				let identlist = [];
 				let razalist = [];
+				let nomblist = [];
+				let edadlist = [];
+				let librelist = [];
+				let catelist = [];
+				let sexolist = [];
+
 				$(".lIndividuo").each(function(){
 						var identificacion = $(this).find('#identificacion').val();
 						var raza = $(this).find('.razaSel').val();
-						// var masOp = $(this).find("#botonIngresarMasOpciones").attr('data-target');
-						// var nombre = $(masOp).find('#nombre').val();
-						// var edad = $(masOp).find('#edad').val();
-						// console.log(edad);
-						// var libreta = $(masOp).find('#libreta').val();
-						// var categoriaeSel = $(masOp).find('.categoriaeSel').val();
-						// var sexo = $(masOp).find('#sexo:checked').val();
+						var masOp = $(this).find("#botonIngresarMasOpciones").attr('data-target');
+						var nombre = $(masOp).find('#nombre').val();
+						var edad = $(masOp).find('#edad').val();
+						var libreta = $(masOp).find('#libreta').val();
+						var categoriaeSel = $(masOp).find('.categoriaeSel').val();
+						var sexo = $(masOp).find('#sexo').val();
 						identlist.push(identificacion);
 						razalist.push(raza);
+						nomblist.push(nombre);
+						edadlist.push(edad);
+						librelist.push(libreta);
+						catelist.push(categoriaeSel);
+						sexolist.push(sexo)
+
 
 				});// end each .lIndividuo
 			
 				identlist = JSON.stringify( identlist );
 				razalist = JSON.stringify( razalist );
+				nomblist = JSON.stringify( nomblist );
+				edadlist = JSON.stringify( edadlist );
+				librelist = JSON.stringify( librelist );
+				catelist = JSON.stringify( catelist );
+				sexolist = JSON.stringify( sexolist );
 				
 
 				prot = localStorage.getItem( "prot" );
@@ -226,13 +242,18 @@ $(document).ready(function() {
 						diag: diag,
 						identlist: identlist,
 						razalist: razalist,
+						nomblist: nomblist,
+						edadlist: edadlist,
+						librelist: librelist,
+						catelist: catelist,
+						sexolist: sexolist,
 						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
 					},
 					statusCode: {
 						404: function () {
 						},
 						500: function(){
-							alert('ERROR')
+							alert('Un error ha ocurrido, inicie nuevamente la solicitud de analisis.')
 						},
 						200: function () {
 							alert('Se ha cargado correctamente.')
