@@ -106,7 +106,7 @@ class EliminacionProtocolo(models.Model):
 class Tercerizacion(models.Model):
 	fecha_envio = models.DateField("Fecha de Envío", auto_now=False)
 	fecha_devolucion = models.DateField("Fecha de Devolución", auto_now=False, null=True, blank=True)
-	institucion = models.CharField(max_length=20)
+	institucion = models.CharField(max_length=50)
 	detalleanalisispadre = models.ForeignKey(DetalleAnalisisPadre)
 	detalle=models.TextField("Detalle")
 	

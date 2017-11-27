@@ -120,13 +120,20 @@ $(document).ready(function() {
   });
 
   $(".addBlockProtocolo").click(function(){
-    $('#panelProtocolo').clone()
-                        .removeAttr('id')
-                        .removeAttr('style')
-                        .show()
-                        .addClass('lprotocol')
-                        .appendTo('#block-protocolo')
-    return false;
+    if($(this).parent().parent().parent().find('.muestraSel').length <=1 )
+    {
+      alert('No posee mas muestras.');
+    }
+    else
+    {
+      $('#panelProtocolo').clone()
+                          .removeAttr('id')
+                          .removeAttr('style')
+                          .show()
+                          .addClass('lprotocol')
+                          .appendTo('#block-protocolo')
+      return false; 
+    }
   });
 
 var arraymuestra = [];

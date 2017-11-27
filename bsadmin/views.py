@@ -279,7 +279,7 @@ def u_categoria(request, id=None):
 		"form" : form,
 	}
 	return render(request, "alta_aux.html", context)
-#def d_categoria(request, id=None):
+def d_categoria(request, id=None):
 	if not request.user.is_authenticated() or not request.user.is_staff:
 		raise Http404
 	instance = get_object_or_404(Categoria, id=id)
@@ -371,7 +371,7 @@ def u_explotacion(request,id=None):
 		"form":form
 	}
 	return render(request,"alta_aux.html",context)
-#def d_explotacion(request,id=None):
+def d_explotacion(request,id=None):
 	if not request.user.is_authenticated() or not request.user.is_staff:
 		raise Http404
 	instance = get_object_or_404(Explotacion, id=id)
@@ -462,7 +462,7 @@ def u_especie(request, id=None):
 		"form" : form,
 	}
 	return render(request, "alta_aux.html", context)
-#def d_especie(request, id=None):
+def d_especie(request, id=None):
 	if not request.user.is_authenticated() or not request.user.is_staff:
 		raise Http404
 	instance = get_object_or_404(Especie, id=id)
@@ -554,7 +554,7 @@ def u_muestra(request, id=None):
 		"form" : form,
 	}
 	return render(request, "alta_aux.html", context)
-#def d_muestra(request, id=None):
+def d_muestra(request, id=None):
 	if not request.user.is_authenticated() or not request.user.is_staff:
 		raise Http404
 	instance = get_object_or_404(Muestra, id=id)
@@ -645,7 +645,7 @@ def u_especializacion(request, id=None):
 		"form" : form,
 	}
 	return render(request, "alta_aux.html", context)
-# def d_especializacion(request, id=None):
+def d_especializacion(request, id=None):
 	if not request.user.is_authenticated() or not request.user.is_staff:
 		raise Http404
 	instance = get_object_or_404(Especializacion, id=id)
@@ -737,7 +737,7 @@ def u_motivos(request, id=None):
 		"form": form
 	}
 	return render(request, "alta_aux.html", context)
-#def d_motivos(request, id=None):
+def d_motivos(request, id=None):
 	if not request.user.is_authenticated() or not request.user.is_staff:
 		raise Http404
 	instance = get_object_or_404(Motivos, id=id)
@@ -832,13 +832,13 @@ def u_categoriae(request, id=None):
 		"form": form
 	}
 	return render(request, "alta_aux2.html", context)
-# def d_categoriae(request, id=None):
-# 	if not request.user.is_authenticated() or not request.user.is_staff:
-# 		raise Http404
-# 	instance = get_object_or_404(CategoriaE, id=id)
-# 	instance.activo = False
-# 	instance.save()
-# 	return redirect("bsadmin:l_categoriae")
+def d_categoriae(request, id=None):
+	if not request.user.is_authenticated() or not request.user.is_staff:
+		raise Http404
+	instance = get_object_or_404(CategoriaE, id=id)
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_categoriae")
 def activar_categoriae(request, id=None):
 	if not request.user.is_authenticated() or not request.user.is_staff:
 		raise Http404
@@ -927,7 +927,7 @@ def u_raza(request, id=None):
 		"form": form
 	}
 	return render(request, "alta_aux2.html", context)
-#def d_raza(request, id=None):
+def d_raza(request, id=None):
 	if not request.user.is_authenticated() or not request.user.is_staff:
 		raise Http404
 	instance = get_object_or_404(Raza, id=id)
@@ -1093,13 +1093,13 @@ def v_diagnostico(request, id=None):
 # 		"form": form
 # 	}
 # 	return render(request, "alta_diagnostico.html", context)
-# def d_diagnostico(request, id=None):
-# 	if not request.user.is_authenticated() or not request.user.is_staff:
-# 		raise Http404
-# 	instance = get_object_or_404(Diagnostico, id=id)
-# 	instance.activo = False
-# 	instance.save()
-# 	return redirect("bsadmin:l_diagnostico")
+def d_diagnostico(request, id=None):
+	if not request.user.is_authenticated() or not request.user.is_staff:
+		raise Http404
+	instance = get_object_or_404(Diagnostico, id=id)
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_diagnostico")
 def activar_diagnostico(request, id=None):
 	if not request.user.is_authenticated() or not request.user.is_staff:
 		raise Http404
@@ -1267,11 +1267,11 @@ def u_veterinario(request, id=None):
 		"form": form
 	}
 	return render(request, "alta_veterinario.html", context)
-# def d_veterinario(request, id=None):
-# 	instance = get_object_or_404(Veterinario, id=id)
-# 	instance.activo = False
-# 	instance.save()
-# 	return redirect("bsadmin:l_veterinario")
+def d_veterinario(request, id=None):
+	instance = get_object_or_404(Veterinario, id=id)
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_veterinario")
 def activar_veterinario(request, id=None):
 	if not request.user.is_authenticated() or not request.user.is_staff:
 		raise Http404
@@ -1385,11 +1385,11 @@ def u_establecimiento(request, id=None):
 		"form": form
 	}
 	return render(request, "alta_establecimiento.html", context)
-# def d_establecimiento(request, id=None):
-# 	instance = get_object_or_404(Establecimiento, id=id)
-# 	instance.activo = False
-# 	instance.save()
-# 	return redirect("bsadmin:l_establecimiento")
+def d_establecimiento(request, id=None):
+	instance = get_object_or_404(Establecimiento, id=id)
+	instance.activo = False
+	instance.save()
+	return redirect("bsadmin:l_establecimiento")
 def activar_establecimiento(request, id=None):
 	if not request.user.is_authenticated() or not request.user.is_staff:
 		raise Http404

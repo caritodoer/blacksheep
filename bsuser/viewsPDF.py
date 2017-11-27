@@ -41,8 +41,8 @@ tablas = styles["tablas"]
 textos = styles["textos"]
 
 LIST_STYLE = TableStyle(
-	[('GRID', (0,0), (10, -1), 1, colors.dodgerblue),
-	('BACKGROUND', (0,0), (-1, 0), colors.dodgerblue),
+	[('GRID', (0,0), (10, -1), 1, colors.lightblue),
+	('BACKGROUND', (0,0), (-1, 0), colors.lightblue),
 	('FONT', (0,0), (-1, -1), 'Ubuntu-C', 10)]
 )
 
@@ -248,9 +248,14 @@ def informe(request, id=None):
 	def cuerpo(canvas):
 		#Iniciamos el story para los registros
 		Story = [Spacer(1, 100)]
-		title = instance.diagnostico.descripcion
 		
+		title = instance.diagnostico.descripcion
 		p = Paragraph(title, tit2)
+		Story.append(p)
+		Story.append(Spacer(1, 12))
+
+		subtitle = instance.diagnostico.tecnica
+		p = Paragraph("Tecnica: "+subtitle, tit3)
 		Story.append(p)
 		Story.append(Spacer(1, 12))
 		
@@ -387,12 +392,16 @@ def general(request, id=None):
 				if dap_inicial.diagnostico.tercerizacion:
 					print("Tercerizado1")
 					title = instance.diagnostico.descripcion
-				
 					p = Paragraph(title, tit2)
 					Story.append(p)
 					Story.append(Spacer(1, 12))
+
+					subtitle = instance.diagnostico.tecnica
+					p = Paragraph("Tecnica: "+subtitle, tit3)
+					Story.append(p)
+					Story.append(Spacer(1, 12))
+
 					detalle = "Este Diagnostico es tercerizado"
-				
 					p = Paragraph(detalle, tit3)
 					Story.append(p)
 					Story.append(Spacer(1, 12))
@@ -660,6 +669,11 @@ def hojadetrabajo(request, id=None):
 		title = instance.diagnostico.descripcion
 		
 		p = Paragraph(title, tit2)
+		Story.append(p)
+		Story.append(Spacer(1, 12))
+
+		subtitle = instance.diagnostico.tecnica
+		p = Paragraph("Tecnica: "+subtitle, tit3)
 		Story.append(p)
 		Story.append(Spacer(1, 12))
 		
