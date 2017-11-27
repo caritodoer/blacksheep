@@ -230,6 +230,7 @@ def updateDA(request):
 
 	for z in range(len(posicionDA)):
 		for x in range(len(posicionDA[z])):
+			print('Posicion: ' + posicionDA[z][x] + ' Valor: ' + valorDA[z])
 			instance = get_object_or_404(DetalleAnalisis, id=posicionDA[z][x])
 			instance.valor = valorDA[z]
 			instance.save()
@@ -237,7 +238,7 @@ def updateDA(request):
 	instance = get_object_or_404(DetalleAnalisisPadre, id= posdap)		
 	instance.piepagina = piepagina
 	instance.save()
-
+	print('Da: ' + posdap + ' Pie Pag: ' + piepagina)
 	html = '../../DetalleAnalisisPadre/' + posdap + '/'
 	
 	return HttpResponse(html)
@@ -1005,6 +1006,7 @@ def hojadetrabajo(request, id=None):
 	all_indiv_de_solic = DetalleAnalisis.objects.distinct('individuoPadre').filter(solicitud=solic)
 	grupo_list_t = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="T")
 	grupo_list_i = Parametros.objects.distinct('grupo').filter(diagnostico=diag, visualizacion1="I")
+	all_indiv_de_solic_2 = DetalleAnalisis.objects.all().filter(solicitud=solic)
 
 	# trae un unico individuo para la parte del listar los ítmes una sola vez en el HTML	
 	indi=0
@@ -1078,13 +1080,13 @@ def hojadetrabajo(request, id=None):
 				ban=False
 		grupos[k] = list_r
 	#print(grupos)
-	
 	context = {
 		"title" : "Registro de Resultados",
 		"indi": indi,
 		"da_list": da_list,
 		"instance" : instance,
 		"parametros_list" : all_param_del_diag,
+		"indiv": all_indiv_de_solic_2,
 		"object_list_ind": all_indiv_de_solic,
 		"grupoi" : grupo_list_i,
 		"grupos": grupos,

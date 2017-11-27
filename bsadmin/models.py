@@ -165,8 +165,8 @@ class Parametros(models.Model):
 class ValoresReferencia(models.Model):
 	especie = models. ForeignKey(Especie)
 	parametros = models.ForeignKey(Parametros)
-	valorRef = models.CharField(max_length=30, blank=True, null=True)
-	valorDef = models.CharField(max_length=30, blank=True, null=True)
+	valorRef = models.CharField(max_length=10, blank=True, null=True)
+	valorDef = models.CharField(max_length=10, blank=True, null=True)
 	#activo = models.BooleanField(default=True)
 
 	def __str__(self):
