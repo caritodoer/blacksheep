@@ -188,33 +188,25 @@ def updateDA(request):
 	if request.method == 'POST':
 		posicionDA = request.POST['posicionDA']
 		valorDA = request.POST['valorDA']
-	posicionDA = json.loads(posicionDA)
+		posdap = request.POST['posdap']
+		piepagina = request.POST['piepagina']
+
 	valorDA = json.loads(valorDA)
+	posicionDA = json.loads(posicionDA)
 
 	for z in range(len(posicionDA)):
-		instance = get_object_or_404(DetalleAnalisis, id=posicionDA[z])
-		instance.valor = valorDA[z]
-		instance.save()
-		print(instance)
+		for x in range(len(posicionDA[z])):
+			instance = get_object_or_404(DetalleAnalisis, id=posicionDA[z][x])
+			instance.valor = valorDA[z]
+			instance.save()
 
+	instance = get_object_or_404(DetalleAnalisisPadre, id= posdap)		
+	instance.piepagina = piepagina
+	instance.save()
 
-	return HttpResponse()
-
-def updateDA2(request):
-	if request.method == 'POST':
-		posicionDA2 = request.POST['posicionDA2']
-		valorDA2 = request.POST['valorDA2']
-
-	posicionDA2 = json.loads(posicionDA2)
-
-	for z in range(len(posicionDA2)):
-		instance = get_object_or_404(DetalleAnalisis, id=posicionDA2[z])
-		instance.valor = valorDA2
-		instance.save()
-		print(instance)
-
-
-	return HttpResponse()
+	html = 'http://127.0.0.1:8000/DetalleAnalisisPadre/' + posdap + '/'
+	print(html)
+	return HttpResponse(html)
 
 
 def daindividuo(request):
