@@ -1051,7 +1051,7 @@ def hojadetrabajo(request, id=None):
 								#print("entro 3")
 								valor=""
 								ban1=1
-					da_list[da]=valor
+						da_list[da]=valor
 	print(da_list)
 
 	# diccionario de grupos_tabla separados por rangos de a 5 parametros
