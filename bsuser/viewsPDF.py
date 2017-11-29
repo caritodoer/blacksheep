@@ -203,7 +203,7 @@ def informe(request, id=None):
 								print("entro 3")
 								valor=""
 								ban1=1
-					da_list[da]=valor
+						da_list[da]=valor
 	# print("da_list")
 	# print(da_list)
 
