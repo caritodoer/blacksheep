@@ -33,7 +33,7 @@ class Protocolo(models.Model):
 
 	
 class IndividuoPadre(models.Model):
-	identificacion = models.CharField("Identificacion / N° de Caravana", max_length=30)
+	identificacion = models.CharField("Identificacion / N° de Caravana", max_length=8)
 	raza = models.ForeignKey(Raza)
 	def __str__(self):
 		return ('%s')%(self.identificacion)

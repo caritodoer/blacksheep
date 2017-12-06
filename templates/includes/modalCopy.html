@@ -9,7 +9,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <label for="parametro">Parametro:</label>
-    <input type="text" class="form-control" id="parametro" name="parametro" readonly="readonly" value="" />
+    <input type="text" class="form-control" maxlength="14" id="parametro" name="parametro" readonly="readonly" value="" />
   </div>
   <div class="panel-body">
     <table class="table table-striped table-condensed" id="panelValores">
@@ -30,7 +30,7 @@
             <input type="text" maxlength="14" class="form-control" id="valRef" name="valRef" value="{{ instance.valorReferencia }}">
           </td>
           <td>
-            <input type="text" class="form-control" id="valDef" name="valDef" value="{{ instance.valorDef }}">
+            <input type="text" maxlength="14" class="form-control" id="valDef" name="valDef" value="{{ instance.valorDef }}">
           </td>
           <td><button class="btn btn-default  btn-eliminar-vr">Eliminar</button></td>
         </tr>

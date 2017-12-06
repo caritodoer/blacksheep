@@ -14,14 +14,14 @@
                         <div class="divalidacion">
                             <label class="control-label col-sm-2" for="nombre">Nombre:</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="nombre" name="nombre" onkeyup="validacion('nombre');" value="{{ instance.nombre }}">
+                                <input type="text" maxlength="30" class="form-control" id="nombre" name="nombre" onkeyup="validacion('nombre');" value="{{ instance.nombre }}">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="divalidacion">
                             <label class="control-label col-sm-2" for="partido">Partido:</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="partido" name="partido" onkeyup="validacion('partido');" value="{{ instance.partido }}">
+                                <input type="text" maxlength="20" class="form-control" id="partido" name="partido" onkeyup="validacion('partido');" value="{{ instance.partido }}">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                         <div class="divalidacion">
                             <label class="control-label col-sm-2" for="propietario">Propietario:</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="propietario" name="propietario" onkeyup="validacion('propietario');" value="{{ instance.propietario }}">
+                                <input type="text" maxlength="30" class="form-control" id="propietario" name="propietario" onkeyup="validacion('propietario');" value="{{ instance.propietario }}">
                                 <span class="help-block"></span>
                             </div>
                         </div>    
@@ -46,14 +46,14 @@
                         <div class="divalidacion">                    
                             <label class="control-label col-sm-2" for="RENSPA">RENSPA:</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="RENSPA" name="RENSPA" onkeyup="validacion('RENSPA');" value="{{ instance.RENSPA }}">
+                                <input type="text" maxlength="30" class="form-control" id="RENSPA" name="RENSPA" onkeyup="validacion('RENSPA');" value="{{ instance.RENSPA }}">
                                 <span class="help-block"></span>
                             </div>
                         </div>    
                         <div class="divalidacion">    
                             <label class="control-label col-sm-2" for="CUIT">CUIT:</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="CUIT" name="CUIT" onkeyup="validacion('CUIT');" value="{{ instance.CUIT }}">
+                                <input type="text" maxlength="11" placeholder="CUIT sin guiones"class="form-control" id="CUIT" name="CUIT" onkeyup="validacion('CUIT');" value="{{ instance.CUIT }}">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -83,6 +83,12 @@
                         </div>    
                     </div>
 
+                     <div class="form-group">
+                        <div class="col-sm-10">
+                            <input type="hidden" id="activo" name="activo" value="True"> 
+                        </div>
+                    </div>
+<!--                     
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="activo">Estado:</label>
                         <div class="col-sm-10">
@@ -93,7 +99,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+ -->
+                 </div>
 
                 <div class="panel-footer">
                     <div class="row">

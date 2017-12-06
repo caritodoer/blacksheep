@@ -134,7 +134,7 @@ class Diagnostico(models.Model):
 
 class Parametros(models.Model):
 	diagnostico = models.ForeignKey(Diagnostico,default=0)
-	descripcion = models.CharField("Parametro", max_length=30)
+	descripcion = models.CharField("Parametro", max_length=14)
 	tipo_de_dato_choices = (
 		('I', 'Entero'),
 		('B', 'Positivo/Negativo'),
@@ -142,7 +142,7 @@ class Parametros(models.Model):
 		('S', 'Texto'),
 		)
 	tipo_de_dato = models.CharField("Tipo de Dato", max_length=1, choices=tipo_de_dato_choices)
-	unidadmedida = models.CharField("Unidad de Medida",max_length=10)
+	unidadmedida = models.CharField("Unidad de Medida",max_length=5)
 	grupo = models.CharField(max_length=30, blank=True, null=True)
 	visualizacion_choices = (
 		('T', 'Tabla'),
@@ -165,8 +165,8 @@ class Parametros(models.Model):
 class ValoresReferencia(models.Model):
 	especie = models. ForeignKey(Especie)
 	parametros = models.ForeignKey(Parametros)
-	valorRef = models.CharField(max_length=10, blank=True, null=True)
-	valorDef = models.CharField(max_length=10, blank=True, null=True)
+	valorRef = models.CharField(max_length=14, blank=True, null=True)
+	valorDef = models.CharField(max_length=14, blank=True, null=True)
 	#activo = models.BooleanField(default=True)
 
 	def __str__(self):
@@ -184,8 +184,8 @@ class Veterinario(models.Model):
 	cp_domicilio_particular = models.CharField("Codigo Postal del Dom.Part.", max_length=4, blank=True, null=True)
 	domicilio_fiscal = models.CharField("Domicilio Fiscal", max_length=30)
 	cp_domicilio_fiscal = models.CharField("Codigo Postal del Dom.Fisc", max_length=4)
-	email = models.EmailField("Email", blank=True, null=True)
-	cuit = models.CharField("C.U.I.T.", max_length=13)
+	email = models.EmailField("Email", blank=True, null=True, max_length=30)
+	cuit = models.CharField("C.U.I.T.", max_length=11)
 	codigo_area = models.CharField("Codigo de Area", max_length=4)
 	telefono1 = models.CharField("Telefono 1", max_length=15)
 	telefono2 = models.CharField("Telefono 2", max_length=15, blank=True, null=True)
@@ -204,11 +204,11 @@ class Veterinario(models.Model):
 
 
 class Establecimiento(models.Model):
-	nombre = models.CharField(max_length=50, unique=True)
+	nombre = models.CharField(max_length=30, unique=True)
 	partido = models.CharField(max_length=20)
 	propietario = models.CharField(max_length=30)
 	RENSPA = models.CharField(max_length=30)
-	CUIT = models.CharField(max_length=30, null=True, blank=True)
+	CUIT = models.CharField(max_length=11, null=True, blank=True)
 	veterinario = models.ForeignKey(Veterinario, verbose_name="Veterinario de Cabecera")
 	categorias = models.ManyToManyField(Categoria)
 	explotacion = models.ManyToManyField(Explotacion)
@@ -221,12 +221,12 @@ class Establecimiento(models.Model):
 		return reverse("bsadmin:v_establecimiento", kwargs={"id": self.id}) #keyword args
 
 class Empresa(models.Model):
-	nombre = models.CharField(max_length=50)
-	subtitulo = models.CharField(max_length=50)
-	direccion = models.CharField(max_length=50)
-	ciudad = models.CharField(max_length=50)
-	telefono = models.CharField(max_length=50)
-	email = models.CharField(max_length=50)
+	nombre = models.CharField(max_length=35)
+	subtitulo = models.CharField(max_length=35)
+	direccion = models.CharField(max_length=45)
+	ciudad = models.CharField(max_length=40)
+	telefono = models.CharField(max_length=35)
+	email = models.CharField(max_length=35)
 	logo = models.ImageField(upload_to='img')
 
 	def __str__(self):
