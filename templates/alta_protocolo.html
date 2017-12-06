@@ -120,7 +120,7 @@ $(document).ready(function() {
   });
 
   $(".addBlockProtocolo").click(function(){
-    if($(this).parent().parent().parent().find('.muestraSel').length <=1 )
+    if($(this).parent().parent().parent().find('.muestraSel').find('option').length <=1 )
     {
       alert('No posee mas muestras.');
     }
